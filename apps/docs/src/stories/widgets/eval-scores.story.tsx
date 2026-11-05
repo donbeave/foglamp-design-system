@@ -1,6 +1,6 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { ScoreRow, SpanScoreDots } from '@foglamp/design-system/widgets/eval-scores';
-import type { TraceScore } from '@foglamp/design-system/widgets/eval-scores';
+import { ScoreRow, SpanScoreDots } from '@tailrocks/framerock/widgets/eval-scores';
+import type { TraceScore } from '@tailrocks/framerock/widgets/eval-scores';
 import { defineStory } from '../../lib/story';
 
 const scores: TraceScore[] = [

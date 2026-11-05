@@ -1,5 +1,5 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { FoglampHUD, createMockHudStream } from '@foglamp/design-system/hud';
+import { FoglampHUD, createMockHudStream } from '@tailrocks/framerock/hud';
 import { defineStory } from '../../lib/story';
 const stream = createMockHudStream([{ type: 'trace.start', ts: Date.now(), traceId: 'trace-demo-1', name: 'Support assistant', agentName: 'Support assistant', provider: 'openai', model: 'gpt-4o' }, { type: 'step.start', ts: Date.now() + 10, traceId: 'trace-demo-1', stepNumber: 1, provider: 'openai', model: 'gpt-4o' }, { type: 'step.tokens', ts: Date.now() + 150, traceId: 'trace-demo-1', stepNumber: 1, outputTokens: 42, tps: 120 }]);
 function FoglampHUDPreview({ defaultOpen = true, redact = false, hudTheme = 'dark' }: { defaultOpen?: boolean; redact?: boolean; hudTheme?: 'light' | 'dark' }) { return <div className="relative h-[440px] w-full"><FoglampHUD stream={stream} defaultOpen={defaultOpen} redact={redact} theme={hudTheme}/></div>; }

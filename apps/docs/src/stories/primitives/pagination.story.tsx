@@ -1,6 +1,6 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from "@foglamp/design-system/ui/pagination";
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationPrevious, PaginationNext, PaginationEllipsis } from "@tailrocks/framerock/ui/pagination";
 import { defineStory } from "../../lib/story";
 
 type Args = { variant: 'default' };

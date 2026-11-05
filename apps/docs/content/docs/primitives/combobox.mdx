@@ -3,7 +3,12 @@ title: "Combobox"
 description: "Searchable selection control with list, group, empty, chip, clear, and separator parts. The input can show a trigger or clear button."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/combobox.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Combobox
 
@@ -13,9 +18,11 @@ Searchable selection control with list, group, empty, chip, clear, and separator
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-combobox" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/combobox.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/combobox`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/combobox`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -54,7 +61,7 @@ The example is the portal story fixture without its story registration. It uses 
 ```tsx
 import { useState } from 'react';
 
-import { Combobox, ComboboxInput, ComboboxContent, ComboboxList, ComboboxItem, ComboboxEmpty } from '@foglamp/design-system/ui/combobox';
+import { Combobox, ComboboxInput, ComboboxContent, ComboboxList, ComboboxItem, ComboboxEmpty } from '@tailrocks/framerock/ui/combobox';
 
 const models = ['Claude 3.7 Sonnet', 'GPT-4.1', 'Gemini 2.5 Pro'];
 
@@ -65,7 +72,7 @@ function ComboboxExample({ placeholder = 'Choose a model…' }: { placeholder?: 
 
 The story panel resolves this component as registry item `ui-combobox`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-combobox.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-combobox.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/combobox`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/combobox`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

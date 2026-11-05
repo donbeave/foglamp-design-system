@@ -3,7 +3,12 @@ title: "Badge"
 description: "Compact status label with default, semantic color, and outline treatments. Variant and size values come from the exported variant recipe."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/badge.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Badge
 
@@ -13,9 +18,11 @@ Compact status label with default, semantic color, and outline treatments. Varia
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-badge" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/badge.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/badge`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/badge`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -34,7 +41,7 @@ The table lists values exported from `@foglamp/design-system/ui/badge`. The decl
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { Badge } from '@foglamp/design-system/ui/badge';
+import { Badge } from '@tailrocks/framerock/ui/badge';
 
 function BadgeExample({ variant = 'default', size = 'md' }: { variant?: 'default' | 'secondary' | 'destructive' | 'green' | 'blue' | 'amber' | 'outline'; size?: 'sm' | 'md' | 'lg' }) { return <div className="flex flex-wrap items-center gap-3"><Badge variant={variant} size={size}>Production</Badge><Badge variant="green">Healthy</Badge><Badge variant="amber">Latency</Badge><Badge variant="outline">v2.8.1</Badge></div>; }
 ```
@@ -43,7 +50,7 @@ function BadgeExample({ variant = 'default', size = 'md' }: { variant?: 'default
 
 The story panel resolves this component as registry item `ui-badge`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-badge.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-badge.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/badge`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/badge`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

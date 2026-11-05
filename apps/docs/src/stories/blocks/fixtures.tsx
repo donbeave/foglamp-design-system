@@ -3,11 +3,11 @@
  */
 import type { ReactNode } from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
-import { AppShellBlock } from '@foglamp/design-system/blocks/app-shell/app-shell-block';
-import { FoglampLinkProvider } from '@foglamp/design-system/lib/link-context';
-import { getGoogleFavicon } from '@foglamp/design-system/widgets/leaf/favicon';
-import type { ScanData } from '@foglamp/design-system/lib/scan/scan';
-import type { DetectedPlan } from '@foglamp/design-system/lib/scan/instrumentation';
+import { AppShellBlock } from '@tailrocks/framerock/blocks/app-shell/app-shell-block';
+import { FoglampLinkProvider } from '@tailrocks/framerock/lib/link-context';
+import { getGoogleFavicon } from '@tailrocks/framerock/widgets/leaf/favicon';
+import type { ScanData } from '@tailrocks/framerock/lib/scan/scan';
+import type { DetectedPlan } from '@tailrocks/framerock/lib/scan/instrumentation';
 
 export const scanFixture: ScanData = {
   version: 1,

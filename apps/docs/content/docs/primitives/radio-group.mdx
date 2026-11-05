@@ -3,7 +3,12 @@ title: "Radio Group"
 description: "Radio-group container and radio item, backed by Base UI state and keyboard behavior."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/radio-group.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Radio Group
 
@@ -13,9 +18,11 @@ Radio-group container and radio item, backed by Base UI state and keyboard behav
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-radio-group" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/radio-group.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/radio-group`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/radio-group`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -33,7 +40,7 @@ The example is the portal story fixture without its story registration. It uses 
 ```tsx
 import { useState } from "react";
 
-import { RadioGroup, RadioGroupItem } from "@foglamp/design-system/ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "@tailrocks/framerock/ui/radio-group";
 
 type Args = { variant: 'default' };
 
@@ -47,7 +54,7 @@ function RadioGroupStory({ args }: { args: Args }) {
 
 The story panel resolves this component as registry item `ui-radio-group`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-radio-group.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-radio-group.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/radio-group`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/radio-group`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

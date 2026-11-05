@@ -1,6 +1,6 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { TraceWaterfallInspectorBlock } from '@foglamp/design-system/blocks/dashboard/trace-waterfall-inspector-block';
+import { TraceWaterfallInspectorBlock } from '@tailrocks/framerock/blocks/dashboard/trace-waterfall-inspector-block';
 import { defineStory } from '../../lib/story';
 import { DashboardStoryShell } from './fixtures';
 function TraceWaterfallStory({ isLoading }: { isLoading: boolean }) { const [span, setSpan] = useState<string | null>(null); return <DashboardStoryShell><TraceWaterfallInspectorBlock isLoading={isLoading} initialSpanId={span ?? undefined} onSpanChange={setSpan} /></DashboardStoryShell>; }

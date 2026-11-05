@@ -1,12 +1,27 @@
-/** Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Adapted from foglamp-labs/foglamp apps/web/src/components/app/app-shell.tsx under Apache-2.0.
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/app/app-shell.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/app-shell.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
+
 "use client";
 
 import { useState, type ReactNode } from "react";
 import { IconChartBar, IconChevronDown, IconChevronRight, IconLogout, IconPlus, type Icon } from "@tabler/icons-react";
 import { cn } from "../../lib/utils";
-import { FoglampLink } from "../../lib/link-context";
+import { FramerockLink } from "../../lib/link-context";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../../ui/dropdown-menu";
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "../../ui/sidebar";
 import { FoggyLauncher, FoggyWidget, type FoggyWidgetViewProps } from "../../widgets/foggy";
@@ -91,7 +106,7 @@ function NavUser({ user, onSignOut, isPlatformAdmin }: Pick<AppShellBlockProps, 
     <DropdownMenuContent align="end" side="right" sideOffset={8} className="min-w-(--anchor-width) w-fit">
       <div className="flex gap-3 items-center p-2"><Avatar size="sm"><AvatarImage src={user?.image} alt={name} /><AvatarFallback>{name.slice(0, 2).toUpperCase()}</AvatarFallback></Avatar><div className="flex flex-col gap-0.5 pr-1"><DropdownMenuLabel className="max-w-56 truncate p-0 text-foreground">{name}</DropdownMenuLabel><DropdownMenuLabel className="max-w-56 truncate p-0 font-normal">{user?.email}</DropdownMenuLabel></div></div>
       <DropdownMenuSeparator /><ThemeSubmenu />
-      {isPlatformAdmin && <DropdownMenuItem render={<FoglampLink href="/platform" />}><IconChartBar />Platform</DropdownMenuItem>}
+      {isPlatformAdmin && <DropdownMenuItem render={<FramerockLink href="/platform" />}><IconChartBar />Platform</DropdownMenuItem>}
       <DropdownMenuItem variant="destructive" onClick={onSignOut}><IconLogout />Log out</DropdownMenuItem>
     </DropdownMenuContent>
   </DropdownMenu></SidebarMenuItem>;
@@ -107,7 +122,7 @@ function ShellBody({ children, pathname = "/overview", foggy, footer, user, onSi
   function menu(items: typeof nav) {
     return items.map((item) => {
       const active = item.href === "/settings" ? pathname === item.href : pathname === item.href || pathname.startsWith(`${item.href}/`);
-      return <SidebarMenuItem key={item.href}><SidebarMenuButton isActive={active} render={<FoglampLink href={item.href} />}><NavIcon icon={item.icon} activeIcon={item.activeIcon} active={active} className={item.iconClassName} /><span>{item.label}</span></SidebarMenuButton></SidebarMenuItem>;
+      return <SidebarMenuItem key={item.href}><SidebarMenuButton isActive={active} render={<FramerockLink href={item.href} />}><NavIcon icon={item.icon} activeIcon={item.activeIcon} active={active} className={item.iconClassName} /><span>{item.label}</span></SidebarMenuButton></SidebarMenuItem>;
     });
   }
   return <SidebarProvider className="group/shell relative h-svh min-h-0 overflow-hidden">

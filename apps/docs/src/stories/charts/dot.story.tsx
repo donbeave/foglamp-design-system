@@ -1,5 +1,5 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { EvilLineChart, Dot, Line, Grid, Tooltip, XAxis, YAxis } from '@foglamp/design-system/charts/evilcharts/charts/line-chart';
+import { EvilLineChart, Dot, Line, Grid, Tooltip, XAxis, YAxis } from '@tailrocks/framerock/charts/evilcharts/charts/line-chart';
 import { defineStory } from '../../lib/story';
 import { observabilityConfig, observabilityData, StorySurface } from './fixtures';
 

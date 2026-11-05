@@ -20,14 +20,29 @@ bun run test
 Within this workspace, import components by package subpath:
 
 ```tsx
-import { Button } from '@foglamp/design-system/ui/button';
+import { Button } from '@tailrocks/framerock/ui/button';
 
 export function Example() {
 	return <Button>Save changes</Button>;
 }
 ```
 
-The consuming app must process the package's Tailwind classes and load its styles. The docs app imports `@foglamp/design-system/styles/globals.css` and `@foglamp/design-system/styles/effects.css`, and scans `packages/design-system/src` with Tailwind's `@source` directive. It also loads the fonts described in [typography and icons](/docs/foundations/typography). Follow the same pattern for your build and include the package source in your Tailwind scan.
+The consuming app must process the package's Tailwind classes and load its styles. The docs app imports `@tailrocks/framerock/styles/globals.css` and `@tailrocks/framerock/styles/effects.css`, and scans `packages/design-system/src` with Tailwind's `@source` directive. It also loads the fonts described in [typography and icons](/docs/foundations/typography). Follow the same pattern for your build and include the package source in your Tailwind scan.
+
+### TypeScript configuration
+
+For a consumer using the copied registry components, use TypeScript 5.9.3 with `strict` checking enabled and `skipLibCheck` enabled, matching the configuration used to verify this workspace's consumer fixture:
+
+```json
+{
+  "compilerOptions": {
+    "strict": true,
+    "skipLibCheck": true
+  }
+}
+```
+
+`strict` checks the consumer's source with strict type rules. `skipLibCheck` avoids checking declaration files inside dependencies while retaining checks for the consumer's code and installed components. These settings describe the verified consumer setup; a plain `tsc` invocation with different compiler options is not the same check.
 
 The package is a workspace package in this repository. These instructions do not assume a published package or a public registry host.
 
@@ -53,4 +68,6 @@ The button is installed at `src/components/foglamp/ui/button.tsx`. Import it wit
 import { Button } from '@/components/foglamp/ui/button';
 ```
 
-For a deployed registry, replace the local origin with the actual host serving its static `/r` files. No public registry host is assumed here. The package import shown above is for this workspace; `@foglamp/design-system` is not assumed to be published to npm.
+For a deployed registry, replace the local origin with the actual host serving its static `/r` files. No public registry host is assumed here. The package import shown above is for this workspace; `@tailrocks/framerock` is not assumed to be published to npm.
+
+> Original Foglamp design by [Gustavo Fior (@gustavo-fior)](https://gustavofior.com) and [Foglamp Labs](https://foglamp.dev); see the [upstream project](https://github.com/foglamp-labs/foglamp).

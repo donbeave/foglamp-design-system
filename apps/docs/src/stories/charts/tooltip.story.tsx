@@ -1,6 +1,6 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { EvilLineChart, Line, Grid, Tooltip, XAxis, YAxis } from '@foglamp/design-system/charts/evilcharts/charts/line-chart';
-import type { TooltipRoundness, TooltipVariant } from '@foglamp/design-system/charts/evilcharts/ui/tooltip';
+import { EvilLineChart, Line, Grid, Tooltip, XAxis, YAxis } from '@tailrocks/framerock/charts/evilcharts/charts/line-chart';
+import type { TooltipRoundness, TooltipVariant } from '@tailrocks/framerock/charts/evilcharts/ui/tooltip';
 import { defineStory } from '../../lib/story';
 import { observabilityConfig, observabilityData, StorySurface } from './fixtures';
 

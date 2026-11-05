@@ -1,5 +1,5 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { PayloadView } from '@foglamp/design-system/widgets/payload-view';
+import { PayloadView } from '@tailrocks/framerock/widgets/payload-view';
 import { defineStory } from '../../lib/story';
 
 const messages = [

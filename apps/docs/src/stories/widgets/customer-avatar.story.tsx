@@ -1,5 +1,5 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { CustomerAvatar } from '@foglamp/design-system/widgets/leaf/customer-avatar';
+import { CustomerAvatar } from '@tailrocks/framerock/widgets/leaf/customer-avatar';
 import { defineStory } from '../../lib/story';
 function CustomerAvatarPreview({ customerId = 'cus_8d2f', customerName = 'Jordan Lee', filled = true }: { customerId?: string; customerName?: string; filled?: boolean }) { return <div className="flex items-center gap-3"><CustomerAvatar customerId={customerId} customerName={customerName} filled={filled}/><span className="text-sm">{customerName} · {customerId}</span></div>; }
 export const story = defineStory({ id: 'widgets/customer-avatar', displayName: 'CustomerAvatar', registryItem: 'widget-leaf-customer-avatar', Component: CustomerAvatarPreview, args: [{ variant: 'Known customer', initial: { customerId: 'cus_8d2f', customerName: 'Jordan Lee', filled: true } }, { variant: 'Anonymous', initial: { customerId: 'anonymous', customerName: 'Guest', filled: false } }] });

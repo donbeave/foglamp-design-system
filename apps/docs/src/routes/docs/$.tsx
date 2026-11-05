@@ -33,5 +33,5 @@ function Content({ path }: { path: string }) {
 }
 function Page() {
   const data = useFumadocsLoader(Route.useLoaderData());
-  return <DocsLayout tree={data.pageTree} nav={{ title: 'Foglamp Design System' }}><Suspense><Content path={data.path} /></Suspense></DocsLayout>;
+  return <DocsLayout tree={data.pageTree} nav={{ title: 'Framerock' }}><Suspense><Content path={data.path} /></Suspense></DocsLayout>;
 }

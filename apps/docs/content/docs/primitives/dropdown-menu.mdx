@@ -3,7 +3,12 @@ title: "Dropdown Menu"
 description: "Positioned menu with groups, nested submenus, checkbox and radio items, labels, separators, and keyboard shortcut text."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/dropdown-menu.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Dropdown Menu
 
@@ -13,9 +18,11 @@ Positioned menu with groups, nested submenus, checkbox and radio items, labels, 
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-dropdown-menu" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/dropdown-menu.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/dropdown-menu`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/dropdown-menu`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -50,9 +57,9 @@ The table lists values exported from `@foglamp/design-system/ui/dropdown-menu`. 
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuCheckboxItem } from '@foglamp/design-system/ui/dropdown-menu';
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuCheckboxItem } from '@tailrocks/framerock/ui/dropdown-menu';
 
-import { Button } from '@foglamp/design-system/ui/button';
+import { Button } from '@tailrocks/framerock/ui/button';
 
 function DropdownMenuExample({ label = 'Run actions' }: { label?: string }) { return <DropdownMenu><DropdownMenuTrigger render={<Button variant="outline" />}>{label}</DropdownMenuTrigger><DropdownMenuContent align="start"><DropdownMenuLabel>Evaluation</DropdownMenuLabel><DropdownMenuItem>Open report<DropdownMenuShortcut>↵</DropdownMenuShortcut></DropdownMenuItem><DropdownMenuItem>Duplicate run</DropdownMenuItem><DropdownMenuCheckboxItem checked>Pin to workspace</DropdownMenuCheckboxItem><DropdownMenuSeparator /><DropdownMenuItem variant="destructive">Delete run</DropdownMenuItem></DropdownMenuContent></DropdownMenu>; }
 ```
@@ -61,7 +68,7 @@ function DropdownMenuExample({ label = 'Run actions' }: { label?: string }) { re
 
 The story panel resolves this component as registry item `ui-dropdown-menu`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-dropdown-menu.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-dropdown-menu.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/dropdown-menu`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/dropdown-menu`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

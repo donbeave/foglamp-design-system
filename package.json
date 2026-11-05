@@ -1,22 +1,27 @@
 {
-  "name": "foglamp-design-system-workspace",
+  "name": "framerock-workspace",
   "version": "0.1.0",
   "private": true,
   "license": "Apache-2.0",
-  "author": "Gustavo Fior and Foglamp Labs (original project; co-founder Abdul Haidar)",
+  "author": "Tailrocks (https://github.com/tailrocks)",
   "packageManager": "bun@1.4.4",
-  "workspaces": ["apps/*", "packages/*"],
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo build",
     "build:registry": "bun packages/registry/scripts/build-registry.ts",
     "check-types": "turbo check-types",
     "dev": "turbo dev",
     "test": "bun test",
-    "check:portal": "bun scripts/verify-portal.ts"
+    "check:portal": "bun scripts/verify-portal.ts",
+    "verify:portal": "bun scripts/verify-portal.ts"
   },
   "devDependencies": {
     "turbo": "^2.8.12",
     "typescript": "5.9.3",
-    "vitest": "^3.2.4"
+    "vitest": "^3.2.4",
+    "@mdx-js/mdx": "3.1.1"
   }
 }

@@ -1,6 +1,6 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { FilterSelect } from '@foglamp/design-system/widgets/data-table';
+import { FilterSelect } from '@tailrocks/framerock/widgets/data-table';
 import { defineStory } from '../../lib/story';
 
 const statusOptions: { value: string; label: string }[] = [

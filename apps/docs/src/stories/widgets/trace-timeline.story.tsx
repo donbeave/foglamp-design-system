@@ -1,7 +1,7 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { TraceTimeline } from '@foglamp/design-system/widgets/trace-timeline';
-import type { TraceSpan } from '@foglamp/design-system/lib/types';
+import { TraceTimeline } from '@tailrocks/framerock/widgets/trace-timeline';
+import type { TraceSpan } from '@tailrocks/framerock/lib/types';
 import { spanFixture } from './fixtures';
 import { defineStory } from '../../lib/story';
 

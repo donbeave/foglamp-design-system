@@ -3,7 +3,12 @@ title: "Dialog"
 description: "Modal dialog built from Base UI root, backdrop, popup, title, description, and close parts. The popup shows its close button by default."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/dialog.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Dialog
 
@@ -13,9 +18,11 @@ Modal dialog built from Base UI root, backdrop, popup, title, description, and c
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-dialog" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/dialog.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/dialog`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/dialog`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -42,13 +49,13 @@ The table lists values exported from `@foglamp/design-system/ui/dialog`. The dec
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@foglamp/design-system/ui/dialog';
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@tailrocks/framerock/ui/dialog';
 
-import { Button } from '@foglamp/design-system/ui/button';
+import { Button } from '@tailrocks/framerock/ui/button';
 
-import { Input } from '@foglamp/design-system/ui/input';
+import { Input } from '@tailrocks/framerock/ui/input';
 
-import { Label } from '@foglamp/design-system/ui/label';
+import { Label } from '@tailrocks/framerock/ui/label';
 
 function DialogExample({ title = 'Create evaluation' }: { title?: string }) { return <Dialog><DialogTrigger render={<Button variant="outline" />}>New evaluation</DialogTrigger><DialogContent><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>Set up a reusable test run for your agent.</DialogDescription></DialogHeader><div className="grid gap-3"><Label htmlFor="eval-name">Name</Label><Input id="eval-name" defaultValue="Support agent regression" /><Label htmlFor="eval-dataset">Dataset</Label><Input id="eval-dataset" defaultValue="support-v3 · 128 cases" /></div><DialogFooter><DialogClose render={<Button variant="outline" />}>Cancel</DialogClose><Button>Create evaluation</Button></DialogFooter></DialogContent></Dialog>; }
 ```
@@ -57,7 +64,7 @@ function DialogExample({ title = 'Create evaluation' }: { title?: string }) { re
 
 The story panel resolves this component as registry item `ui-dialog`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-dialog.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-dialog.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/dialog`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/dialog`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

@@ -1,5 +1,5 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { SunsetCard } from '@foglamp/design-system/widgets/leaf/sunset-card';
+import { SunsetCard } from '@tailrocks/framerock/widgets/leaf/sunset-card';
 import { defineStory } from '../../lib/story';
 
 const HOSTED_SERVER_URL = 'https://api.foglamp.dev';

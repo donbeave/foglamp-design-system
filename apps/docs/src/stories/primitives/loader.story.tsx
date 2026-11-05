@@ -1,6 +1,6 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { TextShimmerLoader } from "@foglamp/design-system/ui/loader";
+import { TextShimmerLoader } from "@tailrocks/framerock/ui/loader";
 import { defineStory } from "../../lib/story";
 
 type Args = { label: 'Thinking through the trace…', size: 'md' };

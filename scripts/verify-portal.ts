@@ -1,10 +1,13 @@
+import { spawnSync } from "node:child_process";
 import { readdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import ts from "typescript";
 
 const root = process.cwd();
 const docs = path.join(root, "apps/docs");
+const provenance = spawnSync("python3", ["scripts/provenance/verify.py"], { stdio: "inherit" });
 const errors: string[] = [];
+if (provenance.status !== 0) errors.push("Wave 6 provenance gates failed");
 const report = (message: string) => errors.push(message);
 const read = (file: string) => readFile(file, "utf8");
 const exists = async (file: string) => stat(file).then(() => true, () => false);
@@ -22,8 +25,16 @@ async function filesUnder(dir: string, suffix?: string): Promise<string[]> {
   return nested.flat();
 }
 
-function isServerOnlyPromptsModule(specifier: string): boolean {
-  return specifier === "@foglamp/prompts" || /^@foglamp\/design-system\/lib\/prompts(?:\/index|\/normalize(?:\.ts)?)?$/.test(specifier);
+function isServerOnlyPromptsModule(specifier: string, file: string): boolean {
+  if (specifier === "@foglamp/prompts") return true;
+  const moduleSuffix = /^(?:index|normalize)(?:\.[cm]?[jt]sx?)?$/;
+  const alias = /^@(?:tailrocks\/framerock|foglamp\/design-system)\/lib\/prompts(?:\/(.*))?$/.exec(specifier);
+  if (alias) return !alias[1] || moduleSuffix.test(alias[1]);
+  if (!specifier.startsWith(".")) return false;
+  const resolved = path.resolve(path.dirname(path.resolve(root, file)), specifier);
+  const promptsRoot = path.join(root, "packages/design-system/src/lib/prompts");
+  if (resolved === promptsRoot) return true;
+  return path.dirname(resolved) === promptsRoot && moduleSuffix.test(path.basename(resolved));
 }
 
 function checkBrowserImports(source: string, file: string): void {
@@ -41,7 +52,7 @@ function checkBrowserImports(source: string, file: string): void {
     return node.exportClause.elements.some((element) => !element.isTypeOnly);
   };
   const reportImport = (specifier: string): void => {
-    if (isServerOnlyPromptsModule(specifier)) {
+    if (isServerOnlyPromptsModule(specifier, file)) {
       report(`${path.relative(root, file)}: browser runtime import '${specifier}' reaches the server-only prompts barrel/normalizer; import browser-safe leaves directly (infer, diff, or slots)`);
     }
   };
@@ -69,7 +80,15 @@ for (const dir of browserSourceDirs) {
   }
 }
 if (browserPromptsFixture) {
-  checkBrowserImports("import { SLOT_LINE, slotValues } from '@foglamp/design-system/lib/prompts';", "apps/docs/src/stories/__fixture-browser-prompts-barrel__.story.tsx");
+  checkBrowserImports(`
+    import { SLOT_LINE } from "@tailrocks/framerock/lib/prompts";
+    import { promptHash } from "@foglamp/design-system/lib/prompts/index.ts";
+    import type { PromptVersion } from "@tailrocks/framerock/lib/prompts";
+    import { slotValues } from "@tailrocks/framerock/lib/prompts/slots";
+    export { normalizePrompt } from "@tailrocks/framerock/lib/prompts/normalize";
+    import("../lib/prompts/index.ts");
+    import("../lib/prompts/normalize.ts");
+  `, path.join(root, "packages/design-system/src/widgets/__fixture-browser-prompts__.tsx"));
 }
 
 function objectString(node: ts.Expression | undefined, key: string): string | undefined {
@@ -123,7 +142,7 @@ for (const file of storyFiles) {
 }
 
 const registryFile = path.join(root, "packages/registry/registry.json");
-const registry = JSON.parse(await read(registryFile)) as { items?: unknown; author?: unknown; homepage?: unknown };
+const registry = JSON.parse(await read(registryFile)) as { items?: unknown; author?: unknown; homepage?: unknown; name?: unknown; contributors?: unknown };
 const registryItems = Array.isArray(registry.items) ? registry.items as Array<{ name?: unknown; files?: unknown }> : [];
 const itemNames = new Set(registryItems.flatMap((item) => typeof item.name === "string" ? [item.name] : []));
 const catalogFile = path.join(docs, "public/r/story-items.json");
@@ -171,8 +190,8 @@ for (const story of storyRecords) {
   if (!/\bstory\.WithControl\b/.test(content)) report(`${path.relative(root, mdx)}: missing <story.WithControl /> preview`);
 }
 
-const requiredDocs: Record<string, number> = { primitives: 56, widgets: 53, charts: 11, figures: 22, blocks: 18, foundations: 6 };
-const requiredStoryMinimums: Record<string, number> = { primitives: 56, charts: 11, figures: 22, blocks: 18 };
+const requiredDocs: Record<string, number> = { primitives: 56, widgets: 53, charts: 11, figures: 22, blocks: 17, foundations: 6 };
+const requiredStoryMinimums: Record<string, number> = { primitives: 56, charts: 11, figures: 22, blocks: 17 };
 for (const [category, minimum] of Object.entries(requiredDocs)) {
   const dir = path.join(docs, "content/docs", category);
   const pages = (await filesUnder(dir, ".mdx")).filter((file) => !file.endsWith("/index.mdx")).length;
@@ -216,7 +235,6 @@ const requiredAttribution: Array<[string, string[]]> = [
   ["apps/docs/src/components/story-panel.tsx", ["Gustavo Fior", "@gustavo-fior", "Foglamp Labs", "foglamp-labs/foglamp"]],
   ["packages/design-system/src/blocks/marketing/chrome/navbar.tsx", ["Gustavo Fior", "Foglamp Labs"]],
   ["packages/design-system/src/blocks/marketing/chrome/footer.tsx", ["Gustavo Fior", "Foglamp Labs"]],
-  ["packages/design-system/src/blocks/marketing/original-authors-block.tsx", ["Gustavo Fior", "@gustavo-fior", "Abdul Haidar", "Foglamp Labs"]],
   ["apps/docs/content/docs/credits.mdx", ["Gustavo Fior", "@gustavo-fior", "Abdul Haidar", "Foglamp Labs"]],
 ];
 for (const [relative, markers] of requiredAttribution) {
@@ -225,8 +243,22 @@ for (const [relative, markers] of requiredAttribution) {
   const body = await read(file);
   for (const marker of markers) if (!body.toLowerCase().includes(marker.toLowerCase())) report(`${relative}: missing attribution marker '${marker}'`);
 }
-if (typeof registry.author !== "string" || !/gustavo fior/i.test(registry.author) || !/foglamp labs/i.test(registry.author)) report("registry.json: author must name Gustavo Fior and Foglamp Labs");
-if (registry.homepage !== "https://github.com/foglamp-labs/foglamp") report("registry.json: homepage must point to https://github.com/foglamp-labs/foglamp");
+if (registry.name !== "framerock") report("registry.json: name must be framerock");
+if (typeof registry.author !== "string" || !/tailrocks/i.test(registry.author)) report("registry.json: author must identify Tailrocks as publisher");
+if (registry.homepage !== "https://github.com/tailrocks/framerock") report("registry.json: homepage must point to https://github.com/tailrocks/framerock");
+const registryContributors = Array.isArray(registry.contributors) ? registry.contributors : [];
+for (const name of ["Gustavo Fior", "Abdul Haidar", "Foglamp Labs"]) {
+  if (!registryContributors.some((person) => typeof person === "object" && person !== null && "name" in person && person.name === name)) {
+    report(`registry.json: contributors must retain original creator attribution for '${name}'`);
+  }
+}
+const designManifest = JSON.parse(await read(path.join(root, "packages/design-system/package.json"))) as { name?: unknown; homepage?: unknown };
+if (designManifest.name !== "@tailrocks/framerock") report("packages/design-system/package.json: package name must be @tailrocks/framerock");
+if (designManifest.homepage !== "https://github.com/tailrocks/framerock") report("packages/design-system/package.json: homepage must point to Tailrocks Framerock");
+const portalRoot = await read(path.join(docs, "src/routes/__root.tsx"));
+if (!portalRoot.includes("Framerock — Web UI Design System by Tailrocks, extracted from Foglamp by Gustavo Fior & Foglamp Labs")) report("apps/docs root metadata must identify the Framerock portal and original creators");
+const portalIndex = await read(path.join(docs, "content/docs/index.mdx"));
+if (!portalIndex.includes("title: Framerock") || !portalIndex.includes("@tailrocks/framerock")) report("apps/docs homepage must use Framerock branding and package scope");
 
 // Detect unresolved workspace aliases in parsed registry entry fields, without confusing the
 // catalog's alias metadata with installable registry items.

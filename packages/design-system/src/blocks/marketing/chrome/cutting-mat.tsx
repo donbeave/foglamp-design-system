@@ -1,8 +1,19 @@
 /**
- * Original design by Gustavo Fior (@gustavo-fior), co-founder Abdul Haidar, and Foglamp Labs.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/marketing/cutting-mat.tsx.
- * Licensed under Apache-2.0.
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ *
+ * @provenance copied-1-to-1
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/cutting-mat.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/cutting-mat.tsx
+ *
+ * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),
+ * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder
+ * Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
+
 // The footer's closing image: the three brand circles redrawn as dashed guides
 // on a faint cutting mat, cropped by the bottom of the page. Everything is
 // stroke in theme tokens, so it reads the same in light and dark.

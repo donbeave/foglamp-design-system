@@ -1,5 +1,5 @@
 /* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@foglamp/design-system/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@tailrocks/framerock/ui/breadcrumb';
 import { defineStory } from '../../lib/story';
 function BreadcrumbExample({ current = 'Trace details' }: { current?: string }) { return <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="#workspace">Workspace</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink href="#runs">Runs</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>{current}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>; }
 export const story = defineStory({ id: 'primitives/breadcrumb', registryItem: 'ui-breadcrumb', displayName: 'Breadcrumb', Component: BreadcrumbExample, args: [{ variant: 'Trace details', initial: { current: 'Trace details' } }, { variant: 'Evaluations', initial: { current: 'Evaluations' } }] });

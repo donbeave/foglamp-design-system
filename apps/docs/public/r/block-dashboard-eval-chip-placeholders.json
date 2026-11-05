@@ -3,15 +3,21 @@
   "name": "block-dashboard-eval-chip-placeholders",
   "type": "registry:block",
   "title": "Eval Chip Placeholders",
-  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/dashboard/eval-chip-placeholders.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
-  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/dashboard/eval-chip-placeholders.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Tailrocks (https://github.com/tailrocks) — Original UI design & implementation by Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs (https://foglamp.dev)",
+  "homepage": "https://github.com/tailrocks/framerock",
   "license": "Apache-2.0",
+  "provenance": "copied-1-to-1",
+  "provenanceLabel": "1:1 Copied",
+  "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
+  "upstreamPath": "apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx",
+  "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx",
   "files": [
     {
-      "path": "src/components/foglamp/blocks/dashboard/eval-chip-placeholders.tsx",
+      "path": "src/components/framerock/blocks/dashboard/eval-chip-placeholders.tsx",
+      "target": "src/components/framerock/blocks/dashboard/eval-chip-placeholders.tsx",
       "type": "registry:component",
-      "content": "/** Original design: Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs. Apache-2.0. */\nexport function EvalChipPlaceholders() {\n\treturn (\n\t\t<>\n\t\t\t<div className=\"h-8 w-32 animate-pulse rounded-full bg-muted\" />\n\t\t\t<div className=\"h-8 w-20 animate-pulse rounded-full bg-muted\" />\n\t\t\t<div className=\"h-8 w-28 animate-pulse rounded-full bg-muted\" />\n\t\t</>\n\t);\n}\n"
+      "content": "/**\n * @license Apache-2.0\n * SPDX-License-Identifier: Apache-2.0\n * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n *\n * @provenance copied-1-to-1\n * @upstream-repo https://github.com/foglamp-labs/foglamp\n * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b\n * @upstream-path apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx\n * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx\n *\n * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),\n * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder\n * Abdul Haidar at Foglamp Labs (https://foglamp.dev).\n * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */\n\nexport function EvalChipPlaceholders() {\n\treturn (\n\t\t<>\n\t\t\t<div className=\"h-8 w-32 animate-pulse rounded-full bg-muted\" />\n\t\t\t<div className=\"h-8 w-20 animate-pulse rounded-full bg-muted\" />\n\t\t\t<div className=\"h-8 w-28 animate-pulse rounded-full bg-muted\" />\n\t\t</>\n\t);\n}\n\n/**\n * @license Apache-2.0\n * SPDX-License-Identifier: Apache-2.0\n * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n *\n * @provenance copied-1-to-1\n * @upstream-repo https://github.com/foglamp-labs/foglamp\n * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b\n * @upstream-path apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx\n * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx\n *\n * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),\n * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder\n * Abdul Haidar at Foglamp Labs (https://foglamp.dev).\n * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */\n"
     }
   ],
   "devDependencies": [

@@ -3,7 +3,12 @@ title: "Separator"
 description: "Semantic horizontal or vertical divider backed by Base UI separator."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/separator.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Separator
 
@@ -13,9 +18,11 @@ Semantic horizontal or vertical divider backed by Base UI separator.
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-separator" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/separator.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/separator`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/separator`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -34,7 +41,7 @@ The example is the portal story fixture without its story registration. It uses 
 ```tsx
 import { useState } from "react";
 
-import { Separator } from "@foglamp/design-system/ui/separator";
+import { Separator } from "@tailrocks/framerock/ui/separator";
 
 type Args = { variant: 'horizontal' };
 
@@ -48,7 +55,7 @@ function SeparatorStory({ args }: { args: Args }) {
 
 The story panel resolves this component as registry item `ui-separator`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-separator.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-separator.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/separator`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/separator`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

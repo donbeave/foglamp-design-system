@@ -3,11 +3,18 @@ title: RangePicker
 description: Renders the shared reporting range controls and preset choices.
 ---
 
-Renders the shared reporting range controls and preset choices.
+
+
 
 import { story } from "../../../src/stories/widgets/range-picker.story";
 
+import { StoryProvenance } from '../../../src/components/provenance';
+
+Renders the shared reporting range controls and preset choices.
+
 <story.WithControl />
+
+<StoryProvenance registryItem="widget-range-picker" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/range-picker.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
 
 ## Public API
 
@@ -22,7 +29,7 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 ## Requirements
 
-`RangePicker` reads and updates shared range state. Render it under `RangeProvider` from `@foglamp/design-system/widgets/range-context`.
+`RangePicker` reads and updates shared range state. Render it under `RangeProvider` from `@tailrocks/framerock/widgets/range-context`.
 
 ## Source and registry
 

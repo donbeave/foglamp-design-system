@@ -1,3 +1,21 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/demo/tabs/sessions-tab.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/demo/tabs/sessions-tab.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ */
+
 "use client";
 
 /**
@@ -14,13 +32,13 @@ import {
 	TableHead,
 	TableHeader,
 	TableRow,
-} from "@foglamp/design-system/ui/table";
-import { TooltipProvider } from "@foglamp/design-system/ui/tooltip";
+} from "@tailrocks/framerock/ui/table";
+import { TooltipProvider } from "@tailrocks/framerock/ui/tooltip";
 import { IconAlertTriangle, IconGhost, IconUser } from "@tabler/icons-react";
 import { useState } from "react";
 
-import { AgentIcon } from "@foglamp/design-system/widgets/leaf/agent-icon";
-import { CustomerAvatar } from "@foglamp/design-system/widgets/leaf/customer-avatar";
+import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
+import { CustomerAvatar } from "@tailrocks/framerock/widgets/leaf/customer-avatar";
 import {
 	ClearFiltersButton,
 	FilterSelect,
@@ -31,14 +49,14 @@ import {
 	Toolbar,
 	sortRows,
 	useTableSort,
-} from "@foglamp/design-system/widgets/data-table";
-import { HeatCell } from "@foglamp/design-system/widgets/heat-cell";
-import { ModelLogo, formatModelName } from "@foglamp/design-system/icons/model-logo";
+} from "@tailrocks/framerock/widgets/data-table";
+import { HeatCell } from "@tailrocks/framerock/widgets/heat-cell";
+import { ModelLogo, formatModelName } from "@tailrocks/framerock/icons/model-logo";
 import {
 	formatCostFixed,
 	formatCount,
 	formatTokens,
-} from "@foglamp/design-system/lib/format";
+} from "@tailrocks/framerock/lib/format";
 
 import { DemoListHeader, DemoRange } from "../demo-chrome";
 import { useDemo } from "../demo-context";

@@ -3,15 +3,21 @@
   "name": "utility-scan-favicon",
   "type": "registry:lib",
   "title": "Favicon",
-  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/scan/favicon.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
-  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/scan/favicon.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Tailrocks (https://github.com/tailrocks) — Original UI design & implementation by Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs (https://foglamp.dev)",
+  "homepage": "https://github.com/tailrocks/framerock",
   "license": "Apache-2.0",
+  "provenance": "copied-1-to-1",
+  "provenanceLabel": "1:1 Copied",
+  "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
+  "upstreamPath": "apps/web/src/components/scan/favicon.ts",
+  "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/favicon.ts",
   "files": [
     {
-      "path": "src/components/foglamp/lib/scan/favicon.ts",
+      "path": "src/components/framerock/lib/scan/favicon.ts",
+      "target": "src/components/framerock/lib/scan/favicon.ts",
       "type": "registry:component",
-      "content": "/* Derived for the Foglamp Design System portal by the project contributors.\n * It adapts Foglamp concepts and assets; this new integration code is not represented as upstream-authored.\n * Original project: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs; Apache-2.0 source project.\n */\nexport function faviconUrl(domain: string): string {\n\treturn `/api/favicon?domain=${encodeURIComponent(domain)}`;\n}\n\n/**\n * Product-accurate icon domains for models: agents often emit the provider's\n * corporate domain (google.com → the \"G\"), but the model deserves its product\n * mark (Gemini's spark). Keyed by label match, applied only to model items.\n */\nconst MODEL_DOMAIN_FIXES: [RegExp, string][] = [\n\t[/gemini/i, \"gemini.google.com\"],\n\t[/claude/i, \"claude.ai\"],\n\t[/gpt|^o[0-9]/i, \"openai.com\"],\n];\n\nexport function modelDomain(\n\tlabel: string,\n\tdomain?: string,\n): string | undefined {\n\tfor (const [re, fixed] of MODEL_DOMAIN_FIXES) {\n\t\tif (re.test(label)) return fixed;\n\t}\n\treturn domain;\n}\n"
+      "content": "/**\n * @license Apache-2.0\n * SPDX-License-Identifier: Apache-2.0\n * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n *\n * @provenance copied-1-to-1\n * @upstream-repo https://github.com/foglamp-labs/foglamp\n * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b\n * @upstream-path apps/web/src/components/scan/favicon.ts\n * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/favicon.ts\n *\n * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),\n * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder\n * Abdul Haidar at Foglamp Labs (https://foglamp.dev).\n * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */\n\nexport function faviconUrl(domain: string): string {\n\treturn `/api/favicon?domain=${encodeURIComponent(domain)}`;\n}\n\n/**\n * @license Apache-2.0\n * SPDX-License-Identifier: Apache-2.0\n * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n *\n * @provenance copied-1-to-1\n * @upstream-repo https://github.com/foglamp-labs/foglamp\n * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b\n * @upstream-path apps/web/src/components/scan/favicon.ts\n * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/favicon.ts\n *\n * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),\n * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder\n * Abdul Haidar at Foglamp Labs (https://foglamp.dev).\n * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */\n\n/**\n * Product-accurate icon domains for models: agents often emit the provider's\n * corporate domain (google.com → the \"G\"), but the model deserves its product\n * mark (Gemini's spark). Keyed by label match, applied only to model items.\n */\nconst MODEL_DOMAIN_FIXES: [RegExp, string][] = [\n\t[/gemini/i, \"gemini.google.com\"],\n\t[/claude/i, \"claude.ai\"],\n\t[/gpt|^o[0-9]/i, \"openai.com\"],\n];\n\nexport function modelDomain(\n\tlabel: string,\n\tdomain?: string,\n): string | undefined {\n\tfor (const [re, fixed] of MODEL_DOMAIN_FIXES) {\n\t\tif (re.test(label)) return fixed;\n\t}\n\treturn domain;\n}\n"
     }
   ]
 }

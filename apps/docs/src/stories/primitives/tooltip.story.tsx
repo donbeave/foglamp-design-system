@@ -1,6 +1,6 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@foglamp/design-system/ui/tooltip";
+import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@tailrocks/framerock/ui/tooltip";
 import { defineStory } from "../../lib/story";
 
 type Args = { variant: 'default' };

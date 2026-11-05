@@ -3,15 +3,22 @@ title: Traces Explorer
 description: Traces Explorer lists traces and opens the selected trace in the waterfall inspector. The story keeps selection local and uses the dashboard shell.
 ---
 
+
+
+
 import { story } from '../../../src/stories/blocks/traces-explorer-block.story'
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 Traces Explorer lists traces and opens the selected trace in the waterfall inspector. The story keeps selection local and uses the dashboard shell.
 
 <story.WithControl />
 
+<StoryProvenance registryItem="block-dashboard-traces-explorer" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/traces/traces-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## Package entry
 
-`@foglamp/design-system/blocks/dashboard/traces-explorer-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/traces-explorer-block.story.tsx`.
+`@tailrocks/framerock/blocks/dashboard/traces-explorer-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/traces-explorer-block.story.tsx`.
 
 ## API reference
 

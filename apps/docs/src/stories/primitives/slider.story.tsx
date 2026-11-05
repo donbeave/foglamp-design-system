@@ -1,7 +1,7 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { Slider } from "@foglamp/design-system/ui/slider";
-import { Label } from "@foglamp/design-system/ui/label";
+import { Slider } from "@tailrocks/framerock/ui/slider";
+import { Label } from "@tailrocks/framerock/ui/label";
 import { defineStory } from "../../lib/story";
 
 type Args = { value: 35 };

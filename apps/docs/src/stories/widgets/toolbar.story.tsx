@@ -1,7 +1,7 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { FilterSelect, SearchInput, ToggleChip, Toolbar } from '@foglamp/design-system/widgets/data-table';
-import { HeaderActionsSlotProvider, LayoutReserveProvider, useHeaderActionsSlot } from '@foglamp/design-system/widgets/header-slot';
+import { FilterSelect, SearchInput, ToggleChip, Toolbar } from '@tailrocks/framerock/widgets/data-table';
+import { HeaderActionsSlotProvider, LayoutReserveProvider, useHeaderActionsSlot } from '@tailrocks/framerock/widgets/header-slot';
 import { defineStory } from '../../lib/story';
 
 const statuses = [

@@ -1,3 +1,21 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/demo/detail/eval-detail.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/demo/detail/eval-detail.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ */
+
 "use client";
 
 /**
@@ -11,8 +29,8 @@ import {
   Alert,
   AlertDescription,
   AlertTitle,
-} from "@foglamp/design-system/ui/alert";
-import { Button } from "@foglamp/design-system/ui/button";
+} from "@tailrocks/framerock/ui/alert";
+import { Button } from "@tailrocks/framerock/ui/button";
 import {
   Table,
   TableBody,
@@ -20,8 +38,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@foglamp/design-system/ui/table";
-import { cn } from "@foglamp/design-system/lib/utils";
+} from "@tailrocks/framerock/ui/table";
+import { cn } from "@tailrocks/framerock/lib/utils";
 import {
   IconAffiliateFilled,
   IconAlertTriangle,
@@ -37,18 +55,18 @@ import {
 } from "@tabler/icons-react";
 import { Fragment, useState } from "react";
 
-import { FAMILY_ICON, presetMeta } from "@foglamp/design-system/widgets/leaf/preset-meta";
-import { AgentIcon } from "@foglamp/design-system/widgets/leaf/agent-icon";
-import { DRAWER_BUTTON_CLASS } from "@foglamp/design-system/ui/button-styles";
+import { FAMILY_ICON, presetMeta } from "@tailrocks/framerock/widgets/leaf/preset-meta";
+import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
+import { DRAWER_BUTTON_CLASS } from "@tailrocks/framerock/ui/button-styles";
 import {
   PaginationFooter,
   SortableHead,
   sortRows,
   useTableSort,
-} from "@foglamp/design-system/widgets/data-table";
-import { HeatCell } from "@foglamp/design-system/widgets/heat-cell";
-import { CopyButton } from "@foglamp/design-system/widgets/leaf/copy-button";
-import { StatCard } from "@foglamp/design-system/widgets/page-parts";
+} from "@tailrocks/framerock/widgets/data-table";
+import { HeatCell } from "@tailrocks/framerock/widgets/heat-cell";
+import { CopyButton } from "@tailrocks/framerock/widgets/leaf/copy-button";
+import { StatCard } from "@tailrocks/framerock/widgets/page-parts";
 import {
   Bubble,
   DrawerColumns,
@@ -56,8 +74,8 @@ import {
   ExpandChevron,
   Meta,
   OPEN_ROW_CLASS,
-} from "@foglamp/design-system/widgets/run-exchange";
-import { formatCost, formatCostFixed } from "@foglamp/design-system/lib/format";
+} from "@tailrocks/framerock/widgets/run-exchange";
+import { formatCost, formatCostFixed } from "@tailrocks/framerock/lib/format";
 
 import {
   DemoContextChip,

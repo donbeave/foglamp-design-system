@@ -7,6 +7,8 @@ Foglamp combines a rounded fallback with progressive squircle corners. Classes s
 
 Inputs, textareas, and selects share the form language but have distinct light and dark treatments. Light controls use `--custom-shadow`; dark controls use borders and a translucent input background. Focus rings, invalid states, and disabled states carry meaning in both modes. Preserve these states when composing a field.
 
-Drawer actions use `DRAWER_BUTTON_CLASS` from `@foglamp/design-system/ui/button-styles`. It includes the light outline shadow and the dark secondary treatment. Reuse the class for actions that need the same drawer appearance.
+Drawer actions use `DRAWER_BUTTON_CLASS` from `@tailrocks/framerock/ui/button-styles`. It includes the light outline shadow and the dark secondary treatment. Reuse the class for actions that need the same drawer appearance.
 
 Base UI's `render` prop changes the rendered element while keeping a control's behavior. Pass the supplied props through to the rendered element and keep its accessible name and keyboard behavior intact.
+
+> Original Foglamp design by [Gustavo Fior (@gustavo-fior)](https://gustavofior.com) and [Foglamp Labs](https://foglamp.dev); see the [upstream project](https://github.com/foglamp-labs/foglamp).

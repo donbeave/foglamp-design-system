@@ -3,11 +3,18 @@ title: ScanBrand
 description: Exports the scan mark, favicon, and model icon used by scan screens.
 ---
 
-Exports the scan mark, favicon, and model icon used by scan screens.
+
+
 
 import { story } from "../../../src/stories/widgets/scan-brand.story";
 
+import { StoryProvenance } from '../../../src/components/provenance';
+
+Exports the scan mark, favicon, and model icon used by scan screens.
+
 <story.WithControl />
+
+<StoryProvenance registryItem="widget-leaf-scan-brand" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/brand.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
 
 ## Public API
 
@@ -19,7 +26,7 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 ## Requirements
 
-`BrandMark`, `Favicon`, and `ModelIcon` are separate named exports from `@foglamp/design-system/widgets/leaf/scan-brand`.
+`BrandMark`, `Favicon`, and `ModelIcon` are separate named exports from `@tailrocks/framerock/widgets/leaf/scan-brand`.
 
 ## Source and registry
 

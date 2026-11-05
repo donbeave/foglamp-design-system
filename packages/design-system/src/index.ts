@@ -1,8 +1,16 @@
 /**
- * Browser-safe public barrel. Node-only source verifiers and prompt
- * normalization are intentionally available through explicit subpaths.
- * Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs.
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance tailrocks-original
+ * @inspiration https://github.com/foglamp-labs/foglamp (Gustavo Fior @gustavo-fior, Abdul Haidar, Foglamp Labs — https://foglamp.dev)
+ *
+ * Authored by Tailrocks (https://github.com/tailrocks). Inspired by the visual
+ * design language of Foglamp by Gustavo Fior (@gustavo-fior), Abdul Haidar, and
+ * Foglamp Labs (https://foglamp.dev). Not an upstream Foglamp source file.
  */
+
 export * from './ui/accordion';
 export * from './ui/alert-dialog';
 export * from './ui/alert';
@@ -61,7 +69,23 @@ export * from './ui/toggle';
 export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from './ui/tooltip';
 export { DRAWER_BUTTON_CLASS } from './ui/button-styles';
 export { cn } from './lib/utils';
-export { FoglampLink, FoglampLinkProvider, type FoglampLinkProps, type FoglampLinkProviderProps } from './lib/link-context';
+export {
+  FramerockLink,
+  FramerockLinkProvider,
+  useFramerockLink,
+  type FramerockLinkProps,
+  type FramerockLinkProviderProps,
+  /** @deprecated Use FramerockLink. */
+  FoglampLink,
+  /** @deprecated Use FramerockLinkProvider. */
+  FoglampLinkProvider,
+  /** @deprecated Use useFramerockLink. */
+  useFoglampLink,
+  /** @deprecated Use FramerockLinkProps. */
+  type FoglampLinkProps,
+  /** @deprecated Use FramerockLinkProviderProps. */
+  type FoglampLinkProviderProps,
+} from './lib/link-context';
 export { useCopied } from './hooks/use-copied';
 export { useIsMobile } from './hooks/use-mobile';
 export * from './icons/brand-logos';
@@ -160,7 +184,6 @@ export { ProductHero } from './blocks/marketing/figures/product-hero';
 export * from './blocks/marketing/hero';
 export { CtaSection, DriftingFogCtaBlock, CompactCtaSection, CopyPromptButton, Faq, AskFoggy, AgentDetails, buildKeyedPrompt, buildLandingPrompt, DOCS_URL, type DriftingFogCtaBlockProps, type CompactCtaSectionProps, type CopyPromptButtonProps, type AskFoggyProps, type AskFoggyRequest } from './blocks/marketing/cta';
 export { MarketingNavbar, type MarketingNavbarProps, type MarketingNavLink, CuttingMatFooterBlock, MarketingFooter, CuttingMat, FilmGrain, FogBank, HeroGrain, CodeBlock as MarketingCodeBlock, CopyButton as MarketingCopyButton, BrandMark as MarketingBrandMark, GithubLogo, Logo as MarketingLogo, products, productBySlug, type Product, registerDemo, showInDemo, type DemoTab } from './blocks/marketing/chrome';
-export { OriginalAuthorsBlock } from './blocks/marketing/original-authors-block';
 export { HudSimulatorBlock } from './blocks/marketing/hud-landing';
 export { FoglampHUD } from './hud/FoglampHUD';
 export * from './hud';

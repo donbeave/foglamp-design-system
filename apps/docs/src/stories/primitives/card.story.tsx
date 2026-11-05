@@ -1,7 +1,7 @@
 /* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
-import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter } from '@foglamp/design-system/ui/card';
-import { Button } from '@foglamp/design-system/ui/button';
-import { Badge } from '@foglamp/design-system/ui/badge';
+import { Card, CardHeader, CardTitle, CardDescription, CardAction, CardContent, CardFooter } from '@tailrocks/framerock/ui/card';
+import { Button } from '@tailrocks/framerock/ui/button';
+import { Badge } from '@tailrocks/framerock/ui/badge';
 import { defineStory } from '../../lib/story';
 function CardExample({ size = 'default' }: { size?: 'default' | 'sm' }) { return <Card size={size} className="w-full max-w-md"><CardHeader><CardTitle>Production evaluation</CardTitle><CardDescription>Customer support agent · updated 4 min ago</CardDescription><CardAction><Badge variant="green">Passed</Badge></CardAction></CardHeader><CardContent><div className="flex items-baseline gap-2"><span className="text-3xl font-semibold">94.8</span><span className="text-muted-foreground">/ 100</span></div><p className="mt-1 text-sm text-muted-foreground">Across 128 test cases</p></CardContent><CardFooter className="justify-between border-t"><span className="text-xs text-muted-foreground">v2.8.1 · 2m 14s</span><Button size="sm" variant="outline">Open report</Button></CardFooter></Card>; }
 export const story = defineStory({ id: 'primitives/card', registryItem: 'ui-card', displayName: 'Card', Component: CardExample, args: [{ variant: 'Default', initial: { size: 'default' } }, { variant: 'Compact', initial: { size: 'sm' } }] });

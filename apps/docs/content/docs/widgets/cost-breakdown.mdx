@@ -3,11 +3,18 @@ title: CostBreakdown
 description: Groups token cost rows into source-defined categories for a resolved reporting range.
 ---
 
-Groups token cost rows into source-defined categories for a resolved reporting range.
+
+
 
 import { story } from "../../../src/stories/widgets/cost-breakdown.story";
 
+import { StoryProvenance } from '../../../src/components/provenance';
+
+Groups token cost rows into source-defined categories for a resolved reporting range.
+
 <story.WithControl />
+
+<StoryProvenance registryItem="widget-cost-breakdown" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/cost-breakdown-card.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
 
 ## Public API
 
@@ -28,7 +35,7 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 ## Requirements
 
-Pass a resolved range from `@foglamp/design-system/lib/range` as `range`. The view receives data through `data`; `isUpdating` marks a refresh while existing values remain visible.
+Pass a resolved range from `@tailrocks/framerock/lib/range` as `range`. The view receives data through `data`; `isUpdating` marks a refresh while existing values remain visible.
 
 ## Source and registry
 

@@ -1,5 +1,5 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { PromptVersionsView } from '@foglamp/design-system/widgets/prompt-versions-card';
+import { PromptVersionsView } from '@tailrocks/framerock/widgets/prompt-versions-card';
 import { promptVersionsFixture } from './fixtures';
 import { defineStory } from '../../lib/story';
 function PromptVersionsPreview({ loading = false }: { loading?: boolean }) { return <div className="w-full"><PromptVersionsView versions={promptVersionsFixture} loading={loading} skeleton={loading}/></div>; }

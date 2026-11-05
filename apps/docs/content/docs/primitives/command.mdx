@@ -3,7 +3,12 @@ title: "Command"
 description: "Command menu composition built on cmdk, with an optional dialog wrapper, search input, groups, options, empty state, and shortcut label."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/command.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Command
 
@@ -13,9 +18,11 @@ Command menu composition built on cmdk, with an optional dialog wrapper, search 
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-command" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/command.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/command`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/command`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -43,7 +50,7 @@ The table lists values exported from `@foglamp/design-system/ui/command`. The de
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut } from '@foglamp/design-system/ui/command';
+import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem, CommandShortcut } from '@tailrocks/framerock/ui/command';
 
 function CommandExample({ placeholder = 'Search commands…' }: { placeholder?: string }) { return <Command className="w-full max-w-md rounded-lg shadow-(--custom-shadow)"><CommandInput placeholder={placeholder} /><CommandList><CommandEmpty>No matching commands.</CommandEmpty><CommandGroup heading="Workspace"><CommandItem><span aria-hidden="true">⌁</span>Open observability<CommandShortcut>⌘1</CommandShortcut></CommandItem><CommandItem><span aria-hidden="true">⌕</span>Search traces<CommandShortcut>⌘K</CommandShortcut></CommandItem></CommandGroup><CommandGroup heading="Manage"><CommandItem><span aria-hidden="true">◎</span>Team settings</CommandItem><CommandItem><span aria-hidden="true">⚙</span>Preferences</CommandItem></CommandGroup></CommandList></Command>; }
 ```
@@ -52,7 +59,7 @@ function CommandExample({ placeholder = 'Search commands…' }: { placeholder?: 
 
 The story panel resolves this component as registry item `ui-command`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-command.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-command.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/command`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/command`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

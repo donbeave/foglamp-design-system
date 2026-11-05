@@ -1,9 +1,9 @@
 {
-  "name": "@foglamp/registry",
+  "name": "@tailrocks/registry",
   "version": "0.1.0",
-  "description": "shadcn-compatible registry for the Foglamp Design System, created by Gustavo Fior and Foglamp Labs with Abdul Haidar.",
-  "homepage": "https://github.com/foglamp-labs/foglamp",
-  "author": "Gustavo Fior / Foglamp Labs; Abdul Haidar",
+  "description": "shadcn-compatible registry for Framerock, published by Tailrocks and crediting original Foglamp creators Gustavo Fior, Abdul Haidar, and Foglamp Labs.",
+  "homepage": "https://github.com/tailrocks/framerock",
+  "author": "Tailrocks (https://github.com/tailrocks)",
   "license": "Apache-2.0",
   "private": true,
   "type": "module",

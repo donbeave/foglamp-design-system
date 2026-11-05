@@ -16,8 +16,8 @@ export default defineConfig({
       'fumadocs-ui/provider/base',
       'fumadocs-ui/provider/tanstack',
       'fumadocs-ui > lucide-react',
-      '@foglamp/design-system > recharts',
-      '@foglamp/design-system > recharts > use-sync-external-store/shim/with-selector',
+      '@tailrocks/framerock > recharts',
+      '@tailrocks/framerock > recharts > use-sync-external-store/shim/with-selector',
     ],
   },
 });

@@ -1,5 +1,5 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { OnboardingPanelBlock } from '@foglamp/design-system/blocks/auth/onboarding-panel';
+import { OnboardingPanelBlock } from '@tailrocks/framerock/blocks/auth/onboarding-panel';
 import { StorySurface } from './fixtures';
 import { defineStory } from '../../lib/story';
 function OnboardingPanelStory({ apiKey }: { apiKey: string }) { return <StorySurface><OnboardingPanelBlock apiKey={apiKey} onPromptCopied={() => {}} /></StorySurface>; }

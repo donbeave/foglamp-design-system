@@ -1,6 +1,6 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell, TableCaption } from "@foglamp/design-system/ui/table";
+import { Table, TableHeader, TableBody, TableHead, TableRow, TableCell, TableCaption } from "@tailrocks/framerock/ui/table";
 import { defineStory } from "../../lib/story";
 
 type Args = { variant: 'interactive' };

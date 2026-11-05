@@ -1,15 +1,28 @@
 /**
- * Original design by Gustavo Fior (@gustavo-fior), co-founder Abdul Haidar, and Foglamp Labs.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/marketing/navbar.tsx.
- * Licensed under Apache-2.0.
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/navbar.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/navbar.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
+
 "use client";
 
 import { Button } from "../../../ui/button";
 import { cn } from "../../../lib/utils";
 import { useEffect, useState } from "react";
 
-import { FoglampLink } from "../../../lib/link-context";
+import { FramerockLink } from "../../../lib/link-context";
 
 import { GithubLogo } from "./github-logo";
 import { Logo } from "./logo";
@@ -47,9 +60,9 @@ function NavLink({ link }: { link: MarketingNavLink }) {
     );
   }
   return (
-    <FoglampLink href={link.href} className={LINK_CLASS}>
+    <FramerockLink href={link.href} className={LINK_CLASS}>
       {link.label}
-    </FoglampLink>
+    </FramerockLink>
   );
 }
 
@@ -60,6 +73,7 @@ export type MarketingNavbarProps = {
   loginHref?: string;
   dashboardHref?: string;
   githubHref?: string;
+  brandName?: string;
   onLoginShortcut?: () => void;
 };
 
@@ -70,6 +84,7 @@ export function MarketingNavbar({
   loginHref = "/login",
   dashboardHref = "/overview",
   githubHref = "https://github.com/foglamp-labs/foglamp",
+  brandName = "Foglamp",
   onLoginShortcut,
 }: MarketingNavbarProps = {}) {
 
@@ -120,13 +135,13 @@ export function MarketingNavbar({
       )}
     >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8">
-        <FoglampLink
+        <FramerockLink
           href={homeHref}
-          aria-label="Foglamp home"
+          aria-label={`${brandName} home`}
           className="flex items-center transition-opacity hover:opacity-80"
         >
-          <Logo />
-        </FoglampLink>
+          <Logo brandName={brandName} />
+        </FramerockLink>
 
         <div className="hidden min-w-0 flex-col text-[10px] leading-tight text-muted-foreground sm:flex">
           <span>Original design by</span>
@@ -169,15 +184,15 @@ export function MarketingNavbar({
               <GithubLogo className="size-4" />
             </Button>
             {loggedIn ? (
-              <Button render={<FoglampLink href={dashboardHref} />} className="h-8">
+              <Button render={<FramerockLink href={dashboardHref} />} className="h-8">
                 Dashboard
               </Button>
             ) : (
               <>
-                <Button variant="secondary" render={<FoglampLink href={loginHref} />}>
+                <Button variant="secondary" render={<FramerockLink href={loginHref} />}>
                   Log in
                 </Button>
-                <Button render={<FoglampLink href={loginHref} />}>Start free</Button>
+                <Button render={<FramerockLink href={loginHref} />}>Start free</Button>
               </>
             )}
           </div>

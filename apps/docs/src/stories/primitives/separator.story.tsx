@@ -1,6 +1,6 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { Separator } from "@foglamp/design-system/ui/separator";
+import { Separator } from "@tailrocks/framerock/ui/separator";
 import { defineStory } from "../../lib/story";
 
 type Args = { variant: 'horizontal' };

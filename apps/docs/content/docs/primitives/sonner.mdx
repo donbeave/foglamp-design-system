@@ -3,7 +3,12 @@ title: "Sonner"
 description: "Toaster adapter that forwards Sonner ToasterProps and keeps the project theme and visual treatment."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/sonner.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Sonner
 
@@ -13,9 +18,11 @@ Toaster adapter that forwards Sonner ToasterProps and keeps the project theme an
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-sonner" provenanceLabel="1:1 Copied" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/sonner.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/sonner`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/sonner`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -32,7 +39,7 @@ The example is the portal story fixture without its story registration. It uses 
 ```tsx
 import { useState } from "react";
 
-import { Toaster } from "@foglamp/design-system/ui/sonner";
+import { Toaster } from "@tailrocks/framerock/ui/sonner";
 
 type Args = { variant: 'default' };
 
@@ -46,7 +53,7 @@ function SonnerStory({ args }: { args: Args }) {
 
 The story panel resolves this component as registry item `ui-sonner`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-sonner.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-sonner.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/sonner`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/sonner`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

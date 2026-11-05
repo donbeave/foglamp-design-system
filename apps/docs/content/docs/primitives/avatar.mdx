@@ -3,7 +3,12 @@ title: "Avatar"
 description: "Identity image with a fallback, optional badge, and grouped-avatar layout. The root accepts sizes default, sm, lg, and xs."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/avatar.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Avatar
 
@@ -13,9 +18,11 @@ Identity image with a fallback, optional badge, and grouped-avatar layout. The r
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-avatar" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/avatar.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/avatar`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/avatar`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -37,7 +44,7 @@ The table lists values exported from `@foglamp/design-system/ui/avatar`. The dec
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { Avatar, AvatarFallback, AvatarImage, AvatarBadge, AvatarGroup, AvatarGroupCount } from '@foglamp/design-system/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage, AvatarBadge, AvatarGroup, AvatarGroupCount } from '@tailrocks/framerock/ui/avatar';
 
 function AvatarExample({ size = 'default' }: { size?: 'default' | 'sm' | 'lg' | 'xs' }) { return <div className="flex flex-col gap-6"><Avatar size={size}><AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&fit=crop&crop=faces" alt="Portrait of Maya Chen" /><AvatarFallback>MC</AvatarFallback><AvatarBadge aria-label="Online" /></Avatar><AvatarGroup aria-label="Evaluation team"><Avatar><AvatarFallback>MC</AvatarFallback></Avatar><Avatar><AvatarFallback>JL</AvatarFallback></Avatar><Avatar><AvatarFallback>AR</AvatarFallback></Avatar><AvatarGroupCount>+4</AvatarGroupCount></AvatarGroup></div>; }
 ```
@@ -46,7 +53,7 @@ function AvatarExample({ size = 'default' }: { size?: 'default' | 'sm' | 'lg' | 
 
 The story panel resolves this component as registry item `ui-avatar`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-avatar.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-avatar.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/avatar`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/avatar`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

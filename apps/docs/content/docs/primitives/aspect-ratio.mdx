@@ -3,7 +3,12 @@ title: "Aspect Ratio"
 description: "Container that keeps its content at a numeric width-to-height ratio. The ratio is required and passed to the underlying div wrapper."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/aspect-ratio.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Aspect Ratio
 
@@ -13,9 +18,11 @@ Container that keeps its content at a numeric width-to-height ratio. The ratio i
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-aspect-ratio" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/aspect-ratio.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/aspect-ratio`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/aspect-ratio`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -32,7 +39,7 @@ The table lists values exported from `@foglamp/design-system/ui/aspect-ratio`. T
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { AspectRatio } from '@foglamp/design-system/ui/aspect-ratio';
+import { AspectRatio } from '@tailrocks/framerock/ui/aspect-ratio';
 
 function AspectRatioExample({ ratio = 16 / 9 }: { ratio?: number }) { return <div className="w-full max-w-xl"><AspectRatio ratio={ratio} className="overflow-hidden rounded-lg bg-muted"><div className="flex size-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/15 via-muted to-primary/5"><span className="text-2xl font-semibold">Trace overview</span><span className="text-sm text-muted-foreground">{ratio.toFixed(2)} : 1 preview</span></div></AspectRatio></div>; }
 ```
@@ -41,7 +48,7 @@ function AspectRatioExample({ ratio = 16 / 9 }: { ratio?: number }) { return <di
 
 The story panel resolves this component as registry item `ui-aspect-ratio`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-aspect-ratio.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-aspect-ratio.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/aspect-ratio`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/aspect-ratio`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

@@ -1,6 +1,6 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { CostBreakdownView } from '@foglamp/design-system/widgets/cost-breakdown';
-import { resolvePreset } from '@foglamp/design-system/lib/range';
+import { CostBreakdownView } from '@tailrocks/framerock/widgets/cost-breakdown';
+import { resolvePreset } from '@tailrocks/framerock/lib/range';
 import { costFixture, RangeStoryFrame } from './fixtures';
 import { defineStory } from '../../lib/story';
 function CostBreakdownPreview({ isUpdating = false }: { isUpdating?: boolean }) { return <RangeStoryFrame><CostBreakdownView data={costFixture} range={resolvePreset('24h')} isUpdating={isUpdating}/></RangeStoryFrame>; }

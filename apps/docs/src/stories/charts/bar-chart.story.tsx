@@ -1,6 +1,6 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { EvilBarChart, Bar, Grid, Legend, Threshold, Tooltip, XAxis, YAxis } from '@foglamp/design-system/charts/evilcharts/charts/bar-chart';
-import { ChartBackground } from '@foglamp/design-system/charts/evilcharts/ui/background';
+import { EvilBarChart, Bar, Grid, Legend, Threshold, Tooltip, XAxis, YAxis } from '@tailrocks/framerock/charts/evilcharts/charts/bar-chart';
+import { ChartBackground } from '@tailrocks/framerock/charts/evilcharts/ui/background';
 import { defineStory } from '../../lib/story';
 import { observabilityConfig, observabilityData, StorySurface } from './fixtures';
 

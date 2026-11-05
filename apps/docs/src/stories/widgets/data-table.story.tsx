@@ -1,8 +1,8 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { FilterSelect, PaginationFooter, SearchInput, SortableHead, ToggleChip, Toolbar } from '@foglamp/design-system/widgets/data-table';
-import { HeaderActionsSlotProvider, LayoutReserveProvider, useHeaderActionsSlot } from '@foglamp/design-system/widgets/header-slot';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@foglamp/design-system/ui/table';
+import { FilterSelect, PaginationFooter, SearchInput, SortableHead, ToggleChip, Toolbar } from '@tailrocks/framerock/widgets/data-table';
+import { HeaderActionsSlotProvider, LayoutReserveProvider, useHeaderActionsSlot } from '@tailrocks/framerock/widgets/header-slot';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@tailrocks/framerock/ui/table';
 import { defineStory } from '../../lib/story';
 
 const rows = [

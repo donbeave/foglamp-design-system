@@ -3,12 +3,12 @@ title: Package architecture
 description: How the Foglamp package fits into an application.
 ---
 
-`@foglamp/design-system` contains UI controls, widgets, charts, blocks, styles, assets, and supporting utilities. Import the part you need through its package subpath. For example, the button is available at `@foglamp/design-system/ui/button` and the original authors block at `@foglamp/design-system/blocks/marketing/original-authors-block`.
+`@tailrocks/framerock` contains UI controls, widgets, charts, blocks, styles, assets, and supporting utilities. Import the part you need through its package subpath. For example, the button is available at `@tailrocks/framerock/ui/button`.
 
 The package separates presentation from application routing. `FoglampLink` renders an anchor by default. Wrap a tree in `FoglampLinkProvider` with a compatible router link component to use your router. The adapter receives the original link props, so check that your router accepts the destination props used by the component.
 
 ```tsx
-import { FoglampLinkProvider } from '@foglamp/design-system/lib/link-context';
+import { FoglampLinkProvider } from '@tailrocks/framerock/lib/link-context';
 
 <FoglampLinkProvider component={YourRouterLink}>
 	<App />
@@ -18,3 +18,5 @@ import { FoglampLinkProvider } from '@foglamp/design-system/lib/link-context';
 Base UI controls support composition through their `render` prop. Use it when a control needs to render another element, and preserve the props and ref that Base UI supplies. The original control's focus and interaction behavior depend on those props.
 
 The docs portal uses TanStack Start and Fumadocs. Component consumers do not need to adopt the portal's router. Registry entries follow the `/r/<name>` route on the origin that hosts the registry; use the URL of your own deployed portal when installing an entry.
+
+> Original Foglamp design by [Gustavo Fior (@gustavo-fior)](https://gustavofior.com) and [Foglamp Labs](https://foglamp.dev); see the [upstream project](https://github.com/foglamp-labs/foglamp).

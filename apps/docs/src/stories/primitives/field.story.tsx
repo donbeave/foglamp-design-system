@@ -1,6 +1,6 @@
 /* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
-import { Field, FieldLabel, FieldDescription, FieldSet, FieldLegend } from '@foglamp/design-system/ui/field';
-import { Input } from '@foglamp/design-system/ui/input';
+import { Field, FieldLabel, FieldDescription, FieldSet, FieldLegend } from '@tailrocks/framerock/ui/field';
+import { Input } from '@tailrocks/framerock/ui/input';
 import { defineStory } from '../../lib/story';
 function FieldExample({ orientation = 'vertical' }: { orientation?: 'vertical' | 'horizontal' | 'responsive' }) { return <FieldSet className="w-full max-w-md"><FieldLegend>Project settings</FieldLegend><Field orientation={orientation}><FieldLabel htmlFor="project-name">Project name</FieldLabel><Input id="project-name" defaultValue="Customer Support Agent" /><FieldDescription>Used in dashboards and report exports.</FieldDescription></Field><Field orientation={orientation}><FieldLabel htmlFor="project-key">Project key</FieldLabel><Input id="project-key" defaultValue="support-agent" /><FieldDescription>Unique identifier for API integrations.</FieldDescription></Field></FieldSet>; }
 export const story = defineStory({ id: 'primitives/field', registryItem: 'ui-field', displayName: 'Field', Component: FieldExample, args: [{ variant: 'Vertical', initial: { orientation: 'vertical' } }, { variant: 'Horizontal', initial: { orientation: 'horizontal' } }, { variant: 'Responsive', initial: { orientation: 'responsive' }}] });

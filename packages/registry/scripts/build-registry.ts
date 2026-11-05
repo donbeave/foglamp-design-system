@@ -9,8 +9,9 @@ import { fileURLToPath } from "node:url";
 import ts from "typescript";
 import { registryItemSchema, registrySchema } from "@shadcn/registry/schema";
 
-type RegistryFile = { path: string; type: string; content: string };
-type RegistryItem = {
+type RegistryFile = { path: string; target: string; type: string; content: string };
+type Provenance = { provenance: string; provenanceLabel: string; upstreamCommit: string; upstreamPath?: string; upstreamUrl?: string; inspirationPath?: string; inspirationUrl?: string };
+type RegistryItem = Provenance & {
   name: string;
   type: string;
   title: string;
@@ -90,16 +91,27 @@ for (const file of [...await walkImages(sourceRoot), ...await walkImages(publicR
 }
 const interRegular = await readFile(path.join(root, "packages/design-system/src/assets/InterVariable.woff2"));
 const interItalic = await readFile(path.join(root, "packages/design-system/src/assets/InterVariable-Italic.woff2"));
-const fontSetupContent = `/* Original Foglamp Inter Variable bytes, embedded for registry installs. */\n@import "@fontsource-variable/geist-mono";\n@import "@fontsource-variable/host-grotesk";\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interRegular.toString("base64")}") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interItalic.toString("base64")}") format("woff2"); font-style: italic; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: "Inter Fallback"; src: local("Arial"); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89%; }\n@font-face { font-family: "Geist Mono Fallback"; src: local("Arial"); ascent-override: 74.67%; descent-override: 21.92%; line-gap-override: 0.00%; size-adjust: 134.59%; }\n@font-face { font-family: "Host Grotesk Fallback"; src: local("Arial"); ascent-override: 96.69%; descent-override: 30.01%; line-gap-override: 0.00%; size-adjust: 104.98%; }\n:root { --font-sans: Inter, "Inter Fallback", sans-serif; --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", monospace; --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif; }\n@theme inline { --font-mono: var(--font-geist-mono); }\n`;
+const fontNotice = (await readFile(path.join(root, "THIRD-PARTY-NOTICES.md"), "utf8")).replaceAll("*/", "* /");
+const fontSetupContent = `/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ * @provenance tailrocks-original
+ * Authored by Tailrocks; inspired by Gustavo Fior (@gustavo-fior), Abdul Haidar,
+ * and Foglamp Labs (https://foglamp.dev). Font bytes retain their own license.
+ *
+ * Third-party font notice:
+${fontNotice}
+ */\n@import "@fontsource-variable/geist-mono";\n@import "@fontsource-variable/host-grotesk";\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interRegular.toString("base64")}") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interItalic.toString("base64")}") format("woff2"); font-style: italic; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: "Inter Fallback"; src: local("Arial"); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89%; }\n@font-face { font-family: "Geist Mono Fallback"; src: local("Arial"); ascent-override: 74.67%; descent-override: 21.92%; line-gap-override: 0.00%; size-adjust: 134.59%; }\n@font-face { font-family: "Host Grotesk Fallback"; src: local("Arial"); ascent-override: 96.69%; descent-override: 30.01%; line-gap-override: 0.00%; size-adjust: 104.98%; }\n:root { --font-sans: Inter, "Inter Fallback", sans-serif; --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", monospace; --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif; }\n@theme inline { --font-mono: var(--font-geist-mono); }\n`;
 
 function targetPath(relative: string): string {
-  return `src/components/foglamp/${relative}`;
+  return `src/components/framerock/${relative}`;
 }
 
 function resolveLocal(from: string, request: string): string | undefined {
-  if (!request.startsWith(".") && !request.startsWith("@/") && !request.startsWith("@foglamp/design-system/")) return undefined;
-  const base = request.startsWith("@foglamp/design-system/")
-    ? request.slice("@foglamp/design-system/".length)
+  if (!request.startsWith(".") && !request.startsWith("@/") && !(request.startsWith("@tailrocks/framerock/") || request.startsWith("@foglamp/design-system/"))) return undefined;
+  const base = (request.startsWith("@tailrocks/framerock/") || request.startsWith("@foglamp/design-system/"))
+    ? request.replace(/^@(?:tailrocks\/framerock|foglamp\/design-system)\//, "")
     : request.startsWith("@/")
       ? path.posix.join("ui", request.slice(2))
       : path.posix.normalize(path.posix.join(path.posix.dirname(from), request));
@@ -108,7 +120,7 @@ function resolveLocal(from: string, request: string): string | undefined {
 }
 
 function classify(relative: string): { prefix: string; type: string } {
-  if (relative === "index.ts") return { prefix: "foglamp", type: "registry:internal" };
+  if (relative === "index.ts") return { prefix: "framerock", type: "registry:internal" };
   if (relative.startsWith("ui/")) return { prefix: "ui", type: "registry:ui" };
   if (relative.startsWith("widgets/")) return { prefix: "widget", type: "registry:component" };
   if (relative.startsWith("charts/")) return { prefix: "chart", type: "registry:component" };
@@ -122,7 +134,7 @@ function classify(relative: string): { prefix: string; type: string } {
 }
 
 function itemName(relative: string): string {
-  if (relative === "index.ts") return "foglamp";
+  if (relative === "index.ts") return "framerock-source";
   const { prefix } = classify(relative);
   const stem = relative.replace(/\.(tsx?|jsx?|css|woff2|webp|svg)$/, "").split("/").slice(1).join("-") || path.basename(relative).replace(/\.[^.]+$/, "");
   const normalized = stem.replace(/[^a-zA-Z0-9]+/g, "-").replace(/^-|-$/g, "").toLowerCase();
@@ -206,11 +218,12 @@ function getExternalDependencies(files: RegistryFile[]): string[] {
     return [];
   });
   for (const request of requests) {
-    if (request.startsWith(".") || request.startsWith("@/") || request.startsWith("@foglamp/design-system/") || request.startsWith("node:")) continue;
+    if (request.startsWith(".") || request.startsWith("@/") || (request.startsWith("@tailrocks/framerock/") || request.startsWith("@foglamp/design-system/")) || request.startsWith("node:")) continue;
     const name = request.startsWith("@") ? request.split("/").slice(0, 2).join("/") : request.split("/")[0];
     if (name) found.add(name);
   }
   if (found.has("react")) found.add("react-dom");
+  if (found.has("streamdown")) found.add("type-fest");
   if (found.has("@base-ui/react")) {
     // Keep Base UI's geometry runtime aligned with the source package pins
     // instead of letting a fresh registry install drift through compatible
@@ -251,6 +264,19 @@ function rewriteImports(contents: string, sourceRelative: string): string {
   return result;
 }
 
+// The shadcn CLI can strip leading comments while rewriting imports. Keep a
+// second copy after the first statement so installed files retain the notice.
+function retainInstalledNotice(content: string, file: string): string {
+  const header = content.match(/^\/\*\*[\s\S]*?\*\//)?.[0];
+  if (!header) throw new Error(`Missing legal header: ${file}`);
+  if (file.endsWith(".css")) return `${content}\n${header}\n`;
+  const kind = file.endsWith(".tsx") || file.endsWith(".jsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
+  const ast = ts.createSourceFile(file, content, ts.ScriptTarget.Latest, true, kind);
+  const first = ast.statements[0];
+  if (!first) return `${content}\n${header}\n`;
+  return `${content.slice(0, first.end)}\n\n${header}${content.slice(first.end)}`;
+}
+
 async function closure(entry: string): Promise<string[]> {
   const visited = new Set<string>();
   const visit = async (relative: string): Promise<void> => {
@@ -267,6 +293,18 @@ async function closure(entry: string): Promise<string[]> {
   // are embedded exactly once. It imports effects and font setup itself.
   if (entry === "styles/globals.css" && absoluteByRelative.has("styles/effects.css")) visited.add("styles/effects.css");
   return [...visited].sort((a, b) => a < b ? -1 : a > b ? 1 : 0);
+}
+
+const commit = "7d7e6609108019a74902858d4b07c24825c6318b";
+function provenanceFor(source: string): Provenance {
+  const tag = (key: string) => source.match(new RegExp(`^ \\* @${key} (.+)$`, "m"))?.[1];
+  const provenance = tag("provenance");
+  if (!provenance || !["copied-1-to-1", "modified", "tailrocks-original"].includes(provenance)) throw new Error("Missing provenance header");
+  const provenanceLabel = provenance === "copied-1-to-1" ? "1:1 Copied" : provenance === "modified" ? "Modified (Import/Prop Decoupled)" : "Newly Added by Tailrocks";
+  const upstreamPath = tag("upstream-path");
+  const upstreamUrl = tag("upstream-url");
+  const inspirationPath = provenance === "tailrocks-original" ? "apps/web/src/components/marketing/landing/figure-picker.tsx" : undefined;
+  return { provenance, provenanceLabel, upstreamCommit: commit, ...(upstreamPath && upstreamUrl ? { upstreamPath, upstreamUrl } : {}), ...(inspirationPath ? { inspirationPath, inspirationUrl: `https://github.com/foglamp-labs/foglamp/blob/${commit}/${inspirationPath}` } : {}) };
 }
 
 const items: RegistryItem[] = [];
@@ -296,18 +334,23 @@ for (const relative of [...absoluteByRelative.keys()].filter(isPublicEntry).sort
         '@source "../../../../node_modules/streamdown/dist/*.js";',
       );
     }
-    itemFiles.push({ path: targetPath(file), type: toType(file), content });
+    if (source.includes("@provenance copied-1-to-1")) {
+      content = content.replace(" */", " * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */");
+    }
+    content = retainInstalledNotice(content, file);
+    itemFiles.push({ path: targetPath(file), target: targetPath(file), type: toType(file), content });
   }
   if (relative === "styles/globals.css") {
-    itemFiles.push({ path: targetPath(fontSetupPath), type: "registry:style", content: fontSetupContent });
+    itemFiles.push({ path: targetPath(fontSetupPath), target: targetPath(fontSetupPath), type: "registry:style", content: retainInstalledNotice(fontSetupContent, fontSetupPath) });
   }
   const { type } = classify(relative);
   const dependencies = getExternalDependencies(itemFiles);
   items.push({
+    ...provenanceFor(await readFile(absoluteByRelative.get(relative)!, "utf8")),
     name,
     type,
     title: path.basename(relative).replace(/\.[^.]+$/, "").replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
-    description: `${relative === "styles/globals.css" ? "Install this style once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. " : "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. "}Foglamp source module from ${relative}, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.`,
+    description: `${relative === "styles/globals.css" ? "Install this style once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. " : "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. "}Foglamp source module from ${relative}, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.`,
     files: itemFiles,
     ...(dependencies.length ? { dependencies } : {}),
     ...(relative.endsWith(".tsx") ? { devDependencies: [`@types/react@${installedVersion("@types/react")}`] } : {}),
@@ -369,11 +412,13 @@ for (const item of items) {
   names.add(item.name);
 }
 const registry = JSON.parse(await readFile(registryPath, "utf8"));
-registry.author ??= "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs";
-registry.license ??= "Apache-2.0";
+registry.name = "framerock";
+registry.homepage = "https://github.com/tailrocks/framerock";
+registry.author = "Tailrocks (https://github.com/tailrocks) — Original UI design & implementation by Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs (https://foglamp.dev)";
+registry.license = "Apache-2.0";
 // The root registry is an index. Full content, targets, and dependency graphs
 // live in each matching static /r/<name>.json registry-item payload.
-registry.items = items.map(({ name, type, title, description }) => ({ name, type, title, description }));
+registry.items = items.map(({ name, type, title, description, provenance, provenanceLabel, upstreamCommit, upstreamPath, upstreamUrl, inspirationPath, inspirationUrl }) => ({ name, type, title, description, provenance, provenanceLabel, upstreamCommit, upstreamPath, upstreamUrl, inspirationPath, inspirationUrl }));
 // This schema strips custom registry metadata such as author and license from
 // its parsed result. Validate the original index without replacing it.
 registrySchema.parse(registry);
@@ -387,6 +432,9 @@ const payloads = items.map((item) => {
     author: registry.author,
     homepage: registry.homepage,
     license: registry.license,
+    provenance: item.provenance, provenanceLabel: item.provenanceLabel, upstreamCommit: item.upstreamCommit,
+    ...(item.upstreamPath ? { upstreamPath: item.upstreamPath, upstreamUrl: item.upstreamUrl } : {}),
+    ...(item.inspirationPath ? { inspirationPath: item.inspirationPath, inspirationUrl: item.inspirationUrl } : {}),
     files: item.files,
     ...(item.dependencies ? { dependencies: item.dependencies } : {}),
     ...(item.devDependencies ? { devDependencies: item.devDependencies } : {}),
@@ -414,11 +462,14 @@ const stories = items.map((item) => ({
   source: item.files.find((file) => file.path.endsWith(".tsx") || file.path.endsWith(".ts"))?.path ?? item.files[0]?.path,
   type: item.type,
   registryItem: item.name,
+  provenance: item.provenance, provenanceLabel: item.provenanceLabel, upstreamCommit: item.upstreamCommit,
+  ...(item.upstreamPath ? { upstreamPath: item.upstreamPath, upstreamUrl: item.upstreamUrl } : {}),
+  ...(item.inspirationPath ? { inspirationPath: item.inspirationPath, inspirationUrl: item.inspirationUrl } : {}),
 }));
 await writeFile(path.join(outputDir, "story-items.json"), `${JSON.stringify({
   type: "foglamp:story-catalog",
   description: "Story aliases for source modules. Install ids match registryItem exactly.",
   items: stories,
 }, null, 2)}\n`);
-await writeFile(path.join(outputDir, "registry.json"), `${JSON.stringify(registry, null, 2)}\n`);
+await writeFile(path.join(outputDir, "framerock.json"), `${JSON.stringify(registry, null, 2)}\n`);
 console.log(`Built ${items.length} shadcn registry items and ${stories.length} story catalog entries with full source/import closure.`);

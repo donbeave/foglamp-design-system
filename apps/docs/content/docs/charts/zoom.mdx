@@ -3,11 +3,18 @@ title: Drag-to-Zoom Selection
 description: Exports the drag-selection hook shared by EvilCharts line, area, and bar charts.
 ---
 
-Exports the drag-selection hook shared by EvilCharts line, area, and bar charts.
+
+
 
 import { story } from "../../../src/stories/charts/zoom.story";
 
+import { StoryProvenance } from '../../../src/components/provenance';
+
+Exports the drag-selection hook shared by EvilCharts line, area, and bar charts.
+
 <story.WithControl />
+
+<StoryProvenance registryItem="chart-evilcharts-ui-zoom" provenanceLabel="1:1 Copied" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/evilcharts/ui/zoom.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
 
 ## Public API
 
@@ -72,7 +79,7 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 `useZoomDrag` takes `data`, `xDataKey`, `onZoomSelect`, and optional `disabled`. It returns `enabled`, `overlay`, `suppressClickRef`, and chart mouse `handlers`. The callback receives the selected x values as strings. A drag across at least two buckets selects a range; a press in one bucket stays a click. The area, line, and bar charts wire this hook when given `xDataKey` and `onZoomSelect`.
 
-`useZoomDrag` is also exported from `@foglamp/design-system/charts/evilcharts/ui/zoom`.
+`useZoomDrag` is also exported from `@tailrocks/framerock/charts/evilcharts/ui/zoom`.
 
 | Hook input | Type | Meaning |
 | :--- | :--- | :--- |

@@ -1,3 +1,21 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/demo/detail/agent-detail.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/demo/detail/agent-detail.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ */
+
 "use client";
 
 /**
@@ -7,16 +25,16 @@
  * Licensed under Apache-2.0.
  */
 
-import { DRAWER_BUTTON_CLASS } from "@foglamp/design-system/ui/button-styles";
-import { spanTypeIcon } from "@foglamp/design-system/widgets/leaf/span-type";
-import { Badge } from "@foglamp/design-system/ui/badge";
-import { Button } from "@foglamp/design-system/ui/button";
+import { DRAWER_BUTTON_CLASS } from "@tailrocks/framerock/ui/button-styles";
+import { spanTypeIcon } from "@tailrocks/framerock/widgets/leaf/span-type";
+import { Badge } from "@tailrocks/framerock/ui/badge";
+import { Button } from "@tailrocks/framerock/ui/button";
 import {
   Card,
   CardContent,
   CardHeader,
   CardTitle,
-} from "@foglamp/design-system/ui/card";
+} from "@tailrocks/framerock/ui/card";
 import {
   Table,
   TableBody,
@@ -24,9 +42,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@foglamp/design-system/ui/table";
-import { TooltipProvider } from "@foglamp/design-system/ui/tooltip";
-import { cn } from "@foglamp/design-system/lib/utils";
+} from "@tailrocks/framerock/ui/table";
+import { TooltipProvider } from "@tailrocks/framerock/ui/tooltip";
+import { cn } from "@tailrocks/framerock/lib/utils";
 import {
   IconAlertTriangle,
   IconAlertTriangleFilled,
@@ -40,18 +58,18 @@ import {
 } from "@tabler/icons-react";
 import { Fragment, useState } from "react";
 
-import { AgentIcon } from "@foglamp/design-system/widgets/leaf/agent-icon";
+import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
 import {
   PaginationFooter,
   SortableHead,
   sortRows,
   useTableSort,
-} from "@foglamp/design-system/widgets/data-table";
-import { HeatCell } from "@foglamp/design-system/widgets/heat-cell";
-import { type FlowNode, NodeFlow } from "@foglamp/design-system/widgets/leaf/node-flow";
-import { StatCard } from "@foglamp/design-system/widgets/page-parts";
-import { PromptProseView } from "@foglamp/design-system/widgets/prompt-prose";
-import { PromptVersionsView } from "@foglamp/design-system/widgets/prompt-versions-card";
+} from "@tailrocks/framerock/widgets/data-table";
+import { HeatCell } from "@tailrocks/framerock/widgets/heat-cell";
+import { type FlowNode, NodeFlow } from "@tailrocks/framerock/widgets/leaf/node-flow";
+import { StatCard } from "@tailrocks/framerock/widgets/page-parts";
+import { PromptProseView } from "@tailrocks/framerock/widgets/prompt-prose";
+import { PromptVersionsView } from "@tailrocks/framerock/widgets/prompt-versions-card";
 import {
   Bubble,
   CustomerValue,
@@ -61,7 +79,7 @@ import {
   Meta,
   ModelsValue,
   OPEN_ROW_CLASS,
-} from "@foglamp/design-system/widgets/run-exchange";
+} from "@tailrocks/framerock/widgets/run-exchange";
 import {
   ChartLegend,
   formatBucketFull,
@@ -69,10 +87,10 @@ import {
   makeEdgeTick,
   themed,
   thinTicks,
-} from "@foglamp/design-system/widgets/trend-charts";
-import * as AreaChart from "@foglamp/design-system/charts/evilcharts/charts/area-chart";
-import type { ChartConfig } from "@foglamp/design-system/charts/evilcharts/ui/chart";
-import { ModelLogo } from "@foglamp/design-system/icons/model-logo";
+} from "@tailrocks/framerock/widgets/trend-charts";
+import * as AreaChart from "@tailrocks/framerock/charts/evilcharts/charts/area-chart";
+import type { ChartConfig } from "@tailrocks/framerock/charts/evilcharts/ui/chart";
+import { ModelLogo } from "@tailrocks/framerock/icons/model-logo";
 import {
   formatCost,
   formatCostFixed,
@@ -82,7 +100,7 @@ import {
   formatPercent,
   formatSpanDuration,
   formatTokens,
-} from "@foglamp/design-system/lib/format";
+} from "@tailrocks/framerock/lib/format";
 
 import { DemoRange, DemoSessionButton, DetailHeader } from "../demo-chrome";
 import { useDemo } from "../demo-context";

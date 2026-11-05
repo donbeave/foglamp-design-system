@@ -2,8 +2,8 @@
  * Original project: Foglamp (foglamp-labs/foglamp), by Gustavo Fior
  * (@gustavo-fior), Abdul Haidar, and Foglamp Labs. Apache-2.0.
  */
-@import "@foglamp/design-system/styles/globals.css";
-@import "@foglamp/design-system/styles/effects.css";
+@import "@tailrocks/framerock/styles/globals.css";
+@import "@tailrocks/framerock/styles/effects.css";
 @import "fumadocs-ui/css/neutral.css";
 @import "fumadocs-ui/css/preset.css";
 @import "@fontsource-variable/geist-mono";
@@ -17,14 +17,14 @@
 
 @font-face {
   font-family: Inter;
-  src: url("@foglamp/design-system/assets/InterVariable.woff2") format("woff2");
+  src: url("@tailrocks/framerock/assets/InterVariable.woff2") format("woff2");
   font-style: normal;
   font-weight: 100 900;
   font-display: swap;
 }
 @font-face {
   font-family: Inter;
-  src: url("@foglamp/design-system/assets/InterVariable-Italic.woff2") format("woff2");
+  src: url("@tailrocks/framerock/assets/InterVariable-Italic.woff2") format("woff2");
   font-style: italic;
   font-weight: 100 900;
   font-display: swap;

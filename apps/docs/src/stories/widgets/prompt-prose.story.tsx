@@ -1,7 +1,7 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { PromptProseView } from '@foglamp/design-system/widgets/prompt-prose';
-import { SLOT_LINE } from '@foglamp/design-system/lib/prompts/infer';
-import { slotValues } from '@foglamp/design-system/lib/prompts/slots';
+import { PromptProseView } from '@tailrocks/framerock/widgets/prompt-prose';
+import { SLOT_LINE } from '@tailrocks/framerock/lib/prompts/infer';
+import { slotValues } from '@tailrocks/framerock/lib/prompts/slots';
 import { defineStory } from '../../lib/story';
 
 const template = [

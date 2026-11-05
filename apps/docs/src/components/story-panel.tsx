@@ -5,14 +5,16 @@
  * Original project: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs; Apache-2.0 source project.
  */
 import { StoryProvider, useStory, useStoryArgs, useStoryFrame, type WithControlProps } from '@fumadocs/story';
-import { Button } from '@foglamp/design-system/ui/button';
-import { Card } from '@foglamp/design-system/ui/card';
-import { Checkbox } from '@foglamp/design-system/ui/checkbox';
-import { Input } from '@foglamp/design-system/ui/input';
-import { NativeSelect, NativeSelectOption } from '@foglamp/design-system/ui/native-select';
+import { Button } from '@tailrocks/framerock/ui/button';
+import { Card } from '@tailrocks/framerock/ui/card';
+import { Checkbox } from '@tailrocks/framerock/ui/checkbox';
+import { Input } from '@tailrocks/framerock/ui/input';
+import { NativeSelect, NativeSelectOption } from '@tailrocks/framerock/ui/native-select';
 import { useDataEngine } from '@fumari/stf';
 import type { TypeNode } from '@fumadocs/story/type-tree';
 import { useCallback, useEffect, useId, useRef, useState, type ComponentType, type ReactNode } from 'react';
+import framerockRegistry from '../../../../packages/registry/registry.json';
+import { StoryProvenance } from './provenance';
 
 export const storyRegistryItems = new WeakMap<ComponentType, string>();
 
@@ -33,6 +35,10 @@ function Workbench() {
   useEffect(() => setOrigin(window.location.origin), []);
   const slug = (displayName || 'component').replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
   const item = storyRegistryItems.get(Component) ?? slug;
+  const provenanceItem = framerockRegistry.items.find((candidate) => candidate.name === item);
+  if (!provenanceItem) throw new Error(`No provenance catalog metadata for story registry item "${item}"`);
+  const provenanceSourceUrl = provenanceItem.upstreamUrl ?? provenanceItem.inspirationUrl;
+  const notUpstream = provenanceItem.provenance === 'tailrocks-original' ? 'This is not an upstream Foglamp source file.' : undefined;
   const url = /^https?:\/\//i.test(item) ? item : origin ? `${origin}/r/${encodeURIComponent(item)}.json` : undefined;
   const argument = url && (/^[a-zA-Z0-9_/:.@%+=,-]+$/.test(url) ? url : `'${url.replace(/'/g, `'\\''`)}'`);
   const command = argument ? `npx shadcn@latest add ${argument}` : undefined;
@@ -53,7 +59,8 @@ function Workbench() {
       <code className="h-8 min-w-0 flex-1 overflow-x-auto whitespace-nowrap leading-4 text-muted-foreground">{command ?? 'Preparing install command…'}</code>
       <Button type="button" size="xs" variant="outline" disabled={!command} onClick={() => { if (command) void navigator.clipboard.writeText(command).then(() => setCopied(true)).catch(() => setCopied(false)); }}>{copied ? 'Copied' : 'Copy'}</Button>
     </div>
-    <footer className="border-t px-3 py-2 text-xs text-muted-foreground">Original Design by <a className="underline underline-offset-2" href="https://github.com/gustavo-fior">Gustavo Fior (@gustavo-fior)</a> · <a className="underline underline-offset-2" href="https://www.linkedin.com/in/abdulhdr/">Abdul Haidar</a> · <a className="underline underline-offset-2" href="https://github.com/foglamp-labs/foglamp">Foglamp Labs (foglamp-labs/foglamp)</a></footer>
+    <div className="border-t px-3 py-2"><StoryProvenance registryItem={item} provenanceLabel={provenanceItem.provenanceLabel} sourceUrl={provenanceSourceUrl} repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" notUpstream={notUpstream} /></div>
+    <footer className="border-t px-3 py-2 text-xs text-muted-foreground">Original Design by <a className="underline underline-offset-2" href="https://github.com/gustavo-fior">Gustavo Fior (@gustavo-fior)</a> · <a className="underline underline-offset-2" href="https://www.linkedin.com/in/abdulhdr/">Abdul Haidar</a> · <a className="underline underline-offset-2" href="https://github.com/foglamp-labs/foglamp">Foglamp Labs (foglamp-labs/foglamp)</a> · <a className="underline underline-offset-2" href="https://foglamp.dev">foglamp.dev</a></footer>
   </Card>;
 }
 

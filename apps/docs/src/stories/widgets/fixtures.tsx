@@ -1,7 +1,7 @@
 /* Derived story fixtures for the Foglamp workbench; original UI and design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import type { ReactNode } from 'react';
-import { RangeProvider } from '@foglamp/design-system/widgets/range-context';
-import { ProjectProvider } from '@foglamp/design-system/widgets/project-context';
+import { RangeProvider } from '@tailrocks/framerock/widgets/range-context';
+import { ProjectProvider } from '@tailrocks/framerock/widgets/project-context';
 
 export function RangeStoryFrame({ children }: { children: ReactNode }) {
   return <RangeProvider>{children}</RangeProvider>;

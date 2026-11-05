@@ -1,5 +1,5 @@
 /* Original chart design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import type { ChartConfig } from '@foglamp/design-system/charts/evilcharts/ui/chart';
+import type { ChartConfig } from '@tailrocks/framerock/charts/evilcharts/ui/chart';
 import type { ReactNode } from 'react';
 
 export type ChartPoint = {

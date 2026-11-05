@@ -1,3 +1,21 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/demo/detail/trace-detail.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/demo/detail/trace-detail.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ */
+
 "use client";
 
 /**
@@ -7,20 +25,20 @@
  * Licensed under Apache-2.0.
  */
 
-import { Button } from "@foglamp/design-system/ui/button";
+import { Button } from "@tailrocks/framerock/ui/button";
 import {
 	Card,
 	CardContent,
 	CardHeader,
 	CardTitle,
-} from "@foglamp/design-system/ui/card";
+} from "@tailrocks/framerock/ui/card";
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
-} from "@foglamp/design-system/ui/tooltip";
-import { cn } from "@foglamp/design-system/lib/utils";
+} from "@tailrocks/framerock/ui/tooltip";
+import { cn } from "@tailrocks/framerock/lib/utils";
 import {
 	IconAffiliate,
 	IconChevronDown,
@@ -31,20 +49,20 @@ import {
 } from "@tabler/icons-react";
 import { useState } from "react";
 
-import { AgentIcon } from "@foglamp/design-system/widgets/leaf/agent-icon";
-import { CopyButton } from "@foglamp/design-system/widgets/leaf/copy-button";
-import { CustomerAvatar } from "@foglamp/design-system/widgets/leaf/customer-avatar";
-import { ScrollFade } from "@foglamp/design-system/widgets/page-parts";
-import { TraceTimeline } from "@foglamp/design-system/widgets/trace-timeline";
-import { ModelLogo, formatModelName } from "@foglamp/design-system/icons/model-logo";
+import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
+import { CopyButton } from "@tailrocks/framerock/widgets/leaf/copy-button";
+import { CustomerAvatar } from "@tailrocks/framerock/widgets/leaf/customer-avatar";
+import { ScrollFade } from "@tailrocks/framerock/widgets/page-parts";
+import { TraceTimeline } from "@tailrocks/framerock/widgets/trace-timeline";
+import { ModelLogo, formatModelName } from "@tailrocks/framerock/icons/model-logo";
 import {
 	formatCost,
 	formatDateTime,
 	formatDuration,
 	formatSpanDuration,
 	formatTokens,
-} from "@foglamp/design-system/lib/format";
-import type { TraceSpan } from "@foglamp/design-system/lib/types";
+} from "@tailrocks/framerock/lib/format";
+import type { TraceSpan } from "@tailrocks/framerock/lib/types";
 
 import {
 	DemoContextChip,

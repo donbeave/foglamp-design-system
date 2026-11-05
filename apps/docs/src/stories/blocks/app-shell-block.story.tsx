@@ -1,9 +1,9 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { AppShellBlock } from '@foglamp/design-system/blocks/app-shell/app-shell-block';
-import { TracesExplorerBlock } from '@foglamp/design-system/blocks/dashboard/traces-explorer-block';
-import type { Project } from '@foglamp/design-system/widgets/project-context';
-import type { NewProjectInput } from '@foglamp/design-system/blocks/app-shell/new-project-dialog';
+import { AppShellBlock } from '@tailrocks/framerock/blocks/app-shell/app-shell-block';
+import { TracesExplorerBlock } from '@tailrocks/framerock/blocks/dashboard/traces-explorer-block';
+import type { Project } from '@tailrocks/framerock/widgets/project-context';
+import type { NewProjectInput } from '@tailrocks/framerock/blocks/app-shell/new-project-dialog';
 import { defineStory } from '../../lib/story';
 import { StoryLinkAdapter, StorySurface } from './fixtures';
 

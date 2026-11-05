@@ -1,6 +1,6 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { ChartLegend, themed } from '@foglamp/design-system/widgets/trend-charts';
+import { ChartLegend, themed } from '@tailrocks/framerock/widgets/trend-charts';
 import { RangeStoryFrame } from './fixtures';
 import { defineStory } from '../../lib/story';
 const config = { input: { label: 'Input', colors: themed('#f97316') }, output: { label: 'Output', colors: themed('#0090fd') }, errors: { label: 'Errors', colors: themed('#ef4444') } };

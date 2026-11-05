@@ -1,7 +1,7 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { NativeSelect, NativeSelectOption } from "@foglamp/design-system/ui/native-select";
-import { Label } from "@foglamp/design-system/ui/label";
+import { NativeSelect, NativeSelectOption } from "@tailrocks/framerock/ui/native-select";
+import { Label } from "@tailrocks/framerock/ui/label";
 import { defineStory } from "../../lib/story";
 
 type Args = { variant: 'default' };

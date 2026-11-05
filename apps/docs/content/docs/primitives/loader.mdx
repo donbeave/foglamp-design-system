@@ -3,7 +3,12 @@ title: "Loader"
 description: "Text shimmer indicator with a configurable message, size, and class name."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/loader.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Loader
 
@@ -13,9 +18,11 @@ Text shimmer indicator with a configurable message, size, and class name.
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-loader" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/loader.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/loader`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/loader`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -37,7 +44,7 @@ The example is the portal story fixture without its story registration. It uses 
 ```tsx
 import { useState } from "react";
 
-import { TextShimmerLoader } from "@foglamp/design-system/ui/loader";
+import { TextShimmerLoader } from "@tailrocks/framerock/ui/loader";
 
 type Args = { label: 'Thinking through the trace…', size: 'md' };
 
@@ -51,7 +58,7 @@ function LoaderStory({ args }: { args: Args }) {
 
 The story panel resolves this component as registry item `ui-loader`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-loader.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-loader.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/loader`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/loader`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

@@ -1,5 +1,5 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { EvilDonutChart, type DonutSlice } from '@foglamp/design-system/charts/evilcharts/charts/donut-chart';
+import { EvilDonutChart, type DonutSlice } from '@tailrocks/framerock/charts/evilcharts/charts/donut-chart';
 import { defineStory } from '../../lib/story';
 import { StorySurface } from './fixtures';
 

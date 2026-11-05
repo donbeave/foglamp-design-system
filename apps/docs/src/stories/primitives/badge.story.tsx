@@ -1,5 +1,5 @@
 /* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
-import { Badge } from '@foglamp/design-system/ui/badge';
+import { Badge } from '@tailrocks/framerock/ui/badge';
 import { defineStory } from '../../lib/story';
 function BadgeExample({ variant = 'default', size = 'md' }: { variant?: 'default' | 'secondary' | 'destructive' | 'green' | 'blue' | 'amber' | 'outline'; size?: 'sm' | 'md' | 'lg' }) { return <div className="flex flex-wrap items-center gap-3"><Badge variant={variant} size={size}>Production</Badge><Badge variant="green">Healthy</Badge><Badge variant="amber">Latency</Badge><Badge variant="outline">v2.8.1</Badge></div>; }
 export const story = defineStory({ id: 'primitives/badge', registryItem: 'ui-badge', displayName: 'Badge', Component: BadgeExample, args: [{ variant: 'Primary', initial: { variant: 'default', size: 'md' } }, { variant: 'Outline', initial: { variant: 'outline', size: 'lg' } }, { variant: 'Compact', initial: { variant: 'secondary', size: 'sm' } }] });

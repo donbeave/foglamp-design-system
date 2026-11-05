@@ -1,6 +1,6 @@
 /* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
-import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from '@foglamp/design-system/ui/drawer';
-import { Button } from '@foglamp/design-system/ui/button';
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from '@tailrocks/framerock/ui/drawer';
+import { Button } from '@tailrocks/framerock/ui/button';
 import { defineStory } from '../../lib/story';
 function DrawerExample({ title = 'Trace details' }: { title?: string }) { return <Drawer><DrawerTrigger>Inspect trace</DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>{title}</DrawerTitle><DrawerDescription>checkout-api · trace tr_7f92c1 · 2.14 s</DrawerDescription></DrawerHeader><div className="grid gap-3 px-4 py-2 text-sm"><div className="flex justify-between"><span className="text-muted-foreground">Model</span><span>Claude 3.7 Sonnet</span></div><div className="flex justify-between"><span className="text-muted-foreground">Input tokens</span><span>12,418</span></div><div className="flex justify-between"><span className="text-muted-foreground">Cost</span><span>$0.084</span></div></div><DrawerFooter><Button>Open full trace</Button><DrawerClose>Close</DrawerClose></DrawerFooter></DrawerContent></Drawer>; }
 export const story = defineStory({ id: 'primitives/drawer', registryItem: 'ui-drawer', displayName: 'Drawer', Component: DrawerExample, args: [{ variant: 'Trace details', initial: { title: 'Trace details' } }, { variant: 'Run summary', initial: { title: 'Run summary' }}] });

@@ -3,11 +3,18 @@ title: Traces Inspector
 description: The inspector figure in the traces section, rendered by TraceInspector.
 ---
 
+
+
+
 import { story } from '../../../src/stories/figures/traces-inspector.story'
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 TraceInspector is the inspector entry in `FIGURES.traces`. The story selects it with `FigureVariant`; the selected figure itself takes no props.
 
 <story.WithControl />
+
+<StoryProvenance registryItem="figure-traces-inspector" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figures-traces.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
 
 ## Selection and rendering
 

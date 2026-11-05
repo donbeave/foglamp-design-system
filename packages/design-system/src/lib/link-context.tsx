@@ -1,3 +1,16 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance tailrocks-original
+ * @inspiration https://github.com/foglamp-labs/foglamp (Gustavo Fior @gustavo-fior, Abdul Haidar, Foglamp Labs — https://foglamp.dev)
+ *
+ * Authored by Tailrocks (https://github.com/tailrocks). Inspired by the visual
+ * design language of Foglamp by Gustavo Fior (@gustavo-fior), Abdul Haidar, and
+ * Foglamp Labs (https://foglamp.dev). Not an upstream Foglamp source file.
+ */
+
 "use client";
 
 /**
@@ -7,24 +20,24 @@
 
 import * as React from "react";
 
-type FoglampLinkComponent = React.ElementType;
+type FramerockLinkComponent = React.ElementType;
 
-const FoglampLinkContext = React.createContext<FoglampLinkComponent>("a");
+const FramerockLinkContext = React.createContext<FramerockLinkComponent>("a");
 
-export type FoglampLinkProviderProps = {
-	/** Router or link component that should render every FoglampLink below it. */
-	component: FoglampLinkComponent;
+export type FramerockLinkProviderProps = {
+	/** Router or link component that should render every FramerockLink below it. */
+	component: FramerockLinkComponent;
 	children: React.ReactNode;
 };
 
-export function FoglampLinkProvider({
+export function FramerockLinkProvider({
 	component,
 	children,
-}: FoglampLinkProviderProps) {
+}: FramerockLinkProviderProps) {
 	return (
-		<FoglampLinkContext.Provider value={component}>
+		<FramerockLinkContext.Provider value={component}>
 			{children}
-		</FoglampLinkContext.Provider>
+		</FramerockLinkContext.Provider>
 	);
 }
 
@@ -33,7 +46,7 @@ export function FoglampLinkProvider({
  * original props directly, so the rendered DOM and styling stay with the
  * router's link implementation. A per-link component or `as` can override it.
  */
-export type FoglampLinkProps<Component extends FoglampLinkComponent = "a"> =
+export type FramerockLinkProps<Component extends FramerockLinkComponent = "a"> =
 	React.ComponentPropsWithRef<Component> & {
 		component?: Component;
 		as?: Component;
@@ -41,13 +54,29 @@ export type FoglampLinkProps<Component extends FoglampLinkComponent = "a"> =
 		to?: string;
 	};
 
-export function FoglampLink<Component extends FoglampLinkComponent = "a">({
+export function FramerockLink<Component extends FramerockLinkComponent = "a">({
 	component,
 	as,
 	...props
-}: FoglampLinkProps<Component>) {
-	const providerComponent = React.useContext(FoglampLinkContext);
+}: FramerockLinkProps<Component>) {
+	const providerComponent = React.useContext(FramerockLinkContext);
 	const LinkComponent = component ?? as ?? providerComponent;
 
 	return React.createElement(LinkComponent, props as React.ComponentPropsWithRef<Component>);
+}
+
+/** @deprecated Use FramerockLinkProvider. This alias preserves the same component identity. */
+export const FoglampLinkProvider = FramerockLinkProvider;
+/** @deprecated Use FramerockLinkProviderProps. */
+export type FoglampLinkProviderProps = FramerockLinkProviderProps;
+/** @deprecated Use FramerockLinkProps. */
+export type FoglampLinkProps<Component extends FramerockLinkComponent = "a"> =
+	FramerockLinkProps<Component>;
+/** @deprecated Use FramerockLink. This alias preserves the same component identity. */
+export const FoglampLink = FramerockLink;
+/** @deprecated Use useFramerockLink. */
+export const useFoglampLink = useFramerockLink;
+
+export function useFramerockLink() {
+	return React.useContext(FramerockLinkContext);
 }

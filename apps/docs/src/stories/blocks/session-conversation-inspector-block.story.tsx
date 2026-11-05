@@ -1,5 +1,5 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { SessionConversationInspectorBlock } from '@foglamp/design-system/blocks/dashboard/session-conversation-inspector-block';
+import { SessionConversationInspectorBlock } from '@tailrocks/framerock/blocks/dashboard/session-conversation-inspector-block';
 import { defineStory } from '../../lib/story';
 import { DashboardStoryShell } from './fixtures';
 function SessionConversationStory({ sessionId, isLoading }: { sessionId: string; isLoading: boolean }) { return <DashboardStoryShell><SessionConversationInspectorBlock sessionId={sessionId} isLoading={isLoading} /></DashboardStoryShell>; }

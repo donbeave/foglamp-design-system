@@ -1,6 +1,6 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { EvilBrush, type EvilBrushRange } from '@foglamp/design-system/charts/evilcharts/ui/evil-brush';
+import { EvilBrush, type EvilBrushRange } from '@tailrocks/framerock/charts/evilcharts/ui/evil-brush';
 import { defineStory } from '../../lib/story';
 import { observabilityConfig, observabilityData, StorySurface } from './fixtures';
 

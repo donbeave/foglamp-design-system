@@ -1,7 +1,7 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { useState } from 'react';
-import { Conversation, DrawerColumns, DrawerRow, ExpandChevron, Meta } from '@foglamp/design-system/widgets/run-exchange';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@foglamp/design-system/ui/table';
+import { Conversation, DrawerColumns, DrawerRow, ExpandChevron, Meta } from '@tailrocks/framerock/widgets/run-exchange';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@tailrocks/framerock/ui/table';
 import { defineStory } from '../../lib/story';
 
 const input = JSON.stringify([

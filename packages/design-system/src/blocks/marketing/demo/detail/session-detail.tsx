@@ -1,3 +1,21 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/demo/detail/session-detail.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/demo/detail/session-detail.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ */
+
 "use client";
 
 /**
@@ -7,9 +25,9 @@
  * Licensed under Apache-2.0.
  */
 
-import { Chip } from "@foglamp/design-system/widgets/context-chip";
-import { Badge } from "@foglamp/design-system/ui/badge";
-import { cn } from "@foglamp/design-system/lib/utils";
+import { Chip } from "@tailrocks/framerock/widgets/context-chip";
+import { Badge } from "@tailrocks/framerock/ui/badge";
+import { cn } from "@tailrocks/framerock/lib/utils";
 import {
   IconAlertTriangle,
   IconArrowUpRight,
@@ -20,17 +38,17 @@ import {
 } from "@tabler/icons-react";
 import { type ReactNode, useRef } from "react";
 
-import { AgentIcon } from "@foglamp/design-system/widgets/leaf/agent-icon";
-import { CopyButton } from "@foglamp/design-system/widgets/leaf/copy-button";
-import { CustomerAvatar } from "@foglamp/design-system/widgets/leaf/customer-avatar";
-import { HEAT_SHADES } from "@foglamp/design-system/widgets/heat-cell";
+import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
+import { CopyButton } from "@tailrocks/framerock/widgets/leaf/copy-button";
+import { CustomerAvatar } from "@tailrocks/framerock/widgets/leaf/customer-avatar";
+import { HEAT_SHADES } from "@tailrocks/framerock/widgets/heat-cell";
 import {
   formatCost,
   formatCount,
   formatDateTime,
   formatSpanDuration,
   formatTokens,
-} from "@foglamp/design-system/lib/format";
+} from "@tailrocks/framerock/lib/format";
 
 import { DemoContextChip, DemoModelChip, DetailHeader } from "../demo-chrome";
 import { useDemo } from "../demo-context";

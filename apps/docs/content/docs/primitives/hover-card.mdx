@@ -3,7 +3,12 @@ title: "Hover Card"
 description: "Preview card opened by a trigger. Its content wrapper exposes popup placement options from Base UI."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/hover-card.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Hover Card
 
@@ -13,9 +18,11 @@ Preview card opened by a trigger. Its content wrapper exposes popup placement op
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-hover-card" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/hover-card.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/hover-card`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/hover-card`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -32,7 +39,7 @@ The exports forward the props declared by their source component types. The publ
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { HoverCard, HoverCardTrigger, HoverCardContent } from '@foglamp/design-system/ui/hover-card';
+import { HoverCard, HoverCardTrigger, HoverCardContent } from '@tailrocks/framerock/ui/hover-card';
 
 function HoverCardExample({ service = 'checkout-api' }: { service?: string }) { return <HoverCard><HoverCardTrigger className="font-medium underline decoration-dotted underline-offset-4">{service}</HoverCardTrigger><HoverCardContent><p className="font-medium">{service}</p><p className="mt-1 text-xs text-muted-foreground">Production · us-east-1</p><div className="mt-3 grid grid-cols-2 gap-2 text-xs"><span className="text-muted-foreground">Requests</span><span>2.4k / min</span><span className="text-muted-foreground">p95 latency</span><span>482 ms</span></div></HoverCardContent></HoverCard>; }
 ```
@@ -41,7 +48,7 @@ function HoverCardExample({ service = 'checkout-api' }: { service?: string }) { 
 
 The story panel resolves this component as registry item `ui-hover-card`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-hover-card.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-hover-card.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/hover-card`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/hover-card`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

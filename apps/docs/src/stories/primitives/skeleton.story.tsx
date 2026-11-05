@@ -1,6 +1,6 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
 import { useState } from "react";
-import { Skeleton } from "@foglamp/design-system/ui/skeleton";
+import { Skeleton } from "@tailrocks/framerock/ui/skeleton";
 import { defineStory } from "../../lib/story";
 
 type Args = { variant: 'card' };

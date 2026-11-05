@@ -1,6 +1,6 @@
 /* Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { LoginFormBlock } from '@foglamp/design-system/blocks/auth/login-form';
-import type { LoginFormCompletion } from '@foglamp/design-system/blocks/auth/login-form';
+import { LoginFormBlock } from '@tailrocks/framerock/blocks/auth/login-form';
+import type { LoginFormCompletion } from '@tailrocks/framerock/blocks/auth/login-form';
 import { useState } from 'react';
 import { StorySurface } from './fixtures';
 import { defineStory } from '../../lib/story';

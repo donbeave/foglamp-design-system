@@ -3,7 +3,12 @@ title: "Collapsible"
 description: "Controlled or uncontrolled disclosure root with separate trigger and panel exports."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/collapsible.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Collapsible
 
@@ -13,9 +18,11 @@ Controlled or uncontrolled disclosure root with separate trigger and panel expor
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-collapsible" provenanceLabel="1:1 Copied" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/collapsible.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/collapsible`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/collapsible`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -34,9 +41,9 @@ The example is the portal story fixture without its story registration. It uses 
 ```tsx
 import { useState } from 'react';
 
-import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@foglamp/design-system/ui/collapsible';
+import { Collapsible, CollapsibleTrigger, CollapsibleContent } from '@tailrocks/framerock/ui/collapsible';
 
-import { Button } from '@foglamp/design-system/ui/button';
+import { Button } from '@tailrocks/framerock/ui/button';
 
 function CollapsibleExample({ defaultOpen = true }: { defaultOpen?: boolean }) { const [open, setOpen] = useState(defaultOpen); return <Collapsible open={open} onOpenChange={setOpen} className="w-full max-w-md rounded-lg shadow-(--custom-shadow) p-4"><div className="flex items-center justify-between"><div><p className="font-medium">Evaluator details</p><p className="text-sm text-muted-foreground">3 configuration values</p></div><CollapsibleTrigger render={<Button variant="outline" size="sm" />}>{open ? 'Hide' : 'Show'}</CollapsibleTrigger></div><CollapsibleContent><dl className="mt-4 grid grid-cols-2 gap-2 text-sm"><dt className="text-muted-foreground">Model</dt><dd>gpt-4.1</dd><dt className="text-muted-foreground">Temperature</dt><dd>0.2</dd><dt className="text-muted-foreground">Max tokens</dt><dd>2048</dd></dl></CollapsibleContent></Collapsible>; }
 ```
@@ -45,7 +52,7 @@ function CollapsibleExample({ defaultOpen = true }: { defaultOpen?: boolean }) {
 
 The story panel resolves this component as registry item `ui-collapsible`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-collapsible.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-collapsible.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/collapsible`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/collapsible`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

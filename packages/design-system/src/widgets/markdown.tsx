@@ -1,23 +1,38 @@
-/** Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted AS-IS from .reference/foglamp/apps/web/src/components/app/markdown.tsx; derived under Apache-2.0.
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/app/markdown.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/markdown.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
-import { FoglampLink } from "../lib/link-context";
+
+import { FramerockLink } from "../lib/link-context";
 import type { ComponentProps } from "react";
 
 // Shared Streamdown component overrides for rendering model markdown across the
 // app (Foggy chat, session transcripts, …). Pass as `components` to <Streamdown>.
 export const markdownComponents = {
-	// Route relative links (e.g. `/traces/abc`) through the host-provided FoglampLink for in-app nav;
+	// Route relative links (e.g. `/traces/abc`) through the host-provided FramerockLink for in-app nav;
 	// open absolute links (docs, external) in a new tab.
 	a: ({ href = "", children, ...rest }: ComponentProps<"a">) => {
 		if (href.startsWith("/")) {
 			return (
-				<FoglampLink
+				<FramerockLink
 					href={href}
 					className="font-medium text-primary underline underline-offset-2"
 				>
 					{children}
-				</FoglampLink>
+				</FramerockLink>
 			);
 		}
 		return (

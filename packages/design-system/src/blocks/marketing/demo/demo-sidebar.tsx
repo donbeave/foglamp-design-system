@@ -1,3 +1,21 @@
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/marketing/demo/demo-sidebar.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/demo/demo-sidebar.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ */
+
 "use client";
 
 /**
@@ -11,15 +29,15 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from "@foglamp/design-system/ui/avatar";
-import { cn } from "@foglamp/design-system/lib/utils";
+} from "@tailrocks/framerock/ui/avatar";
+import { cn } from "@tailrocks/framerock/lib/utils";
 import {
   type Icon,
   IconChevronDown,
   IconHexagonFilled,
 } from "@tabler/icons-react";
 
-import { account, nav } from "@foglamp/design-system/widgets/nav";
+import { account, nav } from "@tailrocks/framerock/widgets/nav";
 
 import { useDemo } from "./demo-context";
 import type { DemoTab } from "./mock-data";
@@ -171,11 +189,14 @@ export function DemoSidebar() {
 
         <Piece className={cn(BUTTON_BASE, "pointer-events-none select-none")}>
           <Avatar className="size-4">
-            <AvatarImage src="/avatar.jpg" alt="Gustavo" />
-            <AvatarFallback>G</AvatarFallback>
+            <AvatarImage
+              src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='20' fill='%23d6d3d1'/%3E%3Cpath d='M7 34c2-7 7-10 13-10s11 3 13 10' fill='%2378716c'/%3E%3Ccircle cx='20' cy='15' r='7' fill='%2378716c'/%3E%3C/svg%3E"
+              alt="Alex Morgan"
+            />
+            <AvatarFallback>A</AvatarFallback>
           </Avatar>
           <span className="flex flex-1 flex-col text-left ml-0.5">
-            <span className="truncate">Gustavo</span>
+            <span className="truncate">Alex Morgan</span>
           </span>
         </Piece>
       </div>

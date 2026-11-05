@@ -1,6 +1,6 @@
 /* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
 import { useState } from 'react';
-import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from '@foglamp/design-system/ui/input-otp';
+import { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator } from '@tailrocks/framerock/ui/input-otp';
 import { defineStory } from '../../lib/story';
 function InputOTPExample({ maxLength = 6 }: { maxLength?: number }) { const [value, setValue] = useState('482'); return <div className="grid gap-3"><p className="text-sm font-medium">Enter verification code</p><InputOTP maxLength={maxLength} value={value} onChange={setValue} aria-label="Verification code"><InputOTPGroup>{Array.from({ length: Math.min(3, maxLength) }, (_, index) => <InputOTPSlot key={index} index={index} />)}</InputOTPGroup><InputOTPSeparator /><InputOTPGroup>{Array.from({ length: Math.max(0, maxLength - 3) }, (_, index) => <InputOTPSlot key={index + 3} index={index + 3} />)}</InputOTPGroup></InputOTP><p className="text-xs text-muted-foreground">Sent to your workspace administrator.</p></div>; }
 export const story = defineStory({ id: 'primitives/input-otp', registryItem: 'ui-input-otp', displayName: 'Input OTP', Component: InputOTPExample, args: [{ variant: 'Six digits', initial: { maxLength: 6 } }, { variant: 'Four digits', initial: { maxLength: 4 }}] });

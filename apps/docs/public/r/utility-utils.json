@@ -3,15 +3,21 @@
   "name": "utility-utils",
   "type": "registry:lib",
   "title": "Utils",
-  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/utils.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
-  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/utils.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Tailrocks (https://github.com/tailrocks) — Original UI design & implementation by Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs (https://foglamp.dev)",
+  "homepage": "https://github.com/tailrocks/framerock",
   "license": "Apache-2.0",
+  "provenance": "copied-1-to-1",
+  "provenanceLabel": "1:1 Copied",
+  "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
+  "upstreamPath": "packages/ui/src/lib/utils.ts",
+  "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/lib/utils.ts",
   "files": [
     {
-      "path": "src/components/foglamp/lib/utils.ts",
+      "path": "src/components/framerock/lib/utils.ts",
+      "target": "src/components/framerock/lib/utils.ts",
       "type": "registry:component",
-      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+      "content": "/**\n * @license Apache-2.0\n * SPDX-License-Identifier: Apache-2.0\n * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n *\n * @provenance copied-1-to-1\n * @upstream-repo https://github.com/foglamp-labs/foglamp\n * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b\n * @upstream-path packages/ui/src/lib/utils.ts\n * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/lib/utils.ts\n *\n * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),\n * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder\n * Abdul Haidar at Foglamp Labs (https://foglamp.dev).\n * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */\n\nexport { cn } from \"cn\";\n\n/**\n * @license Apache-2.0\n * SPDX-License-Identifier: Apache-2.0\n * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n *\n * @provenance copied-1-to-1\n * @upstream-repo https://github.com/foglamp-labs/foglamp\n * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b\n * @upstream-path packages/ui/src/lib/utils.ts\n * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/lib/utils.ts\n *\n * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),\n * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder\n * Abdul Haidar at Foglamp Labs (https://foglamp.dev).\n * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */\n"
     }
   ],
   "dependencies": [

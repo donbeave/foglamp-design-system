@@ -3,7 +3,12 @@ title: "Chart"
 description: "Chart container, tooltip, and legend helpers for Recharts. ChartConfig maps series keys to labels and optional color or icon metadata."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/chart.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Chart
 
@@ -13,9 +18,11 @@ Chart container, tooltip, and legend helpers for Recharts. ChartConfig maps seri
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-chart" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/chart.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/chart`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/chart`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -46,7 +53,7 @@ The table lists values exported from `@foglamp/design-system/ui/chart`. The decl
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { ChartContainer } from '@foglamp/design-system/ui/chart';
+import { ChartContainer } from '@tailrocks/framerock/ui/chart';
 
 function ChartExample({ metric = 'Latency' }: { metric?: string }) { return <div className="w-full max-w-xl"><div className="mb-3"><p className="font-medium">{metric} over time</p><p className="text-sm text-muted-foreground">Last 25 minutes · p95</p></div><ChartContainer config={{ latency: { label: 'p95 latency', color: 'var(--chart-1)' } }} className="h-56 w-full"><div role="img" aria-label="Area chart showing p95 latency rising to 620 milliseconds" className="relative flex h-full items-center"><svg viewBox="0 0 500 180" className="h-full w-full" aria-hidden="true"><path d="M0 150 H500 M0 105 H500 M0 60 H500 M0 15 H500" stroke="currentColor" strokeOpacity=".12" /><path d="M0 126 C55 120 70 110 125 116 S190 128 250 78 S330 48 375 85 S450 96 500 55 V180 H0Z" fill="var(--chart-1)" fillOpacity=".18" /><path d="M0 126 C55 120 70 110 125 116 S190 128 250 78 S330 48 375 85 S450 96 500 55" fill="none" stroke="var(--chart-1)" strokeWidth="3" /></svg></div></ChartContainer></div>; }
 ```
@@ -55,7 +62,7 @@ function ChartExample({ metric = 'Latency' }: { metric?: string }) { return <div
 
 The story panel resolves this component as registry item `ui-chart`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-chart.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-chart.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/chart`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/chart`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

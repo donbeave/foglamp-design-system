@@ -1,8 +1,16 @@
 /**
- * Original design by Gustavo Fior (@gustavo-fior), co-founder Abdul Haidar, and Foglamp Labs.
- * Composed AS-IS from foglamp-labs/foglamp marketing landing and feature modules.
- * Licensed under Apache-2.0.
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance tailrocks-original
+ * @inspiration https://github.com/foglamp-labs/foglamp (Gustavo Fior @gustavo-fior, Abdul Haidar, Foglamp Labs — https://foglamp.dev)
+ *
+ * Authored by Tailrocks (https://github.com/tailrocks). Inspired by the visual
+ * design language of Foglamp by Gustavo Fior (@gustavo-fior), Abdul Haidar, and
+ * Foglamp Labs (https://foglamp.dev). Not an upstream Foglamp source file.
  */
+
 export { FigureKit22Block, type FigureKit22BlockProps } from "./figure-kit-22-block";
 export { FIGURES, type Section, type Variant } from "./figures";
 export { Figure, FigureVariant } from "./figure-picker";

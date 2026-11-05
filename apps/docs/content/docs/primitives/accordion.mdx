@@ -3,7 +3,12 @@ title: "Accordion"
 description: "Disclosure group for showing related trace, run, or evaluation details. The root supports multiple expanded items, as used by the shipped story."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/accordion.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Accordion
 
@@ -13,9 +18,11 @@ Disclosure group for showing related trace, run, or evaluation details. The root
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-accordion" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/accordion.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/accordion`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/accordion`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -33,7 +40,7 @@ The exports forward the props declared by their source component types. The publ
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@foglamp/design-system/ui/accordion';
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@tailrocks/framerock/ui/accordion';
 
 function AccordionExample() { return <Accordion multiple defaultValue={['latency']}><AccordionItem value="latency"><AccordionTrigger>Latency regression</AccordionTrigger><AccordionContent><p>p95 increased from 420 ms to 680 ms after deployment.</p></AccordionContent></AccordionItem><AccordionItem value="tokens"><AccordionTrigger>Token usage</AccordionTrigger><AccordionContent><p>Input: 12.4k tokens · Output: 1.8k tokens</p></AccordionContent></AccordionItem><AccordionItem value="trace"><AccordionTrigger>Trace details</AccordionTrigger><AccordionContent><p>Three spans exceeded the service objective.</p></AccordionContent></AccordionItem></Accordion>; }
 ```
@@ -42,7 +49,7 @@ function AccordionExample() { return <Accordion multiple defaultValue={['latency
 
 The story panel resolves this component as registry item `ui-accordion`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-accordion.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-accordion.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/accordion`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/accordion`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

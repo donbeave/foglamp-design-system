@@ -1,8 +1,21 @@
 /**
- * Original design by Gustavo Fior (@gustavo-fior), co-founder Abdul Haidar, and Foglamp Labs.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/app/hud/hud-landing.tsx.
- * Licensed under Apache-2.0.
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/app/hud/hud-landing.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/hud/hud-landing.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
+
 "use client";
 
 import { Button } from "../../ui/button";
@@ -13,7 +26,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { FoglampHUD } from "../../hud/FoglampHUD";
 import type { HudEvent } from "../../hud/events";
 import { createMockHudStream } from "../../hud/useHudStream";
-import { FoglampLink } from "../../lib/link-context";
+import { FramerockLink } from "../../lib/link-context";
 import { BrandMark } from "./chrome/brand-mark";
 import { FilmGrain } from "./chrome/noise-overlay";
 
@@ -156,7 +169,7 @@ export function HudSimulatorBlock({
 			<div className="absolute top-8 right-8 z-10 sm:top-10 sm:right-10">
 				<Button
 					variant="outline"
-					render={<FoglampLink href={homeHref} />}
+					render={<FramerockLink href={homeHref} />}
 					className="px-3.5 has-[>svg:first-child]:pl-3 gap-2"
 				>
 					<BrandMark className="h-3! w-auto!" />

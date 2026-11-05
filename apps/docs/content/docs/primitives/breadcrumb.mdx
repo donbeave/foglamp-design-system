@@ -3,7 +3,12 @@ title: "Breadcrumb"
 description: "Navigation trail built from a nav, ordered list, items, links, current-page label, separator, and overflow marker."
 ---
 
+
+
+
 import { story } from '../../../src/stories/primitives/breadcrumb.story';
+
+import { StoryProvenance } from '../../../src/components/provenance';
 
 # Breadcrumb
 
@@ -13,9 +18,11 @@ Navigation trail built from a nav, ordered list, items, links, current-page labe
 
 <story.WithControl />
 
+<StoryProvenance registryItem="ui-breadcrumb" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/breadcrumb.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+
 ## API and props
 
-The table lists values exported from `@foglamp/design-system/ui/breadcrumb`. The declared type comes from the component source.
+The table lists values exported from `@tailrocks/framerock/ui/breadcrumb`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -36,7 +43,7 @@ The exports forward the props declared by their source component types. The publ
 The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
 
 ```tsx
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@foglamp/design-system/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@tailrocks/framerock/ui/breadcrumb';
 
 function BreadcrumbExample({ current = 'Trace details' }: { current?: string }) { return <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="#workspace">Workspace</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink href="#runs">Runs</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>{current}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>; }
 ```
@@ -45,7 +52,7 @@ function BreadcrumbExample({ current = 'Trace details' }: { current?: string }) 
 
 The story panel resolves this component as registry item `ui-breadcrumb`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-breadcrumb.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-breadcrumb.json`. This URL is local to the running portal, not a public registry address.
 
-The package import path is `@foglamp/design-system/ui/breadcrumb`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+The package import path is `@tailrocks/framerock/ui/breadcrumb`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
 
 ## Attribution
 

@@ -1,6 +1,21 @@
-/** Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted AS-IS from .reference/foglamp/apps/web/src/components/app/page-parts.tsx; derived under Apache-2.0.
+/**
+ * @license Apache-2.0
+ * SPDX-License-Identifier: Apache-2.0
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
+ *
+ * @provenance modified
+ * @upstream-repo https://github.com/foglamp-labs/foglamp
+ * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
+ * @upstream-path apps/web/src/components/app/page-parts.tsx
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/page-parts.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
+ *
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
+
 "use client";
 
 import { Card, CardHeader, CardTitle } from "../ui/card";
@@ -14,7 +29,7 @@ import {
   IconMailForward,
 } from "@tabler/icons-react";
 import { animate } from "motion/react";
-import { FoglampLink } from "../lib/link-context";
+import { FramerockLink } from "../lib/link-context";
 import {
   useCallback,
   useEffect,
@@ -89,7 +104,7 @@ export function PageHeader({
       <div className="flex min-w-0 flex-col gap-1.5">
         {back && BackIcon ? (
           <h1 className="flex items-center gap-1.5 text-base font-medium tracking-tight">
-            <FoglampLink
+            <FramerockLink
               href={back.href}
               className="flex shrink-0 items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
             >
@@ -97,7 +112,7 @@ export function PageHeader({
                 className={cn("size-4.5 shrink-0", back.iconClassName)}
               />
               {back.label}
-            </FoglampLink>
+            </FramerockLink>
             <IconChevronRight className="size-4 shrink-0 text-muted-foreground/50 stroke-[1.5px]" />
             {titleLeading}
             <span className="truncate">{title}</span>
@@ -316,9 +331,9 @@ export function StatCard({
   );
   if (!href) return card;
   return (
-    <FoglampLink href={href} className="group/stat block min-w-0">
+    <FramerockLink href={href} className="group/stat block min-w-0">
       {card}
-    </FoglampLink>
+    </FramerockLink>
   );
 }
 
