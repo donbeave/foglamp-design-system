@@ -11,20 +11,32 @@ import type { ELK, ElkNode } from "elkjs/lib/elk-api";
 let elkInstance: ELK | null = null;
 async function getElk(): Promise<ELK> {
 	if (!elkInstance) {
-		const [elkApi, worker] = (await Promise.all([
-			import("elkjs/lib/elk-api.js"),
+		const elkApi = (await import("elkjs/lib/elk-api.js")) as {
+			default: (new (opts: object) => ELK) | { default: new (opts: object) => ELK };
+		};
+		// Bun exposes `self` without a document, so elkjs mistakes its main
+		// thread for a web worker and never exports the fake worker constructor.
+		// Hide it only during Bun's synchronous module evaluation.
+		let worker: Record<string, unknown>;
+		const bunRequire = (import.meta as ImportMeta & {
+			require?: (id: string) => Record<string, unknown>;
+		}).require;
+		if ("Bun" in globalThis && typeof bunRequire === "function" && typeof document === "undefined") {
+			const selfDescriptor = Object.getOwnPropertyDescriptor(globalThis, "self");
+			try {
+				Object.defineProperty(globalThis, "self", {
+					value: undefined,
+					configurable: true,
+				});
+				worker = bunRequire("elkjs/lib/elk-worker.min.js");
+			} finally {
+				if (selfDescriptor) Object.defineProperty(globalThis, "self", selfDescriptor);
+				else Reflect.deleteProperty(globalThis, "self");
+			}
+		} else {
 			// @ts-expect-error — no types for the worker entry
-			import("elkjs/lib/elk-worker.min.js"),
-		])) as [
-			{
-				default:
-					| (new (
-							opts: object,
-					  ) => ELK)
-					| { default: new (opts: object) => ELK };
-			},
-			Record<string, unknown>,
-		];
+			worker = await import("elkjs/lib/elk-worker.min.js");
+		}
 		// Both modules are CJS; depending on the bundler (turbopack, webpack,
 		// Vercel's nft trace) the constructor lands on the module, .default, or
 		// .default.default. Probe every shape instead of trusting one.

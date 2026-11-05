@@ -1,4 +1,10 @@
-import { SLOT_LINE } from "@foglamp/prompts";
+/**
+ * Original design and implementation by Gustavo Fior (@gustavo-fior),
+ * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
+ * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/mock-data.ts.
+ * Licensed under Apache-2.0.
+ */
+import { SLOT_LINE } from "@foglamp/design-system/lib/prompts/infer";
 
 import { agentColor } from "@foglamp/design-system/widgets/leaf/agent-icon";
 import type { ChartConfig } from "@foglamp/design-system/charts/evilcharts/ui/chart";

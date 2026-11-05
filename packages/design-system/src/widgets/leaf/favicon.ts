@@ -1,5 +1,5 @@
 /* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/apps/web/src/components/scan/favicon.ts; derived here under Apache-2.0.
+ * Extracted from .reference/foglamp/apps/web/src/lib/favicon.ts; derived here under Apache-2.0.
  */
 export const getGoogleFavicon = (domain: string) => {
 	if (domain.includes("https://") || domain.includes("http://")) {

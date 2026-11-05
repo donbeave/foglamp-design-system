@@ -1,0 +1,877 @@
+/** Original design by Gustavo Fior (@gustavo-fior), co-founder Abdul Haidar and Foglamp Labs.
+ * Adapted from foglamp-labs/foglamp traces/traces-client.tsx under Apache-2.0. */
+"use client";
+
+import { Button } from "../../ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../../ui/dropdown-menu";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "../../ui/table";
+import { TooltipProvider } from "../../ui/tooltip";
+import { cn } from "../../lib/utils";
+import {
+  IconAffiliateFilled,
+  IconAlertTriangle,
+  IconCpu,
+  IconFilter2,
+  IconGhost,
+  IconMessage2Filled,
+  IconPlayerStopFilled,
+  IconSitemap,
+  IconSitemapFilled,
+  IconTag,
+  IconTagFilled,
+  IconUser,
+  IconFileHorizontal,
+  IconFileHorizontalFilled,
+} from "@tabler/icons-react";
+import { FoglampLink as Link } from "../../lib/link-context";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import { AgentIcon } from "../../widgets/leaf/agent-icon";
+import { CustomerAvatar } from "../../widgets/leaf/customer-avatar";
+import {
+  ClearFiltersButton,
+  FilterSelect,
+  PaginationFooter,
+  SortableHead,
+  ToggleChip,
+  Toolbar,
+  cycleSortParam,
+  parseSortParam,
+  useFilterGroupItem,
+  useUrlFilters,
+} from "../../widgets/data-table";
+import { HeatCell } from "../../widgets/heat-cell";
+import { useDelayedLoading, useEntranceOnce } from "../../hooks/use-app-hooks";
+import { navItem } from "../../widgets/nav";
+import {
+  EmptyState,
+  NoProject,
+  PageHeader,
+  TableRowsSkeleton,
+} from "../../widgets/page-parts";
+import { useProject } from "../../widgets/project-context";
+import { useRange } from "../../widgets/range-context";
+import { RangeControl } from "../../widgets/range-picker";
+import { RelativeTime } from "../../widgets/leaf/relative-time";
+import { ModelLogo, formatModelName } from "../../icons/model-logo";
+import {
+  formatCostFixed,
+  formatCount,
+  formatSpanDuration,
+  formatTokens,
+} from "../../lib/format";
+import { RouteHeader } from "../../widgets/route-header";
+
+const PAGE_SIZES = [25, 50, 100];
+
+// Colored icons for the dropdown *options* only — the closed trigger keeps the
+// neutral outline icon, same as the agent filter (whose options carry colored
+// AgentIcons while the trigger idles with a neutral ghost).
+const WorkflowIconFilled = (p: { className?: string }) => (
+  <IconSitemapFilled className={cn(p.className, "text-emerald-500")} />
+);
+// Metadata option identity — fuchsia, unclaimed by the other filter entities.
+const MetaValueIcon = (p: { className?: string }) => (
+  <IconTagFilled className={cn(p.className, "text-fuchsia-500")} />
+);
+// Prompt version option identity — lime, like the agent page's versions card.
+const PromptVersionIcon = (p: { className?: string }) => (
+  <IconFileHorizontalFilled
+    className={cn(p.className, "text-lime-400 dark:text-lime-600")}
+  />
+);
+
+type SecondaryFilter = "workflow" | "customer" | "meta" | "prompt";
+
+/** The "+ Filter" menu that summons the collapsed secondary filters. A separate
+ * component (rendered inside Toolbar) so useFilterGroupItem sees the toolbar's
+ * FilterGroupContext and the menu joins the hover-to-switch behavior of its
+ * sibling FilterSelects. */
+function AddFilterMenu({
+  showWorkflow,
+  showCustomer,
+  showMeta,
+  showPrompt,
+  canPrompt,
+  onAdd,
+}: {
+  showWorkflow: boolean;
+  showCustomer: boolean;
+  showMeta: boolean;
+  showPrompt: boolean;
+  /** Prompt version needs an agent with inferred versions. */
+  canPrompt: boolean;
+  onAdd: (k: SecondaryFilter) => void;
+}) {
+  const group = useFilterGroupItem();
+  // Picking an entry closes the menu, but the new select is only inserted once
+  // the close animation completes — inserting immediately shifts the "+ Filter"
+  // button (the menu's anchor) mid-exit and the popup visibly drags with it.
+  const pendingAdd = useRef<SecondaryFilter | null>(null);
+  return (
+    <DropdownMenu
+      // Non-modal like the filter selects — modal menus scroll-lock the body,
+      // which shifts the page on open/close.
+      modal={false}
+      open={group.open}
+      onOpenChange={group.onOpenChange}
+      onOpenChangeComplete={(open) => {
+        if (!open && pendingAdd.current) {
+          onAdd(pendingAdd.current);
+          pendingAdd.current = null;
+        }
+      }}
+    >
+      <DropdownMenuTrigger
+        render={
+          <Button
+            variant="outline"
+            size="icon"
+            className="font-normal transition-[color,box-shadow] bg-card active:scale-100 text-muted-foreground/50 hover:text-muted-foreground/50 aria-expanded:text-muted-foreground/50"
+            onMouseEnter={group.onTriggerMouseEnter}
+          />
+        }
+      >
+        {/* Raw hex like the FilterSelect trigger icons — opacity on icons
+				    reads muddier than on text. */}
+        <IconFilter2 className="text-[#B8B8B8] dark:text-[#5B5B5B]" />
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
+        className="w-auto min-w-36"
+        align="start"
+        sideOffset={8}
+      >
+        {!showWorkflow && (
+          <DropdownMenuItem
+            onClick={() => {
+              pendingAdd.current = "workflow";
+            }}
+          >
+            <IconSitemap />
+            Workflow
+          </DropdownMenuItem>
+        )}
+        {!showCustomer && (
+          <DropdownMenuItem
+            onClick={() => {
+              pendingAdd.current = "customer";
+            }}
+          >
+            <IconUser />
+            Customer
+          </DropdownMenuItem>
+        )}
+        {!showMeta && (
+          <DropdownMenuItem
+            onClick={() => {
+              pendingAdd.current = "meta";
+            }}
+          >
+            <IconTag />
+            Metadata
+          </DropdownMenuItem>
+        )}
+        {canPrompt && !showPrompt && (
+          <DropdownMenuItem
+            onClick={() => {
+              pendingAdd.current = "prompt";
+            }}
+          >
+            <IconFileHorizontal />
+            Prompt version
+          </DropdownMenuItem>
+        )}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+type TraceSortKey = "when" | "cost" | "duration" | "tokens" | "spans";
+
+const TRACE_SORT_KEYS = [
+  "when",
+  "cost",
+  "duration",
+  "tokens",
+  "spans",
+] as const satisfies readonly TraceSortKey[];
+
+export type TraceExplorerRow = {
+  traceId: string; userMessage: string | null; traceName: string | null;
+  agentName: string | null; workflowName: string | null; sessionId: string | null;
+  customerId: string | null; customerName: string | null; customerImageUrl: string | null;
+  models: string[]; promptVersionId?: string; metadata?: Record<string, string>;
+  errorCount: number; abortedCount: number; spanCount: number; totalTokens: number;
+  durationMs: number; totalCost: number | null; startTime: string;
+};
+export type TracesExplorerFilters = { agent: string; prompt: string; workflow: string; customer: string; model: string; metaKey: string; metaValue: string; errors: string; sort: string; page: string; size: string };
+export type TracesExplorerBlockProps = {
+  traces?: TraceExplorerRow[]; isLoading?: boolean; isFetching?: boolean;
+  promptVersions?: { id: string; agentName: string; number: number; current: boolean }[];
+  onTraceSelect?: (traceId: string) => void;
+  onFiltersChange?: (filters: TracesExplorerFilters) => void;
+};
+const DEFAULT_TRACES: TraceExplorerRow[] = [
+  { traceId: "tr_01", userMessage: "How can I track my order?", traceName: null, agentName: "Support agent", workflowName: "Customer support", sessionId: "session_01", customerId: "customer_01", customerName: "Alex Morgan", customerImageUrl: null, models: ["gpt-4o"], errorCount: 0, abortedCount: 0, spanCount: 8, totalTokens: 3421, durationMs: 1640, totalCost: 0.0124, startTime: "2026-01-15T12:00:00Z", metadata: { environment: "production" } },
+  { traceId: "tr_02", userMessage: "Summarize this document", traceName: null, agentName: "Research agent", workflowName: "Summarization", sessionId: null, customerId: "customer_02", customerName: "Taylor Lee", customerImageUrl: null, models: ["claude-sonnet-4"], errorCount: 1, abortedCount: 0, spanCount: 5, totalTokens: 2180, durationMs: 2800, totalCost: 0.0086, startTime: "2026-01-15T11:30:00Z", metadata: { environment: "staging" } },
+];
+export function TracesExplorerBlock({ traces: suppliedTraces, isLoading = false, isFetching = false, promptVersions: versions = [], onTraceSelect, onFiltersChange }: TracesExplorerBlockProps) {
+  const entrance = useEntranceOnce();
+  const { projectId } = useProject();
+  const { range, setRange } = useRange();
+  const input = useMemo(() => suppliedTraces ?? DEFAULT_TRACES.map((trace, i) => ({ ...trace, startTime: new Date(range.from.getTime() + (range.to.getTime() - range.from.getTime()) * (0.8 - i * 0.2)).toISOString() })), [suppliedTraces, range]);
+
+  // Filters + sorting (applied server-side across the full result set) live in
+  // the URL so the view survives reload/back and can be shared.
+  const [params, patchParams] = useUrlFilters({
+    agent: "",
+    prompt: "",
+    workflow: "",
+    customer: "",
+    model: "",
+    metaKey: "",
+    metaValue: "",
+    errors: "",
+    sort: "",
+    page: "1",
+    size: "25",
+  });
+  const { agent, prompt, workflow, customer, model, metaKey, metaValue, errors, sort: sortParam, page: pageParam, size } = params;
+  useEffect(() => {
+    onFiltersChange?.({ agent, prompt, workflow, customer, model, metaKey, metaValue, errors, sort: sortParam, page: pageParam, size });
+  }, [onFiltersChange, agent, prompt, workflow, customer, model, metaKey, metaValue, errors, sortParam, pageParam, size]);
+  const agentFilter = params.agent;
+  // Prompt version (an id from agents.promptVersions) — only meaningful
+  // together with the agent it belongs to.
+  const promptFilter = params.prompt;
+  const workflowFilter = params.workflow;
+  const customerFilter = params.customer;
+  const modelFilter = params.model;
+  // Metadata: the key alone pins its value as a table column; key + value
+  // filters the trace set.
+  const metaKeyFilter = params.metaKey;
+  const metaValueFilter = params.metaValue;
+  const errorsOnly = params.errors === "1";
+  const sort = parseSortParam(params.sort, TRACE_SORT_KEYS);
+  const toggle = (key: TraceSortKey) =>
+    patchParams({ sort: cycleSortParam(sort, key) });
+  const page = Math.max(0, (Number.parseInt(params.page, 10) || 1) - 1);
+  const setPage = (p: number) => patchParams({ page: String(p + 1) });
+  const pageSize = PAGE_SIZES.includes(Number(params.size))
+    ? Number(params.size)
+    : 25;
+  const hasFilters = !!(
+    agentFilter ||
+    promptFilter ||
+    workflowFilter ||
+    customerFilter ||
+    modelFilter ||
+    metaKeyFilter ||
+    errorsOnly
+  );
+
+  // Secondary filters (workflow/customer/metadata/prompt version) stay out of
+  // the toolbar until applied via the "+ Filter" menu — `added` tracks the
+  // ones summoned this session so an empty select can sit open before a value
+  // is picked.
+  const [added, setAdded] = useState<Set<SecondaryFilter>>(() => new Set());
+  const addFilter = (k: SecondaryFilter) =>
+    setAdded((s) => new Set(s).add(k));
+  const removeFilter = (k: SecondaryFilter) =>
+    setAdded((s) => {
+      const next = new Set(s);
+      next.delete(k);
+      return next;
+    });
+  // Filter/sort changes reset the page inside patchParams; project and range
+  // changes happen outside it, so reset explicitly (skipping mount, which
+  // would wipe the page from a shared/reloaded URL).
+  const mounted = useRef(false);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: page reset on project/range change only
+  useEffect(() => {
+    if (!mounted.current) {
+      mounted.current = true;
+      return;
+    }
+    patchParams({ page: "1" });
+  }, [projectId, range]);
+
+  const inRange = input.filter(t => { const time = new Date(t.startTime).getTime(); return time >= range.from.getTime() && time <= range.to.getTime(); });
+  const agentsList = { data: [...new Set(inRange.flatMap(t => t.agentName ? [t.agentName] : []))] };
+  const workflowsList = { data: [...new Set(inRange.flatMap(t => t.workflowName ? [t.workflowName] : []))] };
+  const customersList = { data: { customers: [...new Map(inRange.filter(t => t.customerId).map(t => [t.customerId, { customerId: t.customerId, customerName: t.customerName, customerImageUrl: t.customerImageUrl }])).values()] } };
+  const modelsList = { data: [...new Set(inRange.flatMap(t => t.models))].map(modelId => ({ modelId })) };
+  const metaKeysList = { data: [...new Set(inRange.flatMap(t => Object.keys(t.metadata ?? {})))] };
+  const metaValuesList = { data: { values: [...new Set(inRange.flatMap(t => t.metadata?.[metaKeyFilter] ? [t.metadata[metaKeyFilter]] : []))], truncated: false } };
+  const promptOptions = versions.filter(v => !agentFilter || v.agentName === agentFilter).slice().reverse().map(v => ({ value: v.id, label: `${agentFilter ? "" : `${v.agentName} · `}v${v.number}`, hint: v.current ? "current" : undefined, icon: PromptVersionIcon }));
+  const promptAgentOf = (id: string) => versions.find(v => v.id === id)?.agentName ?? "";
+  const filtered = inRange.filter(t => (!agentFilter || t.agentName === agentFilter) && (!promptFilter || t.promptVersionId === promptFilter) && (!workflowFilter || t.workflowName === workflowFilter) && (!customerFilter || t.customerId === customerFilter) && (!modelFilter || t.models.includes(modelFilter)) && (!metaValueFilter || t.metadata?.[metaKeyFilter] === metaValueFilter) && (!errorsOnly || t.errorCount > 0));
+  const value = (t: TraceExplorerRow, key: TraceSortKey) => key === "when" ? new Date(t.startTime).getTime() : key === "cost" ? t.totalCost ?? 0 : key === "duration" ? t.durationMs : key === "tokens" ? t.totalTokens : t.spanCount;
+  const sorted = filtered.slice().sort((a, b) => sort ? (value(a, sort.key) - value(b, sort.key)) * (sort.dir === "asc" ? 1 : -1) : value(b, "when") - value(a, "when"));
+  const quantiles = (values: number[]) => { const xs = values.filter(v => v > 0).sort((a,b) => a-b); return xs.length ? [0.2, 0.4, 0.6, 0.8].map(q => xs[Math.min(xs.length - 1, Math.floor(q * xs.length))]!) : []; };
+  const traces = { isLoading, isFetching, data: { traces: sorted.slice(page * pageSize, (page + 1) * pageSize).map(t => ({ ...t, metadataValue: t.metadata?.[metaKeyFilter] ?? null })), costQuantiles: quantiles(filtered.map(t => t.totalCost ?? 0)), durationQuantiles: quantiles(filtered.map(t => t.durationMs)), summary: { traceCount: filtered.length } } };
+  // Delay the skeleton so fast loads don't flash it (see useDelayedLoading).
+  // Only the table body waits on data — the toolbar and column headers are
+  // static chrome and paint immediately.
+  const showSkeleton = useDelayedLoading(traces.isLoading);
+
+  if (!projectId) {
+    return (
+      <>
+        <PageHeader
+          title="Traces"
+          icon={navItem("/traces")?.icon}
+          iconClassName={navItem("/traces")?.iconClassName}
+        />
+        <NoProject />
+      </>
+    );
+  }
+
+  const rows = traces.data?.traces ?? [];
+  const costQuantiles = traces.data?.costQuantiles ?? [];
+  const durationQuantiles = traces.data?.durationQuantiles ?? [];
+  const summary = traces.data?.summary;
+  // Secondary filters surface once applied (URL) or summoned via "+ Filter".
+  const showWorkflow = added.has("workflow") || !!workflowFilter;
+  const showCustomer = added.has("customer") || !!customerFilter;
+  const showMeta = added.has("meta") || !!metaKeyFilter;
+  // Prompt version is offered once any agent has inferred versions.
+  const canPrompt = promptOptions.length > 0;
+  const showPrompt = added.has("prompt") || !!promptFilter;
+  const canAddFilter =
+    !showWorkflow || !showCustomer || !showMeta || (canPrompt && !showPrompt);
+  const agentOptions = (agentsList.data ?? []).map((name) => ({
+    value: name,
+    label: name,
+    icon: (p: { className?: string }) => (
+      <AgentIcon name={name} className={p.className} />
+    ),
+  }));
+  const workflowOptions = (workflowsList.data ?? []).map((name) => ({
+    value: name,
+    label: name,
+    icon: WorkflowIconFilled,
+  }));
+  const metaKeyOptions = (metaKeysList.data ?? []).map((key) => ({
+    value: key,
+    label: key,
+    icon: MetaValueIcon,
+  }));
+  const metaValueOptions = (metaValuesList.data?.values ?? []).map((v) => ({
+    value: v,
+    label: v,
+    icon: MetaValueIcon,
+  }));
+  const customerOptions = (customersList.data?.customers ?? [])
+    .filter((c): c is typeof c & { customerId: string } => !!c.customerId)
+    .map((c) => ({
+      value: c.customerId,
+      label: c.customerName ?? c.customerId,
+      icon: (p: { className?: string }) => (
+        <CustomerAvatar
+          customerId={c.customerId}
+          customerName={c.customerName}
+          imageUrl={c.customerImageUrl}
+          className={p.className}
+        />
+      ),
+    }));
+  const modelOptions = (modelsList.data ?? [])
+    .filter((m) => m.modelId !== "(unknown)")
+    .map((m) => ({
+      value: m.modelId,
+      label: formatModelName(m.modelId),
+      icon: (p: { className?: string }) => (
+        <ModelLogo modelId={m.modelId} className={p.className} />
+      ),
+    }));
+
+  return (
+    <>
+      {/* Wrapped here (not inside TracesHeader) so the copy rendered by
+          loading.tsx stays unanimated — only the page's own header fades. */}
+      <div className={cn(entrance && "page-fade-in")}>
+        <RouteHeader href="/traces" title="Traces" />
+      </div>
+      {/* Toolbar and table chrome always render — even for an empty result —
+			    so the range picker and filters stay reachable (an empty range needs
+			    the range picker to escape). The empty states swap in for the table
+			    only; the body rows wait on the query (skeleton rows below). */}
+      <div
+        className={cn("flex flex-col gap-4 mt-1", entrance && "page-fade-in")}
+      >
+        <Toolbar
+          trailing={
+            <>
+              <RangeControl value={range} onChange={setRange} />
+            </>
+          }
+        >
+          {/* Hero filters stay inline; the rest live behind "+ Filter" and
+                only occupy the toolbar while applied (or freshly summoned). */}
+          <FilterSelect
+            value={agentFilter}
+            onChange={(v) => {
+              patchParams({ agent: v, prompt: "" });
+              // Versions belong to one agent; a summoned prompt select
+              // doesn't carry over to the next.
+              removeFilter("prompt");
+            }}
+            allLabel="Any agent"
+            icon={IconGhost}
+            options={agentOptions}
+          />
+          <FilterSelect
+            value={modelFilter}
+            onChange={(v) => patchParams({ model: v })}
+            allLabel="Any model"
+            icon={IconCpu}
+            options={modelOptions}
+          />
+
+          <ToggleChip
+            active={errorsOnly}
+            onClick={() => patchParams({ errors: errorsOnly ? "" : "1" })}
+          >
+            <IconAlertTriangle className="size-3.5" />
+            Errors only
+          </ToggleChip>
+
+          {showWorkflow && (
+            <FilterSelect
+              value={workflowFilter}
+              onChange={(v) => {
+                patchParams({ workflow: v });
+                // Resetting to "Any" dismisses a summoned filter entirely.
+                if (!v) removeFilter("workflow");
+              }}
+              allLabel="Any workflow"
+              icon={IconSitemap}
+              options={workflowOptions}
+            />
+          )}
+          {showCustomer && (
+            <FilterSelect
+              value={customerFilter}
+              onChange={(v) => {
+                patchParams({ customer: v });
+                if (!v) removeFilter("customer");
+              }}
+              allLabel="Any customer"
+              icon={IconUser}
+              options={customerOptions}
+            />
+          )}
+          {/* Metadata: picking a key pins its value as a column and reveals
+                the value picker; picking a value filters the trace set. */}
+          {showMeta && (
+            <FilterSelect
+              value={metaKeyFilter}
+              onChange={(v) => {
+                patchParams({ metaKey: v, metaValue: "" });
+                if (!v) removeFilter("meta");
+              }}
+              allLabel="Any metadata"
+              icon={IconTag}
+              options={metaKeyOptions}
+            />
+          )}
+          {showMeta && metaKeyFilter && (
+            <FilterSelect
+              value={metaValueFilter}
+              onChange={(v) => patchParams({ metaValue: v })}
+              allLabel={`Any ${metaKeyFilter}`}
+              icon={IconTag}
+              options={metaValueOptions}
+              allowFreeText={metaValuesList.data?.truncated ?? false}
+            />
+          )}
+          {showPrompt && (
+            <FilterSelect
+              value={promptFilter}
+              onChange={(v) => {
+                // A version belongs to one agent: picking it without an agent
+                // filter narrows to that agent as well, so the two agree.
+                patchParams({
+                  prompt: v,
+                  agent: agentFilter || (v ? promptAgentOf(v) : ""),
+                });
+                if (!v) removeFilter("prompt");
+              }}
+              allLabel="Any prompt version"
+              icon={IconFileHorizontal}
+              options={promptOptions}
+            />
+          )}
+          {canAddFilter && (
+            <AddFilterMenu
+              showWorkflow={showWorkflow}
+              showCustomer={showCustomer}
+              showMeta={showMeta}
+              showPrompt={showPrompt}
+              canPrompt={canPrompt}
+              onAdd={addFilter}
+            />
+          )}
+          <ClearFiltersButton
+            show={hasFilters}
+            onClick={() => {
+              patchParams({
+                agent: "",
+                prompt: "",
+                workflow: "",
+                customer: "",
+                model: "",
+                metaKey: "",
+                metaValue: "",
+                errors: "",
+              });
+              setAdded(new Set());
+            }}
+          />
+        </Toolbar>
+
+        {!traces.isLoading && rows.length === 0 && page === 0 ? (
+          <div className="mt-2 px-8">
+            {hasFilters ? (
+              <EmptyState
+                icon={IconAffiliateFilled}
+                title="No matching traces"
+                description="Try a different search or clearing filters."
+              />
+            ) : (
+              <EmptyState
+                icon={IconAffiliateFilled}
+                title="No traces yet"
+                description="Run an instrumented call to see traces here."
+              />
+            )}
+          </div>
+        ) : (
+          // Single column with no gap so the pagination footer's top border
+          // sits flush against the table's last row.
+          <div className="flex flex-col -mt-2">
+            <TooltipProvider delay={150}>
+              {/* Fixed layout: column widths come from the header's w-* classes,
+								    so the skeleton→data swap can't re-measure and shift columns. */}
+              <Table className="table-fixed min-w-5xl" stickyHeader>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Trace</TableHead>
+                    {metaKeyFilter && (
+                      <TableHead className="w-40">
+                        <span className="inline-flex items-center gap-1.5">
+                          <IconTagFilled className="size-3.5 text-fuchsia-500" />
+                          {metaKeyFilter}
+                        </span>
+                      </TableHead>
+                    )}
+                    <SortableHead
+                      sortKey="spans"
+                      sort={sort}
+                      onSort={toggle}
+                      align="right"
+                      className="w-28"
+                    >
+                      Spans
+                    </SortableHead>
+                    <SortableHead
+                      sortKey="tokens"
+                      sort={sort}
+                      onSort={toggle}
+                      align="right"
+                      className="w-30"
+                    >
+                      Tokens
+                    </SortableHead>
+                    <SortableHead
+                      sortKey="duration"
+                      sort={sort}
+                      onSort={toggle}
+                      align="right"
+                      className="w-32"
+                    >
+                      Duration
+                    </SortableHead>
+                    <SortableHead
+                      sortKey="cost"
+                      sort={sort}
+                      onSort={toggle}
+                      align="right"
+                      className="w-38"
+                    >
+                      Cost
+                    </SortableHead>
+                    <SortableHead
+                      sortKey="when"
+                      sort={sort}
+                      onSort={toggle}
+                      align="right"
+                      className="w-36"
+                    >
+                      When
+                    </SortableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {traces.isLoading ? (
+                    showSkeleton ? (
+                      // The meta column only exists while a meta filter is set.
+                      <TableRowsSkeleton
+                        cols={
+                          metaKeyFilter
+                            ? [
+                                SKELETON_COLS[0],
+                                { w: "w-24" },
+                                ...SKELETON_COLS.slice(1),
+                              ]
+                            : SKELETON_COLS
+                        }
+                        rowHeight="h-16"
+                      />
+                    ) : null
+                  ) : (
+                    rows.map((t) => (
+                      <TableRow
+                        key={t.traceId}
+                        interactive
+                        onClick={() => onTraceSelect ? onTraceSelect(t.traceId) : window.location.assign(`/traces/${encodeURIComponent(t.traceId)}`)}
+                        onKeyDown={(event) => { if (event.key === "Enter") onTraceSelect ? onTraceSelect(t.traceId) : window.location.assign(`/traces/${encodeURIComponent(t.traceId)}`); }}
+                        tabIndex={0}
+                      >
+                        <TableCell className="h-16">
+                          <div className="min-w-0 flex justify-between items-center">
+                            {/* min-w-0: flex items refuse to shrink below their content
+														    by default, so without it the meta line overflows into the
+														    next column instead of truncating. */}
+                            <div className="min-w-0 flex flex-col gap-1">
+                              <div className="flex items-center gap-2">
+                                {/* Content-first title: the trace's user
+                                    message, then an explicit trace name (the
+                                    SDK falls back to the agent name, which is
+                                    just noise repeated down the column), then
+                                    the raw id. */}
+                                <span className="truncate text-[14px]">
+                                  {t.userMessage ??
+                                    (t.traceName && t.traceName !== t.agentName
+                                      ? t.traceName
+                                      : null) ??
+                                    t.traceId}
+                                </span>
+                                {/* Compact error count — colored text, no pill. */}
+                                {t.errorCount > 0 && (
+                                  <span
+                                    title={`${t.errorCount} ${t.errorCount === 1 ? "error" : "errors"}`}
+                                    className="flex shrink-0 items-center gap-0.75 font-sans text-sm text-red-600 dark:text-red-400"
+                                  >
+                                    <IconAlertTriangle className="size-3.5 fill-current/20" />
+                                    {t.errorCount}
+                                  </span>
+                                )}
+                                {t.errorCount === 0 && t.abortedCount > 0 && (
+                                  <span
+                                    title="Aborted"
+                                    className="flex shrink-0 items-center gap-0.75 font-sans text-sm text-amber-600 dark:text-amber-400"
+                                  >
+                                    <IconPlayerStopFilled className="size-3.5" />
+                                  </span>
+                                )}
+                              </div>
+                              <div className="mt-0.5 flex items-center gap-3 text-xs text-muted-foreground">
+                                {t.models.length > 0 && (
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      patchParams({ model: t.models[0]! });
+                                    }}
+                                    title={
+                                      t.models.length > 1
+                                        ? `${t.models.map(formatModelName).join(", ")} — filter by ${formatModelName(t.models[0])}`
+                                        : "Filter by model"
+                                    }
+                                    className="inline-flex min-w-0 shrink cursor-pointer items-center gap-1 transition-colors hover:text-foreground"
+                                  >
+                                    <ModelLogo
+                                      modelId={t.models[0]}
+                                      className="size-2.75 shrink-0"
+                                    />
+                                    <span className="truncate">
+                                      {formatModelName(t.models[0])}
+                                      {t.models.length > 1
+                                        ? ` +${t.models.length - 1}`
+                                        : ""}
+                                    </span>
+                                  </button>
+                                )}
+                                {t.sessionId && (
+                                  <Link
+                                    href={`/sessions/${encodeURIComponent(
+                                      t.sessionId
+                                    )}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="View session"
+                                    className="inline-flex shrink-0 items-center gap-1 transition-colors hover:text-foreground cursor-pointer"
+                                  >
+                                    <IconMessage2Filled className="size-3 text-sky-500" />
+                                    Session
+                                  </Link>
+                                )}
+                                {t.agentName && (
+                                  <Link
+                                    href={`/agents/${encodeURIComponent(
+                                      t.agentName
+                                    )}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="View agent"
+                                    className="inline-flex min-w-0 shrink items-center gap-1 transition-colors hover:text-foreground"
+                                  >
+                                    <AgentIcon
+                                      name={t.agentName}
+                                      filled
+                                      className="size-3 shrink-0"
+                                    />
+                                    <span className="truncate">
+                                      {t.agentName}
+                                    </span>
+                                  </Link>
+                                )}
+                                {t.workflowName && (
+                                  <Link
+                                    href={`/workflows/${encodeURIComponent(
+                                      t.workflowName
+                                    )}`}
+                                    onClick={(e) => e.stopPropagation()}
+                                    title="View workflow"
+                                    className="inline-flex min-w-0 shrink items-center gap-1 transition-colors hover:text-foreground"
+                                  >
+                                    <IconSitemapFilled className="size-3 shrink-0 text-emerald-500" />
+                                    <span className="truncate">
+                                      {t.workflowName}
+                                    </span>
+                                  </Link>
+                                )}
+                                {t.customerId && (
+                                  <button
+                                    type="button"
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      patchParams({
+                                        customer: t.customerId!,
+                                      });
+                                    }}
+                                    title="Filter by customer"
+                                    className="inline-flex min-w-0 shrink cursor-pointer items-center gap-1 transition-colors hover:text-foreground"
+                                  >
+                                    <CustomerAvatar
+                                      customerId={t.customerId}
+                                      customerName={t.customerName}
+                                      imageUrl={t.customerImageUrl}
+                                      filled
+                                      className="size-3 shrink-0"
+                                    />
+                                    <span className="truncate">
+                                      {t.customerName ?? t.customerId}
+                                    </span>
+                                  </button>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </TableCell>
+                        {metaKeyFilter && (
+                          <TableCell>
+                            {t.metadataValue ? (
+                              <button
+                                type="button"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  patchParams({
+                                    metaValue: t.metadataValue!,
+                                  });
+                                }}
+                                title={`Filter by ${metaKeyFilter}: ${t.metadataValue}`}
+                                className="block max-w-36 cursor-pointer truncate text-muted-foreground transition-colors hover:text-foreground"
+                              >
+                                {t.metadataValue}
+                              </button>
+                            ) : (
+                              <span className="text-muted-foreground/40">
+                                —
+                              </span>
+                            )}
+                          </TableCell>
+                        )}
+                        <TableCell className="text-right tabular-nums text-muted-foreground">
+                          {formatCount(t.spanCount)}
+                        </TableCell>
+                        <TableCell className="text-right tabular-nums">
+                          {formatTokens(t.totalTokens)}
+                        </TableCell>
+                        <HeatCell
+                          value={t.durationMs}
+                          thresholds={durationQuantiles}
+                          metric="duration"
+                        >
+                          {formatSpanDuration(t.durationMs)}
+                        </HeatCell>
+                        <HeatCell
+                          value={t.totalCost}
+                          thresholds={costQuantiles}
+                          metric="cost"
+                          bold
+                        >
+                          {formatCostFixed(t.totalCost, 6)}
+                        </HeatCell>
+                        <TableCell className="text-right text-muted-foreground">
+                          <RelativeTime value={t.startTime} />
+                        </TableCell>
+                      </TableRow>
+                    ))
+                  )}
+                </TableBody>
+              </Table>
+            </TooltipProvider>
+
+            {!traces.isLoading && rows.length > 0 && (
+              <PaginationFooter
+                page={page}
+                pageSize={pageSize}
+                total={summary?.traceCount ?? 0}
+                shown={rows.length}
+                noun={["trace", "traces"]}
+                isFetching={traces.isFetching}
+                onPageChange={setPage}
+                onPageSizeChange={(s) => patchParams({ size: String(s) })}
+                pageSizes={PAGE_SIZES}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  );
+}
+
+// Skeleton column spec for the loading body rows (see TableRowsSkeleton).
+const SKELETON_COLS = [
+  { w: "w-40", sub: "w-56" },
+  { align: "right", w: "w-10" },
+  { align: "right", w: "w-12" },
+  { align: "right", w: "w-14" },
+  { align: "right", w: "w-16" },
+  { align: "right", w: "w-14" },
+] as const;

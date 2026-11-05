@@ -1,4 +1,4 @@
-import { createRootRoute, HeadContent, Outlet, Scripts } from '@tanstack/react-router';
+import { createRootRoute, HeadContent, Outlet, Scripts, useRouterState } from '@tanstack/react-router';
 import { RootProvider } from 'fumadocs-ui/provider/tanstack';
 import appCss from '../styles/app.css?url';
 
@@ -11,5 +11,8 @@ export const Route = createRootRoute({
 });
 
 function Root() {
-  return <html suppressHydrationWarning><head><HeadContent /></head><body><RootProvider><Outlet /></RootProvider><Scripts /></body></html>;
+  const location = useRouterState({ select: state => state.location });
+  const isStory = location.pathname.startsWith('/stories/');
+  const instance = new URLSearchParams(location.searchStr).get('instance') ?? location.pathname;
+  return <html suppressHydrationWarning><head><HeadContent /></head><body><RootProvider theme={isStory ? { storageKey: `foglamp-story-theme:${instance}`, hotKey: false } : undefined}><Outlet /></RootProvider><Scripts /></body></html>;
 }

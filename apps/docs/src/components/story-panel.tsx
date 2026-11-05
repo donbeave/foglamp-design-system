@@ -7,8 +7,7 @@
 import { StoryProvider, useStory, useStoryArgs, useStoryFrame, type WithControlProps } from '@fumadocs/story';
 import { useDataEngine } from '@fumari/stf';
 import type { TypeNode } from '@fumadocs/story/type-tree';
-import { createPortal } from 'react-dom';
-import { useCallback, useEffect, useState, type ComponentType, type ReactNode } from 'react';
+import { useCallback, useEffect, useId, useRef, useState, type ComponentType, type ReactNode } from 'react';
 
 export const storyRegistryItems = new WeakMap<ComponentType, string>();
 
@@ -26,8 +25,13 @@ function Workbench() {
   const [theme, setTheme] = useState<'Light' | 'Dark'>('Light');
   const [copied, setCopied] = useState(false);
   const [resetCount, setResetCount] = useState(0);
+  const [origin, setOrigin] = useState<string>();
+  useEffect(() => setOrigin(window.location.origin), []);
   const slug = (displayName || 'component').replace(/([a-z0-9])([A-Z])/g, '$1-$2').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-  const command = `npx shadcn@latest add ${storyRegistryItems.get(Component) ?? slug}`;
+  const item = storyRegistryItems.get(Component) ?? slug;
+  const url = /^https?:\/\//i.test(item) ? item : origin ? `${origin}/r/${encodeURIComponent(item)}.json` : undefined;
+  const argument = url && (/^[a-zA-Z0-9_/:.@%+=,-]+$/.test(url) ? url : `'${url.replace(/'/g, `'\\''`)}'`);
+  const command = argument ? `npx shadcn@latest add ${argument}` : undefined;
   return <section className="not-prose overflow-hidden rounded-xl border bg-card text-card-foreground shadow-sm">
     <div className="flex flex-wrap items-center gap-1 border-b px-3 py-2">
       {displayName && <span className="mr-auto px-1 text-sm font-medium">{displayName}</span>}
@@ -39,66 +43,59 @@ function Workbench() {
       <label className="flex items-center gap-2 text-xs text-muted-foreground">Surface <select aria-label="Preview surface" value={surface} onChange={event => setSurface(event.target.value as typeof surface)} className="rounded-md border bg-background px-2 py-1 text-foreground">{['Default', 'Muted', 'Dark Lift'].map(value => <option key={value}>{value}</option>)}</select></label>
       <div role="group" aria-label="Preview theme" className="flex rounded-md border p-0.5">{(['Light', 'Dark'] as const).map(value => <button key={value} type="button" aria-pressed={theme === value} onClick={() => setTheme(value)} className={`${button} ${theme === value ? 'bg-accent font-medium' : 'text-muted-foreground'}`}>{value}</button>)}</div>
     </div>
-    {frame ? <FramePreview theme={theme} surface={surface} /> : <IsolatedPreview theme={theme} surface={surface}><Preview /></IsolatedPreview>}
+    {frame ? <FramePreview theme={theme} surface={surface} /> : <p role="status" className="p-3 text-xs text-muted-foreground">This story has no preview frame.</p>}
     {preset && <Controls key={`${variant}-${resetCount}`} node={preset.controls} onReset={() => { setVariant(variant); setResetCount(count => count + 1); }} />}
     <div className="flex flex-wrap items-center gap-2 border-t px-3 py-2 text-xs">
-      <code className="min-w-0 flex-1 overflow-x-auto text-muted-foreground">{command}</code>
-      <button type="button" className={`${button} border`} onClick={() => { void navigator.clipboard.writeText(command).then(() => setCopied(true)).catch(() => setCopied(false)); }}>{copied ? 'Copied' : 'Copy'}</button>
+      <code className="min-w-0 flex-1 overflow-x-auto text-muted-foreground">{command ?? 'Preparing install command…'}</code>
+      <button type="button" disabled={!command} className={`${button} border`} onClick={() => { if (command) void navigator.clipboard.writeText(command).then(() => setCopied(true)).catch(() => setCopied(false)); }}>{copied ? 'Copied' : 'Copy'}</button>
     </div>
     <footer className="border-t px-3 py-2 text-xs text-muted-foreground">Original Design by <a className="underline underline-offset-2" href="https://github.com/gustavo-fior">Gustavo Fior (@gustavo-fior)</a> · <a className="underline underline-offset-2" href="https://www.linkedin.com/in/abdulhdr/">Abdul Haidar</a> · <a className="underline underline-offset-2" href="https://github.com/foglamp-labs/foglamp">Foglamp Labs (foglamp-labs/foglamp)</a></footer>
   </section>;
 }
 
-function Preview() {
-  const { Component } = useStory();
-  const args = useStoryArgs();
-  return <Component {...args} />;
-}
-
-// A separate document prevents the surrounding portal's dark class from leaking into the preview.
-function IsolatedPreview({ theme, surface, children }: { theme: 'Light' | 'Dark'; surface: 'Default' | 'Muted' | 'Dark Lift'; children: ReactNode }) {
-  const [frame, setFrame] = useState<HTMLIFrameElement | null>(null);
-  const [ready, setReady] = useState(false);
-  useEffect(() => {
-    const doc = frame?.contentDocument;
-    if (!doc || !ready) return;
-    doc.head.innerHTML = '';
-    document.querySelectorAll('style, link[rel="stylesheet"]').forEach(node => doc.head.appendChild(node.cloneNode(true)));
-    doc.documentElement.className = theme === 'Dark' ? 'dark' : '';
-    doc.documentElement.style.colorScheme = theme.toLowerCase();
-  }, [frame, theme, ready]);
-  const doc = frame?.contentDocument;
-  const background = surface === 'Muted' ? 'var(--muted)' : surface === 'Dark Lift' ? 'oklch(0.23 0 0)' : 'var(--background)';
-  return <div className="p-3"><iframe ref={setFrame} title="Component preview" className="block min-h-64 w-full rounded-md border" onLoad={() => setReady(true)} />{ready && doc?.body && createPortal(<div style={{ background, color: 'var(--foreground)', minHeight: '16rem', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>{children}</div>, doc.body)}</div>;
-}
-
 function FramePreview({ theme, surface }: { theme: 'Light' | 'Dark'; surface: 'Default' | 'Muted' | 'Dark Lift' }) {
   const { frame, displayName } = useStory();
+  const instance = useId();
   const connect = useStoryFrame();
   const [element, setElement] = useState<HTMLIFrameElement | null>(null);
-  const [loaded, setLoaded] = useState(0);
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const [viewportWidth, setViewportWidth] = useState(0);
+  useEffect(() => {
+    const node = viewportRef.current;
+    if (!node) return;
+    const observer = new ResizeObserver(entries => setViewportWidth(entries[0].contentRect.width));
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [frame?.width]);
   const [unavailable, setUnavailable] = useState(false);
   const ref = useCallback((iframe: HTMLIFrameElement | null) => {
     setElement(iframe);
-    return connect(iframe);
+    if (iframe) return connect(iframe);
   }, [connect]);
-  useEffect(() => {
-    if (!element) return;
+  const send = useCallback(() => {
     try {
-      const doc = element.contentDocument;
-      if (!doc) { setUnavailable(true); return; }
-      doc.documentElement.classList.toggle('dark', theme === 'Dark');
-      doc.documentElement.style.colorScheme = theme.toLowerCase();
-      const background = surface === 'Muted' ? 'var(--muted)' : surface === 'Dark Lift' ? 'oklch(0.23 0 0)' : 'var(--background)';
-      doc.documentElement.style.background = background;
-      doc.body.style.background = background;
+      if (!element?.contentWindow || new URL(frame!.src, location.href).origin !== location.origin) {
+        setUnavailable(true);
+        return;
+      }
+      element.contentWindow.postMessage({ type: 'foglamp-story:appearance', theme: theme.toLowerCase(), surface }, location.origin);
       setUnavailable(false);
     } catch {
       setUnavailable(true);
     }
-  }, [element, loaded, theme, surface]);
+  }, [element, frame, theme, surface]);
+  useEffect(() => {
+    if (!element) return;
+    const onMessage = (event: MessageEvent) => {
+      if (event.origin === location.origin && event.source === element.contentWindow && event.data?.type === 'foglamp-story:ready') send();
+    };
+    window.addEventListener('message', onMessage);
+    send();
+    return () => window.removeEventListener('message', onMessage);
+  }, [element, send]);
   if (!frame) return null;
-  const viewport = <iframe ref={ref} onLoad={() => setLoaded(value => value + 1)} src={frame.src} title={displayName || 'Component preview'} className="block w-full rounded-md border" style={{ aspectRatio: `${frame.width ?? 1280} / ${frame.height ?? 800}` }} />;
+  const scale = frame.width ? Math.min(1, viewportWidth / (frame.width + 2)) : 1;
+  const viewport = <div ref={viewportRef} style={frame.width ? { height: ((frame.height ?? 800) + 2) * scale, overflow: 'hidden' } : undefined}><iframe ref={ref} onLoad={send} src={`${frame.src}${frame.src.includes('?') ? '&' : '?'}instance=${encodeURIComponent(instance)}&layout=${frame.width ? 'full' : 'center'}`} title={displayName || 'Component preview'} className="block rounded-md border" style={frame.width ? { width: frame.width + 2, height: (frame.height ?? 800) + 2, transform: `scale(${scale})`, transformOrigin: 'top left' } : { width: '100%', height: frame.height ?? 320 }} /></div>;
   return <div className="p-3">{frame.Container ? <frame.Container>{viewport}</frame.Container> : viewport}{unavailable && <p role="status" className="mt-2 text-xs text-muted-foreground">Theme and surface controls require a same-origin preview frame.</p>}</div>;
 }
 

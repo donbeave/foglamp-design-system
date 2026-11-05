@@ -3,7 +3,8 @@
 /** Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs.
  * Extracted from foglamp-labs/foglamp under the Apache-2.0 license. */
 
-import { type DiffOp, lineDiff, SLOT_LINE } from "@foglamp/prompts";
+import { type DiffOp, lineDiff } from "@foglamp/design-system/lib/prompts/diff";
+import { SLOT_LINE } from "@foglamp/design-system/lib/prompts/infer";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import {

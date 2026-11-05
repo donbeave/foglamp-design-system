@@ -33,7 +33,7 @@ SOURCE_MAP = {
     "packages/design-system/src/widgets/leaf/sunset-card.tsx": "apps/web/src/components/app/sunset-card.tsx",
     "packages/design-system/src/widgets/leaf/tool-icon.tsx": "apps/web/src/components/app/tool-icon.tsx",
     "packages/design-system/src/widgets/leaf/preset-meta.ts": "apps/web/src/app/(app)/evals/preset-meta.ts",
-    "packages/design-system/src/widgets/leaf/favicon.ts": "apps/web/src/components/scan/favicon.ts",
+    "packages/design-system/src/widgets/leaf/favicon.ts": "apps/web/src/lib/favicon.ts",
     "packages/design-system/src/widgets/leaf/scan-brand.tsx": "apps/web/src/components/scan/brand.tsx",
     "packages/design-system/src/icons/brand-mark.tsx": "apps/web/src/components/marketing/brand-mark.tsx",
     "packages/design-system/src/icons/logo.tsx": "apps/web/src/components/marketing/logo.tsx",

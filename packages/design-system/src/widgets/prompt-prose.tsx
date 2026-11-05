@@ -3,7 +3,7 @@
 /** Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs.
  * Extracted from foglamp-labs/foglamp under the Apache-2.0 license. */
 
-import { SLOT_LINE } from "@foglamp/prompts";
+import { SLOT_LINE } from "@foglamp/design-system/lib/prompts/infer";
 import {
   HoverCard,
   HoverCardContent,

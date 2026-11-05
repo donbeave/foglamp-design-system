@@ -1,0 +1,3344 @@
+/** Original design and implementation by Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs.
+ * Adapted from foglamp-labs/foglamp trace-detail-client.tsx under Apache-2.0. */
+"use client";
+
+import { Button } from "../../ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../../ui/card";
+import { Skeleton } from "../../ui/skeleton";
+import { Tabs, TabsContent } from "../../ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../ui/tooltip";
+import {
+  IconAffiliate,
+  IconAlertTriangle,
+  IconAlertTriangleFilled,
+  IconArrowUpRight,
+  IconChevronDown,
+  IconChevronLeft,
+  IconChevronRight,
+  IconChevronUp,
+  IconCircleCheckFilled,
+  IconGaugeFilled,
+  IconListTree,
+  IconMessage2Filled,
+  IconPlayerStopFilled,
+  IconRoute,
+  IconSitemapFilled,
+} from "@tabler/icons-react";
+import { FoglampLink as Link } from "../../lib/link-context";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+
+import { PromptVersionChip } from "../../widgets/prompt-version-chip";
+import { AgentIcon } from "../../widgets/leaf/agent-icon";
+import { useShikiHtml } from "../../widgets/code-block";
+import { ContextChip } from "../../widgets/context-chip";
+import { ModelChip } from "../../widgets/model-chip";
+import { CopyButton } from "../../widgets/leaf/copy-button";
+import { CustomerAvatar } from "../../widgets/leaf/customer-avatar";
+import {
+  type EvalMeta,
+  ScoreRow,
+  type TraceScore,
+} from "../../widgets/eval-scores";
+import {
+  useDelayedLoading,
+  useEntranceOnce,
+  useSkeletonShown,
+} from "../../hooks/use-app-hooks";
+import { navItem } from "../../widgets/nav";
+import {
+  EmptyState,
+  NoProject,
+  PageHeader,
+  ScrollFade,
+} from "../../widgets/page-parts";
+import { toMessages } from "../../lib/payload-messages";
+import { PayloadView } from "../../widgets/payload-view";
+import { useProject } from "../../widgets/project-context";
+import {
+  SpanIconChip,
+  type TimelineNavEntry,
+  TraceTimeline,
+  WHOLE_TRACE_ID,
+} from "../../widgets/trace-timeline";
+import {
+  ModelLogo,
+  formatModelName,
+  modelBrandColor,
+} from "../../icons/model-logo";
+import {
+  formatCost,
+  formatCount,
+  formatDateTime,
+  formatDuration,
+  formatSpanDuration,
+  formatTokens,
+} from "../../lib/format";
+import {
+  computeWindow,
+  orderSpans,
+  toMs,
+} from "../../lib/trace-timeline";
+import { cn } from "../../lib/utils";
+
+import type { TraceSpan } from "../../lib/types";
+type Span = TraceSpan;
+
+// Trace-level rollup shown in the inspector when the synthetic "Whole trace"
+// root row is selected — the trace's own facts, not any single span's.
+type TraceSummary = {
+  startTime: string;
+  durationMs: number;
+  cost: number | null;
+  tokens: number;
+  spanCount: number;
+  errorCount: number;
+  scores: TraceScore[];
+  /** Inferred prompt version of the root agent span, when the prompt job has
+   * seen it (see agents.promptVersions). */
+  promptVersion: { id: string; number: number } | null;
+  agentName: string | null;
+};
+
+export type TraceInspectorData = {
+  spans: TraceSpan[]; traceName: string | null; sessionId: string | null;
+  workflowName: string | null; workflowRunId: string | null; agentName: string | null;
+  customer: { id: string; name: string | null; imageUrl: string | null } | null;
+  promptVersion: { id: string; number: number } | null;
+};
+export type TraceWaterfallInspectorBlockProps = {
+  traceId?: string; data?: TraceInspectorData | null; isLoading?: boolean;
+  scores?: TraceScore[]; evals?: (EvalMeta & { id: string })[];
+  presets?: { id: string; name: string }[];
+  neighbors?: { prev: { traceId: string } | null; next: { traceId: string } | null } | null;
+  comparison?: { durationPercentile: number | null; costPercentile: number | null; tokenPercentile: number | null } | null;
+  initialSpanId?: string; onSpanChange?: (spanId: string | null) => void;
+};
+// Upstream marketing demo values, with defaults for service-only fields.
+const DEFAULT_TRACE: TraceInspectorData = {
+  "traceName": null,
+  "sessionId": "ses_a91f",
+  "workflowName": "onboard-customer",
+  "workflowRunId": null,
+  "agentName": "support-triage",
+  "customer": {
+    "id": "acme",
+    "name": "Acme Inc",
+    "imageUrl": null
+  },
+  "promptVersion": null,
+  "spans": [
+    {
+      "errorMessage": null,
+      "provider": null,
+      "modelId": null,
+      "inputTokens": 0,
+      "reasoningTokens": 0,
+      "cachedInputTokens": 0,
+      "cacheWriteInputTokens": 0,
+      "imageCount": 0,
+      "webSearchCount": 0,
+      "requestCount": 0,
+      "reasoningDurationMs": null,
+      "promptCost": null,
+      "completionCost": null,
+      "requestCost": null,
+      "imageCost": null,
+      "webSearchCost": null,
+      "reasoningCost": null,
+      "cacheReadCost": null,
+      "cacheWriteCost": null,
+      "pricingSource": null,
+      "pricedModelId": null,
+      "pricedAt": null,
+      "metadata": {},
+      "input": null,
+      "output": null,
+      "toolCatalog": null,
+      "systemPrompt": null,
+      "promptHash": null,
+      "modelCallMs": null,
+      "responseTimeMs": null,
+      "effectiveOutputTps": null,
+      "effectiveTotalTps": null,
+      "outputTps": null,
+      "inputTps": null,
+      "chunkJitter": null,
+      "systemFingerprint": null,
+      "safetyMetadata": null,
+      "sources": null,
+      "rateLimit": null,
+      "spanId": "s0",
+      "parentSpanId": null,
+      "name": "support-triage",
+      "spanType": "agent",
+      "status": "ok",
+      "startTime": "2026-06-07 14:30:00",
+      "endTime": "2026-06-07 14:30:05",
+      "durationMs": 5840,
+      "ttftMs": null,
+      "outputTokens": 0,
+      "totalTokens": 0,
+      "totalCost": null
+    },
+    {
+      "errorMessage": null,
+      "provider": "google",
+      "modelId": "gemini-3.5-flash",
+      "inputTokens": 0,
+      "reasoningTokens": 0,
+      "cachedInputTokens": 0,
+      "cacheWriteInputTokens": 0,
+      "imageCount": 0,
+      "webSearchCount": 0,
+      "requestCount": 0,
+      "reasoningDurationMs": null,
+      "promptCost": null,
+      "completionCost": null,
+      "requestCost": null,
+      "imageCost": null,
+      "webSearchCost": null,
+      "reasoningCost": null,
+      "cacheReadCost": null,
+      "cacheWriteCost": null,
+      "pricingSource": null,
+      "pricedModelId": null,
+      "pricedAt": null,
+      "metadata": {},
+      "input": null,
+      "output": null,
+      "toolCatalog": null,
+      "systemPrompt": null,
+      "promptHash": null,
+      "modelCallMs": null,
+      "responseTimeMs": null,
+      "effectiveOutputTps": null,
+      "effectiveTotalTps": null,
+      "outputTps": null,
+      "inputTps": null,
+      "chunkJitter": null,
+      "systemFingerprint": null,
+      "safetyMetadata": null,
+      "sources": null,
+      "rateLimit": null,
+      "spanId": "s1",
+      "parentSpanId": "s0",
+      "name": "classify-intent",
+      "spanType": "llm",
+      "status": "ok",
+      "startTime": "2026-06-07 14:30:00",
+      "endTime": "2026-06-07 14:30:01",
+      "durationMs": 920,
+      "ttftMs": 280,
+      "outputTokens": 142,
+      "totalTokens": 612,
+      "totalCost": 0.0011
+    },
+    {
+      "errorMessage": null,
+      "provider": null,
+      "modelId": null,
+      "inputTokens": 0,
+      "reasoningTokens": 0,
+      "cachedInputTokens": 0,
+      "cacheWriteInputTokens": 0,
+      "imageCount": 0,
+      "webSearchCount": 0,
+      "requestCount": 0,
+      "reasoningDurationMs": null,
+      "promptCost": null,
+      "completionCost": null,
+      "requestCost": null,
+      "imageCost": null,
+      "webSearchCost": null,
+      "reasoningCost": null,
+      "cacheReadCost": null,
+      "cacheWriteCost": null,
+      "pricingSource": null,
+      "pricedModelId": null,
+      "pricedAt": null,
+      "metadata": {},
+      "input": null,
+      "output": null,
+      "toolCatalog": null,
+      "systemPrompt": null,
+      "promptHash": null,
+      "modelCallMs": null,
+      "responseTimeMs": null,
+      "effectiveOutputTps": null,
+      "effectiveTotalTps": null,
+      "outputTps": null,
+      "inputTps": null,
+      "chunkJitter": null,
+      "systemFingerprint": null,
+      "safetyMetadata": null,
+      "sources": null,
+      "rateLimit": null,
+      "spanId": "s2",
+      "parentSpanId": "s0",
+      "name": "fetch-order",
+      "spanType": "tool",
+      "status": "ok",
+      "startTime": "2026-06-07 14:30:01",
+      "endTime": "2026-06-07 14:30:01",
+      "durationMs": 620,
+      "ttftMs": null,
+      "outputTokens": 0,
+      "totalTokens": 0,
+      "totalCost": null
+    },
+    {
+      "errorMessage": null,
+      "provider": null,
+      "modelId": null,
+      "inputTokens": 0,
+      "reasoningTokens": 0,
+      "cachedInputTokens": 0,
+      "cacheWriteInputTokens": 0,
+      "imageCount": 0,
+      "webSearchCount": 0,
+      "requestCount": 0,
+      "reasoningDurationMs": null,
+      "promptCost": null,
+      "completionCost": null,
+      "requestCost": null,
+      "imageCost": null,
+      "webSearchCost": null,
+      "reasoningCost": null,
+      "cacheReadCost": null,
+      "cacheWriteCost": null,
+      "pricingSource": null,
+      "pricedModelId": null,
+      "pricedAt": null,
+      "metadata": {},
+      "input": null,
+      "output": null,
+      "toolCatalog": null,
+      "systemPrompt": null,
+      "promptHash": null,
+      "modelCallMs": null,
+      "responseTimeMs": null,
+      "effectiveOutputTps": null,
+      "effectiveTotalTps": null,
+      "outputTps": null,
+      "inputTps": null,
+      "chunkJitter": null,
+      "systemFingerprint": null,
+      "safetyMetadata": null,
+      "sources": null,
+      "rateLimit": null,
+      "spanId": "s3",
+      "parentSpanId": "s0",
+      "name": "search-knowledge-base",
+      "spanType": "tool",
+      "status": "ok",
+      "startTime": "2026-06-07 14:30:01",
+      "endTime": "2026-06-07 14:30:03",
+      "durationMs": 1460,
+      "ttftMs": null,
+      "outputTokens": 0,
+      "totalTokens": 0,
+      "totalCost": null
+    },
+    {
+      "errorMessage": null,
+      "provider": "anthropic",
+      "modelId": "claude-fable-5",
+      "inputTokens": 0,
+      "reasoningTokens": 0,
+      "cachedInputTokens": 0,
+      "cacheWriteInputTokens": 0,
+      "imageCount": 0,
+      "webSearchCount": 0,
+      "requestCount": 0,
+      "reasoningDurationMs": null,
+      "promptCost": null,
+      "completionCost": null,
+      "requestCost": null,
+      "imageCost": null,
+      "webSearchCost": null,
+      "reasoningCost": null,
+      "cacheReadCost": null,
+      "cacheWriteCost": null,
+      "pricingSource": null,
+      "pricedModelId": null,
+      "pricedAt": null,
+      "metadata": {},
+      "input": null,
+      "output": null,
+      "toolCatalog": null,
+      "systemPrompt": null,
+      "promptHash": null,
+      "modelCallMs": null,
+      "responseTimeMs": null,
+      "effectiveOutputTps": null,
+      "effectiveTotalTps": null,
+      "outputTps": null,
+      "inputTps": null,
+      "chunkJitter": null,
+      "systemFingerprint": null,
+      "safetyMetadata": null,
+      "sources": null,
+      "rateLimit": null,
+      "spanId": "s4",
+      "parentSpanId": "s3",
+      "name": "rerank-results",
+      "spanType": "llm",
+      "status": "ok",
+      "startTime": "2026-06-07 14:30:02",
+      "endTime": "2026-06-07 14:30:03",
+      "durationMs": 1080,
+      "ttftMs": 340,
+      "outputTokens": 264,
+      "totalTokens": 1486,
+      "totalCost": 0.0042
+    },
+    {
+      "errorMessage": null,
+      "provider": "openai",
+      "modelId": "gpt-5.6-sol",
+      "inputTokens": 0,
+      "reasoningTokens": 0,
+      "cachedInputTokens": 0,
+      "cacheWriteInputTokens": 0,
+      "imageCount": 0,
+      "webSearchCount": 0,
+      "requestCount": 0,
+      "reasoningDurationMs": null,
+      "promptCost": null,
+      "completionCost": null,
+      "requestCost": null,
+      "imageCost": null,
+      "webSearchCost": null,
+      "reasoningCost": null,
+      "cacheReadCost": null,
+      "cacheWriteCost": null,
+      "pricingSource": null,
+      "pricedModelId": null,
+      "pricedAt": null,
+      "metadata": {},
+      "input": null,
+      "output": null,
+      "toolCatalog": null,
+      "systemPrompt": null,
+      "promptHash": null,
+      "modelCallMs": null,
+      "responseTimeMs": null,
+      "effectiveOutputTps": null,
+      "effectiveTotalTps": null,
+      "outputTps": null,
+      "inputTps": null,
+      "chunkJitter": null,
+      "systemFingerprint": null,
+      "safetyMetadata": null,
+      "sources": null,
+      "rateLimit": null,
+      "spanId": "s5",
+      "parentSpanId": "s0",
+      "name": "draft-reply",
+      "spanType": "llm",
+      "status": "ok",
+      "startTime": "2026-06-07 14:30:03",
+      "endTime": "2026-06-07 14:30:05",
+      "durationMs": 2460,
+      "ttftMs": 520,
+      "outputTokens": 689,
+      "totalTokens": 2961,
+      "totalCost": 0.0089
+    }
+  ]
+};
+export function TraceWaterfallInspectorBlock({ traceId = "tr_9f2a4c8e1b7d3a6f5e0c", data = DEFAULT_TRACE, isLoading = false, scores: scoreData = [], evals: evalData = [], presets: presetData = [], neighbors: neighborData = null, comparison: comparisonData = null, initialSpanId, onSpanChange }: TraceWaterfallInspectorBlockProps) {
+  const entrance = useEntranceOnce();
+  const { projectId } = useProject();
+  const [selected, setSelected] = useState<string>(() => initialSpanId ?? WHOLE_TRACE_ID);
+  const detail = { data, isLoading };
+  const scores = { data: scoreData };
+  const evals = { data: evalData };
+  const evalMeta = useMemo(
+    () => new Map((evals.data ?? []).map((e) => [e.id, e] as const)),
+    [evals.data]
+  );
+  // Preset id → friendly check name ("No PII", "Valid JSON"). Static list.
+  const presets = { data: presetData };
+  const neighbors = { data: neighborData };
+  const comparison = { data: comparisonData };
+  const rank = comparison.data ?? null;
+  const presetName = useMemo(
+    () => new Map((presets.data ?? []).map((p) => [p.id, p.name] as const)),
+    [presets.data]
+  );
+  // Delay the skeleton so fast loads don't flash it (see useDelayedLoading).
+  const showSkeleton = useDelayedLoading(detail.isLoading);
+  // Latch for the entrance fade: content below only fades in if its skeleton
+  // never painted first (see useSkeletonShown).
+  const skeletonShown = useSkeletonShown(showSkeleton);
+
+  // Whether the waterfall column alone outgrows the viewport. Short traces
+  // keep the sheet capped so the page never scrolls just because of the
+  // inspector; tall traces scroll anyway, so the sheet may use more height.
+  const [timelineEl, setTimelineEl] = useState<HTMLDivElement | null>(null);
+  const [tallTrace, setTallTrace] = useState(false);
+  useEffect(() => {
+    if (!timelineEl) return;
+    // `globalThis`, not `window` — a local `window` (the timeline's time
+    // window) shadows the global below.
+    const check = () =>
+      setTallTrace(timelineEl.offsetHeight > globalThis.innerHeight - 14 * 16);
+    check();
+    const observer = new ResizeObserver(check);
+    observer.observe(timelineEl);
+    globalThis.addEventListener("resize", check);
+    return () => {
+      observer.disconnect();
+      globalThis.removeEventListener("resize", check);
+    };
+  }, [timelineEl]);
+
+  const spans = detail.data?.spans ?? [];
+  const ordered = useMemo(() => orderSpans(spans), [spans]);
+  const window = useMemo(() => computeWindow(spans), [spans]);
+  const subtreeStats = useMemo(() => computeSubtreeStats(spans), [spans]);
+  const models = useMemo(() => aggregateUsage(spans).models, [spans]);
+
+  const active = spans.find((s) => s.spanId === selected) ?? null;
+  const erroredSpans = spans.filter((s) => s.status === "error");
+  // Aborted spans (AI SDK onAbort) — a clean cancellation, surfaced apart from
+  // errors and never counted toward the error stat.
+  const abortedSpans = spans.filter((s) => s.status === "aborted");
+  // Worst rate-limit headroom reported by any span in the trace — surfaced as
+  // a banner when it dips below the threshold, so a trace that ran close to
+  // the provider's limit is visible without opening every span inspector.
+  const lowHeadroom = useMemo(() => {
+    let worst: {
+      span: Span;
+      pct: number;
+      kind: "tokens" | "requests";
+    } | null = null;
+    for (const s of spans) {
+      const rl = s.rateLimit;
+      if (!rl) continue;
+      const candidates = [
+        {
+          pct: pctRemaining(rl.tokensRemaining, rl.tokensLimit),
+          kind: "tokens" as const,
+        },
+        {
+          pct: pctRemaining(rl.requestsRemaining, rl.requestsLimit),
+          kind: "requests" as const,
+        },
+      ];
+      for (const c of candidates) {
+        if (
+          c.pct != null &&
+          c.pct < LOW_HEADROOM_PCT &&
+          (!worst || c.pct < worst.pct)
+        ) {
+          worst = { span: s, pct: c.pct, kind: c.kind };
+        }
+      }
+    }
+    return worst;
+  }, [spans]);
+  // The three trace-level problems, collapsed into one severity-ordered list so
+  // they occupy a single strip instead of three stacked banners. The first entry
+  // sets the strip's tone.
+  const issues = useMemo(() => {
+    const list: Issue[] = [];
+    if (erroredSpans.length > 0) {
+      list.push({
+        tone: "rose",
+        icon: IconAlertTriangle,
+        label: `${erroredSpans.length} ${erroredSpans.length === 1 ? "span" : "spans"} errored`,
+        spanId: erroredSpans[0].spanId,
+      });
+    }
+    if (abortedSpans.length > 0) {
+      list.push({
+        tone: "amber",
+        icon: IconPlayerStopFilled,
+        label:
+          abortedSpans.length === 1
+            ? "Run aborted"
+            : `${abortedSpans.length} spans aborted`,
+        spanId: abortedSpans[0].spanId,
+      });
+    }
+    if (lowHeadroom) {
+      list.push({
+        tone: "orange",
+        icon: IconGaugeFilled,
+        label: "Rate limit nearly exhausted",
+        spanId: lowHeadroom.span.spanId,
+      });
+    }
+    return list;
+  }, [erroredSpans, abortedSpans, lowHeadroom]);
+  // Eval scores for the selected span — shown in its inspector (the timeline
+  // row only carries compact pass/fail indicators).
+  const activeScores = useMemo(
+    () =>
+      active
+        ? (scores.data ?? []).filter(
+            (s) => s.targetType === "span" && s.targetId === active.spanId
+          )
+        : [],
+    [scores.data, active]
+  );
+
+  // Trace rollups for the summary strip (derived from spans — no extra fetch).
+  const stats = useMemo(() => {
+    let cost = 0;
+    let priced = false;
+    let tokens = 0;
+    for (const s of spans) {
+      if (s.totalCost != null) {
+        cost += s.totalCost;
+        priced = true;
+      }
+      tokens += s.totalTokens;
+    }
+    return { cost: priced ? cost : null, tokens };
+  }, [spans]);
+
+  // Whole-trace eval scores (everything not targeting an individual span) — for
+  // the trace-level inspector opened from the "Whole trace" root row.
+  const traceScores = useMemo(
+    () => (scores.data ?? []).filter((s) => s.targetType !== "span"),
+    [scores.data]
+  );
+  // A stale ?span= id (aged out, wrong trace) also lands on the whole trace, so
+  // the always-open inspector never renders empty.
+  const isTraceSelected = selected === WHOLE_TRACE_ID || !active;
+  // The trace's own facts, assembled only when its row is selected.
+  const traceSummary = useMemo<TraceSummary | null>(() => {
+    if (spans.length === 0) return null;
+    const startTime = spans.reduce(
+      (earliest, s) =>
+        toMs(s.startTime) < toMs(earliest) ? s.startTime : earliest,
+      spans[0].startTime
+    );
+    return {
+      startTime,
+      durationMs: window.span,
+      cost: stats.cost,
+      tokens: stats.tokens,
+      spanCount: spans.length,
+      errorCount: erroredSpans.length,
+      scores: traceScores,
+      promptVersion: detail.data?.promptVersion ?? null,
+      agentName: detail.data?.agentName ?? null,
+    };
+  }, [
+    spans,
+    window.span,
+    stats,
+    erroredSpans.length,
+    traceScores,
+    detail.data?.promptVersion,
+    detail.data?.agentName,
+  ]);
+
+  // Select a span and reflect it in the URL (?span=) so the selection is
+  // shareable; other params are preserved. Deselecting (null) falls back to the
+  // whole trace — the inspector never closes.
+  const select = useCallback(
+    (spanId: string | null) => {
+      const id = spanId ?? WHOLE_TRACE_ID;
+      setSelected(id);
+      onSpanChange?.(id === WHOLE_TRACE_ID ? null : id);
+    },
+    [onSpanChange]
+  );
+
+  // The timeline's visible rows in visual order — what ↑/↓ walk. A folded
+  // group is one stop (its head span answers for the run); its members only
+  // join once the group is expanded. Group fold state lives here (not in the
+  // timeline) so Enter can toggle it from the keyboard.
+  const [navRows, setNavRows] = useState<TimelineNavEntry[]>([]);
+  const [expandedGroups, setExpandedGroups] = useState<ReadonlySet<string>>(
+    new Set()
+  );
+  const toggleGroup = useCallback(
+    (key: string) =>
+      setExpandedGroups((prev) => {
+        const next = new Set(prev);
+        if (next.has(key)) next.delete(key);
+        else next.add(key);
+        return next;
+      }),
+    []
+  );
+
+  // Position of the selected span among the visible rows — drives both the
+  // keyboard shortcuts and the inspector's prev/next buttons.
+  const selectedIndex = navRows.findIndex((r) => r.spanId === selected);
+  const stepSelection = useCallback(
+    (delta: number) => {
+      if (navRows.length === 0) return;
+      const i = navRows.findIndex((r) => r.spanId === selected);
+      // The whole-trace row sits above the spans: ↓ from it enters the list,
+      // ↑ from the first span returns to it.
+      if (i < 0) {
+        if (delta > 0) select(navRows[0].spanId);
+        return;
+      }
+      const ni = i + delta;
+      if (ni < 0) {
+        select(WHOLE_TRACE_ID);
+        return;
+      }
+      select(navRows[Math.min(ni, navRows.length - 1)].spanId);
+    },
+    [navRows, selected, select]
+  );
+
+  // Keyboard navigation: ↑/↓ or j/k move through the visible rows; Enter on a
+  // group row unfolds the run (and folds it back from any of its members).
+  // Ignored while typing in a field so it never hijacks copy/scroll inside
+  // payloads.
+  useEffect(() => {
+    if (navRows.length === 0) return;
+    const onKey = (e: KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const tag = target?.tagName;
+      if (tag === "INPUT" || tag === "TEXTAREA") return;
+      if (e.key === "Enter") {
+        // A focused button/link handles its own Enter — stepping in here too
+        // would double-toggle the row the user just clicked.
+        if (target?.closest?.("button, a, [role=button]")) return;
+        const entry = navRows.find((r) => r.spanId === selected);
+        if (!entry?.groupKey) return;
+        e.preventDefault();
+        toggleGroup(entry.groupKey);
+        // Folding from a member would strand the selection on a hidden row —
+        // land it on the group row (which answers for the head span).
+        if (entry.groupExpanded && entry.groupHeadId) {
+          select(entry.groupHeadId);
+        }
+        return;
+      }
+      const next = e.key === "ArrowDown" || e.key === "j";
+      const prev = e.key === "ArrowUp" || e.key === "k";
+      if (!next && !prev) return;
+      e.preventDefault();
+      stepSelection(next ? 1 : -1);
+    };
+    // `window` is shadowed by the timeline memo above — use globalThis.
+    globalThis.addEventListener("keydown", onKey);
+    return () => globalThis.removeEventListener("keydown", onKey);
+  }, [navRows, selected, select, toggleGroup, stepSelection]);
+
+  const back = navItem("/traces");
+  const ctx = detail.data;
+
+  // Header title: an explicit trace name when one was set, else the raw id.
+  // (The user-message snippet stays a list-page affordance — as a title here
+  // it read like a system prompt.) With a name, the id demotes to muted mono
+  // next to the copy button.
+  const traceTitle = ctx?.traceName ?? traceId;
+
+  if (!projectId) {
+    return (
+      <>
+        <PageHeader title="Trace" back={back} />
+        <NoProject />
+      </>
+    );
+  }
+
+  return (
+    <>
+      {/* Wrapped here (not inside a shared header component — this route's
+			    header renders the traceId itself, so loading.tsx's placeholder
+			    RouteHeader is a separate render) so only the page's own header fades. */}
+      <div className={cn(entrance && "page-fade-in")}>
+        <PageHeader
+          title={traceTitle}
+          back={back}
+          titleTrailing={
+            <span className="flex min-w-0 items-center gap-0.5">
+              {traceTitle !== traceId && (
+                <span className="hidden max-w-44 truncate font-mono text-xs font-normal text-muted-foreground sm:inline">
+                  {traceId}
+                </span>
+              )}
+              <CopyButton value={traceId} title="Copy trace ID" />
+            </span>
+          }
+        />
+      </div>
+
+      {/* Context chips: link back to the owning session / workflow / agent,
+			    plus the end-customer this trace served (links to their traces). */}
+      {/* Chip-shaped placeholders where the context chips will land — the
+          real chips only exist once the trace arrives, and without these the
+          waterfall skeleton would sit flush under the header then shift. */}
+      {detail.isLoading && showSkeleton && (
+        <div
+          className={cn(
+            "mt-1 flex flex-wrap items-center gap-2 px-6",
+            entrance && "page-fade-in"
+          )}
+        >
+          {/* Plain divs, not <Skeleton> — its base corner-squircle squares off
+              rounded-full, and these must read as the pills they stand in for. */}
+          <div className="h-8 w-36 animate-pulse rounded-full bg-muted" />
+          <div className="h-8 w-28 animate-pulse rounded-full bg-muted" />
+          <div className="h-8 w-32 animate-pulse rounded-full bg-muted" />
+        </div>
+      )}
+
+      {ctx &&
+        (ctx.sessionId ||
+          ctx.workflowName ||
+          ctx.agentName ||
+          ctx.customer ||
+          models.length > 0) && (
+          <div
+            className={cn(
+              "mt-1 flex flex-wrap items-center gap-2 text-xs px-6",
+              entrance && !skeletonShown && "page-fade-in"
+            )}
+          >
+            {ctx.customer && (
+              <ContextChip
+                href={`/traces?customer=${encodeURIComponent(ctx.customer.id)}`}
+                icon={(p) => (
+                  <CustomerAvatar
+                    customerId={ctx.customer!.id}
+                    customerName={ctx.customer!.name}
+                    imageUrl={ctx.customer!.imageUrl}
+                    filled
+                    className={p.className}
+                  />
+                )}
+                iconClassName=""
+                label={ctx.customer.name ?? ctx.customer.id}
+              />
+            )}
+            {ctx.sessionId && (
+              <SessionChip
+                sessionId={ctx.sessionId}
+                prev={neighbors.data?.prev ?? null}
+                next={neighbors.data?.next ?? null}
+              />
+            )}
+            {ctx.workflowName && (
+              <ContextChip
+                href={`/workflows/${encodeURIComponent(ctx.workflowName)}`}
+                icon={IconSitemapFilled}
+                iconClassName="text-emerald-500"
+                label={ctx.workflowName}
+              />
+            )}
+            {ctx.workflowName && ctx.workflowRunId && (
+              // Deep-links to this run inside the workflow detail (?run=), so the
+              // trace's sibling traces in the same run are one hop away.
+              <ContextChip
+                href={`/workflows/${encodeURIComponent(ctx.workflowName)}?run=${encodeURIComponent(ctx.workflowRunId)}`}
+                icon={IconRoute}
+                iconClassName="text-emerald-500"
+                label={ctx.workflowRunId}
+              />
+            )}
+            {ctx.agentName && (
+              <ContextChip
+                href={`/agents/${encodeURIComponent(ctx.agentName)}`}
+                icon={(p) => (
+                  <AgentIcon
+                    name={ctx.agentName}
+                    filled
+                    className={p.className}
+                  />
+                )}
+                iconClassName=""
+                label={ctx.agentName}
+              />
+            )}
+            <ModelChip models={models} />
+          </div>
+        )}
+
+      {detail.isLoading ? (
+        showSkeleton ? (
+          <div className={cn(entrance && "page-fade-in")}>
+            <TraceDetailSkeleton />
+          </div>
+        ) : null
+      ) : ordered.length === 0 ? (
+        <div className="px-8">
+          <EmptyState
+            icon={IconListTree}
+            title="Trace not found"
+            description="It may have aged out of retention or never arrived."
+            className={cn(entrance && !skeletonShown && "page-fade-in")}
+          />
+        </div>
+      ) : (
+        <>
+          {/* No stat-card strip — the always-open whole-trace inspector shows
+              the same Duration/Cost/Tokens (with the p-rank hints) right next
+              to the waterfall, and errors live in the issues strip. */}
+          {issues.length > 0 && (
+            <IssuesStrip
+              issues={issues}
+              onSelect={select}
+              className={cn(
+                "px-8",
+                entrance && !skeletonShown && "page-fade-in"
+              )}
+            />
+          )}
+
+          <div
+            className={cn(
+              "flex items-start gap-6 px-8 mt-2",
+              entrance && !skeletonShown && "page-fade-in"
+            )}
+          >
+            <div ref={setTimelineEl} className="min-w-0 flex-1">
+              <TraceTimeline
+                spans={spans}
+                selected={selected}
+                onSelect={select}
+                scores={scores.data ?? []}
+                evalMeta={evalMeta}
+                presetName={presetName}
+                expandedGroups={expandedGroups}
+                onToggleGroup={toggleGroup}
+                onNavChange={setNavRows}
+              />
+            </div>
+            <DetailPanel
+              span={isTraceSelected ? null : active}
+              scores={activeScores}
+              trace={isTraceSelected ? traceSummary : null}
+              spans={spans}
+              evalMeta={evalMeta}
+              presetName={presetName}
+              spanIndex={selectedIndex}
+              spanCount={navRows.length}
+              onStep={stepSelection}
+              subtreeStats={subtreeStats}
+              rank={rank}
+              tall={tallTrace}
+            />
+          </div>
+        </>
+      )}
+    </>
+  );
+}
+
+/** One segment of a {@link BreakdownStrip}. `weight` overrides the bar width
+ * when it must differ from the legend value (TimeComposition fit-scales
+ * overlapping categories); color comes as a hex `color` or a Tailwind
+ * `swatch` class, whichever the caller has. */
+type StripSegment = {
+  label: string;
+  value: number;
+  color?: string;
+  swatch?: string;
+  weight?: number;
+};
+
+/**
+ * The one strip-plus-legend used by every proportional breakdown on this page
+ * (cost by category, cost by model, time, tokens, TTFT) — same bar, same
+ * legend, same hover behavior everywhere. Hovering either a segment or its
+ * legend entry dims the rest, which is what makes thin slivers findable. The
+ * legend carries each part's share of `total` (defaults to the sum of values;
+ * TimeComposition passes wall-clock, so overlapping categories can genuinely
+ * sum past 100%). Spans only — it renders inside Field values, where a div
+ * would be invalid HTML.
+ */
+function BreakdownStrip({
+  parts,
+  format,
+  total,
+  className,
+}: {
+  parts: StripSegment[];
+  format: (value: number) => string;
+  total?: number;
+  className?: string;
+}) {
+  const [hovered, setHovered] = useState<string | null>(null);
+  const sum = parts.reduce((acc, p) => acc + p.value, 0);
+  const denom = total ?? sum;
+  if (parts.length === 0 || sum <= 0 || denom <= 0) return null;
+  const share = (value: number) => {
+    const pct = (value / denom) * 100;
+    return pct < 1 ? "<1%" : `${Math.round(pct)}%`;
+  };
+  return (
+    <span className={cn("flex flex-col gap-3", className)}>
+      <span className="flex h-1 w-full gap-px overflow-hidden rounded-[1px]">
+        <TooltipProvider>
+          {parts.map((p) => (
+            <Tooltip key={p.label}>
+              <TooltipTrigger
+                render={
+                  <span
+                    onMouseEnter={() => setHovered(p.label)}
+                    onMouseLeave={() => setHovered(null)}
+                    className={cn(
+                      "h-full cursor-zoom-in transition-opacity",
+                      p.swatch,
+                      hovered !== null && hovered !== p.label && "opacity-25"
+                    )}
+                    style={{
+                      width: `${((p.weight ?? p.value) / denom) * 100}%`,
+                      backgroundColor: p.color,
+                    }}
+                  />
+                }
+              />
+              <TooltipContent>
+                {p.label}: {format(p.value)} · {share(p.value)}
+              </TooltipContent>
+            </Tooltip>
+          ))}
+        </TooltipProvider>
+      </span>
+      <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-muted-foreground tabular-nums">
+        {parts.map((p) => (
+          <span
+            key={p.label}
+            onMouseEnter={() => setHovered(p.label)}
+            onMouseLeave={() => setHovered(null)}
+            className={cn(
+              "inline-flex cursor-zoom-in items-center gap-1.5 transition-opacity",
+              hovered !== null && hovered !== p.label && "opacity-40"
+            )}
+          >
+            <span
+              className={cn("size-2 rounded-xs", p.swatch)}
+              style={{ backgroundColor: p.color }}
+            />
+            {p.label} {format(p.value)}
+            <span className="text-muted-foreground/60">{share(p.value)}</span>
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
+
+/**
+ * One horizontal strip splitting the trace's wall-clock into model time (pure
+ * model-call when the SDK reported it, else the whole LLM span), tool
+ * execution, other spans, and idle — the trace-level rollup of the waterfall's
+ * per-span phase split, in the same palette. Interval unions keep parallel
+ * spans from counting double; where categories overlap each other, their
+ * widths are scaled to fit the covered window so the strip always sums to the
+ * trace duration (the legend shows the exact per-category unions).
+ */
+function TimeComposition({
+  spans,
+  totalMs,
+  className,
+}: {
+  spans: Span[];
+  totalMs: number;
+  className?: string;
+}) {
+  const segs = useMemo(() => {
+    type Interval = [number, number];
+    const buckets: Record<"llm" | "tool" | "other", Interval[]> = {
+      llm: [],
+      tool: [],
+      other: [],
+    };
+    for (const s of spans) {
+      // Agent spans are containers — their window spans everything beneath.
+      if (s.spanType === "agent") continue;
+      const start = toMs(s.startTime);
+      const end =
+        s.spanType === "llm" && s.modelCallMs != null && s.modelCallMs > 0
+          ? start + Math.min(s.modelCallMs, s.durationMs)
+          : start + s.durationMs;
+      if (end <= start) continue;
+      const key =
+        s.spanType === "llm" ? "llm" : s.spanType === "tool" ? "tool" : "other";
+      buckets[key].push([start, end]);
+    }
+    const unionMs = (intervals: Interval[]) => {
+      if (intervals.length === 0) return 0;
+      const sorted = [...intervals].sort((a, b) => a[0] - b[0]);
+      let total = 0;
+      let [cs, ce] = sorted[0];
+      for (const [s, e] of sorted.slice(1)) {
+        if (s > ce) {
+          total += ce - cs;
+          cs = s;
+          ce = e;
+        } else {
+          ce = Math.max(ce, e);
+        }
+      }
+      return total + (ce - cs);
+    };
+    const llm = unionMs(buckets.llm);
+    const tool = unionMs(buckets.tool);
+    const other = unionMs(buckets.other);
+    const covered = unionMs([
+      ...buckets.llm,
+      ...buckets.tool,
+      ...buckets.other,
+    ]);
+    const idle = Math.max(0, totalMs - covered);
+    const sum = llm + tool + other;
+    const fit = sum > covered && sum > 0 ? covered / sum : 1;
+    return {
+      parts: [
+        { key: "Model", exact: llm, width: llm * fit, bar: "bg-violet-500" },
+        { key: "Tools", exact: tool, width: tool * fit, bar: "bg-blue-500" },
+        { key: "Other", exact: other, width: other * fit, bar: "bg-slate-400" },
+        {
+          key: "Idle",
+          exact: idle,
+          width: idle,
+          bar: "bg-muted-foreground/15",
+        },
+      ].filter((p) => p.exact > 0),
+    };
+  }, [spans, totalMs]);
+
+  if (totalMs <= 0 || segs.parts.length === 0) return null;
+
+  return (
+    <BreakdownStrip
+      className={className}
+      total={totalMs}
+      format={formatDuration}
+      parts={segs.parts.map((p) => ({
+        label: p.key,
+        value: p.exact,
+        weight: p.width,
+        swatch: p.bar,
+      }))}
+    />
+  );
+}
+
+// Fallback segment colors for CostComposition, used when a model has no brand
+// color (or two models share one) — the timeline palette, as hex so segments
+// and brand colors mix in the same inline style.
+const COST_FALLBACK_COLORS = [
+  "#8b5cf6", // violet-500
+  "#3b82f6", // blue-500
+  "#10b981", // emerald-500
+  "#f59e0b", // amber-500
+  "#64748b", // slate-500
+];
+
+/** Per-model spend, priciest first, in brand colors. The by-model half of the
+ * trace's Cost breakdown; unlike time, cost has no overlap problem, so the
+ * parts always sum to the trace total. */
+function costByModelParts(spans: Span[]): StripSegment[] {
+  const byKey = new Map<
+    string,
+    { label: string; cost: number; brand: string | null }
+  >();
+  for (const s of spans) {
+    if (s.totalCost == null || s.totalCost <= 0) continue;
+    const key = s.modelId ?? `type:${s.spanType}`;
+    const cur = byKey.get(key);
+    if (cur) {
+      cur.cost += s.totalCost;
+    } else {
+      byKey.set(key, {
+        label: s.modelId ? formatModelName(s.modelId) : s.spanType,
+        cost: s.totalCost,
+        brand: s.modelId ? modelBrandColor(s.provider, s.modelId) : null,
+      });
+    }
+  }
+  const sorted = [...byKey.values()].sort((a, b) => b.cost - a.cost);
+  // Two models of one provider share a brand color, which would merge their
+  // adjacent segments — later duplicates take fallback shades instead.
+  const used = new Set<string>();
+  let fi = 0;
+  return sorted.map((p) => {
+    let color = p.brand;
+    if (!color || used.has(color)) {
+      color = COST_FALLBACK_COLORS[fi % COST_FALLBACK_COLORS.length];
+      fi += 1;
+    }
+    used.add(color);
+    return { label: p.label, value: p.cost, color };
+  });
+}
+
+/**
+ * The trace's single Cost breakdown section: the per-category strip and the
+ * per-model strip are two views of the same spend, so they share one heading
+ * with a By category / By model toggle instead of stacking as two sections.
+ * Either view renders alone (no toggle) when the other doesn't split — a
+ * one-segment strip says nothing.
+ */
+function TraceCostSection({
+  byCategory,
+  spans,
+  total,
+  className,
+}: {
+  byCategory: CostPart[];
+  spans: Span[];
+  /** The trace's total spend, shown under the label like every other field. */
+  total: number | null;
+  className?: string;
+}) {
+  const [mode, setMode] = useState<"category" | "model">("category");
+  const byModel = useMemo(() => costByModelParts(spans), [spans]);
+  const hasCategory = byCategory.length > 1;
+  const hasModel = byModel.length > 1;
+  if (!hasCategory && !hasModel) return null;
+  const active =
+    hasCategory && hasModel ? mode : hasCategory ? "category" : "model";
+  return (
+    <div className={cn("flex flex-col gap-3", className)}>
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex min-w-0 flex-col gap-1">
+          <span className="text-xs text-muted-foreground">Cost breakdown</span>
+          {total != null && (
+            <span className="text-[13px] tabular-nums">
+              {formatCost(total)}
+            </span>
+          )}
+        </div>
+        {hasCategory && hasModel && (
+          <div className="flex items-center gap-2 text-[11px]">
+            {(
+              [
+                ["category", "By category"],
+                ["model", "By model"],
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setMode(value)}
+                className={cn(
+                  "cursor-pointer transition-colors",
+                  active === value
+                    ? "font-medium text-foreground"
+                    : "text-muted-foreground hover:text-foreground"
+                )}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+      {active === "category" ? (
+        <CostStrip parts={byCategory} />
+      ) : (
+        <BreakdownStrip parts={byModel} format={formatCost} />
+      )}
+    </div>
+  );
+}
+
+/** Where this trace ranks against its agent's last week — nulls when the query
+ * declines to answer (no agent, too few traces, unpriced). */
+type TraceRank = {
+  durationPercentile: number | null;
+  costPercentile: number | null;
+  tokenPercentile: number | null;
+};
+
+/** A Field value with a percentile chip beside it — where this trace's value
+ * falls among the same agent's traces over the last week. Outliers only: a
+ * typical value (p5–p90) renders bare, high ones get an amber (p90+) or rose
+ * (p95+) chip, unusually low ones (p5 and below) emerald. The tooltip carries
+ * the plain words. Purely additive: while the query is in flight, fails, or
+ * declines to answer (no agent, too few traces, unpriced), the bare value
+ * renders alone. */
+function rankedValue(value: React.ReactNode, percentile?: number | null) {
+  if (percentile == null || (percentile > 5 && percentile < 90)) return value;
+  const tone =
+    percentile >= 95
+      ? "bg-rose-500/15 text-rose-600 dark:text-rose-400"
+      : percentile >= 90
+        ? "bg-amber-500/15 text-amber-600 dark:text-amber-400"
+        : "bg-emerald-500/15 text-emerald-600 dark:text-emerald-400";
+  return (
+    <span className="flex flex-wrap items-baseline gap-x-1.5">
+      {value}
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            render={
+              <span
+                className={cn(
+                  "cursor-help rounded px-1 py-px text-[10px] font-medium tabular-nums",
+                  tone
+                )}
+              />
+            }
+          >
+            p{percentile}
+          </TooltipTrigger>
+          <TooltipContent>
+            Higher than {percentile}% of this agent&apos;s traces this week
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
+    </span>
+  );
+}
+
+/** The session context chip with the turn nav built in — "session | ‹ ›".
+ * Session traces are conversation turns (the sessions page frames them that
+ * way, so this does too), and the arrows render dimmed (not hidden) at the
+ * ends of the session, so the control doesn't appear and disappear as you
+ * walk a conversation. Hand-rolls the ContextChip surface: a chip that also
+ * contains nav links can't be a single Button-as-Link. */
+function SessionChip({
+  sessionId,
+  prev,
+  next,
+}: {
+  sessionId: string;
+  prev: { traceId: string } | null;
+  next: { traceId: string } | null;
+}) {
+  const link = (t: { traceId: string } | null) =>
+    t ? `/traces/${encodeURIComponent(t.traceId)}` : null;
+  return (
+    <span className="flex h-8 max-w-sm items-center rounded-full text-sm shadow-(--custom-outline-shadow) bg-card">
+      <Link
+        // biome-ignore lint/suspicious/noExplicitAny: app routes are typed as Route
+        href={`/sessions/${encodeURIComponent(sessionId)}`}
+        className="flex h-full min-w-0 items-center gap-[5.5px] rounded-full pl-2.5 pr-2 outline-none transition-colors hover:bg-muted focus-visible:ring-[1.5px] focus-visible:ring-ring/50"
+      >
+        <IconMessage2Filled className="size-3.5 shrink-0 text-sky-500" />
+        <span className="truncate">{sessionId}</span>
+        <IconArrowUpRight className="-ml-0.5 mt-px size-3.5 shrink-0 text-muted-foreground" />
+      </Link>
+      <span className="h-4 w-px shrink-0 bg-border mx-1" />
+      <TurnNavSegment
+        href={link(prev)}
+        label="Previous turn"
+        icon={IconChevronLeft}
+        className="rounded-full p-2"
+      />
+      <TurnNavSegment
+        href={link(next)}
+        label="Next turn"
+        icon={IconChevronRight}
+        className="rounded-full p-2"
+      />
+    </span>
+  );
+}
+
+function TurnNavSegment({
+  href,
+  label,
+  icon: Icon,
+  className,
+}: {
+  href: string | null;
+  label: string;
+  icon: React.ComponentType<{ className?: string }>;
+  className: string;
+}) {
+  const cls = cn(
+    "flex h-full items-center text-muted-foreground outline-none transition-colors focus-visible:ring-[1.5px] focus-visible:ring-ring/50",
+    href ? "hover:bg-muted hover:text-foreground" : "opacity-50",
+    className
+  );
+  return (
+    <TooltipProvider delay={150}>
+      <Tooltip>
+        {href ? (
+          <TooltipTrigger
+            render={
+              // biome-ignore lint/suspicious/noExplicitAny: app routes are typed as Route
+              <Link href={href} aria-label={label} className={cls}>
+                <Icon className="size-3.5" />
+              </Link>
+            }
+          />
+        ) : (
+          // The end of the session: inert, but still explains itself on hover.
+          <TooltipTrigger
+            render={
+              <span aria-disabled className={cls}>
+                <Icon className="size-3.5" />
+              </span>
+            }
+          />
+        )}
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+type Issue = {
+  tone: "rose" | "amber" | "orange";
+  icon: React.ComponentType<{ className?: string }>;
+  /** Chip text — short enough to sit alongside the other issues. */
+  label: string;
+  /** The span the chip selects. */
+  spanId: string;
+};
+
+// Tailwind can't build class names at runtime, so each tone spells its classes
+// out in full.
+const ISSUE_TONES: Record<Issue["tone"], { strip: string; chip: string }> = {
+  rose: {
+    strip:
+      "bg-rose-500/10 shadow-(--custom-shadow-rose) dark:bg-rose-500/15 text-rose-600 dark:text-rose-400",
+    chip: "text-rose-600 hover:bg-rose-500/20 dark:text-rose-400 dark:hover:bg-rose-500/25",
+  },
+  amber: {
+    strip:
+      "bg-amber-500/10 shadow-(--custom-shadow-amber) dark:bg-amber-500/15 text-amber-700 dark:text-amber-400",
+    chip: "text-amber-700 hover:bg-amber-500/20 dark:text-amber-400 dark:hover:bg-amber-500/25",
+  },
+  orange: {
+    strip:
+      "bg-orange-500/10 shadow-(--custom-shadow-orange) dark:bg-orange-500/15 text-orange-700 dark:text-orange-400",
+    chip: "text-orange-700 hover:bg-orange-500/20 dark:text-orange-400 dark:hover:bg-orange-500/25",
+  },
+};
+
+/** Every trace-level problem in one severity-ordered strip, one chip each. No
+ * inline error message — clicking a chip opens the span, and the details
+ * sheet's banner carries the full text with its copy button. */
+function IssuesStrip({
+  issues,
+  onSelect,
+  className,
+}: {
+  issues: Issue[];
+  onSelect: (spanId: string) => void;
+  className?: string;
+}) {
+  const lead = issues[0];
+  if (!lead) return null;
+  return (
+    <div className={className}>
+      <div
+        className={cn(
+          "flex flex-wrap items-center gap-1 rounded-lg px-2 py-2 text-sm",
+          ISSUE_TONES[lead.tone].strip
+        )}
+      >
+        {issues.map((issue) => {
+          const t = ISSUE_TONES[issue.tone];
+          return (
+            <button
+              key={issue.tone}
+              type="button"
+              onClick={() => onSelect(issue.spanId)}
+              className={cn(
+                "flex cursor-pointer items-center gap-2 rounded-md px-2 py-1 text-left font-medium transition-colors",
+                t.chip
+              )}
+            >
+              <issue.icon className="size-4 shrink-0" />
+              <span>{issue.label}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/** Rolled-up totals for everything beneath a span — what an `agent` span is
+ * actually worth knowing, since its own counters are empty. */
+type SubtreeStats = { spans: number; cost: number | null; tokens: number };
+
+/**
+ * Subtree totals for every span, keyed by span id. Cost stays `null` when no
+ * descendant carried one, so an unpriced subtree renders no cost field rather
+ * than a misleading $0.
+ */
+function computeSubtreeStats(spans: Span[]): Map<string, SubtreeStats> {
+  const children = new Map<string, Span[]>();
+  for (const s of spans) {
+    if (!s.parentSpanId) continue;
+    const bucket = children.get(s.parentSpanId);
+    if (bucket) bucket.push(s);
+    else children.set(s.parentSpanId, [s]);
+  }
+  const memo = new Map<string, SubtreeStats>();
+  const walk = (span: Span): SubtreeStats => {
+    const hit = memo.get(span.spanId);
+    if (hit) return hit;
+    const out: SubtreeStats = { spans: 0, cost: null, tokens: 0 };
+    // Seed before recursing so a malformed parent cycle bottoms out at zero
+    // instead of hanging the render.
+    memo.set(span.spanId, out);
+    for (const child of children.get(span.spanId) ?? []) {
+      const sub = walk(child);
+      out.spans += 1 + sub.spans;
+      out.tokens += child.inputTokens + child.outputTokens + sub.tokens;
+      if (child.totalCost != null || sub.cost != null) {
+        out.cost = (out.cost ?? 0) + (child.totalCost ?? 0) + (sub.cost ?? 0);
+      }
+    }
+    return out;
+  };
+  for (const s of spans) walk(s);
+  return memo;
+}
+
+/**
+ * The fields worth showing for a span, by type. Absent values are omitted
+ * outright rather than rendered as a dash — an empty slot says "not applicable
+ * here", which a dash cannot. The two places a dash survives are deliberate:
+ * the header stat strip (the grid needs a card-shaped thing) and cost on an
+ * `llm` span, where a null means "we failed to price this", not "no cost".
+ */
+/** "Started" as an offset into the trace (`+2.3s`) — where the span sits is
+ * what you're orienting by; the absolute wall-clock time waits in the tooltip.
+ * The trace's own start (offset ~0) reads as words instead of `+0ms`. */
+function StartedOffset({
+  startTime,
+  traceStartMs,
+}: {
+  startTime: string;
+  traceStartMs: number;
+}) {
+  const offsetMs = Math.max(0, toMs(startTime) - traceStartMs);
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger render={<span className="cursor-help tabular-nums" />}>
+          {offsetMs < 1 ? "Trace start" : `+${formatSpanDuration(offsetMs)}`}
+        </TooltipTrigger>
+        <TooltipContent>{formatDateTime(startTime)}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+function spanFields(
+  span: Span,
+  subtree: SubtreeStats | undefined,
+  /** The span's descendant spans — agent containers aggregate these into the
+   * same token/model breakdowns an llm span shows for itself. */
+  descendants: Span[],
+  /** Earliest span start of the trace — the zero the Started offset counts
+   * from. */
+  traceStartMs: number
+): {
+  label: string;
+  value: React.ReactNode;
+  wide?: boolean;
+  separated?: boolean;
+}[] {
+  const fields: {
+    label: string;
+    value: React.ReactNode;
+    wide?: boolean;
+    separated?: boolean;
+  }[] = [];
+  const add = (
+    label: string,
+    value: React.ReactNode,
+    wide?: boolean,
+    /** Draw a divider above — for the full-width breakdown fields that read as
+     * their own section under the plain key/value pairs. */
+    separated?: boolean
+  ) => {
+    if (value != null) fields.push({ label, value, wide, separated });
+  };
+  const model = span.modelId ? (
+    <span className="flex min-w-0 items-center gap-1.5">
+      <ModelLogo
+        provider={span.provider}
+        modelId={span.modelId}
+        className="size-3 shrink-0"
+      />
+      <span className="truncate" title={span.modelId}>
+        {formatModelName(span.modelId)}
+      </span>
+    </span>
+  ) : null;
+
+  // Field order is column layout: the 2-col grid fills row-major, so evens
+  // land left and odds right. Interleaving time fields (Started, Duration,
+  // TTFT) with identity/money ones (Model, Cost) puts each kind in its own
+  // column — which is why Duration is added per-branch, not up front.
+  const started = (
+    <StartedOffset startTime={span.startTime} traceStartMs={traceStartMs} />
+  );
+  const duration = formatSpanDuration(span.durationMs);
+  add("Started", started);
+
+  switch (span.spanType) {
+    case "llm": {
+      add("Model", model);
+      add("Duration", duration);
+      // No Provider field — the model logo/name already carries it.
+      add("Cost", formatCost(span.totalCost));
+      // No TTFT here — it renders as its own full-width section below the
+      // Cost breakdown (see SpanDetail).
+      add(
+        "Tokens",
+        <span className="flex flex-col gap-2">
+          {/* Total only — the legend under the bar carries the split. */}
+          <span>{formatTokens(span.inputTokens + span.outputTokens)}</span>
+          <TokenSplitBar
+            input={span.inputTokens}
+            cached={span.cachedInputTokens ?? 0}
+            reasoning={span.reasoningTokens ?? 0}
+            output={span.outputTokens}
+          />
+        </span>,
+        // Last and full-width, split from the pairs above — the strip is the
+        // point and needs the room.
+        true,
+        true
+      );
+      // No "Model call" field — the llm span now closes at the model-call end,
+      // so modelCallMs ≈ durationMs and tool time lives in tool child spans.
+      break;
+    }
+    case "embedding": {
+      add("Model", model);
+      add("Duration", duration);
+      add("Provider", span.provider);
+      if (span.inputTokens > 0)
+        add("Input tokens", formatTokens(span.inputTokens));
+      if (span.totalCost != null) add("Cost", formatCost(span.totalCost));
+      break;
+    }
+    case "agent": {
+      const usage = aggregateUsage(descendants);
+      if (usage.models.length > 0)
+        add(
+          usage.models.length === 1 ? "Model" : "Models",
+          <ModelList models={usage.models} />
+        );
+      add("Duration", duration);
+      if (subtree?.cost != null) add("Cost", formatCost(subtree.cost));
+      if (usage.input + usage.output > 0)
+        add(
+          "Tokens",
+          <span className="flex flex-col gap-2">
+            <span>{formatTokens(usage.input + usage.output)}</span>
+            <TokenSplitBar
+              input={usage.input}
+              cached={usage.cached}
+              reasoning={usage.reasoning}
+              output={usage.output}
+            />
+          </span>,
+          // Full-width and split from the pairs above: the split bar needs the
+          // room, and a wide bar is the point of it.
+          true,
+          true
+        );
+      // No Status field — the sheet header's status icon and the error banner
+      // already carry it.
+      break;
+    }
+    // `tool` and `other` carry none of the model fields — guessing at them is
+    // how you end up with a grid of dashes. No Status field either: the sheet
+    // header shows the status icon next to the name (see SpanStatusIcon).
+    default: {
+      add("Duration", duration);
+      if (span.totalCost != null && span.totalCost !== 0)
+        add("Cost", formatCost(span.totalCost));
+      break;
+    }
+  }
+  return fields;
+}
+
+/** The span's status as a bare icon — green check (ok), rose triangle (error),
+ * amber triangle (aborted) — for the sheet header, where a labeled field would
+ * be noise. The capitalized status is the tooltip. */
+function SpanStatusIcon({ status }: { status: string }) {
+  const label = status.charAt(0).toUpperCase() + status.slice(1);
+  return (
+    <TooltipProvider>
+      <Tooltip>
+        <TooltipTrigger
+          render={<span className="flex shrink-0 items-center" />}
+        >
+          {status === "ok" ? (
+            <IconCircleCheckFilled className="size-3.5 text-emerald-500" />
+          ) : (
+            <IconAlertTriangleFilled
+              className={cn(
+                "size-3.5",
+                status === "aborted" ? "text-amber-500" : "text-rose-500"
+              )}
+            />
+          )}
+        </TooltipTrigger>
+        <TooltipContent>{label}</TooltipContent>
+      </Tooltip>
+    </TooltipProvider>
+  );
+}
+
+/** Thin bar under the TTFT number splitting the llm span's wall into the
+ * pre-first-token wait (faded, matching the waterfall's TTFT treatment) and
+ * generation. */
+function TtftSplitBar({
+  ttftMs,
+  durationMs,
+}: {
+  ttftMs: number;
+  durationMs: number;
+}) {
+  if (durationMs <= 0 || ttftMs <= 0) return null;
+  const wait = Math.min(ttftMs, durationMs);
+  return (
+    <BreakdownStrip
+      format={formatDuration}
+      parts={[
+        { label: "First token wait", value: wait, swatch: "bg-violet-500/30" },
+        {
+          label: "Generating",
+          value: Math.max(0, durationMs - wait),
+          swatch: "bg-violet-500",
+        },
+      ].filter((p) => p.value > 0)}
+    />
+  );
+}
+
+/** Token proportion strip + legend, in the cost-category palette — Input,
+ * Cached input, Reasoning, and Output keep the same colors whether the strip
+ * is measuring tokens or dollars, so the two breakdowns visibly rhyme. Cached
+ * input is carved out of the input count and reasoning out of the output
+ * count, which is how providers report them (and how the cost package bills
+ * them), so the strip still sums to the headline total. */
+function TokenSplitBar({
+  input,
+  cached,
+  reasoning = 0,
+  output,
+}: {
+  input: number;
+  cached: number;
+  reasoning?: number;
+  output: number;
+}) {
+  const total = input + output;
+  if (total <= 0) return null;
+  const cachedPart = Math.min(Math.max(cached, 0), input);
+  const fresh = input - cachedPart;
+  const reasoningPart = Math.min(Math.max(reasoning, 0), output);
+  const answer = output - reasoningPart;
+  return (
+    <BreakdownStrip
+      format={formatTokens}
+      parts={[
+        { label: "Input", value: fresh, color: "#F97316" },
+        { label: "Cached input", value: cachedPart, color: "#FDBA74" },
+        { label: "Reasoning", value: reasoningPart, color: "#93C5FD" },
+        { label: "Output", value: answer, color: "#0090FD" },
+      ].filter((p) => p.value > 0)}
+    />
+  );
+}
+
+type CostPart = { label: string; value: number; color: string };
+
+/** Per-category cost components that actually carry a value, so a breakdown
+ * shows only what applies. Labels, colors, and stack order match the agent
+ * page's Cost breakdown chart (cost-breakdown-card.tsx CATEGORIES); the
+ * dimensions that chart lumps into "Other" get slate shades here. */
+function costPartsOf(src: {
+  promptCost: number | null;
+  cacheReadCost: number | null;
+  cacheWriteCost: number | null;
+  completionCost: number | null;
+  reasoningCost: number | null;
+  imageCost: number | null;
+  webSearchCost: number | null;
+  requestCost: number | null;
+}): CostPart[] {
+  return [
+    { label: "Input", value: src.promptCost, color: "#F97316" },
+    { label: "Cached input", value: src.cacheReadCost, color: "#FDBA74" },
+    { label: "Cache write", value: src.cacheWriteCost, color: "#C2410C" },
+    { label: "Reasoning", value: src.reasoningCost, color: "#93C5FD" },
+    { label: "Output", value: src.completionCost, color: "#0090FD" },
+    { label: "Image", value: src.imageCost, color: "#64748b" },
+    { label: "Web search", value: src.webSearchCost, color: "#14B8A6" },
+    { label: "Request", value: src.requestCost, color: "#475569" },
+  ].filter((p): p is CostPart => p.value != null && p.value > 0);
+}
+
+/** Token/cost/model rollup over a set of spans — what lets an agent span or
+ * the whole trace show the same breakdowns an individual llm span gets. */
+function aggregateUsage(list: Span[]): {
+  input: number;
+  cached: number;
+  reasoning: number;
+  output: number;
+  models: { modelId: string; provider: string | null }[];
+  costParts: CostPart[];
+} {
+  let input = 0;
+  let cached = 0;
+  let reasoning = 0;
+  let output = 0;
+  const sums = {
+    promptCost: 0,
+    cacheReadCost: 0,
+    cacheWriteCost: 0,
+    completionCost: 0,
+    reasoningCost: 0,
+    imageCost: 0,
+    webSearchCost: 0,
+    requestCost: 0,
+  };
+  // First-use order — reads as the trace unfolded, and stays stable while
+  // costs stream in.
+  const models = new Map<string, string | null>();
+  for (const s of list) {
+    input += s.inputTokens;
+    cached += s.cachedInputTokens ?? 0;
+    reasoning += s.reasoningTokens ?? 0;
+    output += s.outputTokens;
+    sums.promptCost += s.promptCost ?? 0;
+    sums.cacheReadCost += s.cacheReadCost ?? 0;
+    sums.cacheWriteCost += s.cacheWriteCost ?? 0;
+    sums.completionCost += s.completionCost ?? 0;
+    sums.reasoningCost += s.reasoningCost ?? 0;
+    sums.imageCost += s.imageCost ?? 0;
+    sums.webSearchCost += s.webSearchCost ?? 0;
+    sums.requestCost += s.requestCost ?? 0;
+    if (s.modelId && !models.has(s.modelId)) models.set(s.modelId, s.provider);
+  }
+  return {
+    input,
+    cached,
+    reasoning,
+    output,
+    models: [...models].map(([modelId, provider]) => ({ modelId, provider })),
+    costParts: costPartsOf(sums),
+  };
+}
+
+/** The strip-plus-legend body shared by every per-category cost breakdown —
+ * same shape as Time distribution. The caller supplies the section label. */
+function CostStrip({
+  parts,
+  className,
+}: {
+  parts: CostPart[];
+  className?: string;
+}) {
+  return (
+    <BreakdownStrip parts={parts} format={formatCost} className={className} />
+  );
+}
+
+/** Stacked model rows (logo + name) for a Models field — the multi-model
+ * sibling of the single Model field on llm spans. */
+function ModelList({
+  models,
+}: {
+  models: { modelId: string; provider: string | null }[];
+}) {
+  return (
+    <span className="flex flex-col gap-1.5">
+      {models.map((m) => (
+        <span key={m.modelId} className="flex min-w-0 items-center gap-1.5">
+          <ModelLogo
+            provider={m.provider}
+            modelId={m.modelId}
+            className="size-3 shrink-0"
+          />
+          <span className="truncate" title={m.modelId}>
+            {formatModelName(m.modelId)}
+          </span>
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function Field({
+  label,
+  value,
+  className,
+}: {
+  label: string;
+  value: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex min-w-0 flex-col gap-1", className)}>
+      <span className="text-xs text-muted-foreground">{label}</span>
+      <span className="text-[13px] tabular-nums">{value}</span>
+    </div>
+  );
+}
+
+// RAG/grounding citations captured on the span (StepResult.sources), as a JSON
+// array. Parsed defensively — a malformed blob yields no sources, never throws.
+type ParsedSource = { title?: string; url?: string };
+function parseSources(raw: string | null | undefined): ParsedSource[] {
+  if (!raw) return [];
+  try {
+    const arr = JSON.parse(raw) as unknown;
+    if (!Array.isArray(arr)) return [];
+    return arr.map((s) => {
+      const o =
+        s && typeof s === "object" ? (s as Record<string, unknown>) : {};
+      return {
+        title: typeof o.title === "string" ? o.title : undefined,
+        url: typeof o.url === "string" ? o.url : undefined,
+      };
+    });
+  } catch {
+    return [];
+  }
+}
+
+// Below this % of remaining rate-limit quota, the trace gets a warning banner.
+const LOW_HEADROOM_PCT = 10;
+
+// Percent of a rate-limit quota still available, or null when not computable.
+function pctRemaining(
+  remaining: number | null | undefined,
+  limit: number | null | undefined
+): number | null {
+  if (remaining == null || limit == null || limit <= 0) return null;
+  return Math.round((remaining / limit) * 100);
+}
+
+// Default width of the span inspector. The timeline (a flex sibling, flex-1)
+// gives up exactly this much room, so the panel reads as carved out of the same
+// canvas — same technique as the Foggy chat.
+const PANEL_WIDTH = 420;
+
+// Resize limits: thin enough to give the waterfall room, wide enough that the
+// two-column field grid and payloads stay readable.
+const PANEL_MIN_WIDTH = 340;
+const PANEL_MAX_WIDTH = 720;
+
+// The chosen width survives navigation — resizing is a workspace preference,
+// not a per-trace one.
+const PANEL_WIDTH_KEY = "foglamp:trace-panel-width";
+
+const clampPanelWidth = (w: number) =>
+  Math.min(PANEL_MAX_WIDTH, Math.max(PANEL_MIN_WIDTH, w));
+
+/**
+ * The right-hand inspector — always open, showing either a single span or the
+ * whole trace (the default). Switching targets swaps the content in place. The
+ * left edge is a drag handle: the panel resizes between fixed limits and the
+ * timeline (flex-1 beside it) absorbs the difference.
+ */
+function DetailPanel({
+  span,
+  scores,
+  trace,
+  spans,
+  evalMeta,
+  presetName,
+  spanIndex,
+  spanCount,
+  onStep,
+  subtreeStats,
+  rank,
+  tall,
+}: {
+  span: Span | null;
+  scores: TraceScore[];
+  trace: TraceSummary | null;
+  /** All spans of the trace — the whole-trace view derives its time
+   * distribution and root payloads from them. */
+  spans: Span[];
+  evalMeta: Map<string, EvalMeta>;
+  presetName: Map<string, string>;
+  /** Position of the selected span in waterfall order; -1 when none. */
+  spanIndex: number;
+  spanCount: number;
+  onStep: (delta: number) => void;
+  subtreeStats: Map<string, SubtreeStats>;
+  rank: TraceRank | null;
+  /** True when the waterfall outgrows the viewport — the page scrolls anyway,
+   * so the sheet may take more height (-6rem instead of -14rem). */
+  tall: boolean;
+}) {
+  // Input of the LLM call that started closest before the selected one — the
+  // baseline the Input transcript diffs against. Any llm span in the trace
+  // counts (agent loops interleave tool spans between calls).
+  const previousInput = useMemo(() => {
+    if (!span || span.spanType !== "llm" || !span.input) return null;
+    const start = toMs(span.startTime);
+    let best: Span | null = null;
+    for (const s of spans) {
+      if (s.spanType !== "llm" || s.spanId === span.spanId || !s.input)
+        continue;
+      if (
+        toMs(s.startTime) < start &&
+        (!best || toMs(s.startTime) > toMs(best.startTime))
+      )
+        best = s;
+    }
+    return best?.input ?? null;
+  }, [span, spans]);
+  // How often each tool in the catalog was actually called in this trace —
+  // lets the catalog sort/mark used tools instead of listing a static roster.
+  const toolCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    for (const s of spans) {
+      if (s.spanType !== "tool") continue;
+      counts.set(s.name, (counts.get(s.name) ?? 0) + 1);
+    }
+    return counts;
+  }, [spans]);
+  const [width, setWidth] = useState(PANEL_WIDTH);
+  // Mirror for the pointer-up persist, so the handler doesn't need to re-bind
+  // on every pixel of drag.
+  const widthRef = useRef(width);
+  widthRef.current = width;
+  // Stored width is applied after mount (not in the initializer) so server and
+  // client render the same initial markup.
+  useEffect(() => {
+    const stored = Number(localStorage.getItem(PANEL_WIDTH_KEY));
+    if (Number.isFinite(stored) && stored > 0)
+      setWidth(clampPanelWidth(stored));
+  }, []);
+  const drag = useRef<{
+    pointerId: number;
+    startX: number;
+    startWidth: number;
+  } | null>(null);
+  // Live while a drag is in flight — keeps the edge light on after the pointer
+  // leaves the thin handle (same trick as the Foggy panel).
+  const [resizing, setResizing] = useState(false);
+  const endDrag = (e: React.PointerEvent) => {
+    if (drag.current?.pointerId !== e.pointerId) return;
+    drag.current = null;
+    setResizing(false);
+    document.body.style.cursor = "";
+    document.body.style.userSelect = "";
+    localStorage.setItem(PANEL_WIDTH_KEY, String(widthRef.current));
+  };
+
+  return (
+    <aside
+      className="group/panel sticky top-4 shrink-0 self-start"
+      style={{ width }}
+    >
+      {/* Resize handle on the panel's left edge. Pointer capture keeps the
+			    drag alive when the cursor outruns the 12px hit area. */}
+      {/* biome-ignore lint/a11y/useFocusableInteractive: pointer-only affordance; the width is cosmetic */}
+      <div
+        role="separator"
+        aria-orientation="vertical"
+        aria-label="Resize panel"
+        data-trace-resize=""
+        data-resizing={resizing || undefined}
+        onPointerDown={(e) => {
+          e.preventDefault();
+          drag.current = {
+            pointerId: e.pointerId,
+            startX: e.clientX,
+            startWidth: widthRef.current,
+          };
+          setResizing(true);
+          // The pointer leaves the thin handle immediately while dragging, so
+          // pin the resize cursor (and disable text selection) globally until
+          // release.
+          document.body.style.cursor = "col-resize";
+          document.body.style.userSelect = "none";
+          e.currentTarget.setPointerCapture(e.pointerId);
+        }}
+        onPointerMove={(e) => {
+          const d = drag.current;
+          if (!d || d.pointerId !== e.pointerId) return;
+          // The panel sits on the right, so dragging left widens it.
+          setWidth(clampPanelWidth(d.startWidth + (d.startX - e.clientX)));
+        }}
+        onPointerUp={endDrag}
+        onPointerCancel={endDrag}
+        className="absolute inset-y-0 -left-3 z-10 w-3 cursor-col-resize touch-none"
+      />
+      {/* Lights up the sheet's left edge while the handle is hovered or
+			    dragged — the same affordance as the Foggy panel, whose shell edge
+			    lights via these data attributes and :has(). Follows the Card's
+			    rounding so the lit border hugs its corners. */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-10 rounded-lg squircle:rounded-3xl corner-squircle border-l border-border opacity-0 transition-opacity duration-200 group-has-[[data-trace-resize]:hover]/panel:opacity-100 group-has-[[data-trace-resize][data-resizing]]/panel:opacity-100"
+      />
+      {trace ? (
+        <TraceDetail
+          trace={trace}
+          spans={spans}
+          evalMeta={evalMeta}
+          presetName={presetName}
+          onStep={onStep}
+          rank={rank}
+          tall={tall}
+          toolCounts={toolCounts}
+        />
+      ) : span ? (
+        <SpanDetail
+          span={span}
+          spans={spans}
+          scores={scores}
+          evalMeta={evalMeta}
+          presetName={presetName}
+          spanIndex={spanIndex}
+          spanCount={spanCount}
+          onStep={onStep}
+          subtree={subtreeStats.get(span.spanId)}
+          previousInput={previousInput}
+          tall={tall}
+          toolCounts={toolCounts}
+          trace={trace}
+        />
+      ) : null}
+    </aside>
+  );
+}
+
+/**
+ * The whole-trace inspector — the default (and un-closable) target of the
+ * always-open panel, built to be where debugging starts: the trace's rollup,
+ * its time distribution, and the root span's tools/input/output so the
+ * conversation is readable without hunting down the waterfall. Mirrors
+ * {@link SpanDetail}'s Card chrome so the two read as one inspector that
+ * simply swaps contents.
+ */
+function TraceDetail({
+  trace,
+  spans,
+  evalMeta,
+  presetName,
+  onStep,
+  rank,
+  tall,
+  toolCounts,
+}: {
+  trace: TraceSummary;
+  spans: Span[];
+  evalMeta: Map<string, EvalMeta>;
+  presetName: Map<string, string>;
+  onStep: (delta: number) => void;
+  rank: TraceRank | null;
+  tall: boolean;
+  toolCounts: Map<string, number>;
+}) {
+  // Same Overview/Raw split as SpanDetail — the whole-trace view is curated,
+  // Raw is the verbatim summary + root payloads.
+  const [tab, setTab] = useState("overview");
+  // The trace's root span carries the conversation-level payloads: the messages
+  // in, the final output, and the tool catalog the model was offered. Prefer
+  // the earliest top-level `agent` span (the SDK's container), else the
+  // earliest top-level span of any type.
+  const root = useMemo(() => {
+    const ids = new Set(spans.map((s) => s.spanId));
+    const tops = spans
+      .filter((s) => !s.parentSpanId || !ids.has(s.parentSpanId))
+      .sort((a, b) => toMs(a.startTime) - toMs(b.startTime));
+    return tops.find((s) => s.spanType === "agent") ?? tops[0] ?? null;
+  }, [spans]);
+  // Trace-wide token/cost/model rollup — the whole-trace view shows the same
+  // breakdowns an individual llm span gets.
+  const usage = useMemo(() => aggregateUsage(spans), [spans]);
+  // Short traces size the sheet so the page never scrolls (-14rem accounts for
+  // the chrome above + below it); once the waterfall outgrows the viewport the
+  // page scrolls anyway, so the sheet takes the extra room (-6rem).
+  return (
+    <Card
+      className={cn(
+        tall ? "max-h-[calc(100svh-6rem)]" : "max-h-[calc(100svh-14rem)]",
+        "gap-0 py-0"
+      )}
+    >
+      <CardHeader className="flex shrink-0 items-center gap-2 p-5 px-5 pb-1">
+        <CardTitle className="flex min-w-0 flex-1 items-center gap-2">
+          <span className="flex size-4.5 shrink-0 items-center shadow-[inset_0_0_0_1px_rgba(100,116,139,0.14),0_2px_6px_-2px_rgba(100,116,139,0.25)] dark:shadow-(--custom-shadow) justify-center rounded-md corner-squircle bg-primary/15 text-primary">
+            <IconAffiliate className="size-3" />
+          </span>
+          <span className="truncate">Whole trace</span>
+        </CardTitle>
+        {/* Same control trio as SpanDetail, so the panel's chrome doesn't jump
+            when the selection moves between the trace and a span. */}
+        <div className="flex shrink-0 items-center gap-1">
+          <Button
+            type="button"
+            size="xs"
+            variant="ghost"
+            className="text-muted-foreground/60 hover:text-foreground"
+            onClick={() => setTab(tab === "raw" ? "overview" : "raw")}
+          >
+            {tab === "raw" ? "Overview" : "Raw"}
+          </Button>
+          {/* The trace row sits above the span list, so ↑ has nowhere to go. */}
+          <Button
+            type="button"
+            size="icon-xs"
+            variant="ghost"
+            className="text-muted-foreground/60 hover:text-foreground"
+            disabled
+            aria-label="Previous span"
+            title="Previous span (↑)"
+          >
+            <IconChevronUp className="size-4 text-current" />
+          </Button>
+          <Button
+            type="button"
+            size="icon-xs"
+            variant="ghost"
+            className="text-muted-foreground/60 hover:text-foreground"
+            onClick={() => onStep(1)}
+            disabled={spans.length === 0}
+            aria-label="Next span"
+            title="First span (↓)"
+          >
+            <IconChevronDown className="size-4 text-current" />
+          </Button>
+          <CopyButton
+            value={JSON.stringify(trace, null, 2)}
+            title="Copy trace summary as JSON"
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="flex min-h-0 flex-1 flex-col p-0">
+        <Tabs
+          value={tab}
+          onValueChange={(v) => setTab(String(v))}
+          className="flex min-h-0 flex-1 flex-col gap-0"
+        >
+          {/* No TabsList — the header's Raw/Overview toggle drives `tab`. */}
+          <TabsContent
+            value="overview"
+            className="flex min-h-0 flex-1 flex-col"
+          >
+            <ScrollFade
+              containerClassName="flex min-h-0 flex-1 flex-col"
+              className="flex min-h-0 flex-1 flex-col gap-4 py-5"
+            >
+              {/* Same column logic as spanFields: evens left, odds right —
+                  time fields (Started, Duration) stack left, identity/money
+                  (Models, Cost) right. */}
+              <div className="grid grid-cols-2 gap-4 border-b border-border/40 pb-5 px-5">
+                <Field
+                  label="Started"
+                  value={formatDateTime(trace.startTime)}
+                />
+                {usage.models.length > 0 && (
+                  <Field
+                    label={usage.models.length === 1 ? "Model" : "Models"}
+                    value={<ModelList models={usage.models} />}
+                  />
+                )}
+                <Field
+                  label="Duration"
+                  value={rankedValue(
+                    formatSpanDuration(trace.durationMs),
+                    rank?.durationPercentile
+                  )}
+                />
+                <Field
+                  label="Cost"
+                  value={rankedValue(
+                    formatCost(trace.cost),
+                    rank?.costPercentile
+                  )}
+                />
+                <Field
+                  label="Tokens"
+                  className="col-span-2 border-t border-border/40 pt-4"
+                  value={
+                    <span className="flex flex-col gap-2">
+                      {rankedValue(
+                        usage.input + usage.output > 0
+                          ? formatTokens(usage.input + usage.output)
+                          : formatTokens(trace.tokens),
+                        rank?.tokenPercentile
+                      )}
+                      <TokenSplitBar
+                        input={usage.input}
+                        cached={usage.cached}
+                        reasoning={usage.reasoning}
+                        output={usage.output}
+                      />
+                    </span>
+                  }
+                />
+                {/* No Spans/Errors counters — the waterfall shows the spans and the
+                issues strip already surfaces errors. */}
+              </div>
+
+              {/* One section for the spend, viewable by category or by model. */}
+              <TraceCostSection
+                byCategory={usage.costParts}
+                spans={spans}
+                total={trace.cost}
+                className="border-b border-border/40 py-5 px-5"
+              />
+
+              {trace.durationMs > 0 && (
+                <div className="flex flex-col gap-3 border-b border-border/40 py-5 px-5">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-xs text-muted-foreground">
+                      Time distribution
+                    </span>
+                    <span className="text-[13px] tabular-nums">
+                      {formatSpanDuration(trace.durationMs)}
+                    </span>
+                  </div>
+                  <TimeComposition spans={spans} totalMs={trace.durationMs} />
+                </div>
+              )}
+
+              {trace.scores.length > 0 && (
+                <div className="flex flex-col gap-1 border-b border-border/40 py-5 px-3">
+                  <span className="text-xs text-muted-foreground px-2">
+                    Evals
+                  </span>
+                  <div className="flex flex-col">
+                    {trace.scores.map((s) => (
+                      <ScoreRow
+                        key={s.scoreId}
+                        score={s}
+                        meta={evalMeta.get(s.evalId)}
+                        presetName={presetName}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {root?.toolCatalog && (
+                <ToolsAvailable
+                  catalog={root.toolCatalog}
+                  counts={toolCounts}
+                  className="border-b border-border/40 px-5 py-5"
+                />
+              )}
+
+              {root?.systemPrompt && (
+                <Transcript
+                  label="System prompt"
+                  value={root.systemPrompt}
+                  trailing={
+                    <PromptVersionChip
+                      version={trace.promptVersion}
+                      agentName={trace.agentName}
+                    />
+                  }
+                  className={cn(
+                    "px-5 py-5",
+                    (root.input || root.output) && "border-b border-border/40"
+                  )}
+                />
+              )}
+              {root?.input && (
+                <Transcript
+                  label="Input"
+                  value={root.input}
+                  // Divider only when an Output section follows — a trailing
+                  // border on the last section reads as a bug.
+                  className={cn(
+                    "px-5 py-5",
+                    root.output && "border-b border-border/40"
+                  )}
+                />
+              )}
+              {root?.output && (
+                <Transcript
+                  label="Output"
+                  value={root.output}
+                  className="px-5 pt-5"
+                />
+              )}
+            </ScrollFade>
+          </TabsContent>
+          <TabsContent value="raw" className="flex min-h-0 flex-1 flex-col">
+            <ScrollFade
+              containerClassName="flex min-h-0 flex-1 flex-col"
+              className="flex min-h-0 flex-1 flex-col gap-4 py-5 pt-0"
+            >
+              <Payload
+                label="Trace"
+                value={JSON.stringify(trace)}
+                className="border-b border-border/40 px-5 py-5 pt-4"
+              />
+              {root?.input && (
+                <Payload
+                  label="Root input"
+                  value={root.input}
+                  className="border-b border-border/40 px-5 py-5"
+                />
+              )}
+              {root?.output && (
+                <Payload
+                  label="Root output"
+                  value={root.output}
+                  className="px-5 pt-5"
+                />
+              )}
+            </ScrollFade>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
+  );
+}
+
+function SpanDetail({
+  span,
+  spans,
+  scores,
+  evalMeta,
+  presetName,
+  spanIndex,
+  spanCount,
+  onStep,
+  subtree,
+  previousInput,
+  tall,
+  toolCounts,
+  trace,
+}: {
+  span: Span;
+  /** All spans of the trace — agent containers aggregate their descendants
+   * into the token/cost/model breakdowns. */
+  spans: Span[];
+  /** Trace-level facts; carries the root prompt's inferred version. */
+  trace: TraceSummary | null;
+  scores: TraceScore[];
+  evalMeta: Map<string, EvalMeta>;
+  presetName: Map<string, string>;
+  spanIndex: number;
+  spanCount: number;
+  onStep: (delta: number) => void;
+  subtree: SubtreeStats | undefined;
+  /** Input of the trace's previous LLM call — folds the unchanged message
+   * prefix out of this span's Input transcript. Null for the first call. */
+  previousInput: string | null;
+  tall: boolean;
+  toolCounts: Map<string, number>;
+}) {
+  const metaEntries = Object.entries(span.metadata ?? {});
+  // Everything below the selected agent span — what its breakdowns aggregate.
+  const descendants = useMemo(() => {
+    if (span.spanType !== "agent") return [];
+    const childrenOf = new Map<string, Span[]>();
+    for (const s of spans) {
+      if (!s.parentSpanId) continue;
+      const bucket = childrenOf.get(s.parentSpanId);
+      if (bucket) bucket.push(s);
+      else childrenOf.set(s.parentSpanId, [s]);
+    }
+    const out: Span[] = [];
+    const queue = [...(childrenOf.get(span.spanId) ?? [])];
+    while (queue.length > 0) {
+      const s = queue.shift() as Span;
+      out.push(s);
+      queue.push(...(childrenOf.get(s.spanId) ?? []));
+    }
+    return out;
+  }, [span, spans]);
+  // Per-dimension cost components that actually carry a value (skip null/0), so
+  // the breakdown shows only what applies — e.g. cache costs only appear when
+  // caching was used. An agent container carries no costs of its own, so it
+  // sums its descendants' instead.
+  const costParts =
+    span.spanType === "agent"
+      ? aggregateUsage(descendants).costParts
+      : costPartsOf(span);
+  // Usage counters with no segment in the Tokens strip above; shown only when
+  // present. Cached input and reasoning are *not* here — the strip carves them
+  // out of input and output — and cache-write stays because it is billed on
+  // top of the input count rather than being part of it. `tok`-unit rows
+  // format as tokens (compact), the rest as plain counts.
+  const usageExtras = [
+    {
+      label: "Cache-write input",
+      value: span.cacheWriteInputTokens,
+      unit: " tok",
+    },
+    { label: "Images", value: span.imageCount, unit: "" },
+    { label: "Web searches", value: span.webSearchCount, unit: "" },
+    // No "Requests" row — it's 1 for virtually every LLM call, so it only ever
+    // added a noise section. Raw still has requestCount.
+  ].filter((p) => p.value > 0);
+  // Only what the section actually renders — pricing metadata (pricedModelId,
+  // pricedAt) lives in Raw, so it must not summon an empty section here.
+  const hasBreakdown = costParts.length > 0 || usageExtras.length > 0;
+  // The breakdown's headline total — an agent container carries no cost of
+  // its own (its spend is its descendants'), so it headlines the subtree
+  // aggregate, same as its Cost field.
+  const breakdownTotal =
+    span.spanType === "agent" ? (subtree?.cost ?? null) : span.totalCost;
+  // Secondary provider signals: grounding sources and rate-limit headroom.
+  // Headroom shows only when it's actually low — "98% left" on every span is
+  // reassurance noise, and the issues strip already points here when it dips.
+  // Fingerprint/safety metadata live in Raw only.
+  const sources = parseSources(span.sources);
+  const rl = span.rateLimit;
+  const tokenPct = pctRemaining(rl?.tokensRemaining, rl?.tokensLimit);
+  const requestPct = pctRemaining(rl?.requestsRemaining, rl?.requestsLimit);
+  const lowTokenHeadroom = tokenPct != null && tokenPct < LOW_HEADROOM_PCT;
+  const lowRequestHeadroom =
+    requestPct != null && requestPct < LOW_HEADROOM_PCT;
+  // The trace's zero point for the Started offset field.
+  const traceStartMs = useMemo(
+    () => Math.min(...spans.map((s) => toMs(s.startTime))),
+    [spans]
+  );
+  const fields = useMemo(
+    () => spanFields(span, subtree, descendants, traceStartMs),
+    [span, subtree, descendants, traceStartMs]
+  );
+  const hasSignals =
+    sources.length > 0 || lowTokenHeadroom || lowRequestHeadroom;
+  // Overview is curated and per-type, so it can omit fields; Raw is the
+  // always-complete escape hatch. Reset to Overview when the panel swaps to a
+  // different span — otherwise every subsequent selection lands on Raw.
+  const [tab, setTab] = useState("overview");
+  useEffect(() => {
+    setTab("overview");
+  }, [span.spanId]);
+  // Same sheet-height rule as TraceDetail: fit the page when the trace is
+  // short, take the extra room once the waterfall makes the page scroll.
+  return (
+    <Card
+      className={cn(
+        tall ? "max-h-[calc(100svh-6rem)]" : "max-h-[calc(100svh-14rem)]",
+        "gap-0 py-0"
+      )}
+    >
+      <CardHeader className="flex shrink-0 items-center gap-2 p-5 px-5 pb-1">
+        <CardTitle className="flex min-w-0 flex-1 items-center gap-2">
+          {/* Same identity chip as the span's waterfall row — which also
+              makes a type badge redundant. */}
+          <SpanIconChip span={span} />
+          <span className="truncate">{span.name}</span>
+          {(span.spanType === "tool" || span.spanType === "other") && (
+            <SpanStatusIcon status={span.status} />
+          )}
+        </CardTitle>
+        <div className="flex shrink-0 items-center gap-1">
+          {/* Overview is curated; Raw is the always-complete escape hatch.
+              One toggle instead of a tab strip — the label names where it
+              takes you, not where you are. */}
+          <Button
+            type="button"
+            size="xs"
+            variant="ghost"
+            className="text-muted-foreground/60 hover:text-foreground"
+            onClick={() => setTab(tab === "raw" ? "overview" : "raw")}
+          >
+            {tab === "raw" ? "Overview" : "Raw"}
+          </Button>
+          {/* The ↑/↓ shortcuts have always worked; these buttons are what make
+					    them discoverable, so both name the key in their tooltip. */}
+          <Button
+            type="button"
+            size="icon-xs"
+            variant="ghost"
+            className="text-muted-foreground/60 hover:text-foreground"
+            onClick={() => onStep(-1)}
+            disabled={spanIndex < 0}
+            aria-label="Previous span"
+            title="Previous span (↑, back to whole trace from the first)"
+          >
+            <IconChevronUp className="size-4 text-current" />
+          </Button>
+          <Button
+            type="button"
+            size="icon-xs"
+            variant="ghost"
+            className="text-muted-foreground/60 hover:text-foreground"
+            onClick={() => onStep(1)}
+            disabled={spanIndex < 0 || spanIndex >= spanCount - 1}
+            aria-label="Next span"
+            title="Next span (↓)"
+          >
+            <IconChevronDown className="size-4 text-current" />
+          </Button>
+          <CopyButton
+            value={JSON.stringify(span, null, 2)}
+            title="Copy span as JSON"
+          />
+        </div>
+      </CardHeader>
+      <CardContent className="flex min-h-0 flex-1 flex-col p-0">
+        <Tabs
+          value={tab}
+          onValueChange={(v) => setTab(String(v))}
+          className="flex min-h-0 flex-1 flex-col gap-0"
+        >
+          {/* No TabsList — the header's Raw/Overview toggle drives `tab`. */}
+          <TabsContent
+            value="overview"
+            className="flex min-h-0 flex-1 flex-col"
+          >
+            <ScrollFade
+              containerClassName="flex min-h-0 flex-1 flex-col"
+              className="flex min-h-0 flex-1 flex-col gap-4 py-5"
+            >
+              {span.errorMessage && (
+                <div className="flex flex-col gap-1 bg-destructive/20 text-sm text-destructive px-3 py-2.5 mb-5 mx-5 corner-squircle shadow-(--custom-shadow-rose) rounded-lg">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="flex items-center gap-1.5 text-sm font-medium">
+                      <IconAlertTriangleFilled className="size-3.5 shrink-0" />
+                      Error
+                    </span>
+                    <CopyButton
+                      value={span.errorMessage}
+                      title="Copy error"
+                      className="-mr-1 -mt-0.5 text-destructive hover:text-destructive/70"
+                    />
+                  </div>
+                  <span className="min-w-0 wrap-break-word text-balance">
+                    {span.errorMessage}
+                  </span>
+                </div>
+              )}
+              <div className="grid grid-cols-2 gap-4 border-b border-border/40 pb-5 px-5">
+                {fields.map((f) => (
+                  <Field
+                    key={f.label}
+                    label={f.label}
+                    value={f.value}
+                    className={cn(
+                      f.wide && "col-span-2",
+                      f.separated && "border-t border-border/40 pt-4"
+                    )}
+                  />
+                ))}
+              </div>
+
+              {scores.length > 0 && (
+                <div className="flex flex-col gap-1 border-b border-border/40 py-5 px-3">
+                  <span className="text-xs text-muted-foreground px-2">
+                    Evals
+                  </span>
+                  <div className="flex flex-col">
+                    {scores.map((s) => (
+                      <ScoreRow
+                        key={s.scoreId}
+                        score={s}
+                        meta={evalMeta.get(s.evalId)}
+                        presetName={presetName}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {hasBreakdown && (
+                <div className="flex flex-col gap-3 border-b border-border/40 py-5 px-5">
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-xs text-muted-foreground">
+                      Cost breakdown
+                    </span>
+                    {breakdownTotal != null && (
+                      <span className="text-[13px] tabular-nums">
+                        {formatCost(breakdownTotal)}
+                      </span>
+                    )}
+                  </div>
+                  <CostStrip parts={costParts} />
+                  {/* The usage-count side of the breakdown — cache writes,
+                  images, searches — so the costs above have their volumes. */}
+                  {usageExtras.length > 0 && (
+                    // The section wrapper's px-5 would inset this border —
+                    // bleed back out so it spans edge to edge like the
+                    // section dividers.
+                    <div className="-mx-5 flex flex-col gap-3 border-t border-border/40 px-5 pt-4">
+                      <span className="text-xs text-muted-foreground">
+                        Usage
+                      </span>
+                      <div className="grid grid-cols-2 gap-4">
+                        {usageExtras.map((p) => (
+                          <Field
+                            key={p.label}
+                            label={p.label}
+                            value={
+                              p.unit === " tok"
+                                ? `${formatTokens(p.value)} tok`
+                                : formatCount(p.value)
+                            }
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* TTFT sits under the cost breakdown as its own full-width
+                  section — the split bar needs the room. */}
+              {span.spanType === "llm" && span.ttftMs !== null && (
+                <Field
+                  label="TTFT"
+                  className="border-b border-border/40 py-5 px-5"
+                  value={
+                    <span className="flex flex-col gap-2">
+                      {span.reasoningDurationMs != null &&
+                      span.reasoningDurationMs > 0 ? (
+                        // Reasoning models: show how much of the wait was
+                        // thinking.
+                        <span>
+                          {formatDuration(span.ttftMs)}{" "}
+                          <span className="text-muted-foreground">
+                            ({formatDuration(span.reasoningDurationMs)}{" "}
+                            thinking)
+                          </span>
+                        </span>
+                      ) : (
+                        <span>{formatDuration(span.ttftMs)}</span>
+                      )}
+                      <TtftSplitBar
+                        ttftMs={span.ttftMs}
+                        durationMs={span.durationMs}
+                      />
+                    </span>
+                  }
+                />
+              )}
+
+              {hasSignals && (
+                <div className="flex flex-col gap-3 border-b border-border/40 py-5 px-5">
+                  <span className="text-xs text-muted-foreground px-1">
+                    Provider signals
+                  </span>
+                  {(lowTokenHeadroom || lowRequestHeadroom) && (
+                    <div className="grid grid-cols-2 gap-4 px-1">
+                      {lowTokenHeadroom && (
+                        <Field
+                          label="Token headroom"
+                          value={
+                            <span>
+                              {formatTokens(rl!.tokensRemaining!)} /{" "}
+                              {formatTokens(rl!.tokensLimit!)}
+                              <span className="text-muted-foreground">
+                                {" "}
+                                ({tokenPct}% left)
+                              </span>
+                            </span>
+                          }
+                        />
+                      )}
+                      {lowRequestHeadroom && (
+                        <Field
+                          label="Request headroom"
+                          value={
+                            <span>
+                              {formatCount(rl!.requestsRemaining!)} /{" "}
+                              {formatCount(rl!.requestsLimit!)}
+                              <span className="text-muted-foreground">
+                                {" "}
+                                ({requestPct}% left)
+                              </span>
+                            </span>
+                          }
+                        />
+                      )}
+                      {/* Reset time only matters while headroom is the problem. */}
+                      {lowTokenHeadroom && rl?.tokensResetMs != null && (
+                        <Field
+                          label="Tokens reset"
+                          value={`in ${formatDuration(rl.tokensResetMs)}`}
+                        />
+                      )}
+                    </div>
+                  )}
+                  {sources.length > 0 && (
+                    <div className="flex flex-col gap-1 px-1">
+                      <span className="text-xs text-muted-foreground">
+                        Sources ({sources.length})
+                      </span>
+                      <div className="flex flex-col gap-0.5">
+                        {sources.slice(0, 8).map((s, i) =>
+                          s.url ? (
+                            <a
+                              key={`${s.url}-${i}`}
+                              href={s.url}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="truncate text-sm text-sky-400 hover:underline"
+                              title={s.url}
+                            >
+                              {s.title ?? s.url}
+                            </a>
+                          ) : (
+                            <span
+                              key={`src-${i}`}
+                              className="truncate text-sm"
+                              title={s.title}
+                            >
+                              {s.title ?? "source"}
+                            </span>
+                          )
+                        )}
+                        {sources.length > 8 && (
+                          <span className="text-xs text-muted-foreground">
+                            +{sources.length - 8} more
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {metaEntries.length > 0 && (
+                <div className="flex flex-col gap-2 border-b border-border/40 px-5 py-5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs text-muted-foreground">
+                      Metadata
+                    </span>
+                    <CopyButton
+                      value={metaEntries
+                        .map(([k, v]) => `${k}: ${v}`)
+                        .join("\n")}
+                      title="Copy metadata"
+                    />
+                  </div>
+                  {/* TOC-style monospace lines. The dot leader is real "."
+                      text (selectable), overflowing its flex slot so every
+                      value lands flush against the sheet's right edge; the
+                      copy button copies plain `key: value` lines instead, so
+                      pasted output isn't full of clipped dots. */}
+                  <div className="flex flex-col gap-1 font-mono text-[11px] pr-2">
+                    {metaEntries.map(([k, v]) => (
+                      <div key={k} className="flex items-baseline">
+                        <span className="shrink-0 text-muted-foreground">
+                          {k}
+                        </span>
+                        <span className="min-w-4 flex-1 overflow-hidden whitespace-nowrap text-muted-foreground/20 mx-1">
+                          {".".repeat(300)}
+                        </span>
+                        <span className="min-w-0 truncate" title={v}>
+                          {v}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* The catalog is trace-level context — repeating it on every LLM
+                  and tool span drowns the span's own payloads. */}
+              {span.spanType === "agent" && span.toolCatalog && (
+                <ToolsAvailable
+                  catalog={span.toolCatalog}
+                  counts={toolCounts}
+                  className="border-b border-border/40 px-5 py-5"
+                />
+              )}
+
+              {/* The system prompt lives on the root agent span only. */}
+              {span.spanType === "agent" && span.systemPrompt && (
+                <Transcript
+                  label="System prompt"
+                  value={span.systemPrompt}
+                  trailing={
+                    <PromptVersionChip
+                      version={trace?.promptVersion ?? null}
+                      agentName={trace?.agentName ?? null}
+                    />
+                  }
+                  className={cn(
+                    "px-5 py-5",
+                    (span.input || span.output) && "border-b border-border/40"
+                  )}
+                />
+              )}
+
+              {/* Readable transcript here; the Raw tab keeps the verbatim JSON. */}
+              {span.input && (
+                <Transcript
+                  label={span.spanType === "tool" ? "Arguments" : "Input"}
+                  value={span.input}
+                  previousValue={previousInput}
+                  className={cn(
+                    "px-5 py-5",
+                    span.output && "border-b border-border/40"
+                  )}
+                />
+              )}
+              {span.output && (
+                <Transcript
+                  label={span.spanType === "tool" ? "Result" : "Output"}
+                  value={span.output}
+                  className="px-5 pt-5"
+                />
+              )}
+            </ScrollFade>
+          </TabsContent>
+          <TabsContent value="raw" className="flex min-h-0 flex-1 flex-col">
+            <ScrollFade
+              containerClassName="flex min-h-0 flex-1 flex-col"
+              className="flex min-h-0 flex-1 flex-col gap-4 py-5 pt-4"
+            >
+              <SpanRaw span={span} />
+            </ScrollFade>
+          </TabsContent>
+        </Tabs>
+      </CardContent>
+    </Card>
+  );
+}
+
+/** The complete span, unfiltered and uncurated — the escape hatch for anything
+ * the per-type Overview layout omits, and the only view guaranteed to render
+ * something for span types we don't have a layout for. Payloads are split out
+ * of the field blob so they stay readable (and copyable) on their own; they're
+ * shown in full, never truncated. */
+function SpanRaw({ span }: { span: Span }) {
+  const fields = useMemo(() => {
+    const { input, output, systemPrompt: _systemPrompt, ...rest } = span;
+    // Absent fields are noise here — the point of Raw is to show what was
+    // captured, and a wall of nulls buries it.
+    const present = Object.fromEntries(
+      Object.entries(rest).filter(([, v]) => {
+        if (v == null || v === "") return false;
+        if (Array.isArray(v)) return v.length > 0;
+        if (typeof v === "object") return Object.keys(v).length > 0;
+        return true;
+      })
+    );
+    return JSON.stringify(present);
+  }, [span]);
+  return (
+    <>
+      <Payload
+        label="Span"
+        value={fields}
+        className="border-b border-border/40 px-5 py-5 pt-1"
+      />
+      {span.systemPrompt && (
+        <Payload
+          label="System prompt"
+          value={span.systemPrompt}
+          className="border-b border-border/40 px-5 py-5"
+        />
+      )}
+      {span.input && (
+        <Payload
+          label="Input"
+          value={span.input}
+          className="border-b border-border/40 px-5 py-5"
+        />
+      )}
+      {span.output && (
+        <Payload label="Output" value={span.output} className="px-5 pt-5" />
+      )}
+    </>
+  );
+}
+
+/** Render the captured tool catalog (`{name: {description, parameters}}`) as a
+ * list of tools the model was offered, with the full JSON available below.
+ * Falls back to the raw JSON payload if the catalog isn't the expected shape. */
+function ToolsAvailable({
+  catalog,
+  counts,
+  className,
+}: {
+  catalog: string;
+  /** Calls per tool name in this trace — used tools sort first and show ×N. */
+  counts: Map<string, number>;
+  className?: string;
+}) {
+  const tools = useMemo(() => {
+    try {
+      const parsed = JSON.parse(catalog);
+      if (!parsed || typeof parsed !== "object" || Array.isArray(parsed))
+        return null;
+      const list = Object.entries(parsed as Record<string, unknown>).map(
+        ([name, def]) => {
+          const d =
+            def && typeof def === "object"
+              ? (def as Record<string, unknown>)
+              : {};
+          // Argument names from the tool's JSON schema. The AI SDK serializes
+          // either a bare schema ({type:"object", properties}) or a wrapped
+          // zod one ({jsonSchema: {properties}}); anything else → no args.
+          const schema = (d.parameters ?? d.inputSchema) as
+            | Record<string, unknown>
+            | undefined;
+          const props =
+            schema && typeof schema === "object"
+              ? ((schema.properties ??
+                  (schema.jsonSchema as Record<string, unknown> | undefined)
+                    ?.properties) as Record<string, unknown> | undefined)
+              : undefined;
+          return {
+            name,
+            description:
+              typeof d.description === "string" ? d.description : null,
+            args: props && typeof props === "object" ? Object.keys(props) : [],
+            calls: counts.get(name) ?? 0,
+          };
+        }
+      );
+      // Tools the trace actually called first (most-called on top), the rest
+      // of the roster alphabetical below.
+      return list.sort(
+        (a, b) => b.calls - a.calls || a.name.localeCompare(b.name)
+      );
+    } catch {
+      return null;
+    }
+  }, [catalog, counts]);
+
+  // Collapsed by default: the catalog is static per app and often the longest
+  // block in the sheet — the count is the useful part at a glance.
+  const [open, setOpen] = useState(false);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+
+  if (!tools)
+    return (
+      <Payload label="Tools available" value={catalog} className={className} />
+    );
+
+  const usedCount = tools.filter((t) => t.calls > 0).length;
+
+  return (
+    <div className={cn("flex flex-col", open && "gap-3", className)}>
+      <div className="flex items-center justify-between">
+        {/* CopyButton stays a sibling, not a child — nested buttons are
+            invalid HTML (same workaround as the issues strip). */}
+        <button
+          type="button"
+          aria-expanded={open}
+          onClick={() => setOpen((o) => !o)}
+          className="flex cursor-pointer items-center gap-1 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <IconChevronRight
+            className={cn("size-3.5 transition-transform", open && "rotate-90")}
+          />
+          {usedCount > 0
+            ? `Tools available · ${usedCount}/${tools.length} used`
+            : `Tools available (${tools.length})`}
+        </button>
+        <CopyButton value={catalog} title="Copy tool catalog" />
+      </div>
+      {open && (
+        <div className="flex flex-col gap-1 pr-2">
+          {tools.map((t) => {
+            const isExpanded = expanded.has(t.name);
+            const expandable = !!t.description || t.args.length > 0;
+            return (
+              <div key={t.name} className="flex flex-col">
+                <button
+                  type="button"
+                  aria-expanded={isExpanded}
+                  disabled={!expandable}
+                  onClick={() =>
+                    setExpanded((prev) => {
+                      const next = new Set(prev);
+                      if (next.has(t.name)) next.delete(t.name);
+                      else next.add(t.name);
+                      return next;
+                    })
+                  }
+                  className={cn(
+                    "flex w-full items-baseline gap-2 rounded py-0.5 text-left",
+                    expandable && "group/tool cursor-pointer"
+                  )}
+                >
+                  <IconChevronRight
+                    className={cn(
+                      // dark: outranks group-hover in the variant order, so the
+                      // hover color needs its own dark-scoped repeat.
+                      "size-3 shrink-0 self-center text-[#B8B8B8] dark:text-[#5B5B5B] transition-[transform,color] group-hover/tool:text-foreground dark:group-hover/tool:text-foreground",
+                      isExpanded && "rotate-90",
+                      !expandable && "invisible"
+                    )}
+                  />
+                  <span
+                    className={cn(
+                      "shrink-0 font-mono text-xs",
+                      t.calls === 0 && "text-muted-foreground"
+                    )}
+                  >
+                    {t.name}
+                  </span>
+                  {t.calls > 0 && (
+                    <span className="shrink-0 text-[11px] tabular-nums">
+                      ×{t.calls}
+                    </span>
+                  )}
+                  {t.description && !isExpanded && (
+                    <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground/70">
+                      {t.description}
+                    </span>
+                  )}
+                </button>
+                {isExpanded && (
+                  <div className="flex flex-col gap-1.5 pt-0.5 pb-1 pl-5">
+                    {t.description && (
+                      <p className="text-xs leading-relaxed text-muted-foreground">
+                        {t.description}
+                      </p>
+                    )}
+                    {t.args.length > 0 && (
+                      <div className="flex flex-wrap items-center gap-1">
+                        {t.args.map((a) => (
+                          <span
+                            key={a}
+                            className="rounded border border-border/60 px-1 py-px font-mono text-[10px] text-muted-foreground"
+                          >
+                            {a}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
+/** A payload rendered as a conversation rather than JSON — same label + copy
+ * header as {@link Payload}, which still backs the Raw tab and the tool catalog.
+ * Copy yields the original string, not the rendered view. */
+/** A transcript's one-line size hint: message count when the payload parses,
+ * else how much raw text is waiting behind the fold. */
+function transcriptHint(value: string): string {
+  const messages = toMessages(value);
+  if (messages) {
+    return `${messages.length} ${messages.length === 1 ? "message" : "messages"}`;
+  }
+  return value.length >= 1024
+    ? `${(value.length / 1024).toFixed(1)} KB`
+    : `${value.length} chars`;
+}
+
+function Transcript({
+  label,
+  value,
+  previousValue,
+  trailing,
+  className,
+}: {
+  label: string;
+  value: string;
+  /** Same payload from the previous LLM call — lets PayloadView fold the
+   * unchanged message prefix (see its prop doc). */
+  previousValue?: string | null;
+  /** Rendered beside the copy button (e.g. the prompt-version chip). */
+  trailing?: React.ReactNode;
+  className?: string;
+}) {
+  // Collapsed by default: the field grid and breakdowns above are the summary
+  // you scan first, and a transcript is a read-it-on-purpose payload. The
+  // header's count says what's behind the fold. Copy stays a sibling of the
+  // toggle (nested buttons are invalid HTML) and works without expanding.
+  const [open, setOpen] = useState(false);
+  const hint = useMemo(() => transcriptHint(value), [value]);
+  return (
+    <div className={cn("flex flex-col gap-2", className)}>
+      <div className="flex items-center justify-between">
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          className="flex min-w-0 cursor-pointer items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+        >
+          <IconChevronRight
+            className={cn("size-3 transition-transform", open && "rotate-90")}
+          />
+          {label}
+          <span className="text-muted-foreground/60 tabular-nums">{hint}</span>
+        </button>
+        <div className="flex items-center gap-1.5">
+          {trailing}
+          <CopyButton value={value} title={`Copy ${label.toLowerCase()}`} />
+        </div>
+      </div>
+      {open && <PayloadView value={value} previousValue={previousValue} />}
+    </div>
+  );
+}
+
+// Pretty-print a payload when it's JSON; otherwise pass it through verbatim.
+// `isJson` drives whether we syntax-highlight (json grammar) or render raw text.
+function pretty(value: string): { formatted: string; isJson: boolean } {
+  try {
+    return {
+      formatted: JSON.stringify(JSON.parse(value), null, 2),
+      isJson: true,
+    };
+  } catch {
+    return { formatted: value, isJson: false };
+  }
+}
+
+function Payload({
+  label,
+  value,
+  className,
+}: {
+  label: string;
+  value: string;
+  className?: string;
+}) {
+  const { formatted, isJson } = useMemo(() => pretty(value), [value]);
+  const html = useShikiHtml(formatted, isJson ? "json" : "typescript");
+  return (
+    <div className={cn("flex flex-col gap-2", className)}>
+      <span className="text-xs font-medium">{label}</span>
+      {/* The copy button floats inside the block's top-right corner — pinned
+          to this wrapper, not the scroll content, so it stays put while the
+          payload scrolls under it. bg-muted keeps it legible over code.
+          top-2 + the button's own p-1 puts the icon level with the first text
+          line (the pre's p-3), which doubles as dead-center on one-liners. */}
+      <div className="relative">
+        <CopyButton
+          value={formatted}
+          title={`Copy ${label.toLowerCase()}`}
+          className="absolute top-2 right-2 z-10 bg-muted"
+        />
+        {html ? (
+          // Shiki sets the pre's background via an inline style; `bg-muted!`
+          // overrides it (an !important class beats a non-important inline style)
+          // so the block matches the panel's other muted surfaces.
+          <div
+            className="max-h-80 overflow-auto overscroll-none rounded-md text-xs [&_pre]:m-0 [&_pre]:bg-muted! [&_pre]:p-3 [&_pre]:whitespace-pre-wrap [&_pre]:wrap-break-word"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: trusted Shiki output
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
+        ) : (
+          <pre className="max-h-80 overflow-auto overscroll-none rounded-md bg-muted p-3 text-xs whitespace-pre-wrap wrap-break-word">
+            {formatted}
+          </pre>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/** Fake waterfall rows for {@link TraceDetailSkeleton}: a root span and a few
+ * staggered children whose bars march left→right, echoing a real trace's
+ * shape. Widths/offsets are hand-picked, purely decorative. */
+const TIMELINE_SKELETON_ROWS = [
+  { depth: 0, name: "w-24", left: "0%", width: "100%" },
+  { depth: 1, name: "w-32", left: "2%", width: "26%" },
+  { depth: 2, name: "w-20", left: "5%", width: "13%" },
+  { depth: 1, name: "w-28", left: "31%", width: "22%" },
+  { depth: 2, name: "w-16", left: "35%", width: "9%" },
+  { depth: 1, name: "w-24", left: "57%", width: "25%" },
+  { depth: 2, name: "w-20", left: "61%", width: "12%" },
+  { depth: 1, name: "w-16", left: "85%", width: "13%" },
+] as const;
+
+/** A skeleton blob sized to a Field value's line box (text-[13px] line ≈
+ * 20px), so the loaded value doesn't nudge the grid when it replaces it. */
+function FieldValueSkeleton({ w }: { w: string }) {
+  return (
+    <span className="flex h-5 items-center">
+      <Skeleton className={cn("h-3", w)} />
+    </span>
+  );
+}
+
+/**
+ * Loading treatment shaped like the loaded page: the waterfall's
+ * name / bar / duration grid on the left, and the real inspector sheet
+ * chrome — "Whole trace" header, real field labels — with only the values
+ * as skeletons, so nothing jumps when the trace lands.
+ */
+function TraceDetailSkeleton() {
+  // The sheet's width is user-resizable and persisted; match it so the
+  // skeleton occupies exactly the space the real panel will.
+  const [width] = useState(() => {
+    if (typeof window === "undefined") return PANEL_WIDTH;
+    const stored = Number(localStorage.getItem(PANEL_WIDTH_KEY));
+    return Number.isFinite(stored) && stored > 0
+      ? clampPanelWidth(stored)
+      : PANEL_WIDTH;
+  });
+  return (
+    <div className="mt-2 flex items-start gap-6 px-8">
+      <div className="flex min-w-0 flex-1 flex-col gap-0.5">
+        {TIMELINE_SKELETON_ROWS.map((r, i) => (
+          <div
+            key={i}
+            className="grid min-h-10 grid-cols-[15rem_minmax(0,1fr)_6.5rem] items-center py-1"
+          >
+            <div
+              className="flex min-w-0 items-center gap-2 pr-3"
+              style={{ paddingLeft: r.depth * 12 + 4 }}
+            >
+              <Skeleton className="size-4.5 shrink-0 rounded-md" />
+              <Skeleton className={cn("h-4", r.name)} />
+            </div>
+            <div className="relative h-5">
+              <Skeleton
+                className="absolute top-1/2 h-2 -translate-y-1/2 rounded-xs"
+                style={{ left: r.left, width: r.width }}
+              />
+            </div>
+            <div className="flex justify-end pr-2">
+              <Skeleton className="h-3 w-10" />
+            </div>
+          </div>
+        ))}
+      </div>
+      <aside className="shrink-0 self-start" style={{ width }}>
+        {/* Same Card chrome as TraceDetail — real title and field labels,
+            skeleton values. */}
+        <Card className="gap-0 py-0">
+          <CardHeader className="flex shrink-0 items-center gap-2 p-5 px-5 pb-1">
+            <CardTitle className="flex min-w-0 flex-1 items-center gap-2">
+              <span className="flex size-4.5 shrink-0 items-center shadow-[inset_0_0_0_1px_rgba(100,116,139,0.14),0_2px_6px_-2px_rgba(100,116,139,0.25)] dark:shadow-(--custom-shadow) justify-center rounded-md corner-squircle bg-primary/15 text-primary">
+                <IconAffiliate className="size-3" />
+              </span>
+              <span className="truncate">Whole trace</span>
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="flex flex-col p-0 py-5">
+            <div className="grid grid-cols-2 gap-4 border-b border-border/40 px-5 pb-5">
+              <Field label="Started" value={<FieldValueSkeleton w="w-24" />} />
+              <Field label="Model" value={<FieldValueSkeleton w="w-28" />} />
+              <Field label="Duration" value={<FieldValueSkeleton w="w-14" />} />
+              <Field label="Cost" value={<FieldValueSkeleton w="w-16" />} />
+              <Field
+                label="Tokens"
+                className="col-span-2"
+                value={<FieldValueSkeleton w="w-40" />}
+              />
+            </div>
+            <div className="flex flex-col gap-3 px-5 pt-4">
+              <Skeleton className="h-3 w-24" />
+              <Skeleton className="h-2 w-full rounded-full" />
+              <Skeleton className="h-3 w-2/3" />
+            </div>
+          </CardContent>
+        </Card>
+      </aside>
+    </div>
+  );
+}

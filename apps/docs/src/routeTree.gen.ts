@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as DocsSplatRouteImport } from './routes/docs/$'
+import { Route as StoriesSplatRouteImport } from './routes/stories/$'
 
 const DocsSplatRoute = DocsSplatRouteImport.update({
   id: '/docs/$',
   path: '/docs/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StoriesSplatRoute = StoriesSplatRouteImport.update({
+  id: '/stories/$',
+  path: '/stories/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/docs/$': typeof DocsSplatRoute
+  '/stories/$': typeof StoriesSplatRoute
 }
 export interface FileRoutesByTo {
   '/docs/$': typeof DocsSplatRoute
+  '/stories/$': typeof StoriesSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/docs/$': typeof DocsSplatRoute
+  '/stories/$': typeof StoriesSplatRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/docs/$'
+  fullPaths: '/docs/$' | '/stories/$'
   fileRoutesByTo: FileRoutesByTo
-  to: '/docs/$'
-  id: '__root__' | '/docs/$'
+  to: '/docs/$' | '/stories/$'
+  id: '__root__' | '/docs/$' | '/stories/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   DocsSplatRoute: typeof DocsSplatRoute
+  StoriesSplatRoute: typeof StoriesSplatRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/stories/$': {
+      id: '/stories/$'
+      path: '/stories/$'
+      fullPath: '/stories/$'
+      preLoaderRoute: typeof StoriesSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   DocsSplatRoute: DocsSplatRoute,
+  StoriesSplatRoute: StoriesSplatRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
