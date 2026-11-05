@@ -1,0 +1,18 @@
+{
+  "name": "foglamp-design-system-workspace",
+  "version": "0.1.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "author": "Gustavo Fior and Foglamp Labs (original project; co-founder Abdul Haidar)",
+  "packageManager": "bun@1.2.19",
+  "workspaces": ["apps/*", "packages/*"],
+  "scripts": {
+    "build": "turbo build",
+    "check-types": "turbo check-types",
+    "dev": "turbo dev"
+  },
+  "devDependencies": {
+    "turbo": "^2.8.12",
+    "typescript": "^5.9.3"
+  }
+}

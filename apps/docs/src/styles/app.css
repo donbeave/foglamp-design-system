@@ -1,0 +1,27 @@
+@import "@foglamp/design-system/styles/globals.css";
+@import "@foglamp/design-system/styles/effects.css";
+@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/preset.css";
+@import "@fontsource-variable/geist-mono";
+@import "@fontsource-variable/host-grotesk";
+
+@source "../../node_modules/fumadocs-ui/dist/**/*.js";
+@source "../../../../packages/design-system/src/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx}";
+
+@font-face {
+  font-family: Inter;
+  src: url("@foglamp/design-system/assets/InterVariable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: Inter;
+  src: url("@foglamp/design-system/assets/InterVariable-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+:root { --font-sans: Inter, sans-serif; --font-geist-mono: "Geist Mono Variable", monospace; --font-host-grotesk: "Host Grotesk Variable", sans-serif; }
+@theme inline { --font-mono: var(--font-geist-mono); }

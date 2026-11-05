@@ -1,0 +1,14 @@
+node_modules/
+.turbo/
+.output/
+dist/
+.env*
+!.env.example
+.DS_Store
+.reference/
+node_modules/
+dist/
+.turbo/
+.output/
+.vinxi/
+.tanstack/

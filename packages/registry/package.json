@@ -1,0 +1,10 @@
+{
+  "name": "@foglamp/registry",
+  "version": "0.1.0",
+  "description": "shadcn-compatible registry for the Foglamp Design System, created by Gustavo Fior and Foglamp Labs with Abdul Haidar.",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "author": "Gustavo Fior / Foglamp Labs; Abdul Haidar",
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "module"
+}
