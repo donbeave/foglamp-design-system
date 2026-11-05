@@ -22,11 +22,15 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 // A local typed stream drives the source HUD without a network connection.
 export type HudSimulatorBlockProps = {
 	homeHref?: string;
+	onStorm?: () => Promise<void>;
 };
 
-export function HudSimulatorBlock({ homeHref = "/homepage" }: HudSimulatorBlockProps = {}) {
+export function HudSimulatorBlock({
+	homeHref = "/homepage",
+	onStorm,
+}: HudSimulatorBlockProps = {}) {
 	const reduce = useReducedMotion() ?? false;
-	const [state, setState] = useState<"idle" | "running">("idle");
+	const [state, setState] = useState<"idle" | "running" | "down">("idle");
 	const stream = useMemo(() => createMockHudStream(), []);
 	const timers = useRef<number[]>([]);
 	// Start the HUD expanded only where it fits beside the pitch; on small
@@ -49,10 +53,16 @@ export function HudSimulatorBlock({ homeHref = "/homepage" }: HudSimulatorBlockP
 					transition: { duration: 0.7, ease: EASE, delay },
 				};
 
-	function runStorm() {
+	async function runStorm() {
 		timers.current.forEach((timer) => window.clearTimeout(timer));
 		timers.current = [];
 		setState("running");
+		try {
+			await onStorm?.();
+		} catch {
+			setState("down");
+			return;
+		}
 		const startedAt = Date.now();
 		const traceId = "demo-" + startedAt;
 		const usageOne = { inputTokens: 2840, outputTokens: 45, totalTokens: 2885, reasoningTokens: 4 };
@@ -173,9 +183,9 @@ export function HudSimulatorBlock({ homeHref = "/homepage" }: HudSimulatorBlockP
 					{...rise(0.39)}
 					className="md:mt-7 mt-6 flex flex-wrap items-center gap-3"
 				>
-					<Button size="lg" className="text-base" onClick={runStorm} disabled={state === "running"}>
+					<Button size="lg" className="text-base" onClick={runStorm}>
 						<IconBoltFilled className="size-4" />
-						{state === "running" ? "Running agent storm…" : "Run an agent storm"}
+						Run an agent storm
 					</Button>
 				</motion.div>
 			</div>

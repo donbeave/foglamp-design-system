@@ -155,8 +155,11 @@ export function CuttingMatFooterBlock() {
       <div className="relative z-10 mx-auto max-w-7xl px-5 pb-5 text-center sm:px-8">
         <p className="text-xs text-muted-foreground">
           Original design by{" "}
+          <a href="https://gustavofior.com" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
+            Gustavo Fior
+          </a>{" "}
           <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
-            Gustavo Fior (@gustavo-fior)
+            (@gustavo-fior)
           </a>
           {" · "}
           <a href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">

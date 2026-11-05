@@ -9,6 +9,8 @@
 @import "@fontsource-variable/geist-mono";
 @import "@fontsource-variable/host-grotesk";
 
+@custom-variant dark (&:is(.dark *));
+
 @source "../../node_modules/fumadocs-ui/dist/**/*.js";
 @source "../../../../packages/design-system/src/**/*.{ts,tsx}";
 @source "../**/*.{ts,tsx}";
@@ -27,5 +29,60 @@
   font-weight: 100 900;
   font-display: swap;
 }
-:root { --font-sans: Inter, sans-serif; --font-geist-mono: "Geist Mono Variable", monospace; --font-host-grotesk: "Host Grotesk Variable", sans-serif; }
+/* Next 16.2.4 localFont fallback metrics for the canonical InterVariable.woff2
+ * (SHA-256 693b77d4f32ee9b8bfc995589b5fad5e99adf2832738661f5402f9978429a8e3). */
+@font-face {
+  font-family: "Inter Fallback";
+  src: local("Arial");
+  ascent-override: 89.79%;
+  descent-override: 22.36%;
+  line-gap-override: 0.00%;
+  size-adjust: 107.89%;
+}
+/* Next 16.2.4 Google font fallback metrics for the source Latin families. */
+@font-face {
+  font-family: "Geist Mono Fallback";
+  src: local("Arial");
+  ascent-override: 74.67%;
+  descent-override: 21.92%;
+  line-gap-override: 0.00%;
+  size-adjust: 134.59%;
+}
+@font-face {
+  font-family: "Host Grotesk Fallback";
+  src: local("Arial");
+  ascent-override: 96.69%;
+  descent-override: 30.01%;
+  line-gap-override: 0.00%;
+  size-adjust: 104.98%;
+}
+:root { --font-sans: Inter, "Inter Fallback", sans-serif; --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", monospace; --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif; }
 @theme inline { --font-mono: var(--font-geist-mono); }
+
+/* Restore Foglamp's base cascade only where extracted components are rendered.
+ * Fumadocs' later base rules otherwise replace the source foreground and border. */
+@layer base {
+  [data-source-surface] {
+    color: var(--foreground);
+  }
+  body[data-source-surface] {
+    background-color: var(--background);
+  }
+  [data-source-surface], [data-source-surface] * {
+    @apply border-border outline-ring/50;
+  }
+}
+
+/* Keep the search shortcut stationary while its monospace font loads. */
+@layer base {
+  button[data-search-full] > div > kbd {
+    flex: none;
+    text-align: center;
+  }
+  button[data-search-full] > div > kbd:first-child {
+    width: 1.40234375rem;
+  }
+  button[data-search-full] > div > kbd:last-child {
+    width: 1.400390625rem;
+  }
+}

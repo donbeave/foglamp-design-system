@@ -1524,28 +1524,28 @@
     {
       "id": "widget-foggy-foggy-message",
       "title": "Foggy Message",
-      "source": "src/components/foglamp/lib/utils.ts",
+      "source": "src/components/foglamp/lib/link-context.tsx",
       "type": "registry:component",
       "registryItem": "widget-foggy-foggy-message"
     },
     {
       "id": "widget-foggy-foggy-widget",
       "title": "Foggy Widget",
-      "source": "src/components/foglamp/lib/utils.ts",
+      "source": "src/components/foglamp/lib/link-context.tsx",
       "type": "registry:component",
       "registryItem": "widget-foggy-foggy-widget"
     },
     {
       "id": "widget-foggy-index",
       "title": "Index",
-      "source": "src/components/foglamp/lib/utils.ts",
+      "source": "src/components/foglamp/lib/link-context.tsx",
       "type": "registry:component",
       "registryItem": "widget-foggy-index"
     },
     {
       "id": "widget-foggy-markdown",
       "title": "Markdown",
-      "source": "src/components/foglamp/widgets/foggy/markdown.tsx",
+      "source": "src/components/foglamp/lib/link-context.tsx",
       "type": "registry:component",
       "registryItem": "widget-foggy-markdown"
     },

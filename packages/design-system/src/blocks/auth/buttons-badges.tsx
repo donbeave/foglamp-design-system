@@ -134,17 +134,14 @@ const BADGE_VARIANTS = [
 	"default",
 	"secondary",
 	"destructive",
-	"outline",
 	"green",
 	"blue",
 	"amber",
 	"orange",
 	"emerald",
 	"rose",
-	"red",
 	"violet",
-	"fuchsia",
-	"sky",
+	"outline",
 ] as const;
 
 const BADGE_SIZES = ["md", "lg"] as const;

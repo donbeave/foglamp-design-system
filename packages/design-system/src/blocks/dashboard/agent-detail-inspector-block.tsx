@@ -565,6 +565,8 @@ export function AgentDetailInspectorBlock({ agentName = "Support agent", data = 
           <section className="grid gap-4 lg:grid-cols-2 px-8">
             <CostBreakdownView
               data={data.costs}
+              isLoading={isLoading}
+              isUpdating={isUpdating}
               range={range}
               syncId="agent-trends"
               onZoomSelect={zoom.zoomTo}
@@ -573,6 +575,8 @@ export function AgentDetailInspectorBlock({ agentName = "Support agent", data = 
             />
             <ToolBreakdownView
               tools={data.tools}
+              isLoading={isLoading}
+              isUpdating={isUpdating}
               className={cn(entrance && "page-fade-in")}
             />
           </section>

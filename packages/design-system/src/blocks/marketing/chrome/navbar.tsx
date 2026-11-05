@@ -131,7 +131,10 @@ export function MarketingNavbar({
         <div className="hidden min-w-0 flex-col text-[10px] leading-tight text-muted-foreground sm:flex">
           <span>Original design by</span>
           <span className="flex items-center gap-1 whitespace-nowrap">
-            <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">Gustavo Fior (@gustavo-fior)</a>
+            <span>
+              <a href="https://gustavofior.com" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">Gustavo Fior</a>{" "}
+              <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">(@gustavo-fior)</a>
+            </span>
             <span aria-hidden="true">·</span>
             <a href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">Abdul Haidar</a>
             <span aria-hidden="true">·</span>
@@ -182,7 +185,10 @@ export function MarketingNavbar({
       </div>
       <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 border-t border-border/40 px-3 py-1 text-[9px] leading-tight text-muted-foreground sm:hidden">
         <span>Original design by</span>
-        <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">Gustavo Fior (@gustavo-fior)</a>
+        <span>
+          <a href="https://gustavofior.com" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">Gustavo Fior</a>{" "}
+          <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">(@gustavo-fior)</a>
+        </span>
         <span aria-hidden="true">·</span>
         <a href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">Abdul Haidar</a>
         <span aria-hidden="true">·</span>

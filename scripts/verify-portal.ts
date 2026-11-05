@@ -9,6 +9,7 @@ const report = (message: string) => errors.push(message);
 const read = (file: string) => readFile(file, "utf8");
 const exists = async (file: string) => stat(file).then(() => true, () => false);
 const historicalChartAliasFixture = process.argv.includes("--fixture-historical-chart-alias");
+const browserPromptsFixture = process.argv.includes("--fixture-browser-prompts-barrel");
 
 async function filesUnder(dir: string, suffix?: string): Promise<string[]> {
   if (!(await exists(dir))) return [];
@@ -19,6 +20,56 @@ async function filesUnder(dir: string, suffix?: string): Promise<string[]> {
     return !suffix || entry.name.endsWith(suffix) ? [file] : [];
   }));
   return nested.flat();
+}
+
+function isServerOnlyPromptsModule(specifier: string): boolean {
+  return specifier === "@foglamp/prompts" || /^@foglamp\/design-system\/lib\/prompts(?:\/index|\/normalize(?:\.ts)?)?$/.test(specifier);
+}
+
+function checkBrowserImports(source: string, file: string): void {
+  const ast = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX);
+  const hasRuntimeImport = (clause: ts.ImportClause | undefined): boolean => {
+    if (!clause) return true;
+    if (clause.isTypeOnly) return false;
+    if (clause.name || !clause.namedBindings) return true;
+    if (ts.isNamespaceImport(clause.namedBindings)) return true;
+    return clause.namedBindings.elements.some((element) => !element.isTypeOnly);
+  };
+  const hasRuntimeExport = (node: ts.ExportDeclaration): boolean => {
+    if (node.isTypeOnly) return false;
+    if (!node.exportClause || !ts.isNamedExports(node.exportClause)) return true;
+    return node.exportClause.elements.some((element) => !element.isTypeOnly);
+  };
+  const reportImport = (specifier: string): void => {
+    if (isServerOnlyPromptsModule(specifier)) {
+      report(`${path.relative(root, file)}: browser runtime import '${specifier}' reaches the server-only prompts barrel/normalizer; import browser-safe leaves directly (infer, diff, or slots)`);
+    }
+  };
+  const visit = (node: ts.Node): void => {
+    if (ts.isImportDeclaration(node) && hasRuntimeImport(node.importClause) && ts.isStringLiteral(node.moduleSpecifier)) {
+      reportImport(node.moduleSpecifier.text);
+    } else if (ts.isExportDeclaration(node) && hasRuntimeExport(node) && node.moduleSpecifier && ts.isStringLiteral(node.moduleSpecifier)) {
+      reportImport(node.moduleSpecifier.text);
+    } else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword && node.arguments.length === 1 && ts.isStringLiteralLike(node.arguments[0]!)) {
+      reportImport(node.arguments[0]!.text);
+    }
+    ts.forEachChild(node, visit);
+  };
+  visit(ast);
+}
+
+const browserSourceDirs = [
+  path.join(docs, "src/stories"),
+  ...["ui", "widgets", "charts", "blocks", "hud"].map((name) => path.join(root, "packages/design-system/src", name)),
+];
+for (const dir of browserSourceDirs) {
+  for (const file of await filesUnder(dir)) {
+    if (!/\.[cm]?[jt]sx?$/.test(file)) continue;
+    checkBrowserImports(await read(file), file);
+  }
+}
+if (browserPromptsFixture) {
+  checkBrowserImports("import { SLOT_LINE, slotValues } from '@foglamp/design-system/lib/prompts';", "apps/docs/src/stories/__fixture-browser-prompts-barrel__.story.tsx");
 }
 
 function objectString(node: ts.Expression | undefined, key: string): string | undefined {
@@ -188,8 +239,9 @@ for (const item of registryItems) {
 }
 
 if (historicalChartAliasFixture) console.log("Fixture mode: area-chart registryItem changed in memory to historical invalid prefix; source file is untouched.");
+if (browserPromptsFixture) console.log("Fixture mode: historical prompts barrel import checked in memory; source files are untouched.");
 console.log(`Portal contract: ${storyFiles.length} stories (${[...storyCategories].map(([name, count]) => `${name}=${count}`).join(", ")}), ${registryItems.length} registry items, ${metaFiles.length} navigation manifests.`);
-console.log("Coverage: story IDs and uniqueness, registry/catalog membership, story MDX imports and WithControl previews, docs navigation coverage, required attribution markers, registry source-path aliases.");
+console.log("Coverage: story IDs and uniqueness, registry/catalog membership, story MDX imports and WithControl previews, docs navigation coverage, required attribution markers, registry source-path aliases, browser imports of server-only prompts modules.");
 if (errors.length) {
   for (const error of errors) console.error(`ERROR ${error}`);
   console.error(`Portal contract failed with ${errors.length} issue(s).`);

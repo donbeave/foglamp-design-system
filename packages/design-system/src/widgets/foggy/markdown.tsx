@@ -3,15 +3,36 @@
  * Extracted from https://github.com/foglamp-labs/foglamp — Apache-2.0.
  */
 import type { ComponentProps } from "react";
+import { FoglampLink as Link } from "../../lib/link-context";
 
 // Shared Streamdown component overrides for rendering model markdown across the
 // app (Foggy chat, session transcripts, …). Pass as `components` to <Streamdown>.
 export const markdownComponents = {
-	// Preserve native relative navigation;
+	// Route relative links through the host link provider for in-app nav;
 	// open absolute links (docs, external) in a new tab.
-	a: ({ href = "", children, ...rest }: ComponentProps<"a">) => (
-    <a {...rest} href={href} target={href.startsWith("/") ? undefined : "_blank"} rel={href.startsWith("/") ? undefined : "noreferrer"} className="font-medium text-primary underline underline-offset-2">{children}</a>
-  ),
+	a: ({ href = "", children, ...rest }: ComponentProps<"a">) => {
+		if (href.startsWith("/")) {
+			return (
+				<Link
+					href={href}
+					className="font-medium text-primary underline underline-offset-2"
+				>
+					{children}
+				</Link>
+			);
+		}
+		return (
+			<a
+				{...rest}
+				href={href}
+				target="_blank"
+				rel="noreferrer"
+				className="font-medium text-primary underline underline-offset-2"
+			>
+				{children}
+			</a>
+		);
+	},
 	// Flat, chat-native tables — replaces Streamdown's bordered card + toolbar.
 	// The wrapper scrolls horizontally so wide tables never break the layout.
 	table: ({ children }: ComponentProps<"table">) => (

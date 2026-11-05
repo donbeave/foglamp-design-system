@@ -25,7 +25,8 @@ export function FoglampStoryPanel(props: WithControlProps) {
 function Workbench() {
   const { displayName, Component, presets, preset, variant, setVariant, frame } = useStory();
   const [surface, setSurface] = useState<'Default' | 'Muted' | 'Dark Lift'>('Default');
-  const [theme, setTheme] = useState<'Light' | 'Dark'>('Light');
+  const [appearance, setAppearance] = useState<{ mode: 'light' | 'dark' | 'system'; resolved: 'light' | 'dark'; revision: number }>({ mode: 'light', resolved: 'light', revision: 0 });
+  const theme = appearance.resolved === 'dark' ? 'Dark' : 'Light';
   const [copied, setCopied] = useState(false);
   const [resetCount, setResetCount] = useState(0);
   const [origin, setOrigin] = useState<string>();
@@ -44,19 +45,19 @@ function Workbench() {
     </div>
     <div className="flex flex-wrap items-center justify-end gap-2 border-b px-3 py-2">
       <label className="flex items-center gap-2 text-xs text-muted-foreground">Surface <NativeSelect size="sm" aria-label="Preview surface" value={surface} onChange={event => setSurface(event.target.value as typeof surface)}>{['Default', 'Muted', 'Dark Lift'].map(value => <NativeSelectOption key={value}>{value}</NativeSelectOption>)}</NativeSelect></label>
-      <div role="group" aria-label="Preview theme" className="flex gap-0.5 rounded-full p-0.5 shadow-(--custom-shadow)">{(['Light', 'Dark'] as const).map(value => <Button key={value} type="button" size="xs" variant={theme === value ? "secondary" : "ghost"} aria-pressed={theme === value} onClick={() => setTheme(value)}>{value}</Button>)}</div>
+      <div role="group" aria-label="Preview theme" className="flex gap-0.5 rounded-full p-0.5 shadow-(--custom-shadow)">{(['Light', 'Dark'] as const).map(value => <Button key={value} type="button" size="xs" variant={theme === value ? "secondary" : "ghost"} aria-pressed={theme === value} onClick={() => setAppearance(current => ({ mode: value.toLowerCase() === 'dark' ? 'dark' : 'light', resolved: value.toLowerCase() === 'dark' ? 'dark' : 'light', revision: current.revision + 1 }))}>{value}</Button>)}</div>
     </div>
-    {frame ? <FramePreview theme={theme} surface={surface} /> : <p role="status" className="p-3 text-xs text-muted-foreground">This story has no preview frame.</p>}
+    {frame ? <FramePreview appearance={appearance} surface={surface} onThemeChange={(mode, resolved) => setAppearance(current => ({ ...current, mode, resolved }))} /> : <p role="status" className="p-3 text-xs text-muted-foreground">This story has no preview frame.</p>}
     {preset && <Controls key={`${variant}-${resetCount}`} node={preset.controls} onReset={() => { setVariant(variant); setResetCount(count => count + 1); }} />}
     <div className="flex flex-wrap items-center gap-2 border-t px-3 py-2 text-xs">
-      <code className="min-w-0 flex-1 overflow-x-auto text-muted-foreground">{command ?? 'Preparing install command…'}</code>
+      <code className="h-8 min-w-0 flex-1 overflow-x-auto whitespace-nowrap leading-4 text-muted-foreground">{command ?? 'Preparing install command…'}</code>
       <Button type="button" size="xs" variant="outline" disabled={!command} onClick={() => { if (command) void navigator.clipboard.writeText(command).then(() => setCopied(true)).catch(() => setCopied(false)); }}>{copied ? 'Copied' : 'Copy'}</Button>
     </div>
     <footer className="border-t px-3 py-2 text-xs text-muted-foreground">Original Design by <a className="underline underline-offset-2" href="https://github.com/gustavo-fior">Gustavo Fior (@gustavo-fior)</a> · <a className="underline underline-offset-2" href="https://www.linkedin.com/in/abdulhdr/">Abdul Haidar</a> · <a className="underline underline-offset-2" href="https://github.com/foglamp-labs/foglamp">Foglamp Labs (foglamp-labs/foglamp)</a></footer>
   </Card>;
 }
 
-function FramePreview({ theme, surface }: { theme: 'Light' | 'Dark'; surface: 'Default' | 'Muted' | 'Dark Lift' }) {
+function FramePreview({ appearance, surface, onThemeChange }: { appearance: { mode: 'light' | 'dark' | 'system'; resolved: 'light' | 'dark'; revision: number }; surface: 'Default' | 'Muted' | 'Dark Lift'; onThemeChange: (mode: 'light' | 'dark' | 'system', resolved: 'light' | 'dark') => void }) {
   const { frame, displayName } = useStory();
   const instance = useId();
   const connect = useStoryFrame();
@@ -75,30 +76,36 @@ function FramePreview({ theme, surface }: { theme: 'Light' | 'Dark'; surface: 'D
     setElement(iframe);
     if (iframe) return connect(iframe);
   }, [connect]);
+  const latest = useRef({ appearance, surface, onThemeChange });
+  latest.current = { appearance, surface, onThemeChange };
+  const sequence = useRef(0);
   const send = useCallback(() => {
     try {
-      if (!element?.contentWindow || new URL(frame!.src, location.href).origin !== location.origin) {
+      if (!element?.contentWindow || !frame || new URL(frame.src, location.href).origin !== location.origin) {
         setUnavailable(true);
         return;
       }
-      element.contentWindow.postMessage({ type: 'foglamp-story:appearance', theme: theme.toLowerCase(), surface }, location.origin);
+      const { appearance, surface } = latest.current;
+      element.contentWindow.postMessage({ type: 'foglamp-story:appearance', theme: appearance.mode, surface, sequence: ++sequence.current }, location.origin);
       setUnavailable(false);
     } catch {
       setUnavailable(true);
     }
-  }, [element, frame, theme, surface]);
+  }, [element, frame]);
   useEffect(() => {
     if (!element) return;
     const onMessage = (event: MessageEvent) => {
-      if (event.origin === location.origin && event.source === element.contentWindow && event.data?.type === 'foglamp-story:ready') send();
+      if (event.origin !== location.origin || event.source !== element.contentWindow) return;
+      if (event.data?.type === 'foglamp-story:ready') send();
+      else if (event.data?.type === 'foglamp-story:theme-state' && event.data.sequence === sequence.current && ['light', 'dark', 'system'].includes(event.data.mode) && ['light', 'dark'].includes(event.data.resolved)) latest.current.onThemeChange(event.data.mode, event.data.resolved);
     };
     window.addEventListener('message', onMessage);
-    send();
     return () => window.removeEventListener('message', onMessage);
   }, [element, send]);
+  useEffect(() => { if (element) send(); }, [element, send, surface, appearance.revision]);
   if (!frame) return null;
   const scale = frame.width ? Math.min(1, viewportWidth / (frame.width + 2)) : 1;
-  const viewport = <div ref={viewportRef} style={frame.width ? { height: ((frame.height ?? 800) + 2) * scale, overflow: 'hidden' } : undefined}><iframe ref={ref} onLoad={send} src={`${frame.src}${frame.src.includes('?') ? '&' : '?'}instance=${encodeURIComponent(instance)}&layout=${frame.width ? 'full' : 'center'}`} title={displayName || 'Component preview'} className="block rounded-md squircle:rounded-2xl corner-squircle border border-transparent shadow-(--custom-shadow)" style={frame.width ? { width: frame.width + 2, height: (frame.height ?? 800) + 2, transform: `scale(${scale})`, transformOrigin: 'top left' } : { width: '100%', height: frame.height ?? 320 }} /></div>;
+  const viewport = <div ref={viewportRef} style={frame.width ? { width: '100%', maxWidth: frame.width + 2, aspectRatio: `${frame.width + 2} / ${(frame.height ?? 800) + 2}`, overflow: 'hidden' } : undefined}><iframe ref={ref} onLoad={send} src={`${frame.src}${frame.src.includes('?') ? '&' : '?'}instance=${encodeURIComponent(instance)}&layout=${frame.width ? 'full' : 'center'}`} title={displayName || 'Component preview'} className="block rounded-md squircle:rounded-2xl corner-squircle border border-transparent shadow-(--custom-shadow)" style={frame.width ? { width: frame.width + 2, height: (frame.height ?? 800) + 2, transform: `scale(${scale})`, transformOrigin: 'top left' } : { width: '100%', height: frame.height ?? 320 }} /></div>;
   return <div className="p-3">{frame.Container ? <frame.Container>{viewport}</frame.Container> : viewport}{unavailable && <p role="status" className="mt-2 text-xs text-muted-foreground">Theme and surface controls require a same-origin preview frame.</p>}</div>;
 }
 

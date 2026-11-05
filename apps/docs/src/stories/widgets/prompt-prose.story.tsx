@@ -1,7 +1,47 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
 import { PromptProseView } from '@foglamp/design-system/widgets/prompt-prose';
+import { SLOT_LINE } from '@foglamp/design-system/lib/prompts/infer';
+import { slotValues } from '@foglamp/design-system/lib/prompts/slots';
 import { defineStory } from '../../lib/story';
-const template = '## Support assistant\n\nAnswer clearly and use customer context.\n\nCustomer: {{customer_context}}\nPolicy: {{response_policy}}';
-const slots = { slots: [{ examples: [{ value: 'Jordan is locked out after rotating an API key.', runs: 18 }] }, { examples: [{ value: 'Never request a secret key in chat.', runs: 18 }] }] };
-function PromptProsePreview({ loading = false }: { loading?: boolean }) { return <div className="w-full max-w-lg rounded-xl border bg-card p-4"><PromptProseView template={template} slots={slots} loading={loading}/></div>; }
-export const story = defineStory({ id: 'widgets/prompt-prose', displayName: 'PromptProse', registryItem: 'widget-prompt-prose', Component: PromptProsePreview, args: [{ variant: 'Rendered slots', initial: { loading: false } }, { variant: 'Loading', initial: { loading: true } }] });
+
+const template = [
+  '## Support assistant',
+  '',
+  'Answer clearly and use the workspace context before suggesting a fix.',
+  SLOT_LINE,
+  '## Response policy',
+  '',
+  'Never ask for or repeat secret credentials.',
+  SLOT_LINE,
+].join('\n');
+const filledPrompt = [
+  '## Support assistant',
+  '',
+  'Answer clearly and use the workspace context before suggesting a fix.',
+  'Jordan is locked out after rotating an API key. Two production workers need the replacement key.',
+  '## Response policy',
+  '',
+  'Never ask for or repeat secret credentials.',
+  'Confirm both workers use the replacement key before revoking the old one.',
+].join('\n');
+const actualSlotValues = slotValues(template, filledPrompt);
+const slots = {
+  slots: actualSlotValues.map((value, index) => ({
+    examples: value === null ? [] : [{ value, runs: index === 0 ? 18 : 12 }],
+  })),
+};
+
+function PromptProsePreview({ loading = false }: { loading?: boolean }) {
+  return <div className="w-full max-w-lg rounded-xl border bg-card p-4"><PromptProseView template={template} slots={slots} loading={loading} /></div>;
+}
+
+export const story = defineStory({
+  id: 'widgets/prompt-prose',
+  displayName: 'PromptProse',
+  registryItem: 'widget-prompt-prose',
+  Component: PromptProsePreview,
+  args: [
+    { variant: 'Rendered slots with run examples', initial: { loading: false } },
+    { variant: 'Loading slot examples', initial: { loading: true } },
+  ],
+});

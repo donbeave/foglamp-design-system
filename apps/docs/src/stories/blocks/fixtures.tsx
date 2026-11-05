@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
 import { AppShellBlock } from '@foglamp/design-system/blocks/app-shell/app-shell-block';
 import { FoglampLinkProvider } from '@foglamp/design-system/lib/link-context';
+import { getGoogleFavicon } from '@foglamp/design-system/widgets/leaf/favicon';
 import type { ScanData } from '@foglamp/design-system/lib/scan/scan';
 import type { DetectedPlan } from '@foglamp/design-system/lib/scan/instrumentation';
 
@@ -63,5 +64,4 @@ export function DashboardStoryShell({ children }: { children: ReactNode }) {
   return <StoryLinkAdapter><div className="h-[760px] overflow-hidden rounded-lg"><AppShellBlock pathname="/overview" user={{ name: 'Alex Rivera', email: 'alex@example.com' }}>{children}</AppShellBlock></div></StoryLinkAdapter>;
 }
 
-export const resolveStoryFavicon = (domain: string) =>
-  `https://www.google.com/s2/favicons?domain=${encodeURIComponent(domain)}&sz=64`;
+export const resolveStoryFavicon = getGoogleFavicon;

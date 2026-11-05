@@ -16,7 +16,7 @@
     {
       "path": "src/components/foglamp/blocks/scan/favicon-context.tsx",
       "type": "registry:component",
-      "content": "\"use client\";\n\n/** Host adapter for the Apache-2.0 scan UI by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */\nimport { createContext, useContext, type ReactNode } from \"react\";\nimport { faviconUrl } from \"../../lib/scan/favicon\";\n\nconst FaviconContext = createContext(faviconUrl);\n\n/** Supply your image endpoint or asset resolver without changing map markup. */\nexport function ScanFaviconProvider({ resolve, children }: {\n  resolve: (domain: string) => string;\n  children: ReactNode;\n}) {\n  return <FaviconContext.Provider value={resolve}>{children}</FaviconContext.Provider>;\n}\n\nexport function useScanFavicon() {\n  return useContext(FaviconContext);\n}\n"
+      "content": "\"use client\";\n\n/** Host adapter for the Apache-2.0 scan UI by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */\nimport { createContext, useContext, type ReactNode } from \"react\";\nimport { getGoogleFavicon } from \"../../widgets/leaf/favicon\";\n\nconst FaviconContext = createContext(getGoogleFavicon);\n\n/** Supply your image endpoint or asset resolver without changing map markup. */\nexport function ScanFaviconProvider({ resolve, children }: {\n  resolve: (domain: string) => string;\n  children: ReactNode;\n}) {\n  return <FaviconContext.Provider value={resolve}>{children}</FaviconContext.Provider>;\n}\n\nexport function useScanFavicon() {\n  return useContext(FaviconContext);\n}\n"
     },
     {
       "path": "src/components/foglamp/blocks/scan/flow-map.tsx",
@@ -127,6 +127,11 @@
       "path": "src/components/foglamp/ui/textarea.tsx",
       "type": "registry:component",
       "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/textarea.tsx; derived here under Apache-2.0.\n */\nimport type * as React from \"react\";\n\nimport { cn } from \"../lib/utils\";\n\nfunction Textarea({ className, ...props }: React.ComponentProps<\"textarea\">) {\n\treturn (\n\t\t<textarea\n\t\t\tdata-slot=\"textarea\"\n\t\t\tclassName={cn(\n\t\t\t\t\"flex field-sizing-content min-h-16 w-full rounded-md squircle:rounded-xl corner-squircle shadow-(--custom-shadow) dark:shadow-none dark:border dark:border-border/50 hover:dark:border-border/70 bg-transparent px-2.5 py-2 text-base transition-[color,box-shadow] outline-none placeholder:text-muted-foreground/50 focus-visible:border-ring focus-visible:ring-[1.5px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-[1.5px] aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { Textarea };\n"
+    },
+    {
+      "path": "src/components/foglamp/widgets/leaf/favicon.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/lib/favicon.ts; derived here under Apache-2.0.\n */\nexport const getGoogleFavicon = (domain: string) => {\n\tif (domain.includes(\"https://\") || domain.includes(\"http://\")) {\n\t\treturn `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=${domain}&size=256`;\n\t} else {\n\t\treturn `https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://${domain}&size=256`;\n\t}\n};\n"
     }
   ],
   "dependencies": [

@@ -50,16 +50,16 @@ function HomePage() {
     { label: 'Foundations', href: '/docs/foundations/tokens' },
     { label: 'Components', href: '/docs/primitives/button' },
     { label: 'Stories', href: '/docs/primitives/button' },
-    { label: 'Credits', href: '/docs/credits' },
+    { label: 'Credits & Original Creator', href: '/docs/credits' },
   ];
 
   return (
     <FoglampLinkProvider component={PortalLink}>
-      <main>
+      <main data-source-surface>
         <MarketingNavbar links={links} homeHref="/" loginHref="/docs/foundations/installation" dashboardHref="/docs" />
         <section className="mx-auto max-w-7xl px-5 pt-8 sm:px-8" aria-label="Original creator attribution">
           <p className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-1 rounded-full squircle:rounded-2xl corner-squircle bg-secondary px-4 py-2 text-sm text-secondary-foreground shadow-(--custom-shadow-secondary)">
-            Original design by <a className="font-medium text-foreground underline underline-offset-4" href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener">Gustavo Fior (@gustavo-fior)</a>, co-founder <a className="underline underline-offset-4" href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener">Abdul Haidar</a>, and <a className="underline underline-offset-4" href="https://foglamp.dev" target="_blank" rel="noreferrer noopener">Foglamp Labs</a> · extracted AS-IS from <a className="underline underline-offset-4" href="https://github.com/foglamp-labs/foglamp" target="_blank" rel="noreferrer noopener">foglamp-labs/foglamp</a>
+            Original design by <a className="font-medium text-foreground underline underline-offset-4" href="https://gustavofior.com" target="_blank" rel="noreferrer noopener">Gustavo Fior</a> (<a className="underline underline-offset-4" href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener">@gustavo-fior</a>, <a className="underline underline-offset-4" href="https://x.com/heyimgustavo" target="_blank" rel="noreferrer noopener">@heyimgustavo</a>), co-founder <a className="underline underline-offset-4" href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener">Abdul Haidar</a>, and <a className="underline underline-offset-4" href="https://foglamp.dev" target="_blank" rel="noreferrer noopener">Foglamp Labs</a> · extracted AS-IS from <a className="underline underline-offset-4" href="https://github.com/foglamp-labs/foglamp" target="_blank" rel="noreferrer noopener">foglamp-labs/foglamp</a>
           </p>
         </section>
         <Hero3DDemoBlock />

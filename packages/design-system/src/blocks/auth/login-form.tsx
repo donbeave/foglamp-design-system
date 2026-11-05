@@ -89,11 +89,6 @@ export function LoginFormBlock({
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [resetSentTo, setResetSentTo] = useState<string | null>(null);
   const [googlePending, setGooglePending] = useState(false);
-  const [signInComplete, setSignInComplete] = useState<
-    | { kind: "google"; localDemo: boolean }
-    | { kind: "password"; email: string; localDemo: boolean }
-    | null
-  >(null);
 
   const hasEmailForm =
     ((mode === "password" || mode === "forgot") && methods.emailPassword) ||
@@ -107,16 +102,17 @@ export function LoginFormBlock({
         : LOCAL_SUCCESS;
       if (result.kind === "error") {
         toast.error(result.message || "Google sign-in failed. Try again.");
+        setGooglePending(false);
         return;
       }
-      setSignInComplete({
-        kind: "google",
-        localDemo: onGoogleSignIn === undefined,
-      });
-      onSignedIn?.({ method: "google", callbackURL });
+      const completion: LoginFormCompletion = { method: "google", callbackURL };
+      if (onSignedIn) {
+        onSignedIn(completion);
+      } else {
+        window.location.href = callbackURL;
+      }
     } catch (error) {
       toast.error(getErrorMessage(error, "Google sign-in failed. Try again."));
-    } finally {
       setGooglePending(false);
     }
   };
@@ -136,16 +132,16 @@ export function LoginFormBlock({
           toast.error(result.message || "Invalid email or password.");
           return;
         }
-        setSignInComplete({
-          kind: "password",
-          email: value.email,
-          localDemo: onPasswordSignIn === undefined,
-        });
-        onSignedIn?.({
+        const completion: LoginFormCompletion = {
           method: "password",
           email: value.email,
           callbackURL,
-        });
+        };
+        if (onSignedIn) {
+          onSignedIn(completion);
+        } else {
+          window.location.href = callbackURL;
+        }
       } catch (error) {
         toast.error(getErrorMessage(error, "Invalid email or password."));
       }
@@ -212,41 +208,6 @@ export function LoginFormBlock({
       onSubmit: z.object({ email: z.email("Enter a valid email.") }),
     },
   });
-
-  if (signInComplete) {
-    return (
-      <div className="mx-auto flex w-full max-w-lg flex-col gap-4 p-6">
-        <div className="size-10 rounded-md squircle:rounded-2xl corner-squircle shadow-(--custom-shadow) bg-muted flex justify-center items-center">
-          <BrandMark className="w-7" />
-        </div>
-        <div className="mt-3 flex flex-col gap-2">
-          <h1 className="text-xl font-medium text-balance">
-            {signInComplete.kind === "google"
-              ? signInComplete.localDemo
-                ? "Local Google sign-in complete"
-                : "Google sign-in complete"
-              : "Signed in"}
-          </h1>
-          <p className="text-sm text-muted-foreground mt-0.5">
-            {signInComplete.kind === "google"
-              ? signInComplete.localDemo
-                ? "Your local sign-in flow is complete."
-                : "Your Google sign-in flow is complete."
-              : signInComplete.localDemo
-                ? `Signed in locally as ${signInComplete.email}.`
-                : `Signed in as ${signInComplete.email}.`}
-          </p>
-        </div>
-        <Button
-          variant="link"
-          className="self-start px-0"
-          onClick={() => setSignInComplete(null)}
-        >
-          Back to login
-        </Button>
-      </div>
-    );
-  }
 
   if (resetSentTo) {
     return (
