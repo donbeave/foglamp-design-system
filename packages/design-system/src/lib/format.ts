@@ -1,0 +1,172 @@
+/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
+ * Extracted from .reference/foglamp/apps/web/src/lib/format.ts; derived here under Apache-2.0.
+ */
+const usdFormatters = new Map<string, Intl.NumberFormat>();
+function usdFormatter(minDecimals: number, maxDecimals: number) {
+	const key = `${minDecimals}:${maxDecimals}`;
+	let f = usdFormatters.get(key);
+	if (!f) {
+		f = new Intl.NumberFormat("en-US", {
+			style: "currency",
+			currency: "USD",
+			minimumFractionDigits: minDecimals,
+			maximumFractionDigits: maxDecimals,
+		});
+		usdFormatters.set(key, f);
+	}
+	return f;
+}
+
+/** A cost value; `null`/`undefined` → em dash (unpriced, never $0). `maxDecimals`
+ * caps the fractional digits — 6 (full precision) by default, 4 for the more
+ * compact stat-card treatment. Trailing zeros are trimmed back to 2 decimals. */
+export function formatCost(
+	value: number | null | undefined,
+	maxDecimals = 6,
+): string {
+	if (value === null || value === undefined) return "—";
+	return usdFormatter(2, maxDecimals).format(value);
+}
+
+/** A cost value padded to exactly `decimals` fraction digits, so a column of
+ * them lines up on the decimal point ("$0.003350" above "$0.002773") instead of
+ * raggedly trimming trailing zeros. For table cells; elsewhere use `formatCost`,
+ * which keeps numbers short. */
+export function formatCostFixed(
+	value: number | null | undefined,
+	decimals: number,
+): string {
+	if (value === null || value === undefined) return "—";
+	return usdFormatter(decimals, decimals).format(value);
+}
+
+const compact = new Intl.NumberFormat("en-US", { notation: "compact" });
+const plain = new Intl.NumberFormat("en-US");
+
+// Count formatters round first: counts are integers by definition, but animated
+// stat tickers feed them fractional in-between frames, which would otherwise
+// render decimals mid-tween ("1,234.567").
+export function formatCount(value: number): string {
+	const n = Math.round(value);
+	return n >= 1000 ? compact.format(n) : plain.format(n);
+}
+
+/** A count with no compaction — "1,024", never "1K". For operator figures where
+ * the exact number is the point and 1,024 vs 1,499 must not both read "1K". */
+export function formatExactCount(value: number): string {
+	return plain.format(Math.round(value));
+}
+
+export function formatTokens(value: number): string {
+	return compact.format(value);
+}
+
+/** Milliseconds → human duration (µs/ms/s/m/h/d). */
+export function formatDuration(ms: number): string {
+	if (!Number.isFinite(ms)) return "—";
+	// Exact zero reads as "0s" (not "0µs") everywhere — e.g. latency axes anchored
+	// at the origin.
+	if (ms === 0) return "0s";
+	if (ms < 1) return `${Math.round(ms * 1000)}µs`;
+	if (ms < 1000) return `${Math.round(ms)}ms`;
+	if (ms < 60_000) return `${(ms / 1000).toFixed(2)}s`;
+	// Beyond a minute, build from the largest non-zero unit and show at most two
+	// components so e.g. an even hour reads "1h", not "60m 0s".
+	const totalSec = Math.round(ms / 1000);
+	const d = Math.floor(totalSec / 86_400);
+	const h = Math.floor((totalSec % 86_400) / 3600);
+	const m = Math.floor((totalSec % 3600) / 60);
+	const s = totalSec % 60;
+	const parts = [];
+	if (d) parts.push(`${d}d`);
+	if (h) parts.push(`${h}h`);
+	if (m) parts.push(`${m}m`);
+	if (s) parts.push(`${s}s`);
+	return parts.slice(0, 2).join(" ") || "0s";
+}
+
+/** A recorded span/trace duration. Storage is whole milliseconds, so an exact 0
+ * means "finished in under 1ms", not "took no time" — render it as such. Axes
+ * and aggregates should keep using formatDuration ("0s" at the origin). */
+export function formatSpanDuration(ms: number): string {
+	if (ms === 0) return "<1ms";
+	return formatDuration(ms);
+}
+
+export function formatPercent(fraction: number | null | undefined): string {
+	if (fraction === null || fraction === undefined) return "—";
+	return `${Math.round(fraction * 100)}%`;
+}
+
+/** ClickHouse DateTime strings ('YYYY-MM-DD HH:MM:SS', UTC) or ISO → Date. */
+export function parseDateTime(value: string | Date): Date {
+	if (value instanceof Date) return value;
+
+	const normalized = value.replace(" ", "T");
+	const hasTimezone = /(?:Z|[+-]\d{2}:?\d{2})$/i.test(normalized);
+	return new Date(hasTimezone ? normalized : `${normalized}Z`);
+}
+
+/** ClickHouse DateTime strings ('YYYY-MM-DD HH:MM:SS', UTC) or ISO → local. */
+export function formatDateTime(
+	value: string | Date | null | undefined,
+): string {
+	if (!value) return "—";
+	const d = parseDateTime(value);
+	if (Number.isNaN(d.getTime())) return String(value);
+	return d.toLocaleString(undefined, {
+		month: "short",
+		day: "numeric",
+		hour: "2-digit",
+		minute: "2-digit",
+		second: "2-digit",
+		// Always 24-hour, regardless of the viewer's locale default.
+		hour12: false,
+	});
+}
+
+export function formatRelative(
+	value: string | Date | null | undefined,
+): string {
+	if (!value) return "—";
+	const d = parseDateTime(value);
+	const diff = Date.now() - d.getTime();
+	if (Number.isNaN(diff)) return String(value);
+	// Clamp clock skew: a server timestamp slightly ahead of the client must not
+	// render as "-3s ago".
+	const sec = Math.max(0, Math.round(diff / 1000));
+	if (sec < 60) return `${sec}s ago`;
+	const min = Math.round(sec / 60);
+	if (min < 60) return `${min}m ago`;
+	const hr = Math.round(min / 60);
+	if (hr < 24) return `${hr}h ago`;
+	return `${Math.round(hr / 24)}d ago`;
+}
+
+export type Delta = { pct: number; dir: "up" | "down" | "flat" };
+
+/**
+ * Period-over-period change as a fraction + direction. `null` when there's no
+ * baseline to compare against (previous is null/zero) — the caller renders "—".
+ */
+export function formatDelta(
+	current: number | null | undefined,
+	previous: number | null | undefined,
+): Delta | null {
+	if (current === null || current === undefined) return null;
+	if (previous === null || previous === undefined || previous === 0)
+		return null;
+	const pct = (current - previous) / previous;
+	const dir = Math.abs(pct) < 0.0001 ? "flat" : pct > 0 ? "up" : "down";
+	return { pct, dir };
+}
+
+/** Extrapolate a window's cost to a 30-day run-rate. `null` when cost is unknown. */
+export function projectMonthlyCost(
+	cost: number | null | undefined,
+	windowMs: number,
+): number | null {
+	if (cost === null || cost === undefined || windowMs <= 0) return null;
+	const THIRTY_DAYS = 30 * 24 * 60 * 60 * 1000;
+	return (cost / windowMs) * THIRTY_DAYS;
+}

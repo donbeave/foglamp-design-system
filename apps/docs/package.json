@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@foglamp/design-system": "workspace:*",
+    "@fumari/stf": "^1.1.2",
     "@fontsource-variable/geist-mono": "^5.3.0",
     "@fontsource-variable/host-grotesk": "^5.3.0",
     "@fumadocs/story": "^1.5.3",
