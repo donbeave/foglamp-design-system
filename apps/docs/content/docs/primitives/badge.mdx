@@ -1,0 +1,50 @@
+---
+title: "Badge"
+description: "Compact status label with default, semantic color, and outline treatments. Variant and size values come from the exported variant recipe."
+---
+
+import { story } from '../../../src/stories/primitives/badge.story';
+
+# Badge
+
+Compact status label with default, semantic color, and outline treatments. Variant and size values come from the exported variant recipe.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/badge`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `Badge` | `useRender.ComponentProps<"span"> & VariantProps<typeof badgeVariants>` | Status label with variant and size options. |
+| `badgeVariants` | `Class variance recipe` | Exports the badge class recipe. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `Badge.variant` | `default \| secondary \| destructive \| green \| blue \| amber \| orange \| emerald \| rose \| red \| violet \| fuchsia \| sky \| outline` | Defaults to `default`. |
+| `Badge.size` | `sm \| md \| lg` | Defaults to `md`. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { Badge } from '@foglamp/design-system/ui/badge';
+
+function BadgeExample({ variant = 'default', size = 'md' }: { variant?: 'default' | 'secondary' | 'destructive' | 'green' | 'blue' | 'amber' | 'outline'; size?: 'sm' | 'md' | 'lg' }) { return <div className="flex flex-wrap items-center gap-3"><Badge variant={variant} size={size}>Production</Badge><Badge variant="green">Healthy</Badge><Badge variant="amber">Latency</Badge><Badge variant="outline">v2.8.1</Badge></div>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-badge`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-badge.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-badge.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/badge`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

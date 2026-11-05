@@ -1,0 +1,38 @@
+---
+title: ProjectProvider
+description: Provides project selection state to descendants through useProject.
+---
+
+Provides project selection state to descendants through useProject.
+
+import { story } from "../../../src/stories/widgets/project-provider.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `useProject` | `—` | `—` | No arguments; returns ProjectContextValue. |
+
+## Requirements
+
+`useProject()` throws outside `ProjectProvider`. The provider accepts optional `projects`, `initialProjectId`, `isLoading`, and `onProjectChange` props. Its hook returns `project`, `projectId`, `projects`, `isLoading`, and `setProjectId`.
+
+| Provider prop | Type | Meaning |
+| :--- | :--- | :--- |
+| `children` | `ReactNode` | Descendants that read project state. |
+| `projects` | `Project[]` | Available projects. Defaults to one mock project. |
+| `initialProjectId` | `string \| null` | Initial selection. Defaults to the first project ID. |
+| `isLoading` | `boolean` | Loading state returned from `useProject()`. |
+| `onProjectChange` | `(id: string) => void` | Receives a new project ID. The host owns route changes and persistence. |
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/project-provider.story.tsx`](../../../src/stories/widgets/project-provider.story.tsx). The authoritative registry item ID is `widget-project-context` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-skeleton",
+  "type": "registry:ui",
+  "title": "Skeleton",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/skeleton.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/skeleton.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/skeleton.tsx; derived here under Apache-2.0.\n */\nimport { cn } from \"../lib/utils\";\n\nfunction Skeleton({ className, ...props }: React.ComponentProps<\"div\">) {\n\treturn (\n\t\t<div\n\t\t\tdata-slot=\"skeleton\"\n\t\t\tclassName={cn(\n\t\t\t\t\"animate-pulse rounded-md squircle:rounded-2xl corner-squircle bg-muted\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { Skeleton };\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,37 @@
+---
+title: SunsetCard
+description: Shows the service sunset notice and its fixed shutdown date.
+---
+
+Shows the service sunset notice and its fixed shutdown date.
+
+import { story } from "../../../src/stories/widgets/sunset-card.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `SunsetCard` | `serverUrl` | `string \| null \| undefined` | Server URL compared with the hosted-service URL before the notice renders. |
+
+## Host URL behavior
+
+`serverUrl` is optional. When omitted, the component reads `NEXT_PUBLIC_SERVER_URL` from the host environment. It renders only when the resolved value equals `https://api.foglamp.dev`; pass `null` to hide the notice for a self-hosted installation.
+
+The source UI labels that hosted endpoint with a shutdown date of October 18, 2026. This page documents the component text and does not assert the current status of the hosted service.
+
+```tsx
+<SunsetCard serverUrl="https://api.foglamp.dev" />
+<SunsetCard serverUrl={null} />
+```
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/sunset-card.story.tsx`](../../../src/stories/widgets/sunset-card.story.tsx). The authoritative registry item ID is `widget-leaf-sunset-card` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

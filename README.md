@@ -1,26 +1,53 @@
 # Foglamp Design System
 
-> **Original design and implementation by Gustavo Fior ([@gustavo-fior](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo), [LinkedIn](https://www.linkedin.com/in/gustavofior)), co-founder Abdul Haidar ([LinkedIn](https://www.linkedin.com/in/abdulhdr/)), and Foglamp Labs ([foglamp.dev](https://foglamp.dev)).** This workspace extracts the original Foglamp project [100% AS-IS](https://github.com/foglamp-labs/foglamp); all credit for its visual design and implementation belongs to the original creators.
+> **Original design by Gustavo Fior ([@gustavo-fior](https://github.com/gustavo-fior), [website](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo), [LinkedIn](https://www.linkedin.com/in/gustavofior)), co-founder Abdul Haidar ([LinkedIn](https://www.linkedin.com/in/abdulhdr/)), and Foglamp Labs ([foglamp.dev](https://foglamp.dev)).** This design system is extracted **100% AS-IS** from [Foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
 
-This repository is assembling a reusable `@foglamp/design-system`, a shadcn-compatible registry, and an interactive component documentation portal built with TanStack Start, Fumadocs Base UI, and Fumadocs Story. The source checkout is in `.reference/foglamp` and is excluded from version control.
+`@foglamp/design-system` provides the original UI primitives, widgets, charts, figures, marketing blocks, dashboard blocks, and utilities. The Fumadocs/Base UI + TanStack Start portal includes reference documentation and interactive stories.
 
-## Workspace packages
+## Workspace status
 
-- `packages/design-system` — reusable React design-system package.
-- `packages/registry` — shadcn-compatible registry metadata and tooling.
-- `apps/docs` — documentation and interactive component workbench.
+Waves 0–4 are implemented. Wave 5 static/build verification, live-browser visual QA, and final attribution/parity sign-off are pending. This repository is not marked complete until those gates pass.
 
-## Commands
+## Requirements
 
-Bun 1.4+ is used for local development. In environments managed with mise, run commands as `mise exec bun@latest -- bun <command>`.
+- Bun (workspace package manager)
+- Node.js compatible with the Vite/TanStack toolchain
+
+## Development
 
 ```sh
 bun install
 bun run dev
+```
+
+The docs portal runs at `http://localhost:3000`.
+
+## Checks and builds
+
+```sh
 bun run check-types
+bun run test
+bun run build:registry
 bun run build
 ```
 
-The workspace is under active construction; application scripts and documentation routes are being added in stages.
+## Install from the local shadcn registry
 
-See [CREDITS.md](./CREDITS.md) for attribution details and [LICENSE](./LICENSE) for the Apache-2.0 license. The extraction plan and runbook are maintained in the [planning repository](https://github.com/donbeave/foglamp-design-system-plan).
+Start the portal, then use its local registry endpoint with the shadcn CLI:
+
+```sh
+bunx shadcn@latest add http://localhost:3000/r/ui-button.json
+```
+
+For a project using these extracted components, install the Foglamp stylesheet once in its application entry point:
+
+```css
+@import "@foglamp/design-system/styles/globals.css";
+@import "@foglamp/design-system/styles/effects.css";
+```
+
+See [`apps/docs/content/docs/foundations/installation.mdx`](apps/docs/content/docs/foundations/installation.mdx) and the [credits page](apps/docs/content/docs/credits.mdx) for setup and attribution details.
+
+## License and attribution
+
+Source UI and design are by Gustavo Fior, Abdul Haidar, and Foglamp Labs. See [`CREDITS.md`](CREDITS.md), [`NOTICE`](NOTICE), and [`LICENSE`](LICENSE). Derived integration code is identified separately in its source headers.

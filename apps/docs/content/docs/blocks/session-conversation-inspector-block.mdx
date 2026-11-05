@@ -1,0 +1,27 @@
+---
+title: Session Conversation Inspector
+description: Session Conversation Inspector renders a session transcript from the built-in demo data. The story controls the session ID and loading state.
+---
+
+import { story } from '../../../src/stories/blocks/session-conversation-inspector-block.story'
+
+Session Conversation Inspector renders a session transcript from the built-in demo data. The story controls the session ID and loading state.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/dashboard/session-conversation-inspector-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/session-conversation-inspector-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `sessionId: string`, `isLoading: boolean`; initial values are `sessionId: 'ses_a91f', isLoading: false` |
+| Fixture and callback wiring | The story exposes `sessionId` and `isLoading`. The component accepts optional session data or `null`; the story uses the source default data. |
+| Registry item | `block-dashboard-session-conversation-inspector`. The portal payload is `/r/block-dashboard-session-conversation-inspector.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "block-dashboard-eval-chip-placeholders",
+  "type": "registry:block",
+  "title": "Eval Chip Placeholders",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/dashboard/eval-chip-placeholders.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/blocks/dashboard/eval-chip-placeholders.tsx",
+      "type": "registry:component",
+      "content": "/** Original design: Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs. Apache-2.0. */\nexport function EvalChipPlaceholders() {\n\treturn (\n\t\t<>\n\t\t\t<div className=\"h-8 w-32 animate-pulse rounded-full bg-muted\" />\n\t\t\t<div className=\"h-8 w-20 animate-pulse rounded-full bg-muted\" />\n\t\t\t<div className=\"h-8 w-28 animate-pulse rounded-full bg-muted\" />\n\t\t</>\n\t);\n}\n"
+    }
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,27 @@
+---
+title: Onboarding Panel
+description: Onboarding Panel shows the API-key setup steps and copyable prompt. The story supplies a local demo key and a no-op copy callback.
+---
+
+import { story } from '../../../src/stories/blocks/onboarding-panel-block.story'
+
+Onboarding Panel shows the API-key setup steps and copyable prompt. The story supplies a local demo key and a no-op copy callback.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/auth/onboarding-panel` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/onboarding-panel-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `apiKey: string`; initial values are `apiKey: 'fl_demo_1234567890'` |
+| Fixture and callback wiring | The story exposes `apiKey`. The source block receives `apiKey` and `onPromptCopied`; connect the latter to the application’s copy feedback if needed. |
+| Registry item | `block-auth-onboarding-panel`. The portal payload is `/r/block-auth-onboarding-panel.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

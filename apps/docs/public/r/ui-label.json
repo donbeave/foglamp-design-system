@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-label",
+  "type": "registry:ui",
+  "title": "Label",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/label.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/label.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/label.tsx; derived here under Apache-2.0.\n */\nimport type * as React from \"react\";\n\nimport { cn } from \"../lib/utils\";\n\nfunction Label({ className, ...props }: React.ComponentProps<\"label\">) {\n\treturn (\n\t\t<label\n\t\t\tdata-slot=\"label\"\n\t\t\tclassName={cn(\n\t\t\t\t\"flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { Label };\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4",
+    "react@19.2.5",
+    "react-dom@19.2.5"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

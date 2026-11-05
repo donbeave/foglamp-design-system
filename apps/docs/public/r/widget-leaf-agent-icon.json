@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "widget-leaf-agent-icon",
+  "type": "registry:component",
+  "title": "Agent Icon",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from widgets/leaf/agent-icon.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/widgets/leaf/agent-icon.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/app/agent-icon.tsx; derived here under Apache-2.0.\n */\nimport { IconGhost, IconGhostFilled } from \"@tabler/icons-react\";\n\nimport { cn } from \"../../lib/utils\";\n\n// A spread of mid-tone hues that read on both light and dark surfaces. One is\n// picked deterministically from the agent name (see `agentColor`), so an agent\n// always gets the same color while different agents stay visually distinct —\n// the same idea as the per-project placeholder icons.\nconst AGENT_COLORS = [\n  \"#ef4444\", // red-500\n  \"#f97316\", // orange-500\n  \"#f59e0b\", // amber-500\n  \"#84cc16\", // lime-500\n  \"#22c55e\", // green-500\n  \"#10b981\", // emerald-500\n  \"#14b8a6\", // teal-500\n  \"#06b6d4\", // cyan-500\n  \"#0ea5e9\", // sky-500\n  \"#3b82f6\", // blue-500\n  \"#6366f1\", // indigo-500\n  \"#8b5cf6\", // violet-500\n  \"#a855f7\", // purple-500\n  \"#d946ef\", // fuchsia-500\n  \"#ec4899\", // pink-500\n  \"#f43f5e\", // rose-500\n];\n\n// djb2 string hash — small, fast, and stable across runs so the color is\n// reproducible for a given name.\nfunction hashString(str: string): number {\n  let hash = 5381;\n  for (let i = 0; i < str.length; i++) {\n    hash = ((hash << 5) + hash + str.charCodeAt(i)) | 0;\n  }\n  return Math.abs(hash);\n}\n\n/** A reproducible accent color (hex) for an agent, derived from its name. */\nexport function agentColor(name: string | null | undefined): string {\n  const key = name?.trim() ?? \"\";\n  if (!key) return AGENT_COLORS[0];\n  return AGENT_COLORS[hashString(key) % AGENT_COLORS.length];\n}\n\n/** A ghost glyph tinted with the agent's reproducible color. By default it renders\n * the outline variant with a faint `fill-current/20` wash — the standard treatment\n * for an agent's custom-color icon everywhere it appears (filters, breakdowns,\n * tables, headers). `filled` opts into the solid variant when needed; size is set\n * via `className` (defaults to `size-4`). The color is applied inline so it\n * overrides any text-color class, and `fill-current` resolves to that same color. */\nexport function AgentIcon({\n  name,\n  filled = false,\n  className,\n}: {\n  name: string | null | undefined;\n  filled?: boolean;\n  className?: string;\n}) {\n  const Icon = filled ? IconGhostFilled : IconGhost;\n  return (\n    <Icon\n      className={cn(\"size-4 shrink-0\", !filled && \"fill-current/20\", className)}\n      style={{ color: agentColor(name) }}\n    />\n  );\n}\n"
+    }
+  ],
+  "dependencies": [
+    "@tabler/icons-react@3.41.1",
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

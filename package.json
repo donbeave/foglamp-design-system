@@ -8,13 +8,15 @@
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "build": "turbo build",
+    "build:registry": "bun packages/registry/scripts/build-registry.ts",
     "check-types": "turbo check-types",
     "dev": "turbo dev",
-    "test": "bun test"
+    "test": "bun test",
+    "check:portal": "bun scripts/verify-portal.ts"
   },
   "devDependencies": {
     "turbo": "^2.8.12",
-    "typescript": "^5.9.3",
+    "typescript": "5.9.3",
     "vitest": "^3.2.4"
   }
 }

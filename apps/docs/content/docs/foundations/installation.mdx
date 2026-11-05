@@ -1,0 +1,56 @@
+---
+title: Installation and usage
+description: Run the workspace and use a component.
+---
+
+The repository uses Bun and workspace packages. From the repository root, install dependencies and start the docs portal:
+
+```sh
+bun install
+bun run dev
+```
+
+The docs app uses port 3000. Open `/docs` on the local server. To run the workspace checks, use:
+
+```sh
+bun run check-types
+bun run test
+```
+
+Within this workspace, import components by package subpath:
+
+```tsx
+import { Button } from '@foglamp/design-system/ui/button';
+
+export function Example() {
+	return <Button>Save changes</Button>;
+}
+```
+
+The consuming app must process the package's Tailwind classes and load its styles. The docs app imports `@foglamp/design-system/styles/globals.css` and `@foglamp/design-system/styles/effects.css`, and scans `packages/design-system/src` with Tailwind's `@source` directive. It also loads the fonts described in [typography and icons](/docs/foundations/typography). Follow the same pattern for your build and include the package source in your Tailwind scan.
+
+The package is a workspace package in this repository. These instructions do not assume a published package or a public registry host.
+
+## Install from the local registry
+
+To copy components into a separate app, start the docs portal as described above. The following example uses `http://localhost:3000` as the registry origin. Configure the consumer's `@/*` alias to point to `src/*` and run this command in the consumer project:
+
+```sh
+npx shadcn@latest add http://localhost:3000/r/style-globals.json http://localhost:3000/r/ui-button.json
+```
+
+Import the installed stylesheet once in the consumer's app entry, using the import syntax supported by its build:
+
+```tsx
+import '@/components/foglamp/styles/globals.css';
+```
+
+The stylesheet imports `effects.css` and `font-setup.css`. The font setup includes the original Inter font bytes as data URIs and loads self-hosted Host Grotesk and Geist Mono through Fontsource. It also imports Tailwind's base styles, so avoid loading a duplicate Tailwind base elsewhere. Copied component source needs these styles for the original appearance.
+
+The button is installed at `src/components/foglamp/ui/button.tsx`. Import it with the configured alias:
+
+```tsx
+import { Button } from '@/components/foglamp/ui/button';
+```
+
+For a deployed registry, replace the local origin with the actual host serving its static `/r` files. No public registry host is assumed here. The package import shown above is for this workspace; `@foglamp/design-system` is not assumed to be published to npm.

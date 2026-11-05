@@ -1,0 +1,27 @@
+---
+title: Workflow Detail
+description: Workflow Detail renders a workflow summary and its run details. The story keeps the active run in local state and supplies a no-op navigation callback.
+---
+
+import { story } from '../../../src/stories/blocks/workflow-detail-block.story'
+
+Workflow Detail renders a workflow summary and its run details. The story keeps the active run in local state and supplies a no-op navigation callback.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/dashboard/workflow-detail-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/workflow-detail-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `nameParam: string`, `isUpdating: boolean`; initial values are `nameParam: 'Support', isUpdating: false` |
+| Fixture and callback wiring | The story exposes `nameParam` and `isUpdating`. The source block also accepts workflow data, loading state, an initial run ID, `onRunChange`, and `onNavigate`. |
+| Registry item | `block-dashboard-workflow-detail`. The portal payload is `/r/block-dashboard-workflow-detail.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

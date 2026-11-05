@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-kbd",
+  "type": "registry:ui",
+  "title": "Kbd",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/kbd.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/kbd.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/kbd.tsx; derived here under Apache-2.0.\n */\nimport { cn } from \"../lib/utils\";\n\nfunction Kbd({ className, ...props }: React.ComponentProps<\"kbd\">) {\n\treturn (\n\t\t<kbd\n\t\t\tdata-slot=\"kbd\"\n\t\t\tclassName={cn(\n\t\t\t\t\"pointer-events-none inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 shadow-(--custom-shadow) dark:shadow-none dark:border dark:border-border/50 rounded-sm squircle:rounded-[14px] corner-squircle dark:bg-muted bg-background px-1 font-sans text-xs font-medium text-foreground select-none in-data-[slot=tooltip-content]:bg-background/20 in-data-[slot=tooltip-content]:text-background dark:in-data-[slot=tooltip-content]:bg-background/10 [&_svg:not([class*='size-'])]:size-3\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nfunction KbdGroup({ className, ...props }: React.ComponentProps<\"div\">) {\n\treturn (\n\t\t<kbd\n\t\t\tdata-slot=\"kbd-group\"\n\t\t\tclassName={cn(\"inline-flex items-center gap-1\", className)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { Kbd, KbdGroup };\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

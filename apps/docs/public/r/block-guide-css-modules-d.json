@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "block-guide-css-modules-d",
+  "type": "registry:block",
+  "title": "Css Modules.D",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/guide/css-modules.d.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/blocks/guide/css-modules.d.ts",
+      "type": "registry:component",
+      "content": "declare module '*.module.css' {\n  const classes: Readonly<Record<string, string>>;\n  export default classes;\n}\n"
+    }
+  ]
+}

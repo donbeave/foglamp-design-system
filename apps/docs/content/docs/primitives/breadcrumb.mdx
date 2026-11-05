@@ -1,0 +1,52 @@
+---
+title: "Breadcrumb"
+description: "Navigation trail built from a nav, ordered list, items, links, current-page label, separator, and overflow marker."
+---
+
+import { story } from '../../../src/stories/primitives/breadcrumb.story';
+
+# Breadcrumb
+
+Navigation trail built from a nav, ordered list, items, links, current-page label, separator, and overflow marker.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/breadcrumb`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `Breadcrumb` | `React.ComponentProps<"nav">` | Navigation landmark for the breadcrumb trail. |
+| `BreadcrumbEllipsis` | `React.ComponentProps<"span">` | Marks breadcrumb entries omitted from the visible trail. |
+| `BreadcrumbItem` | `React.ComponentProps<"li">` | One selectable or repeated entry. |
+| `BreadcrumbLink` | `useRender.ComponentProps<"a">` | Link slot for navigable content. |
+| `BreadcrumbList` | `React.ComponentProps<"ol">` | Ordered list that contains breadcrumb items. |
+| `BreadcrumbPage` | `React.ComponentProps<"span">` | Label for the current page in the breadcrumb trail. |
+| `BreadcrumbSeparator` | `React.ComponentProps<"li">` | Visual or semantic divider. |
+
+## Additional props
+
+The exports forward the props declared by their source component types. The public type for each export appears in the table above.
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator } from '@foglamp/design-system/ui/breadcrumb';
+
+function BreadcrumbExample({ current = 'Trace details' }: { current?: string }) { return <Breadcrumb><BreadcrumbList><BreadcrumbItem><BreadcrumbLink href="#workspace">Workspace</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbLink href="#runs">Runs</BreadcrumbLink></BreadcrumbItem><BreadcrumbSeparator /><BreadcrumbItem><BreadcrumbPage>{current}</BreadcrumbPage></BreadcrumbItem></BreadcrumbList></Breadcrumb>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-breadcrumb`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-breadcrumb.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-breadcrumb.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/breadcrumb`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

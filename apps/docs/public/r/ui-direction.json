@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-direction",
+  "type": "registry:ui",
+  "title": "Direction",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/direction.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/ui/direction.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/direction.tsx; derived here under Apache-2.0.\n */\nexport {\n\tDirectionProvider,\n\tuseDirection,\n} from \"@base-ui/react/direction-provider\";\n"
+    }
+  ],
+  "dependencies": [
+    "@base-ui/react@1.4.1",
+    "@floating-ui/core@1.7.5",
+    "@floating-ui/dom@1.7.6",
+    "@floating-ui/react-dom@2.1.8",
+    "@floating-ui/utils@0.2.11",
+    "use-sync-external-store@1.6.0"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-input",
+  "type": "registry:ui",
+  "title": "Input",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/input.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/input.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/input.tsx; derived here under Apache-2.0.\n */\nimport { Input as InputPrimitive } from \"@base-ui/react/input\";\nimport type * as React from \"react\";\n\nimport { cn } from \"../lib/utils\";\n\nfunction Input({ className, type, ...props }: React.ComponentProps<\"input\">) {\n\treturn (\n\t\t<InputPrimitive\n\t\t\ttype={type}\n\t\t\tdata-slot=\"input\"\n\t\t\tclassName={cn(\n\t\t\t\t\"h-9 w-full min-w-0 rounded-md squircle:rounded-2xl corner-squircle shadow-(--custom-shadow) dark:shadow-none dark:border-[0.5px] dark:border-border/50 bg-transparent px-2.5 py-1 text-base hover:dark:border-border/70 transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground/50 focus-visible:border-ring focus-visible:ring-[1.5px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-[1.5px] aria-invalid:ring-destructive/20 md:text-sm dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { Input };\n"
+    }
+  ],
+  "dependencies": [
+    "@base-ui/react@1.4.1",
+    "@floating-ui/core@1.7.5",
+    "@floating-ui/dom@1.7.6",
+    "@floating-ui/react-dom@2.1.8",
+    "@floating-ui/utils@0.2.11",
+    "cn@0.2.4",
+    "react@19.2.5",
+    "react-dom@19.2.5",
+    "use-sync-external-store@1.6.0"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,53 @@
+---
+title: "Button Group"
+description: "Grouped control row or column with optional text and separator slots. Its orientation variant changes the group layout."
+---
+
+import { story } from '../../../src/stories/primitives/button-group.story';
+
+# Button Group
+
+Grouped control row or column with optional text and separator slots. Its orientation variant changes the group layout.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/button-group`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `ButtonGroup` | `React.ComponentProps<"div"> & VariantProps<typeof buttonGroupVariants>` | Group root with horizontal or vertical orientation. |
+| `ButtonGroupSeparator` | `React.ComponentProps<typeof Separator>` | Visual or semantic divider. |
+| `ButtonGroupText` | `useRender.ComponentProps<"div">` | Text slot aligned with grouped controls. |
+| `buttonGroupVariants` | `Class variance recipe` | Exports the button group class recipe. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `ButtonGroup.orientation` | `horizontal \| vertical` | Group direction. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { Button } from '@foglamp/design-system/ui/button';
+
+import { ButtonGroup, ButtonGroupText, ButtonGroupSeparator } from '@foglamp/design-system/ui/button-group';
+
+function ButtonGroupExample({ orientation = 'horizontal' }: { orientation?: 'horizontal' | 'vertical' }) { return <ButtonGroup orientation={orientation} aria-label="Time range"><Button variant="outline" size="sm">1h</Button><Button variant="outline" size="sm">24h</Button><Button variant="secondary" size="sm">7d</Button><ButtonGroupSeparator /><ButtonGroupText>UTC</ButtonGroupText></ButtonGroup>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-button-group`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-button-group.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-button-group.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/button-group`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

@@ -1,3 +1,7 @@
+/* Extracted from Foglamp packages/ui/src/styles/globals.css.
+ * Original project: Foglamp (foglamp-labs/foglamp), by Gustavo Fior
+ * (@gustavo-fior), Abdul Haidar, and Foglamp Labs. Apache-2.0.
+ */
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";

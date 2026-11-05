@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "icon-logo",
+  "type": "registry:component",
+  "title": "Logo",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from icons/logo.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/icons/brand-mark.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/marketing/brand-mark.tsx; derived here under Apache-2.0.\n */\nexport function BrandMark({ className }: { className?: string }) {\n\treturn (\n\t\t<svg\n\t\t\tviewBox=\"0 0 96 48\"\n\t\t\tclassName={className}\n\t\t\txmlns=\"http://www.w3.org/2000/svg\"\n\t\t\taria-hidden=\"true\"\n\t\t>\n\t\t\t<circle\n\t\t\t\tcx=\"24\"\n\t\t\t\tcy=\"24\"\n\t\t\t\tr=\"24\"\n\t\t\t\tclassName=\"fill-[#1e1e1e] dark:fill-[#EEE]\"\n\t\t\t/>\n\t\t\t<circle cx=\"48\" cy=\"24\" r=\"24\" fill=\"#0090FD\" />\n\t\t\t<circle cx=\"72\" cy=\"24\" r=\"24\" fill=\"#FF5513\" />\n\t\t</svg>\n\t);\n}\n"
+    },
+    {
+      "path": "src/components/foglamp/icons/logo.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/marketing/logo.tsx; derived here under Apache-2.0.\n */\nimport { cn } from \"../lib/utils\";\n\nimport { BrandMark } from \"./brand-mark\";\n\n/**\n * Foglamp logo lockup — the three-circle brand mark next to the \"Foglamp\"\n * wordmark, set in Host Grotesk (the marketing display face, `font-display`).\n * Used in the marketing navbar and footer.\n */\nexport function Logo({ className }: { className?: string }) {\n\treturn (\n\t\t<span className={cn(\"flex items-center gap-2\", className)}>\n\t\t\t<BrandMark className=\"h-3.5 w-auto\" />\n\t\t\t<span className=\"font-display text-lg font-semibold tracking-tight select-none\">\n\t\t\t\tFoglamp\n\t\t\t</span>\n\t\t</span>\n\t);\n}\n"
+    },
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utility-link-context",
+  "type": "registry:lib",
+  "title": "Link Context",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/link-context.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/**\n * Original design by Gustavo Fior (@gustavo-fior) and Foglamp Labs,\n * co-founded by Abdul Haidar. Extracted AS-IS from foglamp-labs/foglamp.\n */\n\nimport * as React from \"react\";\n\ntype FoglampLinkComponent = React.ElementType;\n\nconst FoglampLinkContext = React.createContext<FoglampLinkComponent>(\"a\");\n\nexport type FoglampLinkProviderProps = {\n\t/** Router or link component that should render every FoglampLink below it. */\n\tcomponent: FoglampLinkComponent;\n\tchildren: React.ReactNode;\n};\n\nexport function FoglampLinkProvider({\n\tcomponent,\n\tchildren,\n}: FoglampLinkProviderProps) {\n\treturn (\n\t\t<FoglampLinkContext.Provider value={component}>\n\t\t\t{children}\n\t\t</FoglampLinkContext.Provider>\n\t);\n}\n\n/**\n * A link with no wrapper of its own. The provider component receives the\n * original props directly, so the rendered DOM and styling stay with the\n * router's link implementation. A per-link component or `as` can override it.\n */\nexport type FoglampLinkProps<Component extends FoglampLinkComponent = \"a\"> =\n\tReact.ComponentPropsWithRef<Component> & {\n\t\tcomponent?: Component;\n\t\tas?: Component;\n\t\t/** Common router destination prop, available with the default anchor type. */\n\t\tto?: string;\n\t};\n\nexport function FoglampLink<Component extends FoglampLinkComponent = \"a\">({\n\tcomponent,\n\tas,\n\t...props\n}: FoglampLinkProps<Component>) {\n\tconst providerComponent = React.useContext(FoglampLinkContext);\n\tconst LinkComponent = component ?? as ?? providerComponent;\n\n\treturn React.createElement(LinkComponent, props as React.ComponentPropsWithRef<Component>);\n}\n"
+    }
+  ],
+  "dependencies": [
+    "react@19.2.5",
+    "react-dom@19.2.5"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

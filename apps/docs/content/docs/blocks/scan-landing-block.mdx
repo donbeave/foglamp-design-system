@@ -1,0 +1,27 @@
+---
+title: Scan Landing
+description: Scan Landing presents the scan prompt and the call to try Foglamp. The story makes the destination editable and provides a local no-op copy callback.
+---
+
+import { story } from '../../../src/stories/blocks/scan-landing-block.story'
+
+Scan Landing presents the scan prompt and the call to try Foglamp. The story makes the destination editable and provides a local no-op copy callback.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/scan/scan-landing` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/scan-landing-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `tryFoglampHref: string`; initial values are `tryFoglampHref: '#scan-demo'` |
+| Fixture and callback wiring | The story exposes `tryFoglampHref`. The source component also accepts an optional prompt and `onCopy` callback. |
+| Registry item | `block-scan-scan-landing`. The portal payload is `/r/block-scan-scan-landing.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

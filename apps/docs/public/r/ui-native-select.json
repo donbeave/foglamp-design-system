@@ -1,0 +1,31 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-native-select",
+  "type": "registry:ui",
+  "title": "Native Select",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/native-select.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/native-select.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/native-select.tsx; derived here under Apache-2.0.\n */\nimport type * as React from \"react\";\n\nimport { cn } from \"../lib/utils\";\nimport { IconSelector } from \"@tabler/icons-react\";\n\ntype NativeSelectProps = Omit<React.ComponentProps<\"select\">, \"size\"> & {\n\tsize?: \"sm\" | \"default\";\n};\n\nfunction NativeSelect({\n\tclassName,\n\tsize = \"default\",\n\t...props\n}: NativeSelectProps) {\n\treturn (\n\t\t<div\n\t\t\tclassName={cn(\n\t\t\t\t\"group/native-select relative cursor-pointer w-fit has-[select:disabled]:opacity-50\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\tdata-slot=\"native-select-wrapper\"\n\t\t\tdata-size={size}\n\t\t>\n\t\t\t<select\n\t\t\t\tdata-slot=\"native-select\"\n\t\t\t\tdata-size={size}\n\t\t\t\tclassName=\"h-9 w-full min-w-0 cursor-pointer appearance-none rounded-lg shadow-(--custom-shadow) dark:shadow-none dark:border dark:border-border/50 bg-transparent py-1 pr-8 pl-2.5 text-sm transition-[color,box-shadow] outline-none select-none selection:bg-primary selection:text-primary-foreground placeholder:text-muted-foreground/50 focus-visible:border-ring focus-visible:ring-[1.5px] focus-visible:ring-ring/50 disabled:pointer-events-none disabled:cursor-not-allowed aria-invalid:border-destructive aria-invalid:ring-[1.5px] aria-invalid:ring-destructive/20 data-[size=sm]:h-8 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40\"\n\t\t\t\t{...props}\n\t\t\t/>\n\t\t\t<IconSelector\n\t\t\t\tclassName=\"pointer-events-none absolute top-1/2 right-2.5 size-4 -translate-y-1/2 text-muted-foreground select-none\"\n\t\t\t\taria-hidden=\"true\"\n\t\t\t\tdata-slot=\"native-select-icon\"\n\t\t\t/>\n\t\t</div>\n\t);\n}\n\nfunction NativeSelectOption({\n\tclassName,\n\t...props\n}: React.ComponentProps<\"option\">) {\n\treturn (\n\t\t<option\n\t\t\tdata-slot=\"native-select-option\"\n\t\t\tclassName={cn(\"bg-[Canvas] text-[CanvasText]\", className)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nfunction NativeSelectOptGroup({\n\tclassName,\n\t...props\n}: React.ComponentProps<\"optgroup\">) {\n\treturn (\n\t\t<optgroup\n\t\t\tdata-slot=\"native-select-optgroup\"\n\t\t\tclassName={cn(\"bg-[Canvas] text-[CanvasText]\", className)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { NativeSelect, NativeSelectOptGroup, NativeSelectOption };\n"
+    }
+  ],
+  "dependencies": [
+    "@tabler/icons-react@3.41.1",
+    "cn@0.2.4",
+    "react@19.2.5",
+    "react-dom@19.2.5"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

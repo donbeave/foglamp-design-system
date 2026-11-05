@@ -1,0 +1,62 @@
+---
+title: "Chart"
+description: "Chart container, tooltip, and legend helpers for Recharts. ChartConfig maps series keys to labels and optional color or icon metadata."
+---
+
+import { story } from '../../../src/stories/primitives/chart.story';
+
+# Chart
+
+Chart container, tooltip, and legend helpers for Recharts. ChartConfig maps series keys to labels and optional color or icon metadata.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/chart`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `ChartConfig` | `type Record< string, { label?: React.ReactNode; icon?: React.ComponentType; } & ( \| { color?: string; theme?: never } \| { color?: never; theme: Record<keyof typeof THEMES, string> } ) >` | Series configuration for the chart, tooltip, and legend. |
+| `ChartContainer` | `React.ComponentProps<"div"> & { config: ChartConfig; children: React.ComponentProps< typeof RechartsPrimitive.ResponsiveContainer >["children"]; initialDimension?: { width: number; height: number; }; }` | Responsive chart wrapper with series configuration. |
+| `ChartLegend` | `typeof RechartsPrimitive.Legend` | Re-export of the Recharts legend primitive. |
+| `ChartLegendContent` | `React.ComponentProps<"div"> & { hideIcon?: boolean; nameKey?: string; } & RechartsPrimitive.DefaultLegendContentProps` | Styled legend content that resolves series labels and icons through ChartConfig. |
+| `ChartStyle` | `{ id: string; config: ChartConfig }` | Adds CSS variables derived from chart series configuration. |
+| `ChartTooltip` | `typeof RechartsPrimitive.Tooltip` | Re-export of the Recharts tooltip primitive. |
+| `ChartTooltipContent` | `React.ComponentProps<typeof RechartsPrimitive.Tooltip> & React.ComponentProps<"div"> & { hideLabel?: boolean; hideIndicator?: boolean; indicator?: "line" \| "dot" \| "dashed"; nameKey?: string; labelKey?: string; } & Omit< RechartsPrimitive.DefaultTooltipContentProps< TooltipValueType, TooltipNameType >, "accessibilityLayer" >` | Styled tooltip content that resolves labels and colors through ChartConfig. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `ChartContainer.config` | `ChartConfig` | Required series configuration. |
+| `ChartContainer.initialDimension` | `{ width: number; height: number }` | Defaults to 320 by 200. |
+| `ChartTooltipContent.indicator` | `line \| dot \| dashed` | Defaults to `dot`. |
+| `ChartTooltipContent.hideLabel` | `boolean` | Defaults to `false`. |
+| `ChartTooltipContent.hideIndicator` | `boolean` | Defaults to `false`. |
+| `ChartTooltipContent.nameKey` | `string` | Config key for the tooltip series name. |
+| `ChartTooltipContent.labelKey` | `string` | Config key for the tooltip label. |
+| `ChartLegendContent.hideIcon` | `boolean` | Defaults to `false`. |
+| `ChartLegendContent.nameKey` | `string` | Config key for the legend series name. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { ChartContainer } from '@foglamp/design-system/ui/chart';
+
+function ChartExample({ metric = 'Latency' }: { metric?: string }) { return <div className="w-full max-w-xl"><div className="mb-3"><p className="font-medium">{metric} over time</p><p className="text-sm text-muted-foreground">Last 25 minutes · p95</p></div><ChartContainer config={{ latency: { label: 'p95 latency', color: 'var(--chart-1)' } }} className="h-56 w-full"><div role="img" aria-label="Area chart showing p95 latency rising to 620 milliseconds" className="relative flex h-full items-center"><svg viewBox="0 0 500 180" className="h-full w-full" aria-hidden="true"><path d="M0 150 H500 M0 105 H500 M0 60 H500 M0 15 H500" stroke="currentColor" strokeOpacity=".12" /><path d="M0 126 C55 120 70 110 125 116 S190 128 250 78 S330 48 375 85 S450 96 500 55 V180 H0Z" fill="var(--chart-1)" fillOpacity=".18" /><path d="M0 126 C55 120 70 110 125 116 S190 128 250 78 S330 48 375 85 S450 96 500 55" fill="none" stroke="var(--chart-1)" strokeWidth="3" /></svg></div></ChartContainer></div>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-chart`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-chart.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-chart.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/chart`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

@@ -1,0 +1,34 @@
+---
+title: HudInlinePreview
+description: Shows the HUD in an inline preview using the HUD event stream contract.
+---
+
+Shows the HUD in an inline preview using the HUD event stream contract.
+
+import { story } from "../../../src/stories/widgets/hud-inline-preview.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `HudInlinePreview` | `stream` | `HudStream \| undefined` | Event source consumed by the HUD; omitted to leave it disconnected. |
+|  | `defaultOpen` | `boolean \| undefined` | Starts the HUD expanded when true. |
+|  | `theme` | `"light" \| "dark" \| "system" \| undefined` | HUD color mode; system follows the host theme. |
+|  | `redact` | `boolean \| undefined` | Masks prompt, response, and tool payload text. |
+| `createMockHudStream` | `initialEvents` | `readonly HudEvent[]` | Argument accepted by createMockHudStream. |
+
+## Requirements
+
+The preview accepts a `HudStream`. Its story creates one with `createMockHudStream` from a local event list; it needs no server connection.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/hud-inline-preview.story.tsx`](../../../src/stories/widgets/hud-inline-preview.story.tsx). The authoritative registry item ID is `hud-foglamphud` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

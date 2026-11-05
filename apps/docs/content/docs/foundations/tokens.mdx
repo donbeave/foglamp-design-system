@@ -1,0 +1,16 @@
+---
+title: Color and shadows
+description: The light and dark tokens used by Foglamp.
+---
+
+`packages/design-system/src/styles/globals.css` defines semantic colors and shadows in `:root` and overrides them in `.dark`. Components use names such as `background`, `foreground`, `card`, `muted`, `border`, and `ring` instead of requiring every consumer to select a color for each state. Apply the `dark` class to an ancestor to select the dark values.
+
+Foglamp's depth comes from layered shadows. Preserve the 17 `--custom-shadow*` tokens and the outline shadow in both modes:
+
+- `--custom-shadow`, `--custom-shadow-chrome`, and `--custom-shadow-lifted`.
+- `--custom-shadow-primary`, `--custom-shadow-destructive`, and `--custom-shadow-secondary`.
+- `--custom-shadow-green`, `--custom-shadow-blue`, `--custom-shadow-amber`, `--custom-shadow-orange`, and `--custom-shadow-emerald`.
+- `--custom-shadow-rose`, `--custom-shadow-red`, `--custom-shadow-slate`, `--custom-shadow-violet`, `--custom-shadow-fuchsia`, and `--custom-shadow-sky`.
+- `--custom-outline-shadow`.
+
+The outline token is named differently from the other shadows. Use the actual stylesheet values rather than replacing the layered recipes with a generic shadow. Check controls in both modes: dark inputs use a border and muted background where light inputs use a shadow.

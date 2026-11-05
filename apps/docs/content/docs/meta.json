@@ -1,0 +1,13 @@
+{
+  "title": "Documentation",
+  "pages": [
+    "index",
+    "credits",
+    "foundations",
+    "primitives",
+    "widgets",
+    "charts",
+    "figures",
+    "blocks"
+  ]
+}

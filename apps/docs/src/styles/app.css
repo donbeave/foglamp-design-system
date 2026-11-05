@@ -1,3 +1,7 @@
+/* Portal integration derived from the Foglamp design system.
+ * Original project: Foglamp (foglamp-labs/foglamp), by Gustavo Fior
+ * (@gustavo-fior), Abdul Haidar, and Foglamp Labs. Apache-2.0.
+ */
 @import "@foglamp/design-system/styles/globals.css";
 @import "@foglamp/design-system/styles/effects.css";
 @import "fumadocs-ui/css/neutral.css";

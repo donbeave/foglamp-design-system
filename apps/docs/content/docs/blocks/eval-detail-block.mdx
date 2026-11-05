@@ -1,0 +1,27 @@
+---
+title: Eval Detail
+description: Eval Detail presents an evaluation definition, scores, and related trace information in the dashboard shell. The story selects the support-quality evaluation fixture.
+---
+
+import { story } from '../../../src/stories/blocks/eval-detail-block.story'
+
+Eval Detail presents an evaluation definition, scores, and related trace information in the dashboard shell. The story selects the support-quality evaluation fixture.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/dashboard/eval-detail-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/eval-detail-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `evalId: string`, `isLoading: boolean`; initial values are `evalId: 'eval-support-quality', isLoading: false` |
+| Fixture and callback wiring | The story exposes `evalId` and `isLoading`. `onUpdate` and `onQueryChange` are no-op callbacks in the preview. The source block also accepts evaluation data, score and trace collections, pagination state, and update/query callbacks. |
+| Registry item | `block-dashboard-eval-detail`. The portal payload is `/r/block-dashboard-eval-detail.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

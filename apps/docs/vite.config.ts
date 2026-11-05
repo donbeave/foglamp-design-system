@@ -7,5 +7,17 @@ import story from '@fumadocs/story/vite';
 
 export default defineConfig({
   plugins: [fumadocsMdx(), story(), tailwindcss(), tanstackStart(), react()],
-  resolve: { tsconfigPaths: true },
+  resolve: { tsconfigPaths: true, dedupe: ['react', 'react-dom'] },
+  optimizeDeps: {
+    include: [
+      'fumadocs-ui/layouts/docs',
+      'fumadocs-ui/layouts/docs/page',
+      'fumadocs-ui/mdx',
+      'fumadocs-ui/provider/base',
+      'fumadocs-ui/provider/tanstack',
+      'fumadocs-ui > lucide-react',
+      '@foglamp/design-system > recharts',
+      '@foglamp/design-system > recharts > use-sync-external-store/shim/with-selector',
+    ],
+  },
 });

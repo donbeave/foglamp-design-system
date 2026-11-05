@@ -1,0 +1,5 @@
+/* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
+import { DevBarView } from '@foglamp/design-system/widgets/dev-toolbar';
+import { defineStory } from '../../lib/story';
+function DevBarPreview({ forceLoading = false, netFail = false }: { forceLoading?: boolean; netFail?: boolean }) { return <div className="relative min-h-40"><DevBarView fps={60} queries={{ fetching: [{ hash: 'q_83a1', label: 'traces.list' }], stale: [{ hash: 'q_829a', label: 'projects.active' }], staleInactive: 2 }} forceLoading={forceLoading} netFail={netFail} onInvalidateQueries={() => window.dispatchEvent(new Event('foglamp-story:invalidate'))}/></div>; }
+export const story = defineStory({ id: 'widgets/dev-bar', displayName: 'DevBar', registryItem: 'widget-dev-toolbar', Component: DevBarPreview, args: [{ variant: 'Query diagnostics', initial: { forceLoading: false, netFail: false } }, { variant: 'Forced loading and failures', initial: { forceLoading: true, netFail: true } }] });

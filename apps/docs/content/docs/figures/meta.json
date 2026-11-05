@@ -1,0 +1,27 @@
+{
+  "title": "Figures",
+  "pages": [
+    "costs-alert",
+    "costs-area",
+    "costs-backdrop",
+    "costs-cards",
+    "costs-chart",
+    "costs-donut",
+    "costs-fan",
+    "costs-flow",
+    "costs-shares",
+    "costs-shelf",
+    "costs-small",
+    "costs-stair",
+    "costs-table",
+    "costs-tabs",
+    "costs-total",
+    "quality-review",
+    "traces-chat",
+    "traces-graph",
+    "traces-inspector",
+    "traces-steps",
+    "traces-story",
+    "traces-xray"
+  ]
+}

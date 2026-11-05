@@ -1,0 +1,50 @@
+---
+title: Evil Brush Range Selector
+description: Provides a draggable range selector over the full dataset with controlled or default indices.
+---
+
+Provides a draggable range selector over the full dataset with controlled or default indices.
+
+import { story } from "../../../src/stories/charts/evil-brush.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `EvilBrush` | `data` | `Record<string, unknown>[]` | Rows consumed by the component or visualization. |
+|  | `chartConfig` | `ChartConfig` | Labels and theme colors for the miniature chart. |
+|  | `dataKeys` | `string[] \| undefined` | Series keys rendered by the brush. |
+|  | `xDataKey` | `string \| undefined` | Data field used for x-axis labels and zoom values. |
+|  | `variant` | `EvilBrushVariant \| undefined` | Selects the documented visual variant. |
+|  | `height` | `number \| undefined` | Height of the brush in pixels. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+|  | `stacked` | `boolean \| undefined` | Stacks the miniature chart series. |
+|  | `strokeVariant` | `"solid" \| "dashed" \| "animated-dashed" \| undefined` | Selects solid, dashed, or animated dashed strokes. |
+|  | `connectNulls` | `boolean \| undefined` | Connects points across null values. |
+|  | `barRadius` | `number \| undefined` | Corner radius for miniature chart bars. |
+|  | `startIndex` | `number \| undefined` | Controlled first visible data index. |
+|  | `endIndex` | `number \| undefined` | Controlled last visible data index. |
+|  | `defaultStartIndex` | `number \| undefined` | Initial first data index in uncontrolled mode. |
+|  | `defaultEndIndex` | `number \| undefined` | Initial last data index in uncontrolled mode. |
+|  | `onChange` | `((range: EvilBrushRange) => void) \| undefined` | Receives the next value when the user changes the control. |
+|  | `formatLabel` | `((value: unknown, index: number) => string) \| undefined` | Formats a brush handle label from a data value and index. |
+|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
+|  | `minSpan` | `number \| undefined` | Minimum number of points retained in the selected range. |
+|  | `showLabels` | `boolean \| undefined` | Shows labels beside the brush handles. |
+|  | `skipStyle` | `boolean \| undefined` | Skips chart style generation when a parent container provides it. |
+
+## Requirements
+
+`EvilBrush` supports controlled `startIndex` and `endIndex`, or uncontrolled `defaultStartIndex` and `defaultEndIndex`. `onChange` receives `{ startIndex, endIndex }`. Its data and `chartConfig` use the EvilCharts data and color configuration.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/charts/evil-brush.story.tsx`](../../../src/stories/charts/evil-brush.story.tsx). The story registry item is `chart-evilcharts-ui-evil-brush` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-ui-evil-brush.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-evil-brush.json` while the portal is running. The design-system package is not claimed to be published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

@@ -1,0 +1,65 @@
+---
+title: "Popover"
+description: "Non-modal floating panel with trigger, content, header, title, and description parts. Content exposes Base UI positioner alignment and side options."
+---
+
+import { story } from '../../../src/stories/primitives/popover.story';
+
+# Popover
+
+Non-modal floating panel with trigger, content, header, title, and description parts. Content exposes Base UI positioner alignment and side options.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/popover`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `Popover` | `PopoverPrimitive.Root.Props` | Popover state root. |
+| `PopoverContent` | `PopoverPrimitive.Popup.Props & Pick< PopoverPrimitive.Positioner.Props, "align" \| "alignOffset" \| "side" \| "sideOffset" >` | Contains the associated popup or panel content. |
+| `PopoverDescription` | `PopoverPrimitive.Description.Props` | Supporting text for the popover. |
+| `PopoverHeader` | `React.ComponentProps<"div">` | Header slot for popover title and supporting text. |
+| `PopoverTitle` | `PopoverPrimitive.Title.Props` | Popover title. |
+| `PopoverTrigger` | `PopoverPrimitive.Trigger.Props` | Control that opens the popover. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `PopoverContent.align` | `Base UI positioner alignment` | Defaults to `center`. |
+| `PopoverContent.alignOffset` | `number` | Defaults to `0`. |
+| `PopoverContent.side` | `Base UI positioner side` | Defaults to `bottom`. |
+| `PopoverContent.sideOffset` | `number` | Defaults to `4`. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { useState } from "react";
+
+import { Popover, PopoverTrigger, PopoverContent, PopoverHeader, PopoverTitle, PopoverDescription } from "@foglamp/design-system/ui/popover";
+
+import { Label } from "@foglamp/design-system/ui/label";
+
+type Args = { variant: 'default' };
+
+function PopoverStory({ args }: { args: Args }) {
+
+  return <div className="flex min-h-24 w-full items-center justify-center p-4"><Popover><PopoverTrigger className="rounded-md px-3 py-2 shadow-(--custom-shadow)">Filter traces</PopoverTrigger><PopoverContent className="w-72"><PopoverHeader><PopoverTitle>Trace filters</PopoverTitle><PopoverDescription>Refine the current trace list.</PopoverDescription></PopoverHeader><div className="mt-4 grid gap-3"><Label>Service</Label><input className="h-9 rounded-md bg-background px-3 shadow-(--custom-shadow)" defaultValue="checkout-api" /><Label>Minimum duration</Label><input type="number" className="h-9 rounded-md bg-background px-3 shadow-(--custom-shadow)" defaultValue="500" /></div></PopoverContent></Popover></div>;
+}
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-popover`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-popover.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-popover.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/popover`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

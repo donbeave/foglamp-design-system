@@ -1,0 +1,66 @@
+---
+title: "Item"
+description: "General-purpose row composition with media, content, actions, header, footer, and separator slots. The root and media slots expose independent variants."
+---
+
+import { story } from '../../../src/stories/primitives/item.story';
+
+# Item
+
+General-purpose row composition with media, content, actions, header, footer, and separator slots. The root and media slots expose independent variants.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/item`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `Item` | `useRender.ComponentProps<"div"> & VariantProps<typeof itemVariants>` | Row container with variant and size options. |
+| `ItemActions` | `React.ComponentProps<"div">` | Action slot inside an item row. |
+| `ItemContent` | `React.ComponentProps<"div">` | Main content slot inside an item row. |
+| `ItemDescription` | `React.ComponentProps<"p">` | Descriptive text for the associated content. |
+| `ItemFooter` | `React.ComponentProps<"div">` | Footer slot inside an item row. |
+| `ItemGroup` | `React.ComponentProps<"div">` | Groups item rows. |
+| `ItemHeader` | `React.ComponentProps<"div">` | Header slot inside an item row. |
+| `ItemMedia` | `React.ComponentProps<"div"> & VariantProps<typeof itemMediaVariants>` | Media slot with default, icon, or image treatment. |
+| `ItemSeparator` | `React.ComponentProps<typeof Separator>` | Separator between item rows. |
+| `ItemTitle` | `React.ComponentProps<"div">` | Title text for the associated content. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `Item.variant` | `default \| outline \| muted` | Defaults to `default`. |
+| `Item.size` | `default \| sm \| xs` | Defaults to `default`. |
+| `ItemMedia.variant` | `default \| icon \| image` | Defaults to `default`. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { useState } from "react";
+
+import { Item, ItemGroup, ItemMedia, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@foglamp/design-system/ui/item";
+
+type Args = { variant: 'outline' };
+
+function ItemStory({ args }: { args: Args }) {
+
+  return <div className="flex min-h-24 w-full items-center justify-center p-4"><ItemGroup><Item variant={args.variant}><ItemMedia variant="icon">✦</ItemMedia><ItemContent><ItemTitle>Production deployment</ItemTitle><ItemDescription>Model evaluation completed · 2 minutes ago</ItemDescription></ItemContent><ItemActions><button className="text-sm text-primary">Review</button></ItemActions></Item></ItemGroup></div>;
+}
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-item`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-item.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-item.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/item`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

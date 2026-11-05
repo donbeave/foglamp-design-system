@@ -1,8 +1,12 @@
+/* Extracted from Foglamp apps/web/src/index.css.
+ * Original project: Foglamp (foglamp-labs/foglamp), by Gustavo Fior
+ * (@gustavo-fior), Abdul Haidar, and Foglamp Labs. Apache-2.0.
+ */
 
 /* Streamdown's built-in components (chat code blocks with their copy button,
    etc.) carry Tailwind classes inside its dist bundle; without scanning it,
    those classes are never generated and the blocks render unstyled. */
-@source "../../../node_modules/streamdown/dist/*.js";
+@source "../../node_modules/streamdown/dist/*.js";
 
 /* Marketing display face. `font-display` resolves to Host Grotesk (loaded by
    next/font in the root layout as --font-host-grotesk) and is used only on

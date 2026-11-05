@@ -1,0 +1,27 @@
+---
+title: Scan Board
+description: Scan Board renders the full scan result from the story fixture. The story provides favicon resolution through ScanFaviconProvider.
+---
+
+import { story } from '../../../src/stories/blocks/scan-board-block.story'
+
+Scan Board renders the full scan result from the story fixture. The story provides favicon resolution through ScanFaviconProvider.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/scan/scan-board` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/scan-board-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | No editable workbench arguments. |
+| Fixture and callback wiring | The source board receives a `ScanData` value. The story uses `scanFixture`; mount the board under `ScanFaviconProvider` when favicon resolution is required. |
+| Registry item | `block-scan-scan-board`. The portal payload is `/r/block-scan-scan-board.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

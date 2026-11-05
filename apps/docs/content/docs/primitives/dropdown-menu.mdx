@@ -1,0 +1,68 @@
+---
+title: "Dropdown Menu"
+description: "Positioned menu with groups, nested submenus, checkbox and radio items, labels, separators, and keyboard shortcut text."
+---
+
+import { story } from '../../../src/stories/primitives/dropdown-menu.story';
+
+# Dropdown Menu
+
+Positioned menu with groups, nested submenus, checkbox and radio items, labels, separators, and keyboard shortcut text.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/dropdown-menu`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `DropdownMenu` | `MenuPrimitive.Root.Props` | Positioned menu state root. |
+| `DropdownMenuCheckboxItem` | `MenuPrimitive.CheckboxItem.Props & { inset?: boolean; }` | Menu item with checkbox state. |
+| `DropdownMenuContent` | `MenuPrimitive.Popup.Props & Pick< MenuPrimitive.Positioner.Props, "align" \| "alignOffset" \| "side" \| "sideOffset" >` | Positioned menu popup. |
+| `DropdownMenuGroup` | `MenuPrimitive.Group.Props` | Groups related entries. |
+| `DropdownMenuItem` | `MenuPrimitive.Item.Props & { inset?: boolean; variant?: "default" \| "destructive"; }` | One selectable menu command. |
+| `DropdownMenuLabel` | `React.ComponentProps<"div"> & { inset?: boolean; }` | Label for the associated control or group. |
+| `DropdownMenuPortal` | `MenuPrimitive.Portal.Props` | Renders overlay content in a portal. |
+| `DropdownMenuRadioGroup` | `MenuPrimitive.RadioGroup.Props` | Groups mutually exclusive menu items. |
+| `DropdownMenuRadioItem` | `MenuPrimitive.RadioItem.Props & { inset?: boolean; }` | Menu item with radio state. |
+| `DropdownMenuSeparator` | `MenuPrimitive.Separator.Props` | Visual or semantic divider. |
+| `DropdownMenuShortcut` | `React.ComponentProps<"span">` | Keyboard shortcut label. |
+| `DropdownMenuSub` | `MenuPrimitive.SubmenuRoot.Props` | Declares a nested submenu. |
+| `DropdownMenuSubContent` | `React.ComponentProps<typeof DropdownMenuContent>` | Contains nested submenu entries. |
+| `DropdownMenuSubTrigger` | `MenuPrimitive.SubmenuTrigger.Props & { inset?: boolean; }` | Opens a nested submenu. |
+| `DropdownMenuTrigger` | `MenuPrimitive.Trigger.Props` | Control that opens the menu. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `DropdownMenuItem.inset` | `boolean` | Indent the item. |
+| `DropdownMenuItem.variant` | `default \| destructive` | Defaults to `default`. |
+| `DropdownMenuLabel.inset` | `boolean` | Align the label with inset items. |
+| `DropdownMenuCheckboxItem.inset` | `boolean` | Indent the checkbox item. |
+| `DropdownMenuRadioItem.inset` | `boolean` | Indent the radio item. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuLabel, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuShortcut, DropdownMenuCheckboxItem } from '@foglamp/design-system/ui/dropdown-menu';
+
+import { Button } from '@foglamp/design-system/ui/button';
+
+function DropdownMenuExample({ label = 'Run actions' }: { label?: string }) { return <DropdownMenu><DropdownMenuTrigger render={<Button variant="outline" />}>{label}</DropdownMenuTrigger><DropdownMenuContent align="start"><DropdownMenuLabel>Evaluation</DropdownMenuLabel><DropdownMenuItem>Open report<DropdownMenuShortcut>↵</DropdownMenuShortcut></DropdownMenuItem><DropdownMenuItem>Duplicate run</DropdownMenuItem><DropdownMenuCheckboxItem checked>Pin to workspace</DropdownMenuCheckboxItem><DropdownMenuSeparator /><DropdownMenuItem variant="destructive">Delete run</DropdownMenuItem></DropdownMenuContent></DropdownMenu>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-dropdown-menu`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-dropdown-menu.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-dropdown-menu.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/dropdown-menu`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

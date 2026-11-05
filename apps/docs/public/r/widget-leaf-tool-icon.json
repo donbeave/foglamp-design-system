@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "widget-leaf-tool-icon",
+  "type": "registry:component",
+  "title": "Tool Icon",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from widgets/leaf/tool-icon.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/widgets/leaf/tool-icon.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/app/tool-icon.tsx; derived here under Apache-2.0.\n */\nimport {\n\ttype Icon,\n\tIconDownload,\n\tIconList,\n\tIconSearch,\n\tIconTool,\n} from \"@tabler/icons-react\";\n\nimport { cn } from \"../../lib/utils\";\n\n// Icon by tool-name convention — mirrors the HUD's toolGlyph(): search/find/\n// query/lookup, list/ls/index/all, and get/fetch/read/load get a recognizable\n// icon; everything else falls back to the generic wrench.\nfunction toolIcon(name: string): Icon {\n\tconst n = name.toLowerCase();\n\tif (/^(search|find|query|lookup)/.test(n)) return IconSearch;\n\tif (/^(list|ls|index|all)/.test(n)) return IconList;\n\tif (/^(get|fetch|read|load)/.test(n)) return IconDownload;\n\treturn IconTool;\n}\n\n/** A tool's icon, picked from its name. Only the wrench fallback is filled —\n * the named variants are outline glyphs and would render as blobs. */\nexport function ToolIcon({\n\tname,\n\tclassName,\n}: {\n\tname: string;\n\tclassName?: string;\n}) {\n\tconst Glyph = toolIcon(name);\n\treturn <Glyph className={cn(className)} />;\n}\n"
+    }
+  ],
+  "dependencies": [
+    "@tabler/icons-react@3.41.1",
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

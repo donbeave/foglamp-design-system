@@ -1,0 +1,87 @@
+---
+title: Evil Line Chart
+description: Plots configured numeric series as lines, with optional buffered strokes, zoom, brush, and loading states.
+---
+
+Plots configured numeric series as lines, with optional buffered strokes, zoom, brush, and loading states.
+
+import { story } from "../../../src/stories/charts/line-chart.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `EvilLineChart` | `config` | `TConfig & ValidateConfigKeys<TData, TConfig>` | Labels and light/dark colors keyed by data series. |
+|  | `data` | `TData[]` | Rows consumed by the component or visualization. |
+|  | `children` | `ReactNode` | Content rendered inside the component. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
+|  | `animationType` | `LineAnimationType \| undefined` | Selects the chart reveal animation. |
+|  | `defaultSelectedDataKey` | `string \| null \| undefined` | Sets the initially selected series key for uncontrolled selection. |
+|  | `selectedDataKey` | `string \| null \| undefined` | Controls the currently selected series key. |
+|  | `onSelectionChange` | `((selectedDataKey: string \| null) => void) \| undefined` | Receives the selected series key, or null when selection clears. |
+|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
+|  | `showBrush` | `boolean \| undefined` | Shows the mini-chart range brush. |
+|  | `xDataKey` | `(keyof TData & string) \| undefined` | Data field used for x-axis labels and zoom values. |
+|  | `onZoomSelect` | `ZoomSelectHandler \| undefined` | Receives x-axis endpoint values after a drag. |
+|  | `onZoomReset` | `(() => void) \| undefined` | Runs when the zoom selection resets. |
+|  | `isUpdating` | `boolean \| undefined` | Marks data as refreshing while the current view remains visible. |
+| `Dot` | `variant` | `DotVariant \| undefined` | Selects the documented visual variant. |
+| `Line` | `dataKey` | `string` | Data field used for a series or axis. |
+|  | `strokeVariant` | `StrokeVariant \| undefined` | Selects solid, dashed, or animated dashed strokes. |
+|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
+|  | `isClickable` | `boolean \| undefined` | Enables pointer selection for legend items. |
+|  | `enableBufferLine` | `boolean \| undefined` | Adds the buffered dash overlay to a series stroke. |
+|  | `children` | `ReactNode` | Content rendered inside the component. |
+| `Grid` | `stroke` | `string \| undefined` | Sets the chart grid line color. |
+|  | `horizontal` | `GridLineType \| undefined` | Configures the horizontal grid lines. |
+|  | `vertical` | `GridLineType \| undefined` | Configures the vertical grid lines. |
+|  | `strokeDasharray` | `string \| number \| readonly number[] \| undefined` | Sets the dash pattern for the grid lines. |
+| `Legend` | `variant` | `ChartLegendVariant \| undefined` | Selects the documented visual variant. |
+|  | `align` | `"left" \| "right" \| "center" \| undefined` | Horizontal legend alignment. |
+|  | `verticalAlign` | `"top" \| "middle" \| "bottom" \| undefined` | Vertical legend alignment. |
+|  | `isClickable` | `boolean \| undefined` | Enables pointer selection for legend items. |
+| `Tooltip` | `variant` | `TooltipVariant \| undefined` | Selects the documented visual variant. |
+|  | `roundness` | `TooltipRoundness \| undefined` | Selects the tooltip corner radius preset. |
+|  | `defaultIndex` | `number \| undefined` | Initial active tooltip index. |
+|  | `cursor` | `boolean \| undefined` | Shows or hides the tooltip cursor highlight. |
+|  | `labelFormatter` | `(((label: ReactNode, payload: readonly Payload<ValueType, NameType>[]) => ReactNode) & ((label: ReactNode, payload: TooltipPayload) => ReactNode)) \| undefined` | Formats the active x-axis label in the tooltip. |
+|  | `valueFormatter` | `((value: ValueType, dataKey: string, payload: Record<string, unknown>) => ReactNode) \| undefined` | Formats each plotted value for display. |
+|  | `reverse` | `boolean \| undefined` | Reverses the tooltip item order. |
+| `XAxis` | `type` | `"number" \| "auto" \| "category" \| undefined` | Selects whether the axis interprets values as numeric or categorical. |
+|  | `width` | `string \| number \| undefined` | Reserves the requested width for the axis. |
+|  | `orientation` | `"top" \| "bottom" \| undefined` | Places the axis on the selected side of the plot. |
+|  | `domain` | `AxisDomain \| undefined` | Sets the minimum and maximum values shown on the axis. |
+|  | `dataKey` | `string \| number \| ((obj: unknown) => unknown) \| undefined` | Data field used for a series or axis. |
+|  | `hide` | `boolean \| undefined` | Hides the axis when true. |
+|  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
+|  | `axisLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the line drawn along the axis. |
+|  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
+|  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
+| `YAxis` | `type` | `"number" \| "auto" \| "category" \| undefined` | Selects whether the axis interprets values as numeric or categorical. |
+|  | `width` | `number \| "auto" \| undefined` | Reserves the requested width for the axis. |
+|  | `orientation` | `"left" \| "right" \| undefined` | Places the axis on the selected side of the plot. |
+|  | `axisLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the line drawn along the axis. |
+|  | `domain` | `AxisDomain \| undefined` | Sets the minimum and maximum values shown on the axis. |
+|  | `dataKey` | `string \| number \| ((obj: unknown) => unknown) \| undefined` | Data field used for a series or axis. |
+|  | `hide` | `boolean \| undefined` | Hides the axis when true. |
+|  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
+|  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
+|  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
+| `ChartBackground` | `variant` | `BackgroundVariant` | Selects the documented visual variant. |
+
+## Requirements
+
+Line series use `dataKey` values present in both the rows and `config`. `strokeVariant` accepts `solid`, `dashed`, or `animated-dashed`; `enableBufferLine` adds a buffered dash overlay. Give the chart container a measurable height.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/charts/line-chart.story.tsx`](../../../src/stories/charts/line-chart.story.tsx). The story registry item is `chart-evilcharts-charts-line-chart` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-charts-line-chart.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-charts-line-chart.json` while the portal is running. The design-system package is not claimed to be published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

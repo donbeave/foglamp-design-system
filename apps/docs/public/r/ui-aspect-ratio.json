@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-aspect-ratio",
+  "type": "registry:ui",
+  "title": "Aspect Ratio",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/aspect-ratio.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/aspect-ratio.tsx",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/aspect-ratio.tsx; derived here under Apache-2.0.\n */\nimport { cn } from \"../lib/utils\";\n\nfunction AspectRatio({\n\tratio,\n\tclassName,\n\t...props\n}: React.ComponentProps<\"div\"> & { ratio: number }) {\n\treturn (\n\t\t<div\n\t\t\tdata-slot=\"aspect-ratio\"\n\t\t\tstyle={\n\t\t\t\t{\n\t\t\t\t\t\"--ratio\": ratio,\n\t\t\t\t} as React.CSSProperties\n\t\t\t}\n\t\t\tclassName={cn(\"relative aspect-(--ratio)\", className)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nexport { AspectRatio };\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

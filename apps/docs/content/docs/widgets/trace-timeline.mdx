@@ -1,0 +1,39 @@
+---
+title: TraceTimeline
+description: Renders trace spans on a timed waterfall and reports the selected span.
+---
+
+Renders trace spans on a timed waterfall and reports the selected span.
+
+import { story } from "../../../src/stories/widgets/trace-timeline.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `TraceTimeline` | `spans` | `TraceSpan[]` | Trace spans placed on the timeline. |
+|  | `selected` | `string \| null` | Current selected identifier, or null when nothing is selected. |
+|  | `onSelect` | `(spanId: string \| null) => void` | Receives the selected item or series. |
+|  | `scores` | `TraceScore[] \| undefined` | Evaluation scores associated with trace spans. |
+|  | `evalMeta` | `Map<string, EvalMeta> \| undefined` | Evaluation names keyed by evaluation ID. |
+|  | `presetName` | `Map<string, string> \| undefined` | Preset names keyed by preset ID. |
+|  | `expandedGroups` | `ReadonlySet<string> \| undefined` | Lists the timeline group keys that are expanded. |
+|  | `onToggleGroup` | `((key: string) => void) \| undefined` | Receives the key of a group when it expands or collapses. |
+|  | `onNavChange` | `((entries: TimelineNavEntry[]) => void) \| undefined` | Receives the timeline navigation entries. |
+|  | `reveal` | `TimelineReveal \| undefined` | Selects whether timeline animation plays or stays held. |
+
+## Requirements
+
+`TraceTimeline` receives normalized spans and a selected span ID. `onSelect` reports the selected ID; `reveal` accepts `hold` or `play`. Repeated sibling spans can be grouped by the timeline.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/trace-timeline.story.tsx`](../../../src/stories/widgets/trace-timeline.story.tsx). The authoritative registry item ID is `widget-trace-timeline` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

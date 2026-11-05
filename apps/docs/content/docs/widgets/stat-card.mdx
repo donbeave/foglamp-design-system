@@ -1,0 +1,41 @@
+---
+title: StatCard
+description: Composes a statistic label and value with optional delta, chart, and meter details.
+---
+
+Composes a statistic label and value with optional delta, chart, and meter details.
+
+import { story } from "../../../src/stories/widgets/stat-card.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `StatCard` | `label` | `string` | Visible label text. |
+|  | `href` | `string \| undefined` | Optional link destination. |
+|  | `value` | `ReactNode` | Controlled value or source data passed to the component. |
+|  | `hint` | `ReactNode` | Supporting hint shown near the value. |
+|  | `prefix` | `ReactNode` | Text shown before the formatted value. |
+|  | `suffix` | `ReactNode` | Text shown after the formatted value. |
+|  | `formatValue` | `((n: number) => string) \| undefined` | Formats the value before display. |
+|  | `delta` | `Delta \| null \| undefined` | Change value shown beside the main statistic. |
+|  | `deltaInverted` | `boolean \| undefined` | Treats a negative delta as favorable. |
+|  | `size` | `"sm" \| "default" \| undefined` | Selects the rendered icon size. |
+|  | `icon` | `Icon \| undefined` | Icon component rendered beside the label. |
+|  | `iconClassName` | `string \| undefined` | Adds a class to the leading icon. |
+|  | `chart` | `ReactNode` | Sparkline data shown beside the statistic. |
+|  | `loading` | `boolean \| undefined` | Controls the loading state. |
+|  | `skeleton` | `boolean \| undefined` | Shows skeleton placeholders when true. |
+|  | `chartPlaceholder` | `ReactNode` | Content shown when no chart data is available. |
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/stat-card.story.tsx`](../../../src/stories/widgets/stat-card.story.tsx). The authoritative registry item ID is `widget-stat-card` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

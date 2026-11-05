@@ -1,0 +1,27 @@
+---
+title: Setup Board · Plan Edits
+description: Setup Board · Plan Edits displays the setup plan and its approval decisions. The story supplies a plan fixture and records approve or reject actions in local state.
+---
+
+import { story } from '../../../src/stories/blocks/setup-board-block.story'
+
+Setup Board · Plan Edits displays the setup plan and its approval decisions. The story supplies a plan fixture and records approve or reject actions in local state.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/setup/setup-board` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/setup-board-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `approving: boolean`; initial values are `approving: false` |
+| Fixture and callback wiring | The story exposes `approving`. The block receives a `Plan`, the current approval status, and `onApprove` and `onReject` callbacks. Approval returns the edited plan to local state. |
+| Registry item | `block-setup-setup-board`. The portal payload is `/r/block-setup-setup-board.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

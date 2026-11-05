@@ -1,0 +1,25 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-sonner",
+  "type": "registry:ui",
+  "title": "Sonner",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/sonner.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/ui/sonner.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/**\n * Original design by Gustavo Fior (@gustavo-fior) and Foglamp Labs,\n * co-founded by Abdul Haidar. Extracted AS-IS from foglamp-labs/foglamp.\n */\n\nimport {\n\tIconAlertCircleFilled,\n\tIconAlertTriangleFilled,\n\tIconCircleCheckFilled,\n\tIconInfoCircleFilled,\n\tIconLoader,\n} from \"@tabler/icons-react\";\nimport { useTheme } from \"next-themes\";\nimport { Toaster as Sonner, type ToasterProps } from \"sonner\";\n\nconst Toaster = ({ ...props }: ToasterProps) => {\n\tconst { theme = \"system\" } = useTheme();\n\n\treturn (\n\t\t<Sonner\n\t\t\ttheme={theme as ToasterProps[\"theme\"]}\n\t\t\tclassName=\"toaster group\"\n\t\t\ticons={{\n\t\t\t\tsuccess: <IconCircleCheckFilled className=\"size-4 text-green-500\" />,\n\t\t\t\tinfo: <IconInfoCircleFilled className=\"size-4\" />,\n\t\t\t\twarning: <IconAlertTriangleFilled className=\"size-4\" />,\n\t\t\t\terror: <IconAlertCircleFilled className=\"size-4 text-red-500\" />,\n\t\t\t\tloading: <IconLoader className=\"size-4 animate-spin\" />,\n\t\t\t}}\n\t\t\tstyle={\n\t\t\t\t{\n\t\t\t\t\t\"--normal-bg\": \"var(--popover)\",\n\t\t\t\t\t\"--normal-text\": \"var(--popover-foreground)\",\n\t\t\t\t\t\"--normal-border\": \"var(--border)\",\n\t\t\t\t\t\"--border-radius\": \"var(--radius)\",\n\t\t\t\t} as React.CSSProperties\n\t\t\t}\n\t\t\ttoastOptions={{\n\t\t\t\tclassNames: {\n\t\t\t\t\ttoast: \"cn-toast\",\n\t\t\t\t},\n\t\t\t}}\n\t\t\t{...props}\n\t\t/>\n\t);\n};\n\nexport { Toaster };\n"
+    }
+  ],
+  "dependencies": [
+    "@tabler/icons-react@3.41.1",
+    "next-themes@0.4.6",
+    "sonner@2.0.7"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "utility-scan-favicon",
+  "type": "registry:lib",
+  "title": "Favicon",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/scan/favicon.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/scan/favicon.ts",
+      "type": "registry:component",
+      "content": "/* Derived for the Foglamp Design System portal by the project contributors.\n * It adapts Foglamp concepts and assets; this new integration code is not represented as upstream-authored.\n * Original project: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs; Apache-2.0 source project.\n */\nexport function faviconUrl(domain: string): string {\n\treturn `/api/favicon?domain=${encodeURIComponent(domain)}`;\n}\n\n/**\n * Product-accurate icon domains for models: agents often emit the provider's\n * corporate domain (google.com → the \"G\"), but the model deserves its product\n * mark (Gemini's spark). Keyed by label match, applied only to model items.\n */\nconst MODEL_DOMAIN_FIXES: [RegExp, string][] = [\n\t[/gemini/i, \"gemini.google.com\"],\n\t[/claude/i, \"claude.ai\"],\n\t[/gpt|^o[0-9]/i, \"openai.com\"],\n];\n\nexport function modelDomain(\n\tlabel: string,\n\tdomain?: string,\n): string | undefined {\n\tfor (const [re, fixed] of MODEL_DOMAIN_FIXES) {\n\t\tif (re.test(label)) return fixed;\n\t}\n\treturn domain;\n}\n"
+    }
+  ]
+}

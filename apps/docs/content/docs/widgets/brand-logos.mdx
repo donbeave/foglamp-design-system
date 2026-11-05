@@ -1,0 +1,31 @@
+---
+title: BrandLogos
+description: Exports provider brand marks as individual React components.
+---
+
+Exports provider brand marks as individual React components.
+
+import { story } from "../../../src/stories/widgets/brand-logos.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `AnthropicLogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `GoogleLogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `OpenAILogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `MistralLogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+
+Each provider mark accepts the standard SVG props and forwards them to its `<svg>` element.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/brand-logos.story.tsx`](../../../src/stories/widgets/brand-logos.story.tsx). The authoritative registry item ID is `icon-brand-logos` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

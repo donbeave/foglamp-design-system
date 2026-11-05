@@ -1,0 +1,39 @@
+---
+title: Evil Donut Chart
+description: Plots configured slices in a donut with optional legend, center labels, and value formatting.
+---
+
+Plots configured slices in a donut with optional legend, center labels, and value formatting.
+
+import { story } from "../../../src/stories/charts/donut-chart.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `EvilDonutChart` | `config` | `ChartConfig` | Labels and light/dark colors keyed by data series. |
+|  | `data` | `DonutSlice[]` | Rows consumed by the component or visualization. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+|  | `centerLabel` | `ReactNode` | Text displayed in the center of the donut. |
+|  | `centerSubLabel` | `ReactNode` | Supporting text below the center label. |
+|  | `showLegend` | `boolean \| undefined` | Shows the donut chart legend. |
+|  | `legendVariant` | `ChartLegendVariant \| undefined` | Selects the legend indicator shape. |
+|  | `tooltipVariant` | `TooltipVariant \| undefined` | Selects the tooltip appearance. |
+|  | `valueFormatter` | `((value: ValueType, key: string) => ReactNode) \| undefined` | Formats each plotted value for display. |
+|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
+
+## Requirements
+
+`DonutSlice` contains a `key` and numeric `value`. The `config` object maps each key to a `label` and light/dark color arrays. Give the chart parent a height so `ResponsiveContainer` can measure it.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/charts/donut-chart.story.tsx`](../../../src/stories/charts/donut-chart.story.tsx). The story registry item is `chart-evilcharts-charts-donut-chart` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-charts-donut-chart.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-charts-donut-chart.json` while the portal is running. The design-system package is not claimed to be published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

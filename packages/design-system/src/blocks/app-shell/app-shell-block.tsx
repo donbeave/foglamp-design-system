@@ -25,8 +25,11 @@ import { createMockHudStream } from "../../hud/useHudStream";
 import { NewProjectDialog, type NewProjectInput } from "./new-project-dialog";
 import { SunsetCard } from "./sunset-card";
 const BUILD_ENV = (import.meta as ImportMeta & { env?: { DEV?: boolean } }).env;
-const DEVELOPMENT = BUILD_ENV?.DEV ?? (typeof process !== "undefined" && process.env.NODE_ENV === "development");
-const DEFAULT_SERVER_URL = typeof process === "undefined" ? undefined : process.env.NEXT_PUBLIC_SERVER_URL;
+const RUNTIME_ENV = (globalThis as typeof globalThis & {
+  process?: { env?: { NODE_ENV?: string; NEXT_PUBLIC_SERVER_URL?: string } };
+}).process?.env;
+const DEVELOPMENT = BUILD_ENV?.DEV ?? (RUNTIME_ENV?.NODE_ENV === "development");
+const DEFAULT_SERVER_URL = RUNTIME_ENV?.NEXT_PUBLIC_SERVER_URL;
 const DEFAULT_PROJECTS: Project[] = [{ id: "project_demo", name: "Acme Production", slug: "acme-production", url: null, orgId: "org_demo", orgName: "Acme", orgSlug: "acme" }];
 const MOCK_HUD_STREAM = createMockHudStream([
   { type: "trace.start", ts: 0, traceId: "tr_9f2a4c8e1b7d3a6f5e0c", name: "support-triage", agentName: "support-triage", workflowName: "onboard-customer", sessionId: "ses_a91f" },

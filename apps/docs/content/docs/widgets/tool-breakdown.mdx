@@ -1,0 +1,34 @@
+---
+title: ToolBreakdown
+description: Groups tool usage rows and their costs for the supplied range data.
+---
+
+Groups tool usage rows and their costs for the supplied range data.
+
+import { story } from "../../../src/stories/widgets/tool-breakdown.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `ToolBreakdownView` | `tools` | `readonly ToolBreakdownItem[]` | Tool usage rows displayed by the breakdown. |
+|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
+|  | `isUpdating` | `boolean \| undefined` | Marks data as refreshing while the current view remains visible. |
+|  | `title` | `string \| undefined` | Sets the component heading or SVG title. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+
+## Requirements
+
+Pass the tool breakdown rows and resolved reporting range to the view. The story places the view in its shared range-provider frame.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/tool-breakdown.story.tsx`](../../../src/stories/widgets/tool-breakdown.story.tsx). The authoritative registry item ID is `widget-tool-breakdown` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

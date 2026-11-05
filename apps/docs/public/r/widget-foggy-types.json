@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "widget-foggy-types",
+  "type": "registry:component",
+  "title": "Types",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from widgets/foggy/types.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/widgets/foggy/types.ts",
+      "type": "registry:component",
+      "content": "/**\n * Original UI & design: Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs.\n * Extracted from https://github.com/foglamp-labs/foglamp — Apache-2.0.\n */\nexport type FoggyMessagePart =\n  | { type: \"text\"; text: string }\n  | { type: `tool-${string}` | \"dynamic-tool\"; toolName?: string; state: string };\nexport interface FoggyMessageData {\n  id: string;\n  role: \"user\" | \"assistant\" | \"system\";\n  parts: FoggyMessagePart[];\n}\n"
+    }
+  ]
+}

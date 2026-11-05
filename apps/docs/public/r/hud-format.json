@@ -1,0 +1,17 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hud-format",
+  "type": "registry:component",
+  "title": "Format",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from hud/format.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/hud/format.ts",
+      "type": "registry:component",
+      "content": "/**\n * Original UI & design: Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs.\n * Extracted from https://github.com/foglamp-labs/foglamp — Apache-2.0.\n */\nconst usd = new Intl.NumberFormat(\"en-US\", {\n  style: \"currency\",\n  currency: \"USD\",\n  minimumFractionDigits: 2,\n  maximumFractionDigits: 4,\n});\nconst compact = new Intl.NumberFormat(\"en-US\", { notation: \"compact\" });\nconst plain = new Intl.NumberFormat(\"en-US\");\n\n/** Cost in USD; null/undefined → em dash (unpriced, never $0). */\nexport function formatCost(value: number | null | undefined): string {\n  if (value === null || value === undefined) return \"—\";\n  return usd.format(value);\n}\n\nexport function formatTokens(value: number): string {\n  return value >= 1000 ? compact.format(value) : plain.format(value);\n}\n\n/** Tokens/sec; null/undefined → em dash. */\nexport function formatTps(value: number | null | undefined): string {\n  if (value === null || value === undefined || !Number.isFinite(value)) return \"—\";\n  return `${value >= 1000 ? compact.format(value) : Math.round(value)} tok/s`;\n}\n\n/** Milliseconds → human duration (µs/ms/s/m/h). */\nexport function formatDuration(ms: number | null | undefined): string {\n  if (ms === null || ms === undefined || !Number.isFinite(ms)) return \"—\";\n  if (ms === 0) return \"0s\";\n  if (ms < 1) return `${Math.round(ms * 1000)}µs`;\n  if (ms < 1000) return `${Math.round(ms)}ms`;\n  if (ms < 60_000) return `${(ms / 1000).toFixed(2)}s`;\n  const totalSec = Math.round(ms / 1000);\n  const h = Math.floor(totalSec / 3600);\n  const m = Math.floor((totalSec % 3600) / 60);\n  const s = totalSec % 60;\n  const parts: string[] = [];\n  if (h) parts.push(`${h}h`);\n  if (m) parts.push(`${m}m`);\n  if (s) parts.push(`${s}s`);\n  return parts.slice(0, 2).join(\" \") || \"0s\";\n}\n"
+    }
+  ]
+}

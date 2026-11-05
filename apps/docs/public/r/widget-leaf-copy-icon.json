@@ -1,0 +1,30 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "widget-leaf-copy-icon",
+  "type": "registry:component",
+  "title": "Copy Icon",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from widgets/leaf/copy-icon.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/widgets/leaf/copy-icon.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/app/copy-icon.tsx; derived here under Apache-2.0.\n */\nimport { IconCircleCheckFilled, IconCopyFilled } from \"@tabler/icons-react\";\nimport { AnimatePresence, motion } from \"motion/react\";\n\nimport { cn } from \"../../lib/utils\";\n\nexport function CopyIcon({\n  copied,\n  className,\n  checkClassName,\n}: {\n  copied: boolean;\n  /** Classes applied to the copy icon (and the check icon unless `checkClassName` is set). */\n  className?: string;\n  /** Classes applied to the check icon. Defaults to `className`. */\n  checkClassName?: string;\n}) {\n  // `relative` so the exiting (position: absolute, via popLayout) icon is pinned\n  // directly over the entering one instead of momentarily stacking below it.\n  return (\n    <span className=\"relative inline-flex\">\n      <AnimatePresence mode=\"popLayout\" initial={false}>\n        <motion.span\n          key={copied ? \"check\" : \"copy\"}\n          className=\"inline-flex\"\n          initial={{ opacity: 0, scale: 0.25, filter: \"blur(4px)\" }}\n          animate={{ opacity: 1, scale: 1, filter: \"blur(0px)\" }}\n          exit={{ opacity: 0, scale: 0.25, filter: \"blur(4px)\" }}\n          transition={{ type: \"spring\", duration: 0.25, bounce: 0 }}\n        >\n          {copied ? (\n            <IconCircleCheckFilled\n              className={cn(\n                // Page-surface greens. Inside a default-variant Button the chip's\n                // bg inverts against the theme, so those call sites pass the\n                // inverted pair via `checkClassName`.\n                \"text-green-600 dark:text-green-400\",\n                checkClassName ?? className\n              )}\n            />\n          ) : (\n            <IconCopyFilled className={className} />\n          )}\n        </motion.span>\n      </AnimatePresence>\n    </span>\n  );\n}\n"
+    }
+  ],
+  "dependencies": [
+    "@tabler/icons-react@3.41.1",
+    "cn@0.2.4",
+    "motion@12.40.0"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-radio-group",
+  "type": "registry:ui",
+  "title": "Radio Group",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/radio-group.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/radio-group.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/radio-group.tsx; derived here under Apache-2.0.\n */\nimport { Radio as RadioPrimitive } from \"@base-ui/react/radio\";\nimport { RadioGroup as RadioGroupPrimitive } from \"@base-ui/react/radio-group\";\n\nimport { cn } from \"../lib/utils\";\n\nfunction RadioGroup({ className, ...props }: RadioGroupPrimitive.Props) {\n\treturn (\n\t\t<RadioGroupPrimitive\n\t\t\tdata-slot=\"radio-group\"\n\t\t\tclassName={cn(\"grid w-full gap-3\", className)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nfunction RadioGroupItem({ className, ...props }: RadioPrimitive.Root.Props) {\n\treturn (\n\t\t<RadioPrimitive.Root\n\t\t\tdata-slot=\"radio-group-item\"\n\t\t\tclassName={cn(\n\t\t\t\t\"group/radio-group-item peer relative flex cursor-pointer aspect-square size-4 shrink-0 rounded-full border border-input outline-none after:absolute after:-inset-x-3 after:-inset-y-2 focus-visible:border-ring focus-visible:ring-[1.5px] focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-[1.5px] aria-invalid:ring-destructive/20 aria-invalid:aria-checked:border-primary dark:bg-input/30 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 data-checked:border-primary data-checked:bg-primary data-checked:text-primary-foreground dark:data-checked:bg-primary\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t>\n\t\t\t<RadioPrimitive.Indicator\n\t\t\t\tdata-slot=\"radio-group-indicator\"\n\t\t\t\tclassName=\"flex size-4 items-center justify-center\"\n\t\t\t>\n\t\t\t\t<span className=\"absolute top-1/2 left-1/2 size-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-foreground\" />\n\t\t\t</RadioPrimitive.Indicator>\n\t\t</RadioPrimitive.Root>\n\t);\n}\n\nexport { RadioGroup, RadioGroupItem };\n"
+    }
+  ],
+  "dependencies": [
+    "@base-ui/react@1.4.1",
+    "@floating-ui/core@1.7.5",
+    "@floating-ui/dom@1.7.6",
+    "@floating-ui/react-dom@2.1.8",
+    "@floating-ui/utils@0.2.11",
+    "cn@0.2.4",
+    "use-sync-external-store@1.6.0"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

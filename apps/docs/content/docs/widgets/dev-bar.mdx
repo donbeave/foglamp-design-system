@@ -1,0 +1,41 @@
+---
+title: DevBar
+description: Displays query and network diagnostics with explicit callbacks for developer actions.
+---
+
+Displays query and network diagnostics with explicit callbacks for developer actions.
+
+import { story } from "../../../src/stories/widgets/dev-bar.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `DevBarView` | `fps` | `number \| undefined` | Frames per second shown by the developer bar. |
+|  | `queries` | `{ fetching: QueryDiagnostic[]; stale: QueryDiagnostic[]; staleInactive: number; } \| undefined` | Fetching, stale, and inactive query diagnostics. |
+|  | `netDelay` | `number \| undefined` | Simulated network delay in milliseconds. |
+|  | `netFail` | `boolean \| undefined` | Shows a simulated network failure. |
+|  | `forceLoading` | `boolean \| undefined` | Forces loading indicators on. |
+|  | `onNetworkDelayChange` | `((delay: DevNetworkDelay) => void) \| undefined` | Receives the selected network delay. |
+|  | `onNetworkFailChange` | `((fail: boolean) => void) \| undefined` | Receives the network failure setting. |
+|  | `onForceLoadingChange` | `((loading: boolean) => void) \| undefined` | Receives the forced-loading setting. |
+|  | `onInvalidateQueries` | `(() => void) \| undefined` | Requests query invalidation from the host application. |
+|  | `onClearQueries` | `(() => void) \| undefined` | Clears query diagnostics. |
+|  | `onSendTestEmail` | `((variant: string) => void) \| undefined` | Receives the selected test email variant. |
+|  | `sendingTestEmail` | `boolean \| undefined` | Marks a test email as sending. |
+
+## Requirements
+
+This view receives diagnostic snapshots and host actions as props. Supply `queries` and `fps`, then pass callbacks such as `onInvalidateQueries` for host actions. It does not fetch diagnostics itself.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/dev-bar.story.tsx`](../../../src/stories/widgets/dev-bar.story.tsx). The authoritative registry item ID is `widget-dev-toolbar` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

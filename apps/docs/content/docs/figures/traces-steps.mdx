@@ -1,0 +1,29 @@
+---
+title: Traces Steps
+description: The steps figure in the traces section, rendered by TraceSteps.
+---
+
+import { story } from '../../../src/stories/figures/traces-steps.story'
+
+TraceSteps is the steps entry in `FIGURES.traces`. The story selects it with `FigureVariant`; the selected figure itself takes no props.
+
+<story.WithControl />
+
+## Selection and rendering
+
+| Field | Value |
+| --- | --- |
+| Section | `traces` |
+| Variant ID | `steps` |
+| Source component | `TraceSteps` in `blocks/marketing/figures/figures-traces.tsx` |
+| Component props | None |
+| Registry item | `figure-traces-steps` |
+
+The story uses the exact section and variant above. `FigureVariant` lazy-loads the matching source figure, wraps it in `FigureReveal`, and shows a reserved-height fallback while the module loads. The reveal choreography starts when the figure enters view. Figure content uses the source module’s local demo data.
+
+The story is `apps/docs/src/stories/figures/traces-steps.story.tsx`. The registry route is `/r/figure-traces-steps.json` on the portal origin.
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

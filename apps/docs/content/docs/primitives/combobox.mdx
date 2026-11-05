@@ -1,0 +1,72 @@
+---
+title: "Combobox"
+description: "Searchable selection control with list, group, empty, chip, clear, and separator parts. The input can show a trigger or clear button."
+---
+
+import { story } from '../../../src/stories/primitives/combobox.story';
+
+# Combobox
+
+Searchable selection control with list, group, empty, chip, clear, and separator parts. The input can show a trigger or clear button.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/combobox`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `Combobox` | `typeof ComboboxPrimitive.Root` | Searchable selection root; the child controls use the wrapper exports. |
+| `ComboboxChip` | `ComboboxPrimitive.Chip.Props & { showRemove?: boolean; }` | Selected value chip with an optional remove control. |
+| `ComboboxChips` | `React.ComponentPropsWithRef<typeof ComboboxPrimitive.Chips> & ComboboxPrimitive.Chips.Props` | Container for the selected chips and chips input. |
+| `ComboboxChipsInput` | `ComboboxPrimitive.Input.Props` | Input control for the composition. |
+| `ComboboxCollection` | `ComboboxPrimitive.Collection.Props` | Renders the active option collection. |
+| `ComboboxContent` | `ComboboxPrimitive.Popup.Props & Pick< ComboboxPrimitive.Positioner.Props, "side" \| "align" \| "sideOffset" \| "alignOffset" \| "anchor" >` | Contains the associated popup or panel content. |
+| `ComboboxEmpty` | `ComboboxPrimitive.Empty.Props` | Content displayed when the combobox has no matching options. |
+| `ComboboxGroup` | `ComboboxPrimitive.Group.Props` | Groups related combobox options. |
+| `ComboboxInput` | `ComboboxPrimitive.Input.Props & { showTrigger?: boolean; showClear?: boolean; }` | Input control for the composition. |
+| `ComboboxItem` | `ComboboxPrimitive.Item.Props` | One selectable combobox option. |
+| `ComboboxLabel` | `ComboboxPrimitive.GroupLabel.Props` | Label for a combobox option group. |
+| `ComboboxList` | `ComboboxPrimitive.List.Props` | List of combobox options. |
+| `ComboboxSeparator` | `ComboboxPrimitive.Separator.Props` | Visual divider between combobox options. |
+| `ComboboxTrigger` | `ComboboxPrimitive.Trigger.Props` | Opens or toggles the associated popup or panel. |
+| `ComboboxValue` | `ComboboxPrimitive.Value.Props` | Displays the selected combobox value. |
+| `useComboboxAnchor` | `Exported component or value` | Returns the combobox anchor ref and positioning props. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `ComboboxInput.showTrigger` | `boolean` | Render the trigger affordance. Defaults to `true`. |
+| `ComboboxInput.showClear` | `boolean` | Render the clear button. Defaults to `false`. |
+| `ComboboxContent.side` | `Base UI positioner side` | Defaults to `bottom`. |
+| `ComboboxContent.sideOffset` | `number` | Defaults to `6`. |
+| `ComboboxContent.align` | `Base UI positioner alignment` | Defaults to `start`. |
+| `ComboboxChip.showRemove` | `boolean` | Defaults to `true`. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { useState } from 'react';
+
+import { Combobox, ComboboxInput, ComboboxContent, ComboboxList, ComboboxItem, ComboboxEmpty } from '@foglamp/design-system/ui/combobox';
+
+const models = ['Claude 3.7 Sonnet', 'GPT-4.1', 'Gemini 2.5 Pro'];
+
+function ComboboxExample({ placeholder = 'Choose a model…' }: { placeholder?: string }) { const [value, setValue] = useState<string | null>('GPT-4.1'); return <Combobox items={models} value={value} onValueChange={setValue}><ComboboxInput aria-label="Model" placeholder={placeholder} /><ComboboxContent><ComboboxList>{models.map((model) => <ComboboxItem key={model} value={model}>{model}</ComboboxItem>)}</ComboboxList><ComboboxEmpty>No models found.</ComboboxEmpty></ComboboxContent></Combobox>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-combobox`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-combobox.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-combobox.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/combobox`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

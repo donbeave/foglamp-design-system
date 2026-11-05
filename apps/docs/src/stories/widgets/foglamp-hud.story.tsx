@@ -1,0 +1,6 @@
+/* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
+import { FoglampHUD, createMockHudStream } from '@foglamp/design-system/hud';
+import { defineStory } from '../../lib/story';
+const stream = createMockHudStream([{ type: 'trace.start', ts: Date.now(), traceId: 'trace-demo-1', name: 'Support assistant', agentName: 'Support assistant', provider: 'openai', model: 'gpt-4o' }, { type: 'step.start', ts: Date.now() + 10, traceId: 'trace-demo-1', stepNumber: 1, provider: 'openai', model: 'gpt-4o' }, { type: 'step.tokens', ts: Date.now() + 150, traceId: 'trace-demo-1', stepNumber: 1, outputTokens: 42, tps: 120 }]);
+function FoglampHUDPreview({ defaultOpen = true, redact = false }: { defaultOpen?: boolean; redact?: boolean }) { return <div className="relative h-[440px] w-full"><FoglampHUD stream={stream} defaultOpen={defaultOpen} redact={redact} theme="dark"/></div>; }
+export const story = defineStory({ id: 'widgets/foglamp-hud', displayName: 'FoglampHUD', registryItem: 'hud-foglamphud', Component: FoglampHUDPreview, args: [{ variant: 'Live mock stream', initial: { defaultOpen: true, redact: false } }, { variant: 'Redacted compact view', initial: { defaultOpen: false, redact: true } }] });

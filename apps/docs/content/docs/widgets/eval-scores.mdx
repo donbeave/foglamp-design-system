@@ -1,0 +1,33 @@
+---
+title: EvalScores
+description: Renders evaluation score dots, result labels, and score rows for trace results.
+---
+
+Renders evaluation score dots, result labels, and score rows for trace results.
+
+import { story } from "../../../src/stories/widgets/eval-scores.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `ScoreRow` | `score` | `TraceScore` | Evaluation score displayed in this row. |
+|  | `meta` | `EvalMeta \| undefined` | Evaluation name and preset metadata for the score. |
+|  | `presetName` | `Map<string, string>` | Preset names keyed by preset ID. |
+| `SpanScoreDots` | `scores` | `TraceScore[]` | Evaluation scores associated with trace spans. |
+|  | `evalMeta` | `Map<string, EvalMeta>` | Evaluation names keyed by evaluation ID. |
+|  | `presetName` | `Map<string, string>` | Preset names keyed by preset ID. |
+|  | `max` | `number \| undefined` | Sets the upper bound for the displayed score marks. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/eval-scores.story.tsx`](../../../src/stories/widgets/eval-scores.story.tsx). The authoritative registry item ID is `widget-eval-scores` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

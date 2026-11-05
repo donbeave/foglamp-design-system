@@ -1,0 +1,28 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "widget-leaf-stat",
+  "type": "registry:component",
+  "title": "Stat",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from widgets/leaf/stat.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/widgets/leaf/stat.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/app/stat.tsx; derived here under Apache-2.0.\n */\nimport { cn } from \"../../lib/utils\";\n\n/** A two-line label/value stat, used in agent and workflow card grids.\n * `className` applies to the outer wrapper; `valueClassName` applies to the\n * value span (use for heat-tinted cost colors). */\nexport function Stat({\n\tlabel,\n\tvalue,\n\temphasis,\n\tclassName,\n\tvalueClassName,\n}: {\n\tlabel: string;\n\tvalue: React.ReactNode;\n\temphasis?: boolean;\n\tclassName?: string;\n\tvalueClassName?: string;\n}) {\n\treturn (\n\t\t<div className={cn(\"flex flex-col gap-0.5\", className)}>\n\t\t\t<span className=\"text-xs text-muted-foreground\">{label}</span>\n\t\t\t<span\n\t\t\t\tclassName={cn(\n\t\t\t\t\t\"tabular-nums\",\n\t\t\t\t\temphasis && \"font-medium\",\n\t\t\t\t\tvalueClassName,\n\t\t\t\t)}\n\t\t\t>\n\t\t\t\t{value}\n\t\t\t</span>\n\t\t</div>\n\t);\n}\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

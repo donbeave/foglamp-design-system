@@ -1,0 +1,5 @@
+/* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
+import { AspectRatio } from '@foglamp/design-system/ui/aspect-ratio';
+import { defineStory } from '../../lib/story';
+function AspectRatioExample({ ratio = 16 / 9 }: { ratio?: number }) { return <div className="w-full max-w-xl"><AspectRatio ratio={ratio} className="overflow-hidden rounded-lg bg-muted"><div className="flex size-full flex-col items-center justify-center gap-2 bg-gradient-to-br from-primary/15 via-muted to-primary/5"><span className="text-2xl font-semibold">Trace overview</span><span className="text-sm text-muted-foreground">{ratio.toFixed(2)} : 1 preview</span></div></AspectRatio></div>; }
+export const story = defineStory({ id: 'primitives/aspect-ratio', registryItem: 'ui-aspect-ratio', displayName: 'Aspect Ratio', Component: AspectRatioExample, args: [{ variant: '16:9', initial: { ratio: 16 / 9 } }, { variant: 'Square', initial: { ratio: 1 } }, { variant: '4:3', initial: { ratio: 4 / 3 } }] });

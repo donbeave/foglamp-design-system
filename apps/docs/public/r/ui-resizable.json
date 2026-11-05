@@ -1,0 +1,29 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ui-resizable",
+  "type": "registry:ui",
+  "title": "Resizable",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from ui/resizable.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "content": "/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/lib/utils.ts; derived here under Apache-2.0.\n */\nexport { cn } from \"cn\";\n"
+    },
+    {
+      "path": "src/components/foglamp/ui/resizable.tsx",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/packages/ui/src/components/resizable.tsx; derived here under Apache-2.0.\n */\nimport * as ResizablePrimitive from \"react-resizable-panels\";\n\nimport { cn } from \"../lib/utils\";\n\nfunction ResizablePanelGroup({\n\tclassName,\n\t...props\n}: ResizablePrimitive.GroupProps) {\n\treturn (\n\t\t<ResizablePrimitive.Group\n\t\t\tdata-slot=\"resizable-panel-group\"\n\t\t\tclassName={cn(\n\t\t\t\t\"flex h-full w-full aria-[orientation=vertical]:flex-col\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t/>\n\t);\n}\n\nfunction ResizablePanel({ ...props }: ResizablePrimitive.PanelProps) {\n\treturn <ResizablePrimitive.Panel data-slot=\"resizable-panel\" {...props} />;\n}\n\nfunction ResizableHandle({\n\twithHandle,\n\tclassName,\n\t...props\n}: ResizablePrimitive.SeparatorProps & {\n\twithHandle?: boolean;\n}) {\n\treturn (\n\t\t<ResizablePrimitive.Separator\n\t\t\tdata-slot=\"resizable-handle\"\n\t\t\tclassName={cn(\n\t\t\t\t\"relative flex w-px items-center justify-center bg-border ring-offset-background after:absolute after:inset-y-0 after:left-1/2 after:w-1 after:-translate-x-1/2 focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-hidden aria-[orientation=horizontal]:h-px aria-[orientation=horizontal]:w-full aria-[orientation=horizontal]:after:left-0 aria-[orientation=horizontal]:after:h-1 aria-[orientation=horizontal]:after:w-full aria-[orientation=horizontal]:after:translate-x-0 aria-[orientation=horizontal]:after:-translate-y-1/2 [&[aria-orientation=horizontal]>div]:rotate-90\",\n\t\t\t\tclassName,\n\t\t\t)}\n\t\t\t{...props}\n\t\t>\n\t\t\t{withHandle && (\n\t\t\t\t<div className=\"z-10 flex h-6 w-1 shrink-0 rounded-lg bg-border\" />\n\t\t\t)}\n\t\t</ResizablePrimitive.Separator>\n\t);\n}\n\nexport { ResizableHandle, ResizablePanel, ResizablePanelGroup };\n"
+    }
+  ],
+  "dependencies": [
+    "cn@0.2.4",
+    "react-resizable-panels@4.10.0"
+  ],
+  "devDependencies": [
+    "@types/react@19.2.14"
+  ]
+}

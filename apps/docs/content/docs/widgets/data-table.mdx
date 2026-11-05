@@ -1,0 +1,54 @@
+---
+title: DataTable
+description: Composes the table toolbar, search, filter, sorting, and pagination helpers used by Foglamp tables.
+---
+
+Composes the table toolbar, search, filter, sorting, and pagination helpers used by Foglamp tables.
+
+import { story } from "../../../src/stories/widgets/data-table.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `PaginationFooter` | `page` | `number` | Zero-based current page index. |
+|  | `pageSize` | `number` | Maximum number of rows on one page. |
+|  | `total` | `number` | Total number of matching rows. |
+|  | `shown` | `number` | Number of rows currently rendered. |
+|  | `noun` | `[string, string]` | Singular and plural labels for the paginated item. |
+|  | `onPageChange` | `(page: number) => void` | Receives the requested page index. |
+|  | `onPageSizeChange` | `((size: number) => void) \| undefined` | Receives the newly selected page size. |
+|  | `pageSizes` | `number[] \| undefined` | Lists the page sizes offered in the selector. |
+|  | `isFetching` | `boolean \| undefined` | Marks the page data as fetching. |
+| `SearchInput` | `value` | `string` | Controlled value or source data passed to the component. |
+|  | `onChange` | `(value: string) => void` | Receives the next value when the user changes the control. |
+|  | `placeholder` | `string \| undefined` | Text shown while the field is empty. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `SortableHead` | `sortKey` | `K` | Data key associated with this header. |
+|  | `sort` | `SortState<K> \| null` | Current sort key and direction, or null. |
+|  | `onSort` | `(key: K) => void` | Runs when the header requests a sort change. |
+|  | `align` | `"left" \| "right" \| "center" \| undefined` | Horizontal legend alignment. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+|  | `children` | `ReactNode` | Content rendered inside the component. |
+| `ToggleChip` | `active` | `boolean` | Whether the filter chip is selected. |
+|  | `onClick` | `() => void` | Runs when the user activates the control. |
+|  | `children` | `ReactNode` | Content rendered inside the component. |
+| `Toolbar` | `children` | `ReactNode` | Content rendered inside the component. |
+|  | `trailing` | `ReactNode` | Content aligned after toolbar controls. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+
+## Requirements
+
+The table helpers are controlled. Keep search text, filter state, and sort state in the host. Pass callbacks to `SearchInput`, `ToggleChip`, `FilterSelect`, and `SortableHead`. `Toolbar` arranges its children and optional trailing content.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/data-table.story.tsx`](../../../src/stories/widgets/data-table.story.tsx). The authoritative registry item ID is `widget-data-table` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

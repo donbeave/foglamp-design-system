@@ -1,0 +1,31 @@
+{
+  "title": "Blocks",
+  "pages": [
+    "agent-detail-inspector-block",
+    "app-shell-block",
+    "buttons-badges-playground-block",
+    "cutting-mat-footer-block",
+    "device-approve-block",
+    "drifting-fog-cta-block",
+    "embed-board-block",
+    "eval-detail-block",
+    "figure-kit-22-block",
+    "flow-map-block",
+    "hero-3d-demo-block",
+    "hud-simulator-block",
+    "instrument-empty-state-block",
+    "login-form-block",
+    "marketing-navbar",
+    "observability-guide-block",
+    "onboarding-panel-block",
+    "original-authors-block",
+    "overview-dashboard-block",
+    "scan-board-block",
+    "scan-landing-block",
+    "session-conversation-inspector-block",
+    "setup-board-block",
+    "trace-waterfall-inspector-block",
+    "traces-explorer-block",
+    "workflow-detail-block"
+  ]
+}

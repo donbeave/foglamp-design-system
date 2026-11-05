@@ -1,0 +1,53 @@
+---
+title: "Avatar"
+description: "Identity image with a fallback, optional badge, and grouped-avatar layout. The root accepts sizes default, sm, lg, and xs."
+---
+
+import { story } from '../../../src/stories/primitives/avatar.story';
+
+# Avatar
+
+Identity image with a fallback, optional badge, and grouped-avatar layout. The root accepts sizes default, sm, lg, and xs.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/avatar`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `Avatar` | `AvatarPrimitive.Root.Props & { size?: "default" \| "sm" \| "lg" \| "xs"; }` | Avatar root with a selected size. |
+| `AvatarBadge` | `React.ComponentProps<"span">` | Positions a badge over the avatar. |
+| `AvatarFallback` | `AvatarPrimitive.Fallback.Props` | Renders fallback content while the avatar image is unavailable. |
+| `AvatarGroup` | `React.ComponentProps<"div">` | Groups avatars into an overlapping row. |
+| `AvatarGroupCount` | `React.ComponentProps<"div">` | Displays the count of additional grouped avatars. |
+| `AvatarImage` | `AvatarPrimitive.Image.Props` | Renders the avatar image and forwards Base UI image props. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `Avatar.size` | `default \| sm \| lg \| xs` | Defaults to `default`. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { Avatar, AvatarFallback, AvatarImage, AvatarBadge, AvatarGroup, AvatarGroupCount } from '@foglamp/design-system/ui/avatar';
+
+function AvatarExample({ size = 'default' }: { size?: 'default' | 'sm' | 'lg' | 'xs' }) { return <div className="flex flex-col gap-6"><Avatar size={size}><AvatarImage src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=96&h=96&fit=crop&crop=faces" alt="Portrait of Maya Chen" /><AvatarFallback>MC</AvatarFallback><AvatarBadge aria-label="Online" /></Avatar><AvatarGroup aria-label="Evaluation team"><Avatar><AvatarFallback>MC</AvatarFallback></Avatar><Avatar><AvatarFallback>JL</AvatarFallback></Avatar><Avatar><AvatarFallback>AR</AvatarFallback></Avatar><AvatarGroupCount>+4</AvatarGroupCount></AvatarGroup></div>; }
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-avatar`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-avatar.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-avatar.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/avatar`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

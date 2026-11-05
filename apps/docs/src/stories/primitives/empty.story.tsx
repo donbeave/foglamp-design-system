@@ -1,0 +1,6 @@
+/* Derived story fixture by Foglamp Design System contributors. Original component design: Gustavo Fior (@gustavo-fior), Abdul Haidar, Foglamp Labs (foglamp-labs/foglamp), Apache-2.0. */
+import { Empty, EmptyHeader, EmptyMedia, EmptyTitle, EmptyDescription, EmptyContent } from '@foglamp/design-system/ui/empty';
+import { Button } from '@foglamp/design-system/ui/button';
+import { defineStory } from '../../lib/story';
+function EmptyExample({ title = 'No evaluations yet' }: { title?: string }) { return <Empty className="min-h-72"><EmptyHeader><EmptyMedia variant="icon"><span aria-hidden="true">▥</span></EmptyMedia><EmptyTitle>{title}</EmptyTitle><EmptyDescription>Create an evaluation to track quality across model and prompt changes.</EmptyDescription></EmptyHeader><EmptyContent><Button>Create evaluation</Button><p className="text-xs text-muted-foreground">or import a dataset from your workspace</p></EmptyContent></Empty>; }
+export const story = defineStory({ id: 'primitives/empty', registryItem: 'ui-empty', displayName: 'Empty State', Component: EmptyExample, args: [{ variant: 'Evaluations', initial: { title: 'No evaluations yet' } }, { variant: 'Trace search', initial: { title: 'No traces match this query' }}] });

@@ -1,0 +1,59 @@
+---
+title: "Native Select"
+description: "Styled native select with option and option-group exports. The select supports default and compact sizes."
+---
+
+import { story } from '../../../src/stories/primitives/native-select.story';
+
+# Native Select
+
+Styled native select with option and option-group exports. The select supports default and compact sizes.
+
+## Live preview
+
+<story.WithControl />
+
+## API and props
+
+The table lists values exported from `@foglamp/design-system/ui/native-select`. The declared type comes from the component source.
+
+| Export | Declared props or type | Role |
+| --- | --- | --- |
+| `NativeSelect` | `NativeSelectProps` | Styled native select element. |
+| `NativeSelectOptGroup` | `React.ComponentProps<"optgroup">` | Native option group element. |
+| `NativeSelectOption` | `React.ComponentProps<"option">` | Native option element. |
+
+## Additional props
+
+| Prop | Type | Description |
+| --- | --- | --- |
+| `NativeSelect.size` | `default \| sm` | Defaults to `default`. |
+
+## Example
+
+The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+
+```tsx
+import { useState } from "react";
+
+import { NativeSelect, NativeSelectOption } from "@foglamp/design-system/ui/native-select";
+
+import { Label } from "@foglamp/design-system/ui/label";
+
+type Args = { variant: 'default' };
+
+function NativeSelectStory({ args }: { args: Args }) {
+
+  return <div className="flex min-h-24 w-full items-center justify-center p-4"><div className="grid max-w-xs gap-2"><Label htmlFor="region">Deployment region</Label><NativeSelect id="region" defaultValue="us-east"><NativeSelectOption value="us-east">US East</NativeSelectOption><NativeSelectOption value="eu-west">EU West</NativeSelectOption><NativeSelectOption value="ap-south">Asia Pacific</NativeSelectOption></NativeSelect><p className="text-xs text-muted-foreground">Uses the browser’s native selection menu.</p></div></div>;
+}
+```
+
+## Registry item
+
+The story panel resolves this component as registry item `ui-native-select`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-native-select.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-native-select.json`. This URL is local to the running portal, not a public registry address.
+
+The package import path is `@foglamp/design-system/ui/native-select`. The workspace declares `@foglamp/design-system` as a package; these docs do not claim npm publication.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.

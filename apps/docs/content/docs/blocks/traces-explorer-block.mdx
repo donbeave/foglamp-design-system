@@ -1,0 +1,27 @@
+---
+title: Traces Explorer
+description: Traces Explorer lists traces and opens the selected trace in the waterfall inspector. The story keeps selection local and uses the dashboard shell.
+---
+
+import { story } from '../../../src/stories/blocks/traces-explorer-block.story'
+
+Traces Explorer lists traces and opens the selected trace in the waterfall inspector. The story keeps selection local and uses the dashboard shell.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/dashboard/traces-explorer-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/traces-explorer-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `isLoading: boolean`, `isFetching: boolean`; initial values are `isLoading: false, isFetching: false` |
+| Fixture and callback wiring | The story exposes `isLoading` and `isFetching`. It wires `onTraceSelect` to the inspector view and supplies a no-op `onFiltersChange`; trace and prompt-version data use source defaults. |
+| Registry item | `block-dashboard-traces-explorer`. The portal payload is `/r/block-dashboard-traces-explorer.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

@@ -1,0 +1,34 @@
+---
+title: PaginationFooter
+description: Reports the visible row interval and exposes page changes.
+---
+
+Reports the visible row interval and exposes page changes.
+
+import { story } from "../../../src/stories/widgets/pagination-footer.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `PaginationFooter` | `page` | `number` | Zero-based current page index. |
+|  | `pageSize` | `number` | Maximum number of rows on one page. |
+|  | `total` | `number` | Total number of matching rows. |
+|  | `shown` | `number` | Number of rows currently rendered. |
+|  | `noun` | `[string, string]` | Singular and plural labels for the paginated item. |
+|  | `onPageChange` | `(page: number) => void` | Receives the requested page index. |
+|  | `onPageSizeChange` | `((size: number) => void) \| undefined` | Receives the newly selected page size. |
+|  | `pageSizes` | `number[] \| undefined` | Lists the page sizes offered in the selector. |
+|  | `isFetching` | `boolean \| undefined` | Marks the page data as fetching. |
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/pagination-footer.story.tsx`](../../../src/stories/widgets/pagination-footer.story.tsx). The authoritative registry item ID is `widget-pagination-footer` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

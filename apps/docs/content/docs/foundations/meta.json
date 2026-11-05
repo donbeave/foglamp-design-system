@@ -1,0 +1,11 @@
+{
+  "title": "Foundations",
+  "pages": [
+    "installation",
+    "architecture",
+    "tokens",
+    "geometry",
+    "typography",
+    "motion"
+  ]
+}

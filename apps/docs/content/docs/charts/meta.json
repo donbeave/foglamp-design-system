@@ -1,0 +1,16 @@
+{
+  "title": "Charts",
+  "pages": [
+    "area-chart",
+    "background",
+    "bar-chart",
+    "chart",
+    "donut-chart",
+    "dot",
+    "evil-brush",
+    "legend",
+    "line-chart",
+    "tooltip",
+    "zoom"
+  ]
+}

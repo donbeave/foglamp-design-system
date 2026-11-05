@@ -1,0 +1,2029 @@
+{
+  "type": "foglamp:story-catalog",
+  "description": "Story aliases for source modules. Install ids match registryItem exactly.",
+  "items": [
+    {
+      "id": "block-app-shell-app-shell",
+      "title": "App Shell Block",
+      "source": "src/components/foglamp/blocks/app-shell/app-shell-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-app-shell-app-shell"
+    },
+    {
+      "id": "block-app-shell-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/app-shell/app-shell-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-app-shell-index"
+    },
+    {
+      "id": "block-app-shell-new-project-dialog",
+      "title": "New Project Dialog",
+      "source": "src/components/foglamp/blocks/app-shell/new-project-dialog.tsx",
+      "type": "registry:block",
+      "registryItem": "block-app-shell-new-project-dialog"
+    },
+    {
+      "id": "block-app-shell-sunset-card",
+      "title": "Sunset Card",
+      "source": "src/components/foglamp/blocks/app-shell/sunset-card.tsx",
+      "type": "registry:block",
+      "registryItem": "block-app-shell-sunset-card"
+    },
+    {
+      "id": "block-auth-buttons-badges",
+      "title": "Buttons Badges",
+      "source": "src/components/foglamp/blocks/auth/buttons-badges.tsx",
+      "type": "registry:block",
+      "registryItem": "block-auth-buttons-badges"
+    },
+    {
+      "id": "block-auth-device-approve",
+      "title": "Device Approve",
+      "source": "src/components/foglamp/blocks/auth/device-approve.tsx",
+      "type": "registry:block",
+      "registryItem": "block-auth-device-approve"
+    },
+    {
+      "id": "block-auth-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/auth/buttons-badges.tsx",
+      "type": "registry:block",
+      "registryItem": "block-auth-index"
+    },
+    {
+      "id": "block-auth-instrument-empty-state",
+      "title": "Instrument Empty State",
+      "source": "src/components/foglamp/blocks/auth/instrument-empty-state.tsx",
+      "type": "registry:block",
+      "registryItem": "block-auth-instrument-empty-state"
+    },
+    {
+      "id": "block-auth-login-form",
+      "title": "Login Form",
+      "source": "src/components/foglamp/blocks/auth/login-form.tsx",
+      "type": "registry:block",
+      "registryItem": "block-auth-login-form"
+    },
+    {
+      "id": "block-auth-onboarding-panel",
+      "title": "Onboarding Panel",
+      "source": "src/components/foglamp/blocks/auth/onboarding-panel.tsx",
+      "type": "registry:block",
+      "registryItem": "block-auth-onboarding-panel"
+    },
+    {
+      "id": "block-dashboard-agent-detail-inspector",
+      "title": "Agent Detail Inspector Block",
+      "source": "src/components/foglamp/blocks/dashboard/agent-detail-inspector-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-agent-detail-inspector"
+    },
+    {
+      "id": "block-dashboard-eval-chip-placeholders",
+      "title": "Eval Chip Placeholders",
+      "source": "src/components/foglamp/blocks/dashboard/eval-chip-placeholders.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-eval-chip-placeholders"
+    },
+    {
+      "id": "block-dashboard-eval-detail",
+      "title": "Eval Detail Block",
+      "source": "src/components/foglamp/blocks/dashboard/eval-chip-placeholders.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-eval-detail"
+    },
+    {
+      "id": "block-dashboard-eval-settings-fields",
+      "title": "Eval Settings Fields",
+      "source": "src/components/foglamp/blocks/dashboard/eval-settings-fields.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-eval-settings-fields"
+    },
+    {
+      "id": "block-dashboard-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/auth/onboarding-panel.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-index"
+    },
+    {
+      "id": "block-dashboard-overview-dashboard",
+      "title": "Overview Dashboard Block",
+      "source": "src/components/foglamp/blocks/auth/onboarding-panel.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-overview-dashboard"
+    },
+    {
+      "id": "block-dashboard-session-conversation-inspector",
+      "title": "Session Conversation Inspector Block",
+      "source": "src/components/foglamp/blocks/dashboard/session-conversation-inspector-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-session-conversation-inspector"
+    },
+    {
+      "id": "block-dashboard-trace-waterfall-inspector",
+      "title": "Trace Waterfall Inspector Block",
+      "source": "src/components/foglamp/blocks/dashboard/trace-waterfall-inspector-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-trace-waterfall-inspector"
+    },
+    {
+      "id": "block-dashboard-traces-explorer",
+      "title": "Traces Explorer Block",
+      "source": "src/components/foglamp/blocks/dashboard/traces-explorer-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-traces-explorer"
+    },
+    {
+      "id": "block-dashboard-workflow-detail",
+      "title": "Workflow Detail Block",
+      "source": "src/components/foglamp/blocks/dashboard/workflow-detail-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-dashboard-workflow-detail"
+    },
+    {
+      "id": "block-guide-chapters",
+      "title": "Chapters",
+      "source": "src/components/foglamp/blocks/guide/chapters.ts",
+      "type": "registry:block",
+      "registryItem": "block-guide-chapters"
+    },
+    {
+      "id": "block-guide-css-modules-d",
+      "title": "Css Modules.D",
+      "source": "src/components/foglamp/blocks/guide/css-modules.d.ts",
+      "type": "registry:block",
+      "registryItem": "block-guide-css-modules-d"
+    },
+    {
+      "id": "block-guide-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/guide/chapters.ts",
+      "type": "registry:block",
+      "registryItem": "block-guide-index"
+    },
+    {
+      "id": "block-guide-observability-guide-module",
+      "title": "Observability Guide.Module",
+      "source": "src/components/foglamp/blocks/guide/observability-guide.module.css",
+      "type": "registry:block",
+      "registryItem": "block-guide-observability-guide-module"
+    },
+    {
+      "id": "block-guide-observability-guide",
+      "title": "Observability Guide",
+      "source": "src/components/foglamp/blocks/guide/chapters.ts",
+      "type": "registry:block",
+      "registryItem": "block-guide-observability-guide"
+    },
+    {
+      "id": "block-marketing-chrome-brand-mark",
+      "title": "Brand Mark",
+      "source": "src/components/foglamp/blocks/marketing/chrome/brand-mark.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-brand-mark"
+    },
+    {
+      "id": "block-marketing-chrome-code",
+      "title": "Code Block",
+      "source": "src/components/foglamp/blocks/marketing/chrome/code-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-code"
+    },
+    {
+      "id": "block-marketing-chrome-copy-button",
+      "title": "Copy Button",
+      "source": "src/components/foglamp/blocks/marketing/chrome/copy-button.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-copy-button"
+    },
+    {
+      "id": "block-marketing-chrome-cutting-mat",
+      "title": "Cutting Mat",
+      "source": "src/components/foglamp/blocks/marketing/chrome/cutting-mat.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-cutting-mat"
+    },
+    {
+      "id": "block-marketing-chrome-demo-link",
+      "title": "Demo Link",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-demo-link"
+    },
+    {
+      "id": "block-marketing-chrome-footer",
+      "title": "Footer",
+      "source": "src/components/foglamp/blocks/marketing/chrome/brand-mark.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-footer"
+    },
+    {
+      "id": "block-marketing-chrome-github-logo",
+      "title": "Github Logo",
+      "source": "src/components/foglamp/blocks/marketing/chrome/github-logo.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-github-logo"
+    },
+    {
+      "id": "block-marketing-chrome-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/marketing/chrome/brand-mark.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-index"
+    },
+    {
+      "id": "block-marketing-chrome-logo",
+      "title": "Logo",
+      "source": "src/components/foglamp/blocks/marketing/chrome/brand-mark.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-logo"
+    },
+    {
+      "id": "block-marketing-chrome-navbar",
+      "title": "Navbar",
+      "source": "src/components/foglamp/blocks/marketing/chrome/brand-mark.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-navbar"
+    },
+    {
+      "id": "block-marketing-chrome-noise-overlay",
+      "title": "Noise Overlay",
+      "source": "src/components/foglamp/blocks/marketing/chrome/noise-overlay.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-noise-overlay"
+    },
+    {
+      "id": "block-marketing-chrome-products",
+      "title": "Products",
+      "source": "src/components/foglamp/blocks/marketing/chrome/products.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-chrome-products"
+    },
+    {
+      "id": "block-marketing-cta-agent-prompt",
+      "title": "Agent Prompt",
+      "source": "src/components/foglamp/blocks/marketing/cta/agent-prompt.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-agent-prompt"
+    },
+    {
+      "id": "block-marketing-cta-ask-foggy",
+      "title": "Ask Foggy",
+      "source": "src/components/foglamp/blocks/marketing/cta/ask-foggy.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-ask-foggy"
+    },
+    {
+      "id": "block-marketing-cta-compact-cta",
+      "title": "Compact Cta",
+      "source": "src/components/foglamp/blocks/marketing/cta/agent-prompt.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-compact-cta"
+    },
+    {
+      "id": "block-marketing-cta-copy-prompt-button",
+      "title": "Copy Prompt Button",
+      "source": "src/components/foglamp/blocks/marketing/cta/agent-prompt.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-copy-prompt-button"
+    },
+    {
+      "id": "block-marketing-cta-cta-agent-details",
+      "title": "Cta Agent Details",
+      "source": "src/components/foglamp/blocks/marketing/cta/cta-agent-details.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-cta-agent-details"
+    },
+    {
+      "id": "block-marketing-cta-cta",
+      "title": "Cta",
+      "source": "src/components/foglamp/blocks/marketing/chrome/noise-overlay.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-cta"
+    },
+    {
+      "id": "block-marketing-cta-faq",
+      "title": "Faq",
+      "source": "src/components/foglamp/blocks/marketing/cta/ask-foggy.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-faq"
+    },
+    {
+      "id": "block-marketing-cta-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/marketing/chrome/noise-overlay.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-cta-index"
+    },
+    {
+      "id": "block-marketing-demo-demo-chrome",
+      "title": "Demo Chrome",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-demo-chrome"
+    },
+    {
+      "id": "block-marketing-demo-demo-context",
+      "title": "Demo Context",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-context.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-demo-context"
+    },
+    {
+      "id": "block-marketing-demo-demo-shell",
+      "title": "Demo Shell",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-shell.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-demo-shell"
+    },
+    {
+      "id": "block-marketing-demo-demo-sidebar",
+      "title": "Demo Sidebar",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-context.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-demo-sidebar"
+    },
+    {
+      "id": "block-marketing-demo-detail-agent-detail",
+      "title": "Agent Detail",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-detail-agent-detail"
+    },
+    {
+      "id": "block-marketing-demo-detail-breakdown-cards",
+      "title": "Breakdown Cards",
+      "source": "src/components/foglamp/blocks/marketing/demo/detail/breakdown-cards.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-detail-breakdown-cards"
+    },
+    {
+      "id": "block-marketing-demo-detail-eval-detail",
+      "title": "Eval Detail",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-detail-eval-detail"
+    },
+    {
+      "id": "block-marketing-demo-detail-session-detail",
+      "title": "Session Detail",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-detail-session-detail"
+    },
+    {
+      "id": "block-marketing-demo-detail-trace-detail",
+      "title": "Trace Detail",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-detail-trace-detail"
+    },
+    {
+      "id": "block-marketing-demo-detail-workflow-detail",
+      "title": "Workflow Detail",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-detail-workflow-detail"
+    },
+    {
+      "id": "block-marketing-demo-entrance",
+      "title": "Entrance",
+      "source": "src/components/foglamp/blocks/marketing/demo/entrance.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-entrance"
+    },
+    {
+      "id": "block-marketing-demo-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-index"
+    },
+    {
+      "id": "block-marketing-demo-mock-data",
+      "title": "Mock Data",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-mock-data"
+    },
+    {
+      "id": "block-marketing-demo-piece",
+      "title": "Piece",
+      "source": "src/components/foglamp/blocks/marketing/demo/entrance.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-piece"
+    },
+    {
+      "id": "block-marketing-demo-tabs-agents-tab",
+      "title": "Agents Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-agents-tab"
+    },
+    {
+      "id": "block-marketing-demo-tabs-alerts-tab",
+      "title": "Alerts Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-alerts-tab"
+    },
+    {
+      "id": "block-marketing-demo-tabs-evals-tab",
+      "title": "Evals Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-evals-tab"
+    },
+    {
+      "id": "block-marketing-demo-tabs-overview-tab",
+      "title": "Overview Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-overview-tab"
+    },
+    {
+      "id": "block-marketing-demo-tabs-sessions-tab",
+      "title": "Sessions Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-sessions-tab"
+    },
+    {
+      "id": "block-marketing-demo-tabs-traces-tab",
+      "title": "Traces Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-traces-tab"
+    },
+    {
+      "id": "block-marketing-demo-tabs-workflows-tab",
+      "title": "Workflows Tab",
+      "source": "src/components/foglamp/blocks/marketing/demo/demo-chrome.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-demo-tabs-workflows-tab"
+    },
+    {
+      "id": "block-marketing-figures-feature-section",
+      "title": "Feature Section",
+      "source": "src/components/foglamp/blocks/marketing/figures/feature-section.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-feature-section"
+    },
+    {
+      "id": "block-marketing-figures-features",
+      "title": "Features",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-features"
+    },
+    {
+      "id": "block-marketing-figures-figure-kit-22",
+      "title": "Figure Kit 22 Block",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figure-kit-22"
+    },
+    {
+      "id": "block-marketing-figures-figure-kit",
+      "title": "Figure Kit",
+      "source": "src/components/foglamp/blocks/marketing/figures/figure-kit.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figure-kit"
+    },
+    {
+      "id": "block-marketing-figures-figure-picker",
+      "title": "Figure Picker",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figure-picker"
+    },
+    {
+      "id": "block-marketing-figures-figure-reveal",
+      "title": "Figure Reveal",
+      "source": "src/components/foglamp/blocks/marketing/figures/figure-reveal.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figure-reveal"
+    },
+    {
+      "id": "block-marketing-figures-figures-costs",
+      "title": "Figures Costs",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figures-costs"
+    },
+    {
+      "id": "block-marketing-figures-figures-scenes",
+      "title": "Figures Scenes",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figures-scenes"
+    },
+    {
+      "id": "block-marketing-figures-figures-traces",
+      "title": "Figures Traces",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figures-traces"
+    },
+    {
+      "id": "block-marketing-figures-figures",
+      "title": "Figures",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-figures"
+    },
+    {
+      "id": "block-marketing-figures-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-index"
+    },
+    {
+      "id": "block-marketing-figures-product-hero",
+      "title": "Product Hero",
+      "source": "src/components/foglamp/blocks/marketing/chrome/products.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-product-hero"
+    },
+    {
+      "id": "block-marketing-figures-visuals",
+      "title": "Visuals",
+      "source": "src/components/foglamp/blocks/marketing/figures/visuals.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-figures-visuals"
+    },
+    {
+      "id": "block-marketing-hero-hero-demo",
+      "title": "Hero Demo",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-hero-hero-demo"
+    },
+    {
+      "id": "block-marketing-hero-hero",
+      "title": "Hero",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-hero-hero"
+    },
+    {
+      "id": "block-marketing-hero-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/marketing/chrome/demo-link.ts",
+      "type": "registry:block",
+      "registryItem": "block-marketing-hero-index"
+    },
+    {
+      "id": "block-marketing-hud-landing",
+      "title": "Hud Landing",
+      "source": "src/components/foglamp/blocks/marketing/chrome/brand-mark.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-hud-landing"
+    },
+    {
+      "id": "block-marketing-original-authors",
+      "title": "Original Authors Block",
+      "source": "src/components/foglamp/blocks/marketing/original-authors-block.tsx",
+      "type": "registry:block",
+      "registryItem": "block-marketing-original-authors"
+    },
+    {
+      "id": "block-scan-brand",
+      "title": "Brand",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-brand"
+    },
+    {
+      "id": "block-scan-changes-card",
+      "title": "Changes Card",
+      "source": "src/components/foglamp/blocks/scan/changes-card.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-changes-card"
+    },
+    {
+      "id": "block-scan-copy-scan-prompt-button",
+      "title": "Copy Scan Prompt Button",
+      "source": "src/components/foglamp/blocks/scan/copy-scan-prompt-button.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-copy-scan-prompt-button"
+    },
+    {
+      "id": "block-scan-embed-board",
+      "title": "Embed Board",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-embed-board"
+    },
+    {
+      "id": "block-scan-favicon-context",
+      "title": "Favicon Context",
+      "source": "src/components/foglamp/blocks/scan/favicon-context.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-favicon-context"
+    },
+    {
+      "id": "block-scan-flow-map",
+      "title": "Flow Map",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-flow-map"
+    },
+    {
+      "id": "block-scan-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-index"
+    },
+    {
+      "id": "block-scan-kinds",
+      "title": "Kinds",
+      "source": "src/components/foglamp/blocks/scan/kinds.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-kinds"
+    },
+    {
+      "id": "block-scan-left-rail",
+      "title": "Left Rail",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-left-rail"
+    },
+    {
+      "id": "block-scan-noise-overlay",
+      "title": "Noise Overlay",
+      "source": "src/components/foglamp/blocks/scan/noise-overlay.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-noise-overlay"
+    },
+    {
+      "id": "block-scan-personality-card",
+      "title": "Personality Card",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-personality-card"
+    },
+    {
+      "id": "block-scan-powered-by",
+      "title": "Powered By",
+      "source": "src/components/foglamp/blocks/scan/powered-by.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-powered-by"
+    },
+    {
+      "id": "block-scan-scan-board",
+      "title": "Scan Board",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-scan-board"
+    },
+    {
+      "id": "block-scan-scan-landing",
+      "title": "Scan Landing",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-scan-landing"
+    },
+    {
+      "id": "block-scan-scan-prompt",
+      "title": "Scan Prompt",
+      "source": "src/components/foglamp/blocks/scan/scan-prompt.ts",
+      "type": "registry:block",
+      "registryItem": "block-scan-scan-prompt"
+    },
+    {
+      "id": "block-scan-share-bar",
+      "title": "Share Bar",
+      "source": "src/components/foglamp/blocks/scan/kinds.tsx",
+      "type": "registry:block",
+      "registryItem": "block-scan-share-bar"
+    },
+    {
+      "id": "block-setup-decision-list",
+      "title": "Decision List",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-setup-decision-list"
+    },
+    {
+      "id": "block-setup-index",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-setup-index"
+    },
+    {
+      "id": "block-setup-setup-board",
+      "title": "Setup Board",
+      "source": "src/components/foglamp/blocks/scan/brand.tsx",
+      "type": "registry:block",
+      "registryItem": "block-setup-setup-board"
+    },
+    {
+      "id": "block-setup-setup-summary",
+      "title": "Setup Summary",
+      "source": "src/components/foglamp/blocks/setup/setup-summary.tsx",
+      "type": "registry:block",
+      "registryItem": "block-setup-setup-summary"
+    },
+    {
+      "id": "block-setup-verification-report",
+      "title": "Verification Report",
+      "source": "src/components/foglamp/blocks/scan/kinds.tsx",
+      "type": "registry:block",
+      "registryItem": "block-setup-verification-report"
+    },
+    {
+      "id": "chart-evilcharts-charts-area-chart",
+      "title": "Area Chart",
+      "source": "src/components/foglamp/charts/evilcharts/charts/area-chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-charts-area-chart"
+    },
+    {
+      "id": "chart-evilcharts-charts-bar-chart",
+      "title": "Bar Chart",
+      "source": "src/components/foglamp/charts/evilcharts/charts/bar-chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-charts-bar-chart"
+    },
+    {
+      "id": "chart-evilcharts-charts-donut-chart",
+      "title": "Donut Chart",
+      "source": "src/components/foglamp/charts/evilcharts/charts/donut-chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-charts-donut-chart"
+    },
+    {
+      "id": "chart-evilcharts-charts-line-chart",
+      "title": "Line Chart",
+      "source": "src/components/foglamp/charts/evilcharts/charts/line-chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-charts-line-chart"
+    },
+    {
+      "id": "chart-evilcharts-ui-background",
+      "title": "Background",
+      "source": "src/components/foglamp/charts/evilcharts/ui/background.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-background"
+    },
+    {
+      "id": "chart-evilcharts-ui-chart",
+      "title": "Chart",
+      "source": "src/components/foglamp/charts/evilcharts/ui/chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-chart"
+    },
+    {
+      "id": "chart-evilcharts-ui-dot",
+      "title": "Dot",
+      "source": "src/components/foglamp/charts/evilcharts/ui/dot.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-dot"
+    },
+    {
+      "id": "chart-evilcharts-ui-evil-brush",
+      "title": "Evil Brush",
+      "source": "src/components/foglamp/charts/evilcharts/ui/chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-evil-brush"
+    },
+    {
+      "id": "chart-evilcharts-ui-legend",
+      "title": "Legend",
+      "source": "src/components/foglamp/charts/evilcharts/ui/chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-legend"
+    },
+    {
+      "id": "chart-evilcharts-ui-tooltip",
+      "title": "Tooltip",
+      "source": "src/components/foglamp/charts/evilcharts/ui/chart.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-tooltip"
+    },
+    {
+      "id": "chart-evilcharts-ui-zoom",
+      "title": "Zoom",
+      "source": "src/components/foglamp/charts/evilcharts/ui/zoom.tsx",
+      "type": "registry:component",
+      "registryItem": "chart-evilcharts-ui-zoom"
+    },
+    {
+      "id": "hook-use-app-hooks",
+      "title": "Use App Hooks",
+      "source": "src/components/foglamp/hooks/use-app-hooks.ts",
+      "type": "registry:hook",
+      "registryItem": "hook-use-app-hooks"
+    },
+    {
+      "id": "hook-use-copied",
+      "title": "Use Copied",
+      "source": "src/components/foglamp/hooks/use-copied.ts",
+      "type": "registry:hook",
+      "registryItem": "hook-use-copied"
+    },
+    {
+      "id": "hook-use-mobile",
+      "title": "Use Mobile",
+      "source": "src/components/foglamp/hooks/use-mobile.ts",
+      "type": "registry:hook",
+      "registryItem": "hook-use-mobile"
+    },
+    {
+      "id": "hud-foglamphud",
+      "title": "FoglampHUD",
+      "source": "src/components/foglamp/hud/FoglampHUD.tsx",
+      "type": "registry:component",
+      "registryItem": "hud-foglamphud"
+    },
+    {
+      "id": "hud-events",
+      "title": "Events",
+      "source": "src/components/foglamp/hud/events.ts",
+      "type": "registry:component",
+      "registryItem": "hud-events"
+    },
+    {
+      "id": "hud-format",
+      "title": "Format",
+      "source": "src/components/foglamp/hud/format.ts",
+      "type": "registry:component",
+      "registryItem": "hud-format"
+    },
+    {
+      "id": "hud-index",
+      "title": "Index",
+      "source": "src/components/foglamp/hud/FoglampHUD.tsx",
+      "type": "registry:component",
+      "registryItem": "hud-index"
+    },
+    {
+      "id": "hud-model-logo",
+      "title": "Model Logo",
+      "source": "src/components/foglamp/hud/model-logo.tsx",
+      "type": "registry:component",
+      "registryItem": "hud-model-logo"
+    },
+    {
+      "id": "hud-model",
+      "title": "Model",
+      "source": "src/components/foglamp/hud/events.ts",
+      "type": "registry:component",
+      "registryItem": "hud-model"
+    },
+    {
+      "id": "hud-styles",
+      "title": "Styles",
+      "source": "src/components/foglamp/hud/styles.ts",
+      "type": "registry:component",
+      "registryItem": "hud-styles"
+    },
+    {
+      "id": "hud-usehudstream",
+      "title": "UseHudStream",
+      "source": "src/components/foglamp/hud/events.ts",
+      "type": "registry:component",
+      "registryItem": "hud-usehudstream"
+    },
+    {
+      "id": "hud-wire",
+      "title": "Wire",
+      "source": "src/components/foglamp/hud/wire.ts",
+      "type": "registry:component",
+      "registryItem": "hud-wire"
+    },
+    {
+      "id": "icon-brand-logos",
+      "title": "Brand Logos",
+      "source": "src/components/foglamp/icons/brand-logos.tsx",
+      "type": "registry:component",
+      "registryItem": "icon-brand-logos"
+    },
+    {
+      "id": "icon-brand-mark",
+      "title": "Brand Mark",
+      "source": "src/components/foglamp/icons/brand-mark.tsx",
+      "type": "registry:component",
+      "registryItem": "icon-brand-mark"
+    },
+    {
+      "id": "icon-logo",
+      "title": "Logo",
+      "source": "src/components/foglamp/icons/brand-mark.tsx",
+      "type": "registry:component",
+      "registryItem": "icon-logo"
+    },
+    {
+      "id": "icon-model-logo",
+      "title": "Model Logo",
+      "source": "src/components/foglamp/icons/brand-logos.tsx",
+      "type": "registry:component",
+      "registryItem": "icon-model-logo"
+    },
+    {
+      "id": "foglamp",
+      "title": "Index",
+      "source": "src/components/foglamp/blocks/app-shell/app-shell-block.tsx",
+      "type": "registry:internal",
+      "registryItem": "foglamp"
+    },
+    {
+      "id": "utility-format",
+      "title": "Format",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-format"
+    },
+    {
+      "id": "utility-link-context",
+      "title": "Link Context",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:lib",
+      "registryItem": "utility-link-context"
+    },
+    {
+      "id": "utility-payload-messages",
+      "title": "Payload Messages",
+      "source": "src/components/foglamp/lib/payload-messages.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-payload-messages"
+    },
+    {
+      "id": "utility-prompts-diff",
+      "title": "Diff",
+      "source": "src/components/foglamp/lib/prompts/diff.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-prompts-diff"
+    },
+    {
+      "id": "utility-prompts-infer",
+      "title": "Infer",
+      "source": "src/components/foglamp/lib/prompts/diff.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-prompts-infer"
+    },
+    {
+      "id": "utility-prompts-slots",
+      "title": "Slots",
+      "source": "src/components/foglamp/lib/prompts/diff.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-prompts-slots"
+    },
+    {
+      "id": "utility-range",
+      "title": "Range",
+      "source": "src/components/foglamp/lib/range.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-range"
+    },
+    {
+      "id": "utility-scan-alerts",
+      "title": "Alerts",
+      "source": "src/components/foglamp/lib/scan/alerts.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-alerts"
+    },
+    {
+      "id": "utility-scan-diff",
+      "title": "Diff",
+      "source": "src/components/foglamp/lib/scan/diff.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-diff"
+    },
+    {
+      "id": "utility-scan-favicon",
+      "title": "Favicon",
+      "source": "src/components/foglamp/lib/scan/favicon.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-favicon"
+    },
+    {
+      "id": "utility-scan-fold-graph",
+      "title": "Fold Graph",
+      "source": "src/components/foglamp/lib/scan/fold-graph.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-fold-graph"
+    },
+    {
+      "id": "utility-scan-instrumentation",
+      "title": "Instrumentation",
+      "source": "src/components/foglamp/lib/scan/instrumentation.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-instrumentation"
+    },
+    {
+      "id": "utility-scan-layout",
+      "title": "Layout",
+      "source": "src/components/foglamp/lib/scan/layout.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-layout"
+    },
+    {
+      "id": "utility-scan-personality",
+      "title": "Personality",
+      "source": "src/components/foglamp/lib/scan/personality.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-personality"
+    },
+    {
+      "id": "utility-scan-scan",
+      "title": "Scan",
+      "source": "src/components/foglamp/lib/scan/scan.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-scan"
+    },
+    {
+      "id": "utility-scan-v1",
+      "title": "V1",
+      "source": "src/components/foglamp/lib/scan/v1.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-scan-v1"
+    },
+    {
+      "id": "utility-trace-timeline",
+      "title": "Trace Timeline",
+      "source": "src/components/foglamp/lib/scan/alerts.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-trace-timeline"
+    },
+    {
+      "id": "utility-types",
+      "title": "Types",
+      "source": "src/components/foglamp/lib/scan/alerts.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-types"
+    },
+    {
+      "id": "utility-utils",
+      "title": "Utils",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:lib",
+      "registryItem": "utility-utils"
+    },
+    {
+      "id": "style-effects",
+      "title": "Effects",
+      "source": "src/components/foglamp/styles/effects.css",
+      "type": "registry:style",
+      "registryItem": "style-effects"
+    },
+    {
+      "id": "style-globals",
+      "title": "Globals",
+      "source": "src/components/foglamp/styles/effects.css",
+      "type": "registry:style",
+      "registryItem": "style-globals"
+    },
+    {
+      "id": "ui-accordion",
+      "title": "Accordion",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-accordion"
+    },
+    {
+      "id": "ui-alert-dialog",
+      "title": "Alert Dialog",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-alert-dialog"
+    },
+    {
+      "id": "ui-alert",
+      "title": "Alert",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-alert"
+    },
+    {
+      "id": "ui-aspect-ratio",
+      "title": "Aspect Ratio",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-aspect-ratio"
+    },
+    {
+      "id": "ui-avatar",
+      "title": "Avatar",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-avatar"
+    },
+    {
+      "id": "ui-badge",
+      "title": "Badge",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-badge"
+    },
+    {
+      "id": "ui-breadcrumb",
+      "title": "Breadcrumb",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-breadcrumb"
+    },
+    {
+      "id": "ui-button-group",
+      "title": "Button Group",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-button-group"
+    },
+    {
+      "id": "ui-button",
+      "title": "Button",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-button"
+    },
+    {
+      "id": "ui-calendar",
+      "title": "Calendar",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-calendar"
+    },
+    {
+      "id": "ui-card",
+      "title": "Card",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-card"
+    },
+    {
+      "id": "ui-carousel",
+      "title": "Carousel",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-carousel"
+    },
+    {
+      "id": "ui-chart",
+      "title": "Chart",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-chart"
+    },
+    {
+      "id": "ui-checkbox",
+      "title": "Checkbox",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-checkbox"
+    },
+    {
+      "id": "ui-collapsible",
+      "title": "Collapsible",
+      "source": "src/components/foglamp/ui/collapsible.tsx",
+      "type": "registry:ui",
+      "registryItem": "ui-collapsible"
+    },
+    {
+      "id": "ui-combobox",
+      "title": "Combobox",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-combobox"
+    },
+    {
+      "id": "ui-command",
+      "title": "Command",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-command"
+    },
+    {
+      "id": "ui-context-menu",
+      "title": "Context Menu",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-context-menu"
+    },
+    {
+      "id": "ui-dialog",
+      "title": "Dialog",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-dialog"
+    },
+    {
+      "id": "ui-direction",
+      "title": "Direction",
+      "source": "src/components/foglamp/ui/direction.tsx",
+      "type": "registry:ui",
+      "registryItem": "ui-direction"
+    },
+    {
+      "id": "ui-drawer",
+      "title": "Drawer",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-drawer"
+    },
+    {
+      "id": "ui-dropdown-menu",
+      "title": "Dropdown Menu",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-dropdown-menu"
+    },
+    {
+      "id": "ui-empty",
+      "title": "Empty",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-empty"
+    },
+    {
+      "id": "ui-field",
+      "title": "Field",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-field"
+    },
+    {
+      "id": "ui-hover-card",
+      "title": "Hover Card",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-hover-card"
+    },
+    {
+      "id": "ui-input-group",
+      "title": "Input Group",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-input-group"
+    },
+    {
+      "id": "ui-input-otp",
+      "title": "Input Otp",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-input-otp"
+    },
+    {
+      "id": "ui-input",
+      "title": "Input",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-input"
+    },
+    {
+      "id": "ui-item",
+      "title": "Item",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-item"
+    },
+    {
+      "id": "ui-kbd",
+      "title": "Kbd",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-kbd"
+    },
+    {
+      "id": "ui-label",
+      "title": "Label",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-label"
+    },
+    {
+      "id": "ui-loader",
+      "title": "Loader",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-loader"
+    },
+    {
+      "id": "ui-menubar",
+      "title": "Menubar",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-menubar"
+    },
+    {
+      "id": "ui-native-select",
+      "title": "Native Select",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-native-select"
+    },
+    {
+      "id": "ui-navigation-menu",
+      "title": "Navigation Menu",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-navigation-menu"
+    },
+    {
+      "id": "ui-pagination",
+      "title": "Pagination",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-pagination"
+    },
+    {
+      "id": "ui-popover",
+      "title": "Popover",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-popover"
+    },
+    {
+      "id": "ui-progress",
+      "title": "Progress",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-progress"
+    },
+    {
+      "id": "ui-radio-group",
+      "title": "Radio Group",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-radio-group"
+    },
+    {
+      "id": "ui-resizable",
+      "title": "Resizable",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-resizable"
+    },
+    {
+      "id": "ui-scroll-area",
+      "title": "Scroll Area",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-scroll-area"
+    },
+    {
+      "id": "ui-select",
+      "title": "Select",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-select"
+    },
+    {
+      "id": "ui-separator",
+      "title": "Separator",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-separator"
+    },
+    {
+      "id": "ui-sheet",
+      "title": "Sheet",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-sheet"
+    },
+    {
+      "id": "ui-sidebar",
+      "title": "Sidebar",
+      "source": "src/components/foglamp/hooks/use-mobile.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-sidebar"
+    },
+    {
+      "id": "ui-skeleton",
+      "title": "Skeleton",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-skeleton"
+    },
+    {
+      "id": "ui-slider",
+      "title": "Slider",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-slider"
+    },
+    {
+      "id": "ui-sonner",
+      "title": "Sonner",
+      "source": "src/components/foglamp/ui/sonner.tsx",
+      "type": "registry:ui",
+      "registryItem": "ui-sonner"
+    },
+    {
+      "id": "ui-spinner",
+      "title": "Spinner",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-spinner"
+    },
+    {
+      "id": "ui-switch",
+      "title": "Switch",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-switch"
+    },
+    {
+      "id": "ui-table",
+      "title": "Table",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-table"
+    },
+    {
+      "id": "ui-tabs",
+      "title": "Tabs",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-tabs"
+    },
+    {
+      "id": "ui-textarea",
+      "title": "Textarea",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-textarea"
+    },
+    {
+      "id": "ui-toggle-group",
+      "title": "Toggle Group",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-toggle-group"
+    },
+    {
+      "id": "ui-toggle",
+      "title": "Toggle",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-toggle"
+    },
+    {
+      "id": "ui-tooltip",
+      "title": "Tooltip",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:ui",
+      "registryItem": "ui-tooltip"
+    },
+    {
+      "id": "widget-animated-api-key",
+      "title": "Animated Api Key",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-animated-api-key"
+    },
+    {
+      "id": "widget-code-block",
+      "title": "Code Block",
+      "source": "src/components/foglamp/hooks/use-copied.ts",
+      "type": "registry:component",
+      "registryItem": "widget-code-block"
+    },
+    {
+      "id": "widget-context-chip",
+      "title": "Context Chip",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-context-chip"
+    },
+    {
+      "id": "widget-cost-breakdown",
+      "title": "Cost Breakdown",
+      "source": "src/components/foglamp/charts/evilcharts/charts/bar-chart.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-cost-breakdown"
+    },
+    {
+      "id": "widget-data-table",
+      "title": "Data Table",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-data-table"
+    },
+    {
+      "id": "widget-dev-toolbar",
+      "title": "Dev Toolbar",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-dev-toolbar"
+    },
+    {
+      "id": "widget-eval-scores",
+      "title": "Eval Scores",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-eval-scores"
+    },
+    {
+      "id": "widget-foggy-foggy-message",
+      "title": "Foggy Message",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-foggy-foggy-message"
+    },
+    {
+      "id": "widget-foggy-foggy-widget",
+      "title": "Foggy Widget",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-foggy-foggy-widget"
+    },
+    {
+      "id": "widget-foggy-index",
+      "title": "Index",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-foggy-index"
+    },
+    {
+      "id": "widget-foggy-markdown",
+      "title": "Markdown",
+      "source": "src/components/foglamp/widgets/foggy/markdown.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-foggy-markdown"
+    },
+    {
+      "id": "widget-foggy-types",
+      "title": "Types",
+      "source": "src/components/foglamp/widgets/foggy/types.ts",
+      "type": "registry:component",
+      "registryItem": "widget-foggy-types"
+    },
+    {
+      "id": "widget-header-slot",
+      "title": "Header Slot",
+      "source": "src/components/foglamp/widgets/header-slot.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-header-slot"
+    },
+    {
+      "id": "widget-heat-cell",
+      "title": "Heat Cell",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-heat-cell"
+    },
+    {
+      "id": "widget-leaf-agent-icon",
+      "title": "Agent Icon",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-agent-icon"
+    },
+    {
+      "id": "widget-leaf-copy-button",
+      "title": "Copy Button",
+      "source": "src/components/foglamp/hooks/use-copied.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-copy-button"
+    },
+    {
+      "id": "widget-leaf-copy-icon",
+      "title": "Copy Icon",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-copy-icon"
+    },
+    {
+      "id": "widget-leaf-customer-avatar",
+      "title": "Customer Avatar",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-customer-avatar"
+    },
+    {
+      "id": "widget-leaf-favicon",
+      "title": "Favicon",
+      "source": "src/components/foglamp/widgets/leaf/favicon.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-favicon"
+    },
+    {
+      "id": "widget-leaf-node-flow",
+      "title": "Node Flow",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-node-flow"
+    },
+    {
+      "id": "widget-leaf-preset-meta",
+      "title": "Preset Meta",
+      "source": "src/components/foglamp/widgets/leaf/preset-meta.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-preset-meta"
+    },
+    {
+      "id": "widget-leaf-project-icon",
+      "title": "Project Icon",
+      "source": "src/components/foglamp/widgets/leaf/favicon.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-project-icon"
+    },
+    {
+      "id": "widget-leaf-relative-time",
+      "title": "Relative Time",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-relative-time"
+    },
+    {
+      "id": "widget-leaf-scan-brand",
+      "title": "Scan Brand",
+      "source": "src/components/foglamp/icons/brand-logos.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-scan-brand"
+    },
+    {
+      "id": "widget-leaf-span-type",
+      "title": "Span Type",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-span-type"
+    },
+    {
+      "id": "widget-leaf-stat",
+      "title": "Stat",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-stat"
+    },
+    {
+      "id": "widget-leaf-sunset-card",
+      "title": "Sunset Card",
+      "source": "src/components/foglamp/widgets/leaf/sunset-card.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-sunset-card"
+    },
+    {
+      "id": "widget-leaf-tool-icon",
+      "title": "Tool Icon",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-leaf-tool-icon"
+    },
+    {
+      "id": "widget-markdown",
+      "title": "Markdown",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-markdown"
+    },
+    {
+      "id": "widget-model-chip",
+      "title": "Model Chip",
+      "source": "src/components/foglamp/icons/brand-logos.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-model-chip"
+    },
+    {
+      "id": "widget-nav",
+      "title": "Nav",
+      "source": "src/components/foglamp/widgets/nav.ts",
+      "type": "registry:component",
+      "registryItem": "widget-nav"
+    },
+    {
+      "id": "widget-page-parts",
+      "title": "Page Parts",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-page-parts"
+    },
+    {
+      "id": "widget-payload-view",
+      "title": "Payload View",
+      "source": "src/components/foglamp/hooks/use-copied.ts",
+      "type": "registry:component",
+      "registryItem": "widget-payload-view"
+    },
+    {
+      "id": "widget-project-context",
+      "title": "Project Context",
+      "source": "src/components/foglamp/widgets/project-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-project-context"
+    },
+    {
+      "id": "widget-prompt-prose",
+      "title": "Prompt Prose",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-prompt-prose"
+    },
+    {
+      "id": "widget-prompt-version-chip",
+      "title": "Prompt Version Chip",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-prompt-version-chip"
+    },
+    {
+      "id": "widget-prompt-versions-card",
+      "title": "Prompt Versions Card",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-prompt-versions-card"
+    },
+    {
+      "id": "widget-quota-card",
+      "title": "Quota Card",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-quota-card"
+    },
+    {
+      "id": "widget-range-context",
+      "title": "Range Context",
+      "source": "src/components/foglamp/lib/range.ts",
+      "type": "registry:component",
+      "registryItem": "widget-range-context"
+    },
+    {
+      "id": "widget-range-picker",
+      "title": "Range Picker",
+      "source": "src/components/foglamp/lib/range.ts",
+      "type": "registry:component",
+      "registryItem": "widget-range-picker"
+    },
+    {
+      "id": "widget-route-header",
+      "title": "Route Header",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-route-header"
+    },
+    {
+      "id": "widget-run-exchange",
+      "title": "Run Exchange",
+      "source": "src/components/foglamp/hooks/use-copied.ts",
+      "type": "registry:component",
+      "registryItem": "widget-run-exchange"
+    },
+    {
+      "id": "widget-theme-switcher",
+      "title": "Theme Switcher",
+      "source": "src/components/foglamp/lib/utils.ts",
+      "type": "registry:component",
+      "registryItem": "widget-theme-switcher"
+    },
+    {
+      "id": "widget-tool-breakdown",
+      "title": "Tool Breakdown",
+      "source": "src/components/foglamp/hooks/use-app-hooks.ts",
+      "type": "registry:component",
+      "registryItem": "widget-tool-breakdown"
+    },
+    {
+      "id": "widget-trace-timeline",
+      "title": "Trace Timeline",
+      "source": "src/components/foglamp/icons/brand-logos.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-trace-timeline"
+    },
+    {
+      "id": "widget-trend-charts",
+      "title": "Trend Charts",
+      "source": "src/components/foglamp/charts/evilcharts/ui/chart.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-trend-charts"
+    },
+    {
+      "id": "widget-user-menu",
+      "title": "User Menu",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-user-menu"
+    },
+    {
+      "id": "figure-costs-cards",
+      "title": "Costs Cards",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-cards"
+    },
+    {
+      "id": "figure-costs-stair",
+      "title": "Costs Stair",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-stair"
+    },
+    {
+      "id": "figure-costs-fan",
+      "title": "Costs Fan",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-fan"
+    },
+    {
+      "id": "figure-costs-shelf",
+      "title": "Costs Shelf",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-shelf"
+    },
+    {
+      "id": "figure-costs-total",
+      "title": "Costs Total",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-total"
+    },
+    {
+      "id": "figure-costs-chart",
+      "title": "Costs Chart",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-chart"
+    },
+    {
+      "id": "figure-costs-alert",
+      "title": "Costs Alert",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-alert"
+    },
+    {
+      "id": "figure-costs-table",
+      "title": "Costs Table",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-table"
+    },
+    {
+      "id": "figure-costs-tabs",
+      "title": "Costs Tabs",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-tabs"
+    },
+    {
+      "id": "figure-costs-shares",
+      "title": "Costs Shares",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-shares"
+    },
+    {
+      "id": "figure-costs-backdrop",
+      "title": "Costs Backdrop",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-backdrop"
+    },
+    {
+      "id": "figure-costs-donut",
+      "title": "Costs Donut",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-donut"
+    },
+    {
+      "id": "figure-costs-area",
+      "title": "Costs Area",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-area"
+    },
+    {
+      "id": "figure-costs-small",
+      "title": "Costs Small",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-small"
+    },
+    {
+      "id": "figure-costs-flow",
+      "title": "Costs Flow",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-costs-flow"
+    },
+    {
+      "id": "figure-traces-story",
+      "title": "Traces Story",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-traces-story"
+    },
+    {
+      "id": "figure-traces-chat",
+      "title": "Traces Chat",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-traces-chat"
+    },
+    {
+      "id": "figure-traces-xray",
+      "title": "Traces Xray",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-traces-xray"
+    },
+    {
+      "id": "figure-traces-steps",
+      "title": "Traces Steps",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-traces-steps"
+    },
+    {
+      "id": "figure-traces-inspector",
+      "title": "Traces Inspector",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-traces-inspector"
+    },
+    {
+      "id": "figure-traces-graph",
+      "title": "Traces Graph",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-traces-graph"
+    },
+    {
+      "id": "figure-quality-review",
+      "title": "Quality Review",
+      "source": "src/components/foglamp/blocks/marketing/demo/mock-data.ts",
+      "type": "registry:component",
+      "registryItem": "figure-quality-review"
+    },
+    {
+      "id": "widget-page-header",
+      "title": "Page-Header",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-page-header"
+    },
+    {
+      "id": "widget-stat-card",
+      "title": "Stat-Card",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-stat-card"
+    },
+    {
+      "id": "widget-quota-card-view",
+      "title": "Quota-Card-View",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-quota-card-view"
+    },
+    {
+      "id": "widget-user-menu-view",
+      "title": "User-Menu-View",
+      "source": "src/components/foglamp/lib/link-context.tsx",
+      "type": "registry:component",
+      "registryItem": "widget-user-menu-view"
+    },
+    {
+      "id": "widget-toolbar",
+      "title": "Toolbar",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-toolbar"
+    },
+    {
+      "id": "widget-search-input",
+      "title": "Search-Input",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-search-input"
+    },
+    {
+      "id": "widget-toggle-chip",
+      "title": "Toggle-Chip",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-toggle-chip"
+    },
+    {
+      "id": "widget-filter-select",
+      "title": "Filter-Select",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-filter-select"
+    },
+    {
+      "id": "widget-sortable-head",
+      "title": "Sortable-Head",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-sortable-head"
+    },
+    {
+      "id": "widget-pagination-footer",
+      "title": "Pagination-Footer",
+      "source": "src/components/foglamp/lib/format.ts",
+      "type": "registry:component",
+      "registryItem": "widget-pagination-footer"
+    }
+  ]
+}

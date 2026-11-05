@@ -1,0 +1,33 @@
+---
+title: TrendCharts
+description: Exports the selectable chart legend and range-bucket helpers used by trend views.
+---
+
+Exports the selectable chart legend and range-bucket helpers used by trend views.
+
+import { story } from "../../../src/stories/widgets/trend-charts.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `ChartLegend` | `config` | `ChartConfig` | Labels and light/dark colors keyed by data series. |
+|  | `selected` | `string \| null` | Current selected identifier, or null when nothing is selected. |
+|  | `onSelect` | `(key: string \| null) => void` | Receives the selected item or series. |
+| `themed` | `color` | `string` | Argument accepted by themed. |
+
+## Requirements
+
+`ChartLegend` is controlled by `selected` and `onSelect`. The module also exports bucket-formatting helpers and `useZoomRange`; that hook reads shared range state and requires `RangeProvider`.
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/trend-charts.story.tsx`](../../../src/stories/widgets/trend-charts.story.tsx). The authoritative registry item ID is `widget-trend-charts` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

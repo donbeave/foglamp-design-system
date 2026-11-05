@@ -1,0 +1,27 @@
+---
+title: NodeFlow
+description: Groups sequential agent flow nodes into a compact flow row.
+---
+
+Groups sequential agent flow nodes into a compact flow row.
+
+import { story } from "../../../src/stories/widgets/node-flow.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `NodeFlow` | `nodes` | `FlowNode[]` | Flow nodes displayed in sequence. |
+|  | `onNodeClick` | `((id: string) => void) \| undefined` | Receives the selected node ID. |
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/node-flow.story.tsx`](../../../src/stories/widgets/node-flow.story.tsx). The authoritative registry item ID is `widget-leaf-node-flow` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

@@ -1,0 +1,30 @@
+---
+title: CustomerAvatar
+description: Renders the customer identity mark from customer ID and name inputs.
+---
+
+Renders the customer identity mark from customer ID and name inputs.
+
+import { story } from "../../../src/stories/widgets/customer-avatar.story";
+
+<story.WithControl />
+
+## Public API
+
+The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
+
+| Export | Prop | Type | Meaning |
+| :--- | :--- | :--- | :--- |
+| `CustomerAvatar` | `customerId` | `string` | Customer ID used to derive the avatar. |
+|  | `customerName` | `string \| null \| undefined` | Customer name used for the avatar label. |
+|  | `imageUrl` | `string \| null \| undefined` | Image URL used by the avatar. |
+|  | `filled` | `boolean \| undefined` | Selects the filled or outline treatment. |
+|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+
+## Source and registry
+
+The interactive example comes from [`src/stories/widgets/customer-avatar.story.tsx`](../../../src/stories/widgets/customer-avatar.story.tsx). The authoritative registry item ID is `widget-leaf-customer-avatar` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+
+## Attribution
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.

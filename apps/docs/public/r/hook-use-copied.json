@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hook-use-copied",
+  "type": "registry:hook",
+  "title": "Use Copied",
+  "description": "Install style-globals once and import @/components/foglamp/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from hooks/use-copied.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
+  "author": "Gustavo Fior (@gustavo-fior), Abdul Haidar & Foglamp Labs",
+  "homepage": "https://github.com/foglamp-labs/foglamp",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "src/components/foglamp/hooks/use-copied.ts",
+      "type": "registry:component",
+      "content": "\"use client\";\n\n/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.\n * Extracted from .reference/foglamp/apps/web/src/components/app/use-copied.ts; derived here under Apache-2.0.\n */\nimport { useEffect, useRef, useState } from \"react\";\n\n/**\n * Transient \"copied\" flag for copy-to-clipboard buttons. Resets after\n * `timeoutMs`; the timer is cleared on unmount and on re-copy, so a stale\n * timeout never fires into an unmounted component.\n */\nexport function useCopied(timeoutMs = 1500) {\n\tconst [copied, setCopied] = useState(false);\n\tconst timer = useRef<ReturnType<typeof setTimeout>>(undefined);\n\tuseEffect(() => () => clearTimeout(timer.current), []);\n\n\tfunction markCopied() {\n\t\tsetCopied(true);\n\t\tclearTimeout(timer.current);\n\t\ttimer.current = setTimeout(() => setCopied(false), timeoutMs);\n\t}\n\n\tfunction resetCopied() {\n\t\tclearTimeout(timer.current);\n\t\tsetCopied(false);\n\t}\n\n\treturn { copied, markCopied, resetCopied };\n}\n"
+    }
+  ],
+  "dependencies": [
+    "react@19.2.5",
+    "react-dom@19.2.5"
+  ]
+}

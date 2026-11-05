@@ -1,0 +1,27 @@
+---
+title: App Shell Block
+description: App Shell Block provides the project navigation shell, user menu, and nested route content. The story supplies an Acme project, a demo user, a router-link adapter, and a local project-creation handler.
+---
+
+import { story } from '../../../src/stories/blocks/app-shell-block.story'
+
+App Shell Block provides the project navigation shell, user menu, and nested route content. The story supplies an Acme project, a demo user, a router-link adapter, and a local project-creation handler.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/app-shell/app-shell-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/app-shell-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `pathname: string`, `isLoading: boolean`; initial values are `pathname: '/overview', isLoading: false` |
+| Fixture and callback wiring | The story exposes `pathname` and `isLoading`. `projects`, `user`, and the `onNewProject` implementation come from the story fixture. Pass the current pathname, project collection, loading state, user, project creation callback, and route content in an application. |
+| Registry item | `block-app-shell-app-shell`. The portal payload is `/r/block-app-shell-app-shell.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).

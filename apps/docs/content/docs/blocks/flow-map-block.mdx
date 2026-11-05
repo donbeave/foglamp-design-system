@@ -1,0 +1,27 @@
+---
+title: Flow Map
+description: Flow Map lays out the scan graph in a chosen direction. The story supplies the scan graph fixture and resolves its favicons through ScanFaviconProvider.
+---
+
+import { story } from '../../../src/stories/blocks/flow-map-block.story'
+
+Flow Map lays out the scan graph in a chosen direction. The story supplies the scan graph fixture and resolves its favicons through ScanFaviconProvider.
+
+<story.WithControl />
+
+## Package entry
+
+`@foglamp/design-system/blocks/scan/flow-map` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/flow-map-block.story.tsx`.
+
+## API reference
+
+| Entry | Contract |
+| --- | --- |
+| Story arguments | `direction: 'RIGHT' | 'DOWN'`; initial values are `direction: 'RIGHT'` |
+| Fixture and callback wiring | The story exposes `direction` (`RIGHT` or `DOWN`). The source component receives the fixture graph and `focusKinds={null}`. For application data, supply a graph and an optional `NodeKind[]` focus filter under the favicon provider. |
+| Registry item | `block-scan-flow-map`. The portal payload is `/r/block-scan-flow-map.json`. |
+
+
+---
+
+Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
