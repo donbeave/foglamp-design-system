@@ -1,9 +1,9 @@
 import { SLOT_LINE } from "@foglamp/prompts";
 
-import { agentColor } from "@/components/app/agent-icon";
-import type { ChartConfig } from "@/components/evilcharts/ui/chart";
-import type { PromptVersion } from "@/components/app/prompt-versions-card";
-import type { SlotExamples } from "@/components/app/prompt-prose";
+import { agentColor } from "@foglamp/design-system/widgets/leaf/agent-icon";
+import type { ChartConfig } from "@foglamp/design-system/charts/evilcharts/ui/chart";
+import type { PromptVersion } from "@foglamp/design-system/widgets/prompt-versions-card";
+import type { SlotExamples } from "@foglamp/design-system/widgets/prompt-prose";
 
 export type DemoTab =
   | "overview"

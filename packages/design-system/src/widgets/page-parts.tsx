@@ -1,0 +1,816 @@
+/** Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
+ * Extracted AS-IS from .reference/foglamp/apps/web/src/components/app/page-parts.tsx; derived under Apache-2.0.
+ */
+"use client";
+
+import { Card, CardHeader, CardTitle } from "../ui/card";
+import { cn } from "../lib/utils";
+import {
+  type Icon,
+  IconArrowDownRight,
+  IconArrowUpRight,
+  IconChevronRight,
+  IconFolderOff,
+  IconMailForward,
+} from "@tabler/icons-react";
+import { animate } from "motion/react";
+import { FoglampLink } from "../lib/link-context";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
+
+import { Button } from "../ui/button";
+
+import { useHeaderActionsSlot } from "./header-slot";
+
+import type { Delta } from "../lib/format";
+import {
+  Empty,
+  EmptyContent,
+  EmptyDescription,
+  EmptyHeader,
+  EmptyMedia,
+  EmptyTitle,
+} from "../ui/empty";
+import { Skeleton } from "../ui/skeleton";
+import { TableCell, TableRow } from "../ui/table";
+
+/**
+ * A clickable parent crumb rendered before the page title, e.g. an "Evals"
+ * link that takes the user back to the list. Pairs the section's nav icon with
+ * its label; the shape is a subset of `NavItem`, so a nav entry can be passed
+ * straight through.
+ */
+export type PageHeaderBack = {
+  href: string;
+  label: string;
+  icon: Icon;
+  iconClassName?: string;
+};
+
+export function PageHeader({
+  title,
+  titleLeading,
+  titleTrailing,
+  description,
+  actions,
+  back,
+  icon: TitleIcon,
+  iconClassName,
+}: {
+  title: string;
+  /** Inline element rendered right before the title (e.g. an agent's colored
+   * icon), sitting after the breadcrumb chevron when `back` is set. */
+  titleLeading?: React.ReactNode;
+  /** Inline element rendered right after the title (e.g. a copy-id button). */
+  titleTrailing?: React.ReactNode;
+  description?: React.ReactNode;
+  actions?: React.ReactNode;
+  /** When set, renders a `[icon] Label › Title` breadcrumb instead of a plain
+   * title — the icon + label link back to the parent page. */
+  back?: PageHeaderBack;
+  /** Section icon rendered before the title (e.g. the nav icon on a list page).
+   * Ignored when `back` is set, since the breadcrumb already shows an icon. */
+  icon?: Icon;
+  iconClassName?: string;
+}) {
+  const BackIcon = back?.icon;
+  const slot = useHeaderActionsSlot();
+  return (
+    // h-8 (not h-7) so action buttons — the h-8 RangePicker — fit without
+    // overflowing the line, which shifted content below by ~4px whenever a
+    // header had actions.
+    <div className="flex flex-wrap items-end justify-between gap-4 px-8 h-8">
+      <div className="flex min-w-0 flex-col gap-1.5">
+        {back && BackIcon ? (
+          <h1 className="flex items-center gap-1.5 text-base font-medium tracking-tight">
+            <FoglampLink
+              href={back.href}
+              className="flex shrink-0 items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
+            >
+              <BackIcon
+                className={cn("size-4.5 shrink-0", back.iconClassName)}
+              />
+              {back.label}
+            </FoglampLink>
+            <IconChevronRight className="size-4 shrink-0 text-muted-foreground/50 stroke-[1.5px]" />
+            {titleLeading}
+            <span className="truncate">{title}</span>
+            {titleTrailing}
+          </h1>
+        ) : (
+          <h1 className="flex items-center gap-2 text-base font-medium tracking-tight">
+            {TitleIcon && (
+              <TitleIcon className={cn("size-4.5 shrink-0", iconClassName)} />
+            )}
+            {titleLeading}
+            <span className="truncate">{title}</span>
+            {titleTrailing}
+          </h1>
+        )}
+        {description && (
+          <p className="text-sm text-muted-foreground">{description}</p>
+        )}
+      </div>
+      {/* Always rendered (even without actions) so a Toolbar can portal its
+          trailing controls here when they'd wrap — see header-slot.tsx.
+          Nudged down so the picker lines up with the title text. */}
+      <div
+        ref={slot?.setEl}
+        className="flex items-center gap-2 translate-y-1 empty:hidden"
+      >
+        {actions}
+      </div>
+    </div>
+  );
+}
+
+const defaultTickerFormat = (n: number) => Math.round(n).toLocaleString();
+
+/**
+ * Animated numeric stat: when `value` changes, the digits tween from the old
+ * number to the new one, with every intermediate frame run through `format`
+ * so the string stays properly formatted ("$1.23", "87%", "1.2K") the whole
+ * way. The first paint is static — only later changes animate.
+ */
+function TickerValue({
+  value,
+  format,
+}: {
+  value: number;
+  format: (n: number) => string;
+}) {
+  const [display, setDisplay] = useState(() => format(value));
+  const animatedFrom = useRef(value);
+  // The formatter is often an inline closure — keep the latest without
+  // retriggering the animation effect.
+  const formatRef = useRef(format);
+  formatRef.current = format;
+
+  useEffect(() => {
+    const from = animatedFrom.current;
+    if (from === value) {
+      setDisplay(formatRef.current(value));
+      return;
+    }
+    animatedFrom.current = value;
+    const controls = animate(from, value, {
+      duration: 0.6,
+      ease: "easeOut",
+      onUpdate: (v) => setDisplay(formatRef.current(v)),
+      onComplete: () => setDisplay(formatRef.current(value)),
+    });
+    return () => controls.stop();
+  }, [value]);
+
+  return <span>{display}</span>;
+}
+
+/**
+ * A single metric tile for a stat strip. Within a strip, order cards by the
+ * canonical narrative — **Volume → Health → Performance → Cost** — i.e. lead
+ * with the primary count/throughput (e.g. Traces, Runs, Spans), then health
+ * (errors / pass rate), then performance (latency / duration), and always
+ * close with cost. Cost is the bottom-line figure and sits last everywhere.
+ */
+export function StatCard({
+  label,
+  value,
+  hint,
+  delta,
+  deltaInverted = false,
+  size = "default",
+  icon: Icon,
+  iconClassName,
+  chart,
+  prefix,
+  suffix,
+  formatValue,
+  loading = false,
+  skeleton = false,
+  chartPlaceholder,
+  href,
+}: {
+  label: string;
+  /** Makes the whole card a link: pointer cursor, and a chevron slides in
+   * after the label on hover to signal the drill-down. */
+  href?: string;
+  /** A `number` gets the ticker treatment — on change the digits animate to
+   * the new value, formatted each frame by `formatValue` and wrapped in
+   * `prefix`/`suffix`. Any other ReactNode (a preformatted string, "—", …)
+   * renders statically. */
+  value: React.ReactNode;
+  /** Accepted for callers, but not rendered in the current layout (the card
+   * shows only label, delta, and value). */
+  hint?: React.ReactNode;
+  /** Static element rendered before an animated numeric value. */
+  prefix?: React.ReactNode;
+  /** Static element rendered after an animated numeric value. */
+  suffix?: React.ReactNode;
+  /** Formats an animated numeric value each frame (e.g. `formatCost`).
+   * Defaults to a rounded locale string. */
+  formatValue?: (n: number) => string;
+  /** Period-over-period change (from `formatDelta`); null/undefined hides it. */
+  delta?: Delta | null;
+  /** When true, "up" is bad (red) — for cost / errors / latency. */
+  deltaInverted?: boolean;
+  /** "sm" tightens the card padding and value text for dense layouts. */
+  size?: "default" | "sm";
+  /** Optional glyph shown in the card's top-right corner (prefer a filled
+   * variant). */
+  icon?: Icon;
+  /** Color class for the icon, e.g. `text-amber-500`. Defaults to muted. */
+  iconClassName?: string;
+  /** Full-bleed visual pinned to the card's bottom edge — e.g. a
+   * `CardSparkline` or `PillMeter`. Bleeds past the card's vertical padding. */
+  chart?: React.ReactNode;
+  /** While true the static shell (icon + label) stays put and the value,
+   * delta, and chart slots are held empty at their final heights, so
+   * the data drops into place without shifting the card. */
+  loading?: boolean;
+  /** With `loading`, paints shimmer blobs in the value and delta
+   * slots (pair with `useDelayedLoading` so fast loads never flash them).
+   * The chart slot shows `chartPlaceholder` (or stays blank). */
+  skeleton?: boolean;
+  /** Loading stand-in for the chart slot, e.g. a gray `CardSparklinePlaceholder`
+   * or an all-inactive `PillMeter`. Shown once `skeleton` flips; the slot is
+   * held blank at full height before that. */
+  chartPlaceholder?: React.ReactNode;
+}) {
+  const hold = loading ? (skeleton ? "skeleton" : "blank") : null;
+  const placeholderClass = hold === "blank" ? "invisible" : undefined;
+  const card = (
+    <Card size={size} className={cn(href && "h-full cursor-pointer")}>
+      <CardHeader className="gap-1.5">
+        {/* Icon + label on the left; the delta badge and value on the right. */}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex min-w-0 items-center gap-1.75">
+            {Icon && (
+              <Icon
+                className={cn(
+                  "size-3.5 shrink-0 text-muted-foreground",
+                  iconClassName
+                )}
+              />
+            )}
+            {/* A plain span, not CardDescription: its data-slot would make
+                CardHeader reserve a second grid row (plus gap) under this
+                single row, leaving extra space at the bottom of chartless
+                cards. */}
+            <span className="truncate text-sm text-foreground">{label}</span>
+            {href && (
+              <IconChevronRight className="mt-px size-3.5 shrink-0 text-muted-foreground opacity-0 -translate-x-1 transition-[opacity,translate] duration-150 group-hover/stat:translate-x-0 group-hover/stat:opacity-100" />
+            )}
+          </div>
+          <div className="flex shrink-0 items-center gap-1.5">
+            {hold
+              ? null
+              : delta && <DeltaBadge delta={delta} inverted={deltaInverted} />}
+            <CardTitle className="tracking-tight tabular-nums">
+              {hold ? (
+                // Zero-width text keeps the title's line box so the row
+                // height matches the loaded card exactly.
+                <span className="inline-flex items-center">
+                  {"\u200b"}
+                  <Skeleton className={cn("h-3 w-20", placeholderClass)} />
+                </span>
+              ) : typeof value === "number" ? (
+                <>
+                  {prefix}
+                  <TickerValue
+                    value={value}
+                    format={formatValue ?? defaultTickerFormat}
+                  />
+                  {suffix}
+                </>
+              ) : (
+                value
+              )}
+            </CardTitle>
+          </div>
+        </div>
+      </CardHeader>
+
+      {hold && chart ? (
+        // Held at the height of the tallest chart slot (PillMeter:
+        // 6 + 14 + 20px) so the chart appears without growing the card;
+        // the placeholder (if any) paints in the same box after the delay.
+        <div className="mt-auto pt-1.5 -mb-6 group-data-[size=sm]/card:-mb-5">
+          <div className="flex h-10 w-full flex-col justify-end">
+            {hold === "skeleton" && chartPlaceholder}
+          </div>
+        </div>
+      ) : (
+        chart && (
+          <div className="mt-auto pt-1.5 -mb-6 group-data-[size=sm]/card:-mb-5">
+            {chart}
+          </div>
+        )
+      )}
+    </Card>
+  );
+  if (!href) return card;
+  return (
+    <FoglampLink href={href} className="group/stat block min-w-0">
+      {card}
+    </FoglampLink>
+  );
+}
+
+function DeltaBadge({ delta, inverted }: { delta: Delta; inverted: boolean }) {
+  if (delta.dir === "flat") {
+    return (
+      <span className="text-xs font-medium tabular-nums text-muted-foreground mt-px">
+        ~0%
+      </span>
+    );
+  }
+  const up = delta.dir === "up";
+  const good = inverted ? !up : up;
+  const Arrow = up ? IconArrowUpRight : IconArrowDownRight;
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-px text-xs font-[470] tabular-nums mt-px",
+        good
+          ? "text-emerald-600 dark:text-emerald-500"
+          : "text-red-500 dark:text-red-500"
+      )}
+      title="vs. previous period"
+    >
+      {Math.abs(Math.round(delta.pct * 100))}%
+      <Arrow className="size-3.75 stroke-[1.6]" />
+    </span>
+  );
+}
+
+/**
+ * A full-bleed area sparkline for a `StatCard`'s `chart` slot — a compact trend
+ * of a volume metric (tokens, cost, requests). The accent color comes from the
+ * `text-*` class on `className`; the area fades from that color to transparent.
+ * When `dashedLast` is set, the final segment renders dashed to signal the
+ * trailing bucket is still filling. With fewer than two finite points it falls
+ * back to a faint sample trend (`CardSparklinePlaceholder`) so the card mirrors
+ * `PillMeter`'s empty state instead of leaving a blank strip.
+ */
+export function CardSparkline({
+  data,
+  dashedLast = false,
+  className,
+}: {
+  data: number[];
+  dashedLast?: boolean;
+  className?: string;
+}) {
+  const gid = useId().replace(/:/g, "");
+  const pts = data.filter((n) => Number.isFinite(n));
+  if (pts.length < 2) return <CardSparklinePlaceholder />;
+
+  const W = 100;
+  const H = 32;
+  const PAD = 3;
+  const max = Math.max(...pts, 0);
+  const span = max > 0 ? max : 1;
+  const coords = pts.map((v, i) => {
+    const x = (i / (pts.length - 1)) * W;
+    const y = H - PAD - (v / span) * (H - PAD);
+    return [x, y] as const;
+  });
+
+  const toPath = (slice: ReadonlyArray<readonly [number, number]>) =>
+    slice
+      .map(
+        ([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`
+      )
+      .join(" ");
+
+  const linePath = toPath(coords);
+  const areaPath = `${linePath} L${W} ${H} L0 ${H} Z`;
+  // Split the stroke so the trailing segment can be dashed independently.
+  const solid = dashedLast ? coords.slice(0, -1) : coords;
+  const tail = dashedLast ? coords.slice(-2) : [];
+
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="none"
+      className={cn("block h-8 w-full overflow-visible", className)}
+      aria-hidden
+    >
+      <defs>
+        <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="currentColor" stopOpacity={0.4} />
+          <stop offset="100%" stopColor="currentColor" stopOpacity={0.1} />
+        </linearGradient>
+      </defs>
+      <path d={areaPath} fill={`url(#${gid})`} stroke="none" />
+      {solid.length >= 2 && (
+        <path
+          d={toPath(solid)}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.2}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          vectorEffect="non-scaling-stroke"
+          strokeOpacity={0.5}
+        />
+      )}
+      {tail.length === 2 && (
+        <path
+          d={toPath(tail)}
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.2}
+          strokeLinecap="round"
+          strokeDasharray="2.5 2"
+          vectorEffect="non-scaling-stroke"
+          strokeOpacity={0.5}
+        />
+      )}
+    </svg>
+  );
+}
+
+// A fixed, gently rising sample curve (normalized 0..1, where 1 is the top of
+// the strip) drawn when a `CardSparkline` has no real series yet — the
+// area-chart counterpart to `PillMeter`'s unlit capsule row.
+const SAMPLE_SPARKLINE = [0.3, 0.45, 0.38, 0.55, 0.48, 0.66, 0.58, 0.75];
+
+/** Faint placeholder trend for an empty `CardSparkline`. Ignores the caller's
+ * accent and renders in the muted color so the card reads as "trend goes here"
+ * rather than leaving a blank strip below the value. */
+export function CardSparklinePlaceholder() {
+  const gid = useId().replace(/:/g, "");
+  const W = 100;
+  const H = 32;
+  const PAD = 2;
+  const coords = SAMPLE_SPARKLINE.map((v, i) => {
+    const x = (i / (SAMPLE_SPARKLINE.length - 1)) * W;
+    const y = H - PAD - v * (H - PAD);
+    return [x, y] as const;
+  });
+  const linePath = coords
+    .map(([x, y], i) => `${i === 0 ? "M" : "L"}${x.toFixed(2)} ${y.toFixed(2)}`)
+    .join(" ");
+  const areaPath = `${linePath} L${W} ${H} L0 ${H} Z`;
+
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      preserveAspectRatio="none"
+      className="block h-8 w-full text-muted-foreground"
+      aria-hidden
+    >
+      <defs>
+        <linearGradient id={gid} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor="currentColor" stopOpacity={0.03} />
+          <stop offset="100%" stopColor="currentColor" stopOpacity={0} />
+        </linearGradient>
+      </defs>
+      <path d={areaPath} fill={`url(#${gid})`} stroke="none" />
+      <path
+        d={linePath}
+        fill="none"
+        stroke="currentColor"
+        strokeOpacity={0.1}
+        strokeWidth={1.2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
+  );
+}
+
+/**
+ * A segmented "pill" meter for a `StatCard`'s `chart` slot — visualizes a ratio
+ * metric (error rate, pass rate) as a row of capsules, the leading `fraction`
+ * of which are lit in the accent color (`text-*` on `className`). Any positive
+ * fraction lights at least one pill so small-but-nonzero rates stay visible;
+ * `null` lights none (no data). Re-adds the card's horizontal inset since the
+ * chart slot bleeds full-width.
+ */
+export function PillMeter({
+  fraction,
+  count = 32,
+  className,
+}: {
+  fraction: number | null;
+  /** Number of capsules in the row. */
+  count?: number;
+  className?: string;
+}) {
+  const pct = fraction == null ? 0 : Math.min(Math.max(fraction, 0), 1);
+  const filled = pct > 0 ? Math.max(1, Math.round(pct * count)) : 0;
+  return (
+    <div
+      className={cn(
+        "px-6 pt-1.5 pb-5 group-data-[size=sm]/card:px-5",
+        className
+      )}
+    >
+      <div className="flex h-3.5 items-stretch gap-0.75">
+        {Array.from({ length: count }, (_, i) => (
+          <span
+            key={i}
+            className={cn(
+              "flex-1 rounded-full",
+              i < filled ? "bg-current" : "bg-muted-foreground/10"
+            )}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
+ * A scroll viewport with fade overlays: the top fade appears once scrolled away
+ * from the top, the bottom fade while there's more content below. Both track the
+ * live scroll position (and recompute when the content size changes, e.g. data
+ * finishes loading). `fromClassName` sets the fade's solid color — default
+ * `from-card` for in-card lists; pass `from-popover` inside a dialog.
+ */
+export function ScrollFade({
+  children,
+  className,
+  containerClassName,
+  fromClassName = "from-card",
+  bottomFadeClassName,
+}: {
+  children: React.ReactNode;
+  /** Classes for the scroll viewport (e.g. `max-h-88`, padding). */
+  className?: string;
+  /** Classes for the outer wrapper — use to make the fade box participate in a
+   * flex column (`min-h-0 flex-1`) instead of a fixed max-height. */
+  containerClassName?: string;
+  fromClassName?: string;
+  /** Overrides for the bottom fade while it shows (e.g. `h-14 opacity-100`
+   * for a stronger edge). */
+  bottomFadeClassName?: string;
+}) {
+  const viewport = useRef<HTMLDivElement>(null);
+  const content = useRef<HTMLDivElement>(null);
+  const [edges, setEdges] = useState({ top: false, bottom: false });
+  const update = useCallback(() => {
+    const el = viewport.current;
+    if (!el) return;
+    setEdges({
+      top: el.scrollTop > 1,
+      bottom: el.scrollTop + el.clientHeight < el.scrollHeight - 1,
+    });
+  }, []);
+  useLayoutEffect(() => {
+    update();
+    const el = content.current;
+    if (!el) return;
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [update]);
+  return (
+    <div className={cn("relative no-scrollbar", containerClassName)}>
+      <div
+        ref={viewport}
+        onScroll={update}
+        className={cn("overflow-y-auto no-scrollbar", className)}
+      >
+        <div ref={content}>{children}</div>
+      </div>
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 top-0 h-10 bg-linear-to-b to-transparent transition-opacity duration-150",
+          fromClassName,
+          edges.top ? "opacity-100" : "opacity-0"
+        )}
+      />
+      <div
+        className={cn(
+          "pointer-events-none absolute inset-x-0 bottom-0 h-10 bg-linear-to-t to-transparent transition-opacity duration-150",
+          fromClassName,
+          edges.bottom ? cn("opacity-75", bottomFadeClassName) : "opacity-0"
+        )}
+      />
+    </div>
+  );
+}
+
+export type PendingInvitation = {
+  id: string;
+  orgName: string;
+  inviterName?: string | null;
+  inviterEmail: string;
+  role?: string | null;
+};
+
+/** Empty project state with optional invitation data supplied by the host app. */
+export function NoProjectView({
+  invitations = [],
+  onAcceptInvitation = () => undefined,
+}: {
+  invitations?: PendingInvitation[];
+  onAcceptInvitation?: (invitationId: string) => void | Promise<void>;
+}) {
+  const [accepting, setAccepting] = useState<string | null>(null);
+  const accept = async (invitationId: string) => {
+    setAccepting(invitationId);
+    try {
+      await onAcceptInvitation(invitationId);
+    } finally {
+      setAccepting(null);
+    }
+  };
+
+  if (invitations.length > 0) {
+    return (
+      <Empty className="mt-12">
+        <EmptyHeader>
+          <EmptyMedia variant="icon">
+            <IconMailForward />
+          </EmptyMedia>
+          <EmptyContent>
+            <EmptyTitle>You&apos;ve been invited</EmptyTitle>
+            <EmptyDescription>
+              Accept an invitation to join its workspace.
+            </EmptyDescription>
+          </EmptyContent>
+        </EmptyHeader>
+        <div className="flex flex-col gap-2">
+          {invitations.map((invite) => (
+            <div
+              key={invite.id}
+              className="flex items-center justify-between gap-6 rounded-lg border px-4 py-3 text-left"
+            >
+              <div className="flex min-w-0 flex-col">
+                <span className="truncate text-sm font-medium">
+                  {invite.orgName}
+                </span>
+                <span className="truncate text-xs text-muted-foreground">
+                  Invited by {invite.inviterName || invite.inviterEmail}
+                  {invite.role ? ` · ${invite.role}` : ""}
+                </span>
+              </div>
+              <Button
+                size="sm"
+                disabled={accepting !== null}
+                onClick={() => void accept(invite.id)}
+              >
+                {accepting === invite.id ? "Accepting…" : "Accept"}
+              </Button>
+            </div>
+          ))}
+        </div>
+      </Empty>
+    );
+  }
+
+  return (
+    <Empty className="mt-12">
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <IconFolderOff />
+        </EmptyMedia>
+        <EmptyContent>
+          <EmptyTitle>No project selected</EmptyTitle>
+          <EmptyDescription>
+            Create a project in Settings, then run the SDK to start seeing data.
+          </EmptyDescription>
+        </EmptyContent>
+      </EmptyHeader>
+    </Empty>
+  );
+}
+
+/** Backward-friendly short name for app shells using the original component name. */
+export const NoProject = NoProjectView;
+
+export function EmptyState({
+  icon: Icon,
+  title,
+  description,
+  children,
+  className,
+  iconClassName,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  title: string;
+  description?: string;
+  children?: React.ReactNode;
+  className?: string;
+  iconClassName?: string;
+}) {
+  return (
+    <Empty className={cn("border border-dashed", className)}>
+      <EmptyHeader>
+        <EmptyMedia variant="icon">
+          <Icon className={cn("opacity-40", iconClassName)} />
+        </EmptyMedia>
+        <EmptyContent>
+          <EmptyTitle>{title}</EmptyTitle>
+          {description && <EmptyDescription>{description}</EmptyDescription>}
+          {children}
+        </EmptyContent>
+      </EmptyHeader>
+    </Empty>
+  );
+}
+
+/** One column of a `TableRowsSkeleton` row. Omit `w` for an empty cell (e.g.
+ * an actions column). `icon` adds a small square blob before the text blob. */
+export type SkeletonCol = {
+  w?: string;
+  align?: "left" | "right";
+  icon?: boolean;
+  /** Width class for a second, smaller meta line under the main blob —
+   * for two-line details cells (traces/sessions). The two lines reproduce
+   * the real cell's line boxes (h-5 name + gap-1 + mt-0.5 + h-4 meta), so
+   * the skeleton row height matches the data rows without hardcoding it. */
+  sub?: string;
+};
+
+/**
+ * Placeholder body rows for a list table while its query is in flight. The
+ * page's chrome (toolbar, column headers) renders immediately; only these
+ * rows shimmer, one blob per column, mirroring the real cells' alignment.
+ * Pair with a `table-fixed` Table so the skeleton→data swap can't shift
+ * column widths.
+ */
+export function TableRowsSkeleton({
+  rows = 3,
+  cols,
+  rowHeight = "h-12",
+}: {
+  rows?: number;
+  cols: readonly SkeletonCol[];
+  /** Height class matching the real rows, when they're taller than the
+   * standard h-12 (e.g. two-line cells). */
+  rowHeight?: string;
+}) {
+  return (
+    <>
+      {Array.from({ length: rows }).map((_, i) => (
+        <TableRow key={i}>
+          {cols.map((c, j) => (
+            <TableCell key={j} align={c.align} className={rowHeight}>
+              {c.sub ? (
+                <div className="flex flex-col gap-1">
+                  <div className="flex h-5 items-center gap-2">
+                    {c.icon && (
+                      <Skeleton className="size-4 shrink-0 rounded-md" />
+                    )}
+                    <Skeleton className={cn("h-4", c.w)} />
+                  </div>
+                  <div className="mt-0.5 flex h-4 items-center">
+                    <Skeleton className={cn("h-3", c.sub)} />
+                  </div>
+                </div>
+              ) : (
+                c.w && (
+                  <div
+                    className={cn(
+                      "flex items-center gap-2",
+                      c.align === "right" && "justify-end"
+                    )}
+                  >
+                    {c.icon && (
+                      <Skeleton className="size-4 shrink-0 rounded-md" />
+                    )}
+                    <Skeleton className={cn("h-4", c.w)} />
+                  </div>
+                )
+              )}
+            </TableCell>
+          ))}
+        </TableRow>
+      ))}
+    </>
+  );
+}
+
+export function TableSkeleton({ rows = 5 }: { rows?: number }) {
+  return (
+    <div className="flex flex-col gap-3">
+      <Skeleton className="h-8 w-1/3" />
+      <Skeleton className="h-12 w-full" />
+      {Array.from({ length: rows }).map((_, i) => (
+        <Skeleton key={i} className="h-7 w-full" />
+      ))}
+    </div>
+  );
+}
+
+export function CardsSkeleton({ count = 4 }: { count?: number }) {
+  return (
+    <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+      {Array.from({ length: count }).map((_, i) => (
+        <Skeleton key={i} className="h-24 w-full" />
+      ))}
+    </div>
+  );
+}
