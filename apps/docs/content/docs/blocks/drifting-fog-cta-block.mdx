@@ -1,34 +1,38 @@
 ---
-title: Drifting Fog CTA
-description: Drifting Fog CTA renders the marketing call-to-action section with its original animated fog treatment. It accepts no story controls.
+title: "Drifting Fog CTA"
+description: "Marketing call-to-action section with copy-prompt onboarding button, drifting fog backdrop, and animated agent details preview."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/drifting-fog-cta-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Drifting Fog CTA renders the marketing call-to-action section with its original animated fog treatment. It accepts no story controls.
+import { story } from '../../../src/stories/blocks/drifting-fog-cta-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-marketing-cta-cta" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/cta.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `DriftingFogCtaBlock` | `prompt?` | `string` | Onboarding or instrumentation prompt copied by the CTA button. |
+|  | `startFreeHref?` | `string` | Destination href for the primary action button. |
+|  | `onPromptCopied?` | `() => void` | Callback fired after the prompt is copied to the clipboard. |
 
-`@tailrocks/framerock/blocks/marketing/cta/cta` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/drifting-fog-cta-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  DriftingFogCtaBlock,
+} from "@tailrocks/framerock/blocks/marketing/cta/cta";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | No editable workbench arguments. |
-| Fixture and callback wiring | The exported CTA block takes no props in this story. Its content and animation remain in the source component. |
-| Registry item | `block-marketing-cta-cta`. The portal payload is `/r/block-marketing-cta-cta.json`. |
+export function DriftingFogCtaBlockExample() {
+  return <DriftingFogCtaBlock />;
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/marketing/cta/cta`
+- **Registry item**: `block-marketing-cta-cta` ([payload JSON](/r/block-marketing-cta-cta.json))
+- **Story source**: `apps/docs/src/stories/blocks/drifting-fog-cta-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-marketing-cta-cta.json
+```

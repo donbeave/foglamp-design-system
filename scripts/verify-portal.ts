@@ -5,7 +5,7 @@ import ts from "typescript";
 
 const root = process.cwd();
 const docs = path.join(root, "apps/docs");
-const provenance = spawnSync("python3", ["scripts/provenance/verify.py"], { stdio: "inherit" });
+const provenance = spawnSync("bun", ["scripts/provenance/verify.ts"], { stdio: "inherit" });
 const errors: string[] = [];
 if (provenance.status !== 0) errors.push("Wave 6 provenance gates failed");
 const report = (message: string) => errors.push(message);
@@ -188,6 +188,7 @@ for (const story of storyRecords) {
   for (const extension of [".tsx", ".ts", ".jsx", ".js"]) resolves ||= await exists(`${resolvedImport}${extension}`);
   if (!resolves) report(`${path.relative(root, mdx)}: import '${normalizedImport}' does not resolve to a source file`);
   if (!/\bstory\.WithControl\b/.test(content)) report(`${path.relative(root, mdx)}: missing <story.WithControl /> preview`);
+  if (/\bStoryProvenance\b/.test(content)) report(`${path.relative(root, mdx)}: duplicate <StoryProvenance /> tag in MDX; provenance is rendered by <story.WithControl />`);
 }
 
 const requiredDocs: Record<string, number> = { primitives: 56, widgets: 53, charts: 11, figures: 22, blocks: 17, foundations: 6 };
@@ -232,16 +233,26 @@ else {
 const requiredAttribution: Array<[string, string[]]> = [
   ["README.md", ["Gustavo Fior", "@gustavo-fior", "Foglamp Labs", "foglamp-labs/foglamp"]],
   ["apps/docs/src/routes/index.tsx", ["Gustavo Fior", "@gustavo-fior", "Foglamp Labs", "foglamp-labs/foglamp"]],
-  ["apps/docs/src/components/story-panel.tsx", ["Gustavo Fior", "@gustavo-fior", "Foglamp Labs", "foglamp-labs/foglamp"]],
-  ["packages/design-system/src/blocks/marketing/chrome/navbar.tsx", ["Gustavo Fior", "Foglamp Labs"]],
-  ["packages/design-system/src/blocks/marketing/chrome/footer.tsx", ["Gustavo Fior", "Foglamp Labs"]],
   ["apps/docs/content/docs/credits.mdx", ["Gustavo Fior", "@gustavo-fior", "Abdul Haidar", "Foglamp Labs"]],
+  ["apps/docs/public/llms.txt", ["@tailrocks/framerock", "Gustavo Fior", "Foglamp Labs"]],
 ];
 for (const [relative, markers] of requiredAttribution) {
   const file = path.join(root, relative);
   if (!(await exists(file))) { report(`${relative}: required attribution surface is missing`); continue; }
   const body = await read(file);
   for (const marker of markers) if (!body.toLowerCase().includes(marker.toLowerCase())) report(`${relative}: missing attribution marker '${marker}'`);
+}
+const storyPanelPath = path.join(root, "apps/docs/src/components/story-panel.tsx");
+const provenanceCompPath = path.join(root, "apps/docs/src/components/provenance.tsx");
+if (!(await exists(storyPanelPath)) || !(await exists(provenanceCompPath))) {
+  report("apps/docs/src/components/story-panel.tsx: required attribution surface is missing");
+} else {
+  const combinedPanel = `${await read(storyPanelPath)}\n${await read(provenanceCompPath)}`;
+  for (const marker of ["Gustavo Fior", "@gustavo-fior", "Foglamp Labs", "foglamp-labs/foglamp"]) {
+    if (!combinedPanel.toLowerCase().includes(marker.toLowerCase())) {
+      report(`apps/docs/src/components/story-panel.tsx: missing attribution marker '${marker}'`);
+    }
+  }
 }
 if (registry.name !== "framerock") report("registry.json: name must be framerock");
 if (typeof registry.author !== "string" || !/tailrocks/i.test(registry.author)) report("registry.json: author must identify Tailrocks as publisher");

@@ -18,12 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * with co-founder Abdul Haidar at Foglamp Labs. Apache-2.0.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/app/scan/scan-landing.tsx.
- */
-
 
 import type { ScanData } from "../../lib/scan/scan";
 import { Button } from "../../ui/button";
@@ -297,7 +291,7 @@ export function ScanLanding({ prompt, onCopy, tryFoglampHref = "/homepage" }: { 
 					className="px-3.5 has-[>svg:first-child]:pl-3 gap-2"
 				>
 					<BrandMark className="h-3! w-auto!" />
-					Try Foglamp
+					Try Framerock
 				</Button>
 			</div>
 

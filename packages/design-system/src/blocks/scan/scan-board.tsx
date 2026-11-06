@@ -18,12 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * with co-founder Abdul Haidar at Foglamp Labs. Apache-2.0.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/scan/scan-board.tsx.
- */
-
 
 import type { NodeKind, ScanData } from "../../lib/scan/scan";
 import { useState } from "react";

@@ -16,7 +16,7 @@
  * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
-const DOCS_ORIGIN = "https://docs.foglamp.dev";
+const DOCS_ORIGIN = "/docs";
 
 export const chapters = [
   {
@@ -38,7 +38,7 @@ export const chapters = [
     label: "Traces",
     title: "Follow the work inside.",
     description:
-      "Foglamp records each AI call as a trace. Inside it, smaller steps called spans show the model calls and tools, with their inputs, outputs, and timing.",
+      "Framerock records each AI call as a trace. Inside it, smaller steps called spans show the model calls and tools, with their inputs, outputs, and timing.",
     note: "The order lookup says ‘delayed.’ The answer says ‘arrives today.’ Following the trace shows where those two stopped agreeing.",
     color: "#856044",
     x: 78,
@@ -52,8 +52,8 @@ export const chapters = [
     label: "Agents",
     title: "Meet the agent doing the work.",
     description:
-      "An agent uses instructions, models, and tools to work on a task. Give it a name, and Foglamp brings its runs, costs, and errors together.",
-    note: "Instructions change, too. Foglamp finds prompt versions in your recorded runs, so you can compare what changed and see which runs used each version.",
+      "An agent uses instructions, models, and tools to work on a task. Give it a name, and Framerock brings its runs, costs, and errors together.",
+    note: "Instructions change, too. Framerock finds prompt versions in your recorded runs, so you can compare what changed and see which runs used each version.",
     color: "#b65c30",
     x: 44,
     y: 65,
@@ -67,12 +67,12 @@ export const chapters = [
     title: "Some jobs take a team.",
     description:
       "One agent sorts the question. Another checks the order. A workflow run groups the AI calls that belong to one job, even when different agents do the work.",
-    note: "Your code controls the steps and branches. Add a workflow name and run ID, and Foglamp brings the recorded calls into one view.",
+    note: "Your code controls the steps and branches. Add a workflow name and run ID, and Framerock brings the recorded calls into one view.",
     color: "#527473",
     x: 58,
     y: 48,
     station: "The connecting paths",
-    href: `${DOCS_ORIGIN}/dashboard/workflows`,
+    href: `${DOCS_ORIGIN}/blocks/workflow-detail-block`,
     link: "See how workflows connect",
   },
   {
@@ -86,7 +86,7 @@ export const chapters = [
     x: 26,
     y: 86,
     station: "The message trail",
-    href: `${DOCS_ORIGIN}/dashboard/sessions`,
+    href: `${DOCS_ORIGIN}/blocks/session-conversation-inspector-block`,
     link: "See the whole conversation",
   },
   {
@@ -94,7 +94,7 @@ export const chapters = [
     label: "Costs",
     title: "Small calls add up.",
     description:
-      "Each model call takes time and uses tokens, the pieces of text a model reads and writes. Foglamp tracks usage, cost, and latency so you can see where they go.",
+      "Each model call takes time and uses tokens, the pieces of text a model reads and writes. Framerock tracks usage, cost, and latency so you can see where they go.",
     note: "Pull back to see patterns by model, agent, or customer. Then open an individual trace to understand an expensive or slow run.",
     color: "#437358",
     x: 30,
@@ -122,7 +122,7 @@ export const chapters = [
     label: "Alerts",
     title: "Know when something needs you.",
     description:
-      "Set a limit for cost, latency, error rate, or an eval’s pass rate. Foglamp checks recent traffic every minute and sends an email when a rule fires.",
+      "Set a limit for cost, latency, error rate, or an eval’s pass rate. Framerock checks recent traffic every minute and sends an email when a rule fires.",
     note: "Start with the alert, inspect its context and relevant traces, then follow the work back to the problem. The rule returns to healthy when the metric recovers.",
     color: "#95701f",
     x: 87,

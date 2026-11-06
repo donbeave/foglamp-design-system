@@ -1,24 +1,14 @@
 ---
-title: HudInlinePreview
-description: Shows the HUD in an inline preview using the HUD event stream contract.
+title: "HUD Inline Preview"
+description: "Shows the HUD in an inline preview using the HUD event stream contract."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/hud-inline-preview.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Shows the HUD in an inline preview using the HUD event stream contract.
+import { story } from '../../../src/stories/widgets/hud-inline-preview.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="hud-foglamphud" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/sdk/src/hud/react/FoglampHUD.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -26,16 +16,44 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `defaultOpen` | `boolean \| undefined` | Starts the HUD expanded when true. |
 |  | `theme` | `"light" \| "dark" \| "system" \| undefined` | HUD color mode; system follows the host theme. |
 |  | `redact` | `boolean \| undefined` | Masks prompt, response, and tool payload text. |
-| `createMockHudStream` | `initialEvents` | `readonly HudEvent[]` | Argument accepted by createMockHudStream. |
+| `createMockHudStream` | `initialEvents` | `readonly HudEvent[]` | Initial HUD events replayed by the local mock stream. |
 
 ## Requirements
 
 The preview accepts a `HudStream`. Its story creates one with `createMockHudStream` from a local event list; it needs no server connection.
 
+## Usage
+
+```tsx
+import { HudInlinePreview } from "@tailrocks/framerock/hud";
+import { createMockHudStream } from "@tailrocks/framerock/hud";
+
+const stream = createMockHudStream([{ type: 'trace.start', ts: Date.now(), traceId: 'trace-inline', name: 'Invoice extractor', agentName: 'Invoice extractor', provider: 'anthropic', model: 'claude-3-7-sonnet' }]);
+
+export function HudInlinePreviewExample({
+  redact = false,
+}: {
+  redact?: boolean;
+} = {}) {
+  return (
+    <div className="relative h-[300px] w-full">
+      <HudInlinePreview
+        stream={stream}
+        defaultOpen={false}
+        redact={redact}
+        theme="dark"
+      />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/hud-inline-preview.story.tsx`](../../../src/stories/widgets/hud-inline-preview.story.tsx). The authoritative registry item ID is `hud-foglamphud` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/hud`
+- **Registry item**: `hud-foglamphud` ([payload JSON](/r/hud-foglamphud.json))
+- **Story source**: `apps/docs/src/stories/widgets/hud-inline-preview.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/hud-foglamphud.json
+```

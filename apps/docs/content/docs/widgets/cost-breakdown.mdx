@@ -1,46 +1,82 @@
 ---
-title: CostBreakdown
-description: Groups token cost rows into source-defined categories for a resolved reporting range.
+title: "Cost Breakdown"
+description: "Groups token cost rows into source-defined categories for a resolved reporting range."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/cost-breakdown.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Groups token cost rows into source-defined categories for a resolved reporting range.
+import { story } from '../../../src/stories/widgets/cost-breakdown.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-cost-breakdown" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/cost-breakdown-card.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `CostBreakdownView` | `data` | `readonly CostBreakdownRow[]` | Rows consumed by the component or visualization. |
-|  | `range` | `RangeValue` | Resolved reporting interval used by the view. |
-|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
-|  | `isUpdating` | `boolean \| undefined` | Marks data as refreshing while the current view remains visible. |
-|  | `title` | `string \| undefined` | Sets the component heading or SVG title. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-|  | `syncId` | `string \| undefined` | Recharts sync group ID for synchronized charts. |
-|  | `onZoomSelect` | `ZoomSelectHandler \| undefined` | Receives x-axis endpoint values after a drag. |
-|  | `onZoomReset` | `(() => void) \| undefined` | Runs when the zoom selection resets. |
-| `resolvePreset` | `key` | `string` | Argument accepted by resolvePreset. |
+| `CostBreakdownView` (`CostBreakdownCard`) | `data` | `readonly CostBreakdownRow[]` | Time-bucketed cost rows broken down by input, cached input, cache write, output, reasoning, and other tokens. |
+| | `range` | `RangeValue` | Resolved reporting interval used to align buckets and format x-axis labels. |
+| | `isLoading?` | `boolean` | Displays the chart loading skeleton state. |
+| | `isUpdating?` | `boolean` | Freezes the current view at reduced opacity while replacement data loads. |
+| | `title?` | `string` | Card heading text (defaults to `"Cost breakdown"`). |
+| | `syncId?` | `string` | Recharts synchronization group identifier. |
+| | `onZoomSelect?` | `ZoomSelectHandler` | Callback fired when the user drags across buckets to zoom the time range. |
+| | `onZoomReset?` | `() => void` | Callback fired on double-click to reset the zoomed time range. |
+| | `className?` | `string` | CSS class applied to the outer card. |
+
+
 
 ## Requirements
 
 Pass a resolved range from `@tailrocks/framerock/lib/range` as `range`. The view receives data through `data`; `isUpdating` marks a refresh while existing values remain visible.
 
+## Usage
+
+```tsx
+import {
+  CostBreakdownView,
+} from "@tailrocks/framerock/widgets/cost-breakdown";
+import { resolvePreset } from "@tailrocks/framerock/lib/range";
+
+const costFixture = [
+  {
+    bucket: "2025-02-14T00:00:00.000Z",
+    inputCost: 0.006,
+    outputCost: 0.004,
+    cacheReadCost: 0.001,
+    cacheWriteCost: 0,
+    reasoningCost: 0.0003,
+    otherCost: 0,
+  },
+  {
+    bucket: "2025-02-14T02:00:00.000Z",
+    inputCost: 0.0068,
+    outputCost: 0.0045,
+    cacheReadCost: 0.001,
+    cacheWriteCost: 0,
+    reasoningCost: 0.0003,
+    otherCost: 0,
+  },
+];
+
+export function CostBreakdownExample({
+  isUpdating = false,
+}: {
+  isUpdating?: boolean;
+} = {}) {
+  return (
+    <CostBreakdownView
+      data={costFixture}
+      range={resolvePreset('24h')}
+      isUpdating={isUpdating}
+    />
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/cost-breakdown.story.tsx`](../../../src/stories/widgets/cost-breakdown.story.tsx). The authoritative registry item ID is `widget-cost-breakdown` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/cost-breakdown`
+- **Registry item**: `widget-cost-breakdown` ([payload JSON](/r/widget-cost-breakdown.json))
+- **Story source**: `apps/docs/src/stories/widgets/cost-breakdown.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-cost-breakdown.json
+```

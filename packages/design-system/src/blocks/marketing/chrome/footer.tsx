@@ -23,11 +23,17 @@ import { CuttingMat } from "./cutting-mat";
 import { Logo } from "./logo";
 import { products } from "./products";
 
-const DOCS_ORIGIN = "https://docs.foglamp.dev";
-const GITHUB_URL = "https://github.com/foglamp-labs/foglamp";
+const DOCS_ORIGIN = "/docs";
+const GITHUB_URL = "https://github.com/tailrocks/framerock";
 
-type FooterLink = { label: string; href: string; external?: boolean };
-type FooterColumn = { heading: string; links: FooterLink[] };
+export type FooterLink = { label: string; href: string; external?: boolean };
+export type FooterColumn = { heading: string; links: FooterLink[] };
+
+export type CuttingMatFooterProps = {
+  brandName?: string;
+  columns?: FooterColumn[];
+  copyrightText?: string;
+};
 
 const PRODUCT: FooterColumn = {
   heading: "Product",
@@ -138,7 +144,11 @@ function BrazilFlag({ className }: { className?: string }) {
   );
 }
 
-export function CuttingMatFooterBlock() {
+export function CuttingMatFooterBlock({
+  brandName = "Framerock",
+  columns,
+  copyrightText,
+}: CuttingMatFooterProps = {}) {
   return (
     <footer className="relative isolate overflow-hidden border-t border-border/50 bg-background">
       <div className="relative z-10 mx-auto max-w-7xl px-5 py-20 pb-10 sm:px-8">
@@ -148,46 +158,41 @@ export function CuttingMatFooterBlock() {
             Company side by side. */}
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-3 lg:grid-cols-[1.6fr_repeat(3,1fr)]">
           <div className="col-span-2 flex flex-col gap-4 sm:col-span-3 lg:col-span-1">
-            <Logo />
+            <Logo brandName={brandName} />
             <p className="max-w-48 text-sm text-muted-foreground text-pretty mb-2">
               Observability for AI agents.
             </p>
             <ThemeSwitcher />
           </div>
-          <FooterGroup column={PRODUCT} />
-          <FooterGroup column={RESOURCES} />
-          <div className="contents sm:flex sm:flex-col sm:gap-10">
-            <FooterGroup column={LABS} />
-            <FooterGroup column={COMPANY} />
-          </div>
+          {columns ? (
+            columns.map((column) => (
+              <FooterGroup key={column.heading} column={column} />
+            ))
+          ) : (
+            <>
+              <FooterGroup column={PRODUCT} />
+              <FooterGroup column={RESOURCES} />
+              <div className="contents sm:flex sm:flex-col sm:gap-10">
+                <FooterGroup column={LABS} />
+                <FooterGroup column={COMPANY} />
+              </div>
+            </>
+          )}
+        </div>
+
+        <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border/50 pt-6">
+          <p className="text-xs text-muted-foreground">
+            {copyrightText ?? `\u00A9 ${new Date().getFullYear()} ${brandName}. All rights reserved.`}
+          </p>
+          <span className="flex items-center gap-1.5 text-xs text-muted-foreground">
+            Made in
+            <BrazilFlag className="size-4" />
+          </span>
         </div>
       </div>
 
       {/* The artistic ending: the brand mark as dashed cutting-mat guides,
           bleeding off the bottom of the page. */}
-      <div className="relative z-10 mx-auto max-w-7xl px-5 pb-5 text-center sm:px-8">
-        <p className="text-xs text-muted-foreground">
-          Original design by{" "}
-          <a href="https://gustavofior.com" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
-            Gustavo Fior
-          </a>{" "}
-          <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
-            (@gustavo-fior)
-          </a>
-          {" · "}
-          <a href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
-            Abdul Haidar
-          </a>
-          {" · "}
-          <a href="https://foglamp.dev" target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
-            Foglamp Labs
-          </a>
-          {" · "}
-          <a href={GITHUB_URL} target="_blank" rel="noreferrer noopener" className="underline underline-offset-4 hover:text-foreground">
-            foglamp-labs/foglamp
-          </a>
-        </p>
-      </div>
       <CuttingMat />
     </footer>
   );

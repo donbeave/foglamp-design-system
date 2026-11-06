@@ -85,25 +85,25 @@ export function HudSimulatorBlock({
 			traceName: "Support research",
 			agentName: "Foggy",
 			spans: [
-				{ spanId: "trace-root", spanType: "agent" as const, name: "supportResearch", startTime: startedAt, endTime: startedAt + 4700, status: "ok" as const, systemPrompt: "Find the relevant docs and answer clearly." },
-				{ spanId: "model-call-1", parentSpanId: "trace-root", spanType: "llm" as const, name: "generateText", startTime: startedAt + 240, endTime: startedAt + 3000, status: "ok" as const, provider: "openai", modelId: "gpt-4o", usage: usageOne, ttftMs: 340, modelCallMs: 1760, input: "Search the SDK docs for device authorization.", output: "The terminal login flow uses a short-lived device code." },
-				{ spanId: "docs-search", parentSpanId: "trace-root", spanType: "tool" as const, name: "searchDocs", startTime: startedAt + 1200, endTime: startedAt + 2100, status: "ok" as const, input: "{\"query\":\"device authorization\"}", output: "Found the device authorization guide." },
-				{ spanId: "model-call-2", parentSpanId: "trace-root", spanType: "llm" as const, name: "generateText", startTime: startedAt + 3100, endTime: startedAt + 4500, status: "ok" as const, provider: "openai", modelId: "gpt-4o", usage: usageTwo, ttftMs: 220, modelCallMs: 940, input: "Summarize the authorization guide for the user.", output: "Run foglamp login, open the printed URL, and approve the code." },
+				{ spanId: `${traceId}:root`, spanType: "agent" as const, name: "supportResearch", startTime: startedAt, endTime: startedAt + 4700, status: "ok" as const, systemPrompt: "Find the relevant docs and answer clearly." },
+				{ spanId: `${traceId}:step:0`, parentSpanId: `${traceId}:root`, spanType: "llm" as const, name: "generateText", startTime: startedAt + 240, endTime: startedAt + 3000, status: "ok" as const, provider: "openai", modelId: "gpt-4o", usage: usageOne, ttftMs: 340, modelCallMs: 1760, input: "Search the SDK docs for device authorization.", output: "The terminal login flow uses a short-lived device code." },
+				{ spanId: `${traceId}:tool:docs-1`, parentSpanId: `${traceId}:root`, spanType: "tool" as const, name: "searchDocs", startTime: startedAt + 1200, endTime: startedAt + 2100, status: "ok" as const, input: "{\"query\":\"device authorization\"}", output: "Found the device authorization guide." },
+				{ spanId: `${traceId}:step:1`, parentSpanId: `${traceId}:root`, spanType: "llm" as const, name: "generateText", startTime: startedAt + 3100, endTime: startedAt + 4500, status: "ok" as const, provider: "openai", modelId: "gpt-4o", usage: usageTwo, ttftMs: 220, modelCallMs: 940, input: "Summarize the authorization guide for the user.", output: "Run framerock login, open the printed URL, and approve the code." },
 			],
 		};
 		const events: { delay: number; event: HudEvent }[] = [
 			{ delay: 0, event: { type: "trace.start", traceId, ts: startedAt, name: "Support research", agentName: "Foggy", provider: "openai", model: "gpt-4o", toolCatalog: "{\"searchDocs\":{}}" } },
-			{ delay: 240, event: { type: "step.start", traceId, ts: startedAt + 240, stepNumber: 1, provider: "openai", model: "gpt-4o" } },
-			{ delay: 580, event: { type: "step.firstToken", traceId, ts: startedAt + 580, stepNumber: 1, ttftMs: 340 } },
-			{ delay: 1000, event: { type: "step.tokens", traceId, ts: startedAt + 1000, stepNumber: 1, outputTokens: 22, reasoningTokens: 2, tps: 52 } },
+			{ delay: 240, event: { type: "step.start", traceId, ts: startedAt + 240, stepNumber: 0, provider: "openai", model: "gpt-4o" } },
+			{ delay: 580, event: { type: "step.firstToken", traceId, ts: startedAt + 580, stepNumber: 0, ttftMs: 340 } },
+			{ delay: 1000, event: { type: "step.tokens", traceId, ts: startedAt + 1000, stepNumber: 0, outputTokens: 22, reasoningTokens: 2, tps: 52 } },
 			{ delay: 1200, event: { type: "tool.start", traceId, ts: startedAt + 1200, toolCallId: "docs-1", toolName: "searchDocs", input: "{\"query\":\"device authorization\"}" } },
 			{ delay: 2100, event: { type: "tool.end", traceId, ts: startedAt + 2100, toolCallId: "docs-1", toolName: "searchDocs", status: "ok", output: "Found the device authorization guide.", durationMs: 900 } },
-			{ delay: 2500, event: { type: "step.tokens", traceId, ts: startedAt + 2500, stepNumber: 1, outputTokens: 45, reasoningTokens: 4, tps: 44 } },
-			{ delay: 3000, event: { type: "step.end", traceId, ts: startedAt + 3000, stepNumber: 1, status: "ok", usage: usageOne, ttftMs: 340, durationMs: 2760, outputTps: 16.3, modelCallMs: 1760 } },
-			{ delay: 3100, event: { type: "step.start", traceId, ts: startedAt + 3100, stepNumber: 2, provider: "openai", model: "gpt-4o" } },
-			{ delay: 3320, event: { type: "step.firstToken", traceId, ts: startedAt + 3320, stepNumber: 2, ttftMs: 220 } },
-			{ delay: 3900, event: { type: "step.tokens", traceId, ts: startedAt + 3900, stepNumber: 2, outputTokens: 48, reasoningTokens: 7, tps: 48 } },
-			{ delay: 4500, event: { type: "step.end", traceId, ts: startedAt + 4500, stepNumber: 2, status: "ok", usage: usageTwo, ttftMs: 220, durationMs: 1400, outputTps: 56.4, modelCallMs: 940 } },
+			{ delay: 2500, event: { type: "step.tokens", traceId, ts: startedAt + 2500, stepNumber: 0, outputTokens: 45, reasoningTokens: 4, tps: 44 } },
+			{ delay: 3000, event: { type: "step.end", traceId, ts: startedAt + 3000, stepNumber: 0, status: "ok", usage: usageOne, ttftMs: 340, durationMs: 2760, outputTps: 16.3, modelCallMs: 1760 } },
+			{ delay: 3100, event: { type: "step.start", traceId, ts: startedAt + 3100, stepNumber: 1, provider: "openai", model: "gpt-4o" } },
+			{ delay: 3320, event: { type: "step.firstToken", traceId, ts: startedAt + 3320, stepNumber: 1, ttftMs: 220 } },
+			{ delay: 3900, event: { type: "step.tokens", traceId, ts: startedAt + 3900, stepNumber: 1, outputTokens: 48, reasoningTokens: 7, tps: 48 } },
+			{ delay: 4500, event: { type: "step.end", traceId, ts: startedAt + 4500, stepNumber: 1, status: "ok", usage: usageTwo, ttftMs: 220, durationMs: 1400, outputTps: 56.4, modelCallMs: 940 } },
 			{ delay: 4700, event: { type: "trace.end", traceId, ts: startedAt + 4700, status: "ok", trace, totals: { inputTokens: 6030, outputTokens: 124, totalTokens: 6154, durationMs: 4700, costUsd: 0.0048 } } },
 		];
 		events.forEach(({ delay, event }) => {
@@ -173,7 +173,7 @@ export function HudSimulatorBlock({
 					className="px-3.5 has-[>svg:first-child]:pl-3 gap-2"
 				>
 					<BrandMark className="h-3! w-auto!" />
-					Try Foglamp
+					Try Framerock
 				</Button>
 			</div>
 

@@ -18,9 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/packages/ui/src/components/context-menu.tsx; derived here under Apache-2.0.
- */
 import { ContextMenu as ContextMenuPrimitive } from "@base-ui/react/context-menu";
 import type * as React from "react";
 

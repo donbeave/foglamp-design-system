@@ -10,5 +10,6 @@ function DotStory({ type }: DotStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/dot', Component: DotStory, displayName: 'Chart Dots', registryItem: 'chart-evilcharts-ui-dot',
+	frame: { width: 960, height: 440 },
 	args: { initial: { type: 'border' } },
 });

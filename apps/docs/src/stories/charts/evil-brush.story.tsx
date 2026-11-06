@@ -13,5 +13,6 @@ function BrushStory({ variant, strokeVariant }: BrushStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/evil-brush', Component: BrushStory, displayName: 'Evil Brush Range Selector', registryItem: 'chart-evilcharts-ui-evil-brush',
+	frame: { width: 960, height: 440 },
 	args: { initial: { variant: 'area', strokeVariant: 'solid' } },
 });

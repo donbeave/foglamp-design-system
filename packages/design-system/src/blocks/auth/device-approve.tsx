@@ -102,6 +102,15 @@ export function DeviceApproveBlock({
 	const [message, setMessage] = useState<string | null>(null);
 	const [busy, setBusy] = useState(false);
 
+	useEffect(() => {
+		const trimmed = initialUserCode.trim();
+		setCode(trimmed);
+		if (!trimmed) {
+			claimedFor.current = null;
+			setPhase("needCode");
+		}
+	}, [initialUserCode]);
+
 	// Claim the code: associates it with the signed-in user and returns its
 	// current status. Approve/deny both require this first (the server rejects an
 	// unclaimed code), so it runs before we show the approve button.
@@ -183,7 +192,7 @@ export function DeviceApproveBlock({
 				</div>
 				<p className="mt-2 text-sm text-muted-foreground text-balance">
 					{onDecision
-						? "You can return to your terminal. Foglamp will finish setting up and write your API key. You can close this tab."
+						? "You can return to your terminal. Framerock will finish setting up and write your API key. You can close this tab."
 						: "Local demo approval complete. Connect an onDecision callback to authorize a real terminal."}
 				</p>
 			</DeviceShell>
@@ -199,7 +208,7 @@ export function DeviceApproveBlock({
 				</div>
 				<p className="mt-2 text-sm text-muted-foreground text-balance">
 					No device was connected. If this was a mistake, run{" "}
-					<code>npx foglamp login</code> again to start over.
+					<code>npx framerock login</code> again to start over.
 				</p>
 			</DeviceShell>
 		);
@@ -235,7 +244,7 @@ export function DeviceApproveBlock({
 			<DeviceShell>
 				<h1 className="mt-5 mb-1 text-lg font-medium">Connect your terminal</h1>
 				<p className="mb-6 text-sm text-muted-foreground text-balance">
-					Enter the code shown by <code>npx foglamp login</code> to continue.
+					Enter the code shown by <code>npx framerock login</code> to continue.
 				</p>
 				<form
 					className="flex flex-col gap-2.5"
@@ -268,7 +277,7 @@ export function DeviceApproveBlock({
 		<DeviceShell>
 			<h1 className="mt-5 mb-1 text-lg font-medium">Connect your terminal</h1>
 			<p className="mb-5 text-sm text-muted-foreground text-balance">
-				Connect to your Foglamp account
+				Connect to your Framerock account
 				{userEmail ? (
 					<>
 						{" "}

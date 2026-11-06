@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/landing/hero.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { Button } from "@tailrocks/framerock/ui/button";
 import { cn } from "@tailrocks/framerock/lib/utils";
 import { type MotionProps, motion, useReducedMotion } from "motion/react";
@@ -36,7 +29,7 @@ import { OlwenLogo, OptionLogo } from "@tailrocks/framerock/icons/brand-logos";
 import { CopyPromptButton } from "../cta/copy-prompt-button";
 import { HeroDemo } from "./hero-demo";
 
-// Projects running on Foglamp. Olwen and Option use their real marks as
+// Projects running on Framerock. Olwen and Option use their real marks as
 // currentColor components (from brand-logos), so every lockup tints exactly
 // like its text; the rest are wordmarks, each in its own type voice.
 const TRUSTED: { label: string; node: React.ReactNode }[] = [
@@ -281,14 +274,14 @@ export function Hero() {
         <DemoFrame clip>
           <img
             src="/demo-overview-dark.png"
-            alt="The Foglamp overview dashboard"
+            alt="The Framerock overview dashboard"
             width={2072}
             height={1320}
             className="hidden w-full dark:block"
           />
           <img
             src="/demo-overview-light.png"
-            alt="The Foglamp overview dashboard"
+            alt="The Framerock overview dashboard"
             width={2072}
             height={1320}
             className="w-full dark:hidden"
@@ -297,7 +290,7 @@ export function Hero() {
       </motion.div>
 
       {/* Trusted-by strip: left-aligned under the demo, still inside the
-          hero's grain. Real projects running on Foglamp, all monochrome.
+          hero's grain. Real projects running on Framerock, all monochrome.
           Phones fit one row of three, so the rest wait for wider screens. */}
       <motion.div
         {...rise(1.7)}

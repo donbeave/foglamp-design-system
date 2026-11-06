@@ -1,24 +1,14 @@
 ---
-title: FoggyWidget
-description: Renders the Foggy assistant panel from its controlled widget state and callbacks.
+title: "Foggy Widget"
+description: "Renders the Foggy assistant panel from its controlled widget state and callbacks."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/foggy-widget.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders the Foggy assistant panel from its controlled widget state and callbacks.
+import { story } from '../../../src/stories/widgets/foggy-widget.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-foggy-foggy-widget" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/foggy/foggy-widget.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -42,10 +32,71 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 The Foggy view is driven by widget state and event callbacks from `@tailrocks/framerock/widgets/foggy/types`. It does not create a tRPC client or Next.js hook; pass host actions as props.
 
+## Usage
+
+```tsx
+import { useState } from "react";
+import { Button } from "@tailrocks/framerock/ui/button";
+import {
+  FoggyWidgetView,
+} from "@tailrocks/framerock/widgets/foggy/foggy-widget";
+
+const initialMessages = [
+  { id: 'u1', role: 'user' as const, parts: [{ type: 'text' as const, text: 'Why did the latest trace fail?' }] },
+  {
+    id: 'a1',
+    role: 'assistant' as const,
+    parts: [{ type: 'text' as const, text: 'The customer lookup timed out. I found three recent failures in the staging project.' }],
+  },
+];
+
+export function FoggyWidgetExample({
+  status = 'ready',
+}: {
+  status?: 'ready' | 'submitted' | 'streaming' | 'error';
+} = {}) {
+  const [open, setOpen] = useState(true);
+  const [messages, setMessages] = useState(initialMessages);
+  return (
+    <div className="relative flex h-[540px] w-full flex-col justify-between">
+      <div
+        className="flex items-center justify-between gap-2 rounded-lg border bg-card px-3 py-2 text-xs text-muted-foreground"
+      >
+        <span>
+          Assistant status:
+          <strong className="text-foreground">
+            {status}
+          </strong>
+          (
+          {messages.length}
+          messages)
+        </span>
+        {!open ? (
+            <Button size="xs" variant="outline" onClick={() => setOpen(true)}>
+              Reopen Foggy
+            </Button>
+        ) : null}
+      </div>
+      <div className="relative flex-1">
+        <FoggyWidgetView
+          open={open}
+          onOpenChange={setOpen}
+          messages={messages}
+          status={status}
+          onSendMessage={({ text }) => { const trimmed = text.trim(); if (!trimmed) return; setMessages((prev) => [ ...prev, { id: `u-${prev.length + 1}`, role: 'user' as const, parts: [{ type: 'text' as const, text: trimmed }] }, { id: `a-${prev.length + 2}`, role: 'assistant' as const, parts: [{ type: 'text' as const, text: `Checked recent spans for "${trimmed}". No additional errors found in the active window.` }], }, ]); window.dispatchEvent(new CustomEvent('framerock-story:message', { detail: trimmed })); }}
+        />
+      </div>
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/foggy-widget.story.tsx`](../../../src/stories/widgets/foggy-widget.story.tsx). The authoritative registry item ID is `widget-foggy-foggy-widget` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/foggy/foggy-widget`
+- **Registry item**: `widget-foggy-foggy-widget` ([payload JSON](/r/widget-foggy-foggy-widget.json))
+- **Story source**: `apps/docs/src/stories/widgets/foggy-widget.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-foggy-foggy-widget.json
+```

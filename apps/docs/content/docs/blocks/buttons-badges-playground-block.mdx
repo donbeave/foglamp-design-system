@@ -1,34 +1,36 @@
 ---
-title: Buttons & Badges Playground
-description: Buttons & Badges Playground renders the source auth button and badge examples as a standalone playground. It accepts no props.
+title: "Buttons & Badges Playground"
+description: "Interactive specimen grid showcasing button variants, sizes, icon buttons, and status badges across light and dark themes."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/buttons-badges-playground-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Buttons & Badges Playground renders the source auth button and badge examples as a standalone playground. It accepts no props.
+import { story } from '../../../src/stories/blocks/buttons-badges-playground-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-auth-buttons-badges" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/buttons/page.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `ButtonsBadgesPlaygroundBlock` | `—` | `—` | Self-contained block component requiring no required props. |
 
-`@tailrocks/framerock/blocks/auth/buttons-badges` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/buttons-badges-playground-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  ButtonsBadgesPlaygroundBlock,
+} from "@tailrocks/framerock/blocks/auth/buttons-badges";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | No editable workbench arguments. |
-| Fixture and callback wiring | The exported playground takes no props. Its examples are self-contained. |
-| Registry item | `block-auth-buttons-badges`. The portal payload is `/r/block-auth-buttons-badges.json`. |
+export function ButtonsBadgesPlaygroundBlockExample() {
+  return <ButtonsBadgesPlaygroundBlock />;
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/auth/buttons-badges`
+- **Registry item**: `block-auth-buttons-badges` ([payload JSON](/r/block-auth-buttons-badges.json))
+- **Story source**: `apps/docs/src/stories/blocks/buttons-badges-playground-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-auth-buttons-badges.json
+```

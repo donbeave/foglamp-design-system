@@ -11,6 +11,10 @@
  * Foglamp Labs (https://foglamp.dev). Not an upstream Foglamp source file.
  */
 
+/// <reference path="./lib/react-shim.d.ts" />
+/// <reference path="./lib/scan/elk-worker.d.ts" />
+/// <reference path="./blocks/guide/css-modules.d.ts" />
+
 export * from './ui/accordion';
 export * from './ui/alert-dialog';
 export * from './ui/alert';
@@ -88,9 +92,10 @@ export {
 } from './lib/link-context';
 export { useCopied } from './hooks/use-copied';
 export { useIsMobile } from './hooks/use-mobile';
+export { useDelayedLoading, useEntranceOnce, useSkeletonShown, useDebouncedValue, useTextFilter } from './hooks/use-app-hooks';
 export * from './icons/brand-logos';
 export { BrandMark as BrandIcon } from './icons/brand-mark';
-export { Logo as FoglampLogo } from './icons/logo';
+export { Logo as FramerockLogo, Logo as FoglampLogo } from './icons/logo';
 export { ModelLogo as ModelIcon } from './icons/model-logo';
 export { resolveVendorKey, resolveModelLogo, formatModelName as formatIconModelName, modelBrandColor } from './icons/model-logo';
 export * from './lib/format';
@@ -165,13 +170,15 @@ export { LoginFormBlock } from './blocks/auth/login-form';
 export { DeviceApproveBlock } from './blocks/auth/device-approve';
 export { OnboardingPanel, OnboardingPanelBlock, type OnboardingPanelBlockProps } from './blocks/auth/onboarding-panel';
 export { InstrumentEmptyStateBlock } from './blocks/auth/instrument-empty-state';
-export { ButtonsBadgesPlaygroundBlock } from './blocks/auth/buttons-badges';
+export { ButtonsBadgesPlaygroundBlock, useThemeHotkey } from './blocks/auth/buttons-badges';
 export { AppShellBlock, NewProjectDialog, SunsetCard as AppShellSunsetCard, type AppShellBlockProps, type NewProjectInput } from './blocks/app-shell';
 export * from './blocks/dashboard';
 export * from './blocks/guide';
 export * from './blocks/setup';
 export * from './blocks/scan';
-export { FigureKit22Block, type FigureKit22BlockProps } from './blocks/marketing/figures/figure-kit-22-block';
+export { DashboardDemo } from './blocks/marketing/demo';
+export { FigureKit22Block, FigureKit22Block as FigureKit, type FigureKit22BlockProps } from './blocks/marketing/figures/figure-kit-22-block';
+export { FigureReveal } from './blocks/marketing/figures/figure-reveal';
 export { FIGURES, type Section, type Variant } from './blocks/marketing/figures/figures';
 export { Figure, FigureVariant } from './blocks/marketing/figures/figure-picker';
 export { FEATURES, CUSTOMERS_OUTLINE_ICON, FeatureList, openFeature, type FeatureId } from './blocks/marketing/figures/features';

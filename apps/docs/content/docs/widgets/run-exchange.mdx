@@ -1,36 +1,130 @@
 ---
-title: RunExchange
-description: Renders the conversation and tool exchange for a run.
+title: "Run Exchange"
+description: "Renders the conversation and tool exchange for a run."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/run-exchange.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders the conversation and tool exchange for a run.
+import { story } from '../../../src/stories/widgets/run-exchange.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-run-exchange" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/run-exchange.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `Conversation` | `input` | `string \| null \| undefined` | Input text displayed in the conversation. |
-|  | `output` | `string \| null \| undefined` | Output text displayed in the conversation. |
-|  | `emptyHint` | `string` | Text shown when the output is empty. |
-|  | `clamp` | `number \| undefined` | Maximum collapsed content height in pixels. |
+| `Conversation` | `input` | `string \| null \| undefined` | Serialized prompt or input messages rendered in the user/system turn bubbles. |
+| | `output` | `string \| null \| undefined` | Serialized assistant response or tool output rendered in the response turn bubbles. |
+| | `emptyHint` | `string` | Fallback message displayed when `output` is empty. |
+| | `clamp?` | `number` | Maximum pixel height per turn before folding behind a `"Show more"` toggle. |
+| `DrawerRow` | `colSpan`, `children`, `className?` | `{ colSpan: number; children: ReactNode; className?: string }` | Expandable table row container for inline run inspection drawers. |
+| `DrawerColumns` | `overview`, `children`, `{ overview: ReactNode; children: ReactNode }` | `DrawerColumnsProps` | Two-column drawer layout pairing a metadata sidebar with the main conversation view. |
+| `ExpandChevron` | `open` | `{ open: boolean }` | Animated chevron indicator for expandable table rows. |
+| `Meta` | `label`, `value`, `className?` | `{ label: string; value: ReactNode; className?: string }` | Key-value metadata row inside `DrawerColumns`. |
+| `ToolChips` | `tools`, `className?` | `{ tools: ToolPart[]; className?: string }` | Compact chip list summarizing tool calls and statuses within a turn. |
+
+## Usage
+
+```tsx
+import { useState } from "react";
+import {
+  Conversation,
+  DrawerColumns,
+  DrawerRow,
+  ExpandChevron,
+  Meta,
+} from "@tailrocks/framerock/widgets/run-exchange";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@tailrocks/framerock/ui/table";
+
+const input = JSON.stringify([
+  { role: 'user', content: 'I am migrating a support workflow to a new API key. Can you check the rollout plan?' },
+  { role: 'assistant', content: 'Share the order of the deployment steps and I will check for gaps.' },
+  { role: 'user', content: 'We created the replacement key, updated the first worker, and confirmed it can read the project. We still need to update the second worker and the scheduled invoice job.' },
+  { role: 'assistant', content: 'Keep the previous key active until each worker and the scheduled job completes a successful request using the replacement.' },
+  { role: 'user', content: [
+    'Here is the full rollout record for the second review. The replacement credential was created in the production workspace and saved to the approved secrets manager. The first worker picked it up during its normal deployment and passed its health check, project lookup, and a read-only trace query.',
+    'The second worker runs in a separate region and uses a different deployment pipeline. Its configuration has been updated, but it has not restarted yet. The scheduled invoice job runs hourly, reads credentials from its own environment, and writes a completion event after it reconciles each customer account. That job has not run since the key was changed.',
+    'We will restart the second worker during the next low-traffic window, then verify its health check and one representative request. We will wait for the invoice job to complete successfully, inspect its event record, and confirm that its request uses the replacement credential. We will compare the request timestamps with the deployment log so we know which version of the environment each process used.',
+    'After those checks, we plan to revoke the previous key, watch authentication errors and request failures for the next hour, and search the audit log for any calls that still reference the old credential. If a service still uses it, we will restore the previous secret temporarily, update that service, and repeat the validation before revoking again. Does this order leave any production service unverified?',
+  ].join('\n\n') },
+]);
+
+const output = JSON.stringify([
+  { role: 'assistant', content: [
+    'Do not revoke the previous key yet. The first worker is verified, but the second worker and the scheduled invoice job have not both completed a request with the replacement credential.',
+    'Restart the second worker during the planned low-traffic window. Confirm its health check, project lookup, and representative request succeed. Then wait for the invoice job’s next hourly run and verify its completion event and credential in the audit record.',
+    'Once both services are confirmed, revoke the previous key. Monitor authentication errors and failed requests for at least one job interval, then search the audit log for calls attributed to the old credential. Keep the deployment and verification timestamps with the change record.',
+    'If any request still uses the previous key, identify the owning process, update its secret reference, and repeat the health check and representative request before completing the rotation.',
+  ].join('\n\n') },
+]);
+
+export function RunExchangeExample({ clamp = 240, emptyResponse = false, initialDrawerOpen = true } = {}) {
+  const [drawerOpen, setDrawerOpen] = useState(initialDrawerOpen);
+  return (
+    <div className="w-full overflow-x-auto rounded-xl border bg-card">
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Run</TableHead>
+            <TableHead>Status</TableHead>
+            <TableHead align="right">Started</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          <TableRow className="group">
+            <TableCell>
+              <button
+                type="button"
+                aria-expanded={drawerOpen}
+                onClick={() => setDrawerOpen((open) => !open)}
+                className="flex items-center gap-2 text-left font-medium"
+              >
+                <ExpandChevron open={drawerOpen} />
+                <span>Support assistant · tr_01HZXA29</span>
+              </button>
+            </TableCell>
+            <TableCell>Completed</TableCell>
+            <TableCell align="right" className="text-muted-foreground">
+              10:02:14 AM
+            </TableCell>
+          </TableRow>
+          {drawerOpen && (
+              <DrawerRow colSpan={3}>
+                <DrawerColumns
+                  overview={<div className="grid grid-cols-2 gap-x-5 gap-y-4 lg:w-88">
+  <Meta label="Project" value="Production" />
+  <Meta label="Model" value="gpt-4o" />
+  <Meta label="Duration" value="2.4s" />
+  <Meta label="Total cost" value="$0.0042" />
+</div>}
+                >
+                  <Conversation
+                    input={input}
+                    output={emptyResponse ? null : output}
+                    emptyHint="No response was recorded for this run."
+                    clamp={clamp}
+                  />
+                </DrawerColumns>
+              </DrawerRow>
+          )}
+        </TableBody>
+      </Table>
+    </div>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/run-exchange.story.tsx`](../../../src/stories/widgets/run-exchange.story.tsx). The authoritative registry item ID is `widget-run-exchange` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/run-exchange`
+- **Registry item**: `widget-run-exchange` ([payload JSON](/r/widget-run-exchange.json))
+- **Story source**: `apps/docs/src/stories/widgets/run-exchange.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-run-exchange.json
+```

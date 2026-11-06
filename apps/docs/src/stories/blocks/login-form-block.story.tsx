@@ -4,5 +4,5 @@ import type { LoginFormCompletion } from '@tailrocks/framerock/blocks/auth/login
 import { useState } from 'react';
 import { StorySurface } from './fixtures';
 import { defineStory } from '../../lib/story';
-function LoginFormStory({ magicLink }: { magicLink: boolean }) { const [done, setDone] = useState<LoginFormCompletion | null>(null); return <StorySurface><div className="mx-auto max-w-md">{done ? <p role="status" className="rounded-xl bg-muted p-4">Local demo signed in with {done.method}.</p> : <LoginFormBlock methods={{ emailPassword: true, magicLink, google: true }} onSignedIn={setDone} />}</div></StorySurface>; }
-export const story = defineStory({ id: 'blocks/login-form-block', displayName: 'Login Form', registryItem: 'block-auth-login-form', Component: LoginFormStory, args: { initial: { magicLink: true } } });
+function LoginFormStory({ magicLink }: { magicLink: boolean }) { const [done, setDone] = useState<LoginFormCompletion | null>(null); return <StorySurface><div className="mx-auto flex w-full max-w-md justify-center">{done ? <p role="status" className="rounded-xl bg-muted p-4">Local demo signed in with {done.method}.</p> : <LoginFormBlock methods={{ emailPassword: true, magicLink, google: true }} onSignedIn={setDone} />}</div></StorySurface>; }
+export const story = defineStory({ id: 'blocks/login-form-block', displayName: 'Login Form', registryItem: 'block-auth-login-form', Component: LoginFormStory, frame: { width: 1040, height: 560 }, args: { initial: { magicLink: true } } });

@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * with co-founder Abdul Haidar at Foglamp Labs. Apache-2.0.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/scan/brand.tsx.
- */
-
-
 import { cn } from "../../lib/utils";
 import { IconSparklesFilled } from "@tabler/icons-react";
 import { type ReactNode, useState } from "react";
@@ -33,7 +26,7 @@ import { ClaudeLogo, GeminiLogo, OpenAILogo } from "../../icons/brand-logos";
 import { modelDomain } from "../../lib/scan/favicon";
 import { useScanFavicon } from "./favicon-context";
 
-/** Foglamp brand mark — three overlapping circles (lead → blue → orange). */
+/** Framerock brand mark — three interlocking rounded-square frames (lead → blue → orange). */
 export function BrandMark({ className }: { className?: string }) {
 	return (
 		<svg
@@ -42,10 +35,13 @@ export function BrandMark({ className }: { className?: string }) {
 			xmlns="http://www.w3.org/2000/svg"
 			aria-hidden="true"
 		>
-			{/* lead circle follows currentColor so callers can set it (e.g. white on the art card) */}
-			<circle cx="24" cy="24" r="24" className="fill-current" />
-			<circle cx="48" cy="24" r="24" fill="#0090FD" />
-			<circle cx="72" cy="24" r="24" fill="#FF5513" />
+			{/* lead frame follows currentColor so callers can set it (e.g. white on the art card) */}
+			<rect x="4" y="4" width="40" height="40" rx="10" className="fill-current" />
+			<rect x="28" y="4" width="40" height="40" rx="10" fill="#0090FD" />
+			<rect x="52" y="4" width="40" height="40" rx="10" fill="#FF5513" />
+			<rect x="14" y="14" width="20" height="20" rx="4" className="fill-background/90" />
+			<rect x="38" y="14" width="20" height="20" rx="4" className="fill-background/90" />
+			<rect x="62" y="14" width="20" height="20" rx="4" className="fill-background/90" />
 		</svg>
 	);
 }

@@ -18,9 +18,6 @@
 
 "use client";
 
-/** Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs.
- * Extracted from foglamp-labs/foglamp under the Apache-2.0 license. */
-
 import { Button } from "../ui/button";
 import { cn } from "../lib/utils";
 import {
@@ -386,7 +383,7 @@ export function PayloadView({
   // The component instance survives span switches — fold back down for each
   // new payload.
   // biome-ignore lint/correctness/useExhaustiveDependencies: `value` is the reset trigger, not a used value
-  useEffect(() => setShowEarlier(false), [value]);
+  useEffect(() => setShowEarlier(false), [value, previousValue, foldBeforeLastUser]);
   if (!messages) {
     // Not JSON — a plain (markdown) answer, or a payload truncated at the
     // storage cap. Either way the raw string is the honest thing to show.

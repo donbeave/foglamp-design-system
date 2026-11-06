@@ -33,7 +33,7 @@ export function PoweredBy() {
 			<span className="flex items-center gap-1.5">
 				<BrandMark className="h-2.5 w-auto" />
 				<span className="font-display text-sm font-semibold tracking-tight select-none">
-					Foglamp
+					Framerock
 				</span>
 			</span>
 		</Link>

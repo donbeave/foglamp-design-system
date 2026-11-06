@@ -40,20 +40,57 @@ export function createMockHudStream(initialEvents: readonly HudEvent[] = []) {
     },
   } satisfies HudStream & { emit(event: HudEvent): void };
 }
+export interface UseHudStreamOptions {
+  initialState?: HudState;
+  port?: number;
+  url?: string;
+}
+
 /** Consume typed local events without requiring a backend or network connection. */
-export function useHudStream(stream?: HudStream): {
+export function useHudStream(
+  stream?: HudStream,
+  options?: UseHudStreamOptions,
+): {
   state: HudState; conn: ConnStatus; clear: () => void;
 } {
-  const [state, dispatch] = useReducer(reduce, initialState);
-  const [conn, setConn] = useState<ConnStatus>("closed");
+  const [state, dispatch] = useReducer(
+    reduce,
+    options?.initialState ?? initialState,
+  );
+  const [conn, setConn] = useState<ConnStatus>(
+    stream || options?.initialState ? "open" : "closed",
+  );
   const clear = useCallback(() => dispatch({ type: "clear" }), []);
   useEffect(() => {
+    if (options?.initialState) {
+      setConn("open");
+      return;
+    }
     dispatch({ type: "clear" });
     if (stream) {
       setConn("open");
       return stream.subscribe(dispatch);
     }
+    const endpoint =
+      options?.url ??
+      (options?.port !== undefined
+        ? `http://127.0.0.1:${options.port}/events`
+        : undefined);
+    if (endpoint && typeof EventSource !== "undefined") {
+      setConn("connecting");
+      const es = new EventSource(endpoint);
+      es.onopen = () => setConn("open");
+      es.onerror = () => setConn("closed");
+      es.onmessage = (msg) => {
+        try {
+          dispatch(JSON.parse(msg.data) as HudEvent);
+        } catch {
+          // Ignore malformed event payloads.
+        }
+      };
+      return () => es.close();
+    }
     setConn("closed");
-  }, [stream]);
+  }, [stream, options?.initialState, options?.port, options?.url]);
   return { state, conn, clear };
 }

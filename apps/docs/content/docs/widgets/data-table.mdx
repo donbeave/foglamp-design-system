@@ -1,61 +1,147 @@
 ---
-title: DataTable
-description: Composes the table toolbar, search, filter, sorting, and pagination helpers used by Foglamp tables.
+title: "Data Table"
+description: "Composes the table toolbar, search, filter, sorting, and pagination helpers used by Framerock tables."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/data-table.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Composes the table toolbar, search, filter, sorting, and pagination helpers used by Foglamp tables.
+import { story } from '../../../src/stories/widgets/data-table.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-data-table" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/data-table.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop / Parameter | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `PaginationFooter` | `page` | `number` | Zero-based current page index. |
-|  | `pageSize` | `number` | Maximum number of rows on one page. |
-|  | `total` | `number` | Total number of matching rows. |
-|  | `shown` | `number` | Number of rows currently rendered. |
-|  | `noun` | `[string, string]` | Singular and plural labels for the paginated item. |
-|  | `onPageChange` | `(page: number) => void` | Receives the requested page index. |
-|  | `onPageSizeChange` | `((size: number) => void) \| undefined` | Receives the newly selected page size. |
-|  | `pageSizes` | `number[] \| undefined` | Lists the page sizes offered in the selector. |
-|  | `isFetching` | `boolean \| undefined` | Marks the page data as fetching. |
-| `SearchInput` | `value` | `string` | Controlled value or source data passed to the component. |
-|  | `onChange` | `(value: string) => void` | Receives the next value when the user changes the control. |
-|  | `placeholder` | `string \| undefined` | Text shown while the field is empty. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-| `SortableHead` | `sortKey` | `K` | Data key associated with this header. |
-|  | `sort` | `SortState<K> \| null` | Current sort key and direction, or null. |
-|  | `onSort` | `(key: K) => void` | Runs when the header requests a sort change. |
-|  | `align` | `"left" \| "right" \| "center" \| undefined` | Horizontal legend alignment. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-| `ToggleChip` | `active` | `boolean` | Whether the filter chip is selected. |
-|  | `onClick` | `() => void` | Runs when the user activates the control. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-| `Toolbar` | `children` | `ReactNode` | Content rendered inside the component. |
-|  | `trailing` | `ReactNode` | Content aligned after toolbar controls. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `Toolbar` | `children`, `trailing?`, `className?` | `{ children: ReactNode; trailing?: ReactNode; className?: string }` | Responsive table filter bar with leading filter controls and trailing summary slot. |
+| `SearchInput` | `value`, `onChange`, `placeholder?`, `className?` | `{ value: string; onChange: (value: string) => void; placeholder?: string; className?: string }` | Debounce-ready search input with leading magnifier icon and clear button. |
+| `FilterSelect` | `value`, `onChange`, `allLabel`, `options`, `icon?`, `allowFreeText?` | `FilterSelectProps<T>` | Searchable combobox dropdown for filtering a table column by discrete options or free text. |
+| `ToggleChip` | `active`, `onClick`, `children` | `{ active: boolean; onClick: () => void; children: ReactNode }` | Boolean pill toggle for quick single-click table filters (such as `"Errors only"`). |
+| `ClearFiltersButton` | `show`, `onClick` | `{ show: boolean; onClick: () => void }` | Animated reset button that appears when one or more filters are active. |
+| `SortableHead` | `sortKey`, `sort`, `onSort`, `align?`, `className?`, `children` | `SortableHeadProps<K>` | Table header cell displaying active sort direction arrows and cycling sort state on click. |
+| `PaginationFooter` | `page`, `pageSize`, `total`, `shown`, `noun`, `onPageChange`, `onPageSizeChange?` | `PaginationFooterProps` | Minimal table footer with total count, rows-per-page selector, and previous/next page buttons. |
+| `useTableSort` | `defaultSort?` | `<K extends string>(defaultSort?: SortState<K> \| null) => { sort: SortState<K> \| null; toggle: (key: K) => void; setSort: Dispatch<SetStateAction<SortState<K> \| null>> }` | Controlled sort state hook cycling `desc` → `asc` → `null`. |
+| `sortRows` | `rows`, `sort`, `getters` | `<T, K extends string>(rows: readonly T[], sort: SortState<K> \| null, getters: Record<K, (row: T) => number \| string \| null \| undefined>) => T[]` | Sorts rows by the active `SortState<K>`, keeping `null`/`undefined` values last. |
+| `useUrlFilters` | `defaults` | `<K extends string>(defaults: Record<K, string>) => [Record<K, string>, (updates: Partial<Record<K, string>>) => void]` | Synchronizes table filter state with URL query parameters. |
+
+
 
 ## Requirements
 
 The table helpers are controlled. Keep search text, filter state, and sort state in the host. Pass callbacks to `SearchInput`, `ToggleChip`, `FilterSelect`, and `SortableHead`. `Toolbar` arranges its children and optional trailing content.
 
+## Usage
+
+```tsx
+import { useState } from "react";
+import {
+  PaginationFooter,
+  SearchInput,
+  SortableHead,
+  ToggleChip,
+  Toolbar,
+  sortRows,
+  useTableSort,
+} from "@tailrocks/framerock/widgets/data-table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHeader,
+  TableRow,
+} from "@tailrocks/framerock/ui/table";
+
+type TraceRow = {
+  id: string;
+  name: string;
+  durationMs: number;
+  hasError: boolean;
+};
+
+const rows: TraceRow[] = [
+  { id: "tr_1", name: "Support assistant", durationMs: 420, hasError: false },
+  { id: "tr_2", name: "Billing lookup", durationMs: 910, hasError: true },
+  { id: "tr_3", name: "Ticket router", durationMs: 185, hasError: false },
+];
+
+export function DataTableExample() {
+  const [search, setSearch] = useState("");
+  const [errorsOnly, setErrorsOnly] = useState(false);
+  const [page, setPage] = useState(0);
+  const { sort, toggle } = useTableSort<"name" | "durationMs">({
+    key: "durationMs",
+    dir: "desc",
+  });
+
+  const filtered = rows.filter(
+    (r) =>
+      (!errorsOnly || r.hasError) &&
+      r.name.toLowerCase().includes(search.toLowerCase()),
+  );
+  const sorted = sortRows(filtered, sort, {
+    name: (r) => r.name,
+    durationMs: (r) => r.durationMs,
+  });
+
+  return (
+    <div className="space-y-3">
+      <Toolbar>
+        <SearchInput
+          value={search}
+          onChange={setSearch}
+          placeholder="Filter traces…"
+        />
+        <ToggleChip
+          active={errorsOnly}
+          onClick={() => setErrorsOnly((v) => !v)}
+        >
+          Errors only
+        </ToggleChip>
+      </Toolbar>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <SortableHead sortKey="name" sort={sort} onSort={toggle}>
+              Trace
+            </SortableHead>
+            <SortableHead
+              sortKey="durationMs"
+              sort={sort}
+              onSort={toggle}
+              align="right"
+            >
+              Duration
+            </SortableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {sorted.map((row) => (
+            <TableRow key={row.id}>
+              <TableCell>{row.name}</TableCell>
+              <TableCell className="text-right tabular-nums">
+                {row.durationMs} ms
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <PaginationFooter
+        page={page}
+        pageSize={25}
+        total={sorted.length}
+        shown={sorted.length}
+        noun={["trace", "traces"]}
+        onPageChange={setPage}
+      />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/data-table.story.tsx`](../../../src/stories/widgets/data-table.story.tsx). The authoritative registry item ID is `widget-data-table` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/data-table`
+- **Registry item**: `widget-data-table` ([payload JSON](/r/widget-data-table.json))
+- **Story source**: `apps/docs/src/stories/widgets/data-table.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-data-table.json
+```

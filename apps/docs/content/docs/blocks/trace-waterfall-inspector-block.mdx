@@ -1,34 +1,57 @@
 ---
-title: Trace Waterfall Inspector
-description: Trace Waterfall Inspector renders a trace waterfall with span selection. The story controls loading state and stores the selected span locally.
+title: "Trace Waterfall Inspector"
+description: "Trace execution waterfall inspector with span timeline, token/cost percentiles, evaluation score pills, and payload drawer."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/trace-waterfall-inspector-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Trace Waterfall Inspector renders a trace waterfall with span selection. The story controls loading state and stores the selected span locally.
+import { story } from '../../../src/stories/blocks/trace-waterfall-inspector-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-dashboard-trace-waterfall-inspector" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/traces/[traceId]/trace-detail-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `TraceWaterfallInspectorBlock` | `traceId?` | `string` | Active trace identifier. |
+|  | `data?` | `TraceInspectorData \| null` | Structured dataset rendered by the block. |
+|  | `isLoading?` | `boolean` | Renders loading skeleton placeholders while data is being fetched. |
+|  | `scores?` | `TraceScore[]` | Individual evaluation score rows. |
+|  | `evals?` | `(EvalMeta & { id: string })[]` | Configures `evals`. |
+|  | `presets?` | `{ id: string; name: string }[]` | Available evaluation rubric presets. |
+|  | `neighbors?` | `{ prev: { traceId: string } \| null; next: { traceId: string } \| null } \| null` | Adjacent trace links (`prev` and `next`) for keyboard navigation. |
+|  | `comparison?` | `{ durationPercentile: number \| null; costPercentile: number \| null; tokenPercentile: number \| null } \| null` | Percentile rankings comparing trace duration, cost, and tokens. |
+|  | `initialSpanId?` | `string` | Initially selected span identifier in the waterfall. |
+|  | `onSpanChange?` | `(spanId: string \| null) => void` | Callback fired when the selected span changes. |
 
-`@tailrocks/framerock/blocks/dashboard/trace-waterfall-inspector-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/trace-waterfall-inspector-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { useState } from "react";
+import {
+  TraceWaterfallInspectorBlock,
+} from "@tailrocks/framerock/blocks/dashboard/trace-waterfall-inspector-block";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `isLoading: boolean`; initial values are `isLoading: false` |
-| Fixture and callback wiring | The story exposes `isLoading`. The source block accepts trace and related evaluation data, an optional initial span ID, and `onSpanChange`. The story wires span selection to local state. |
-| Registry item | `block-dashboard-trace-waterfall-inspector`. The portal payload is `/r/block-dashboard-trace-waterfall-inspector.json`. |
+export function TraceWaterfallExample({
+  isLoading = false,
+}: {
+  isLoading?: boolean;
+} = {}) {
+  const [span, setSpan] = useState<string | null>(null);
+  return (
+    <TraceWaterfallInspectorBlock
+      isLoading={isLoading}
+      initialSpanId={span ?? undefined}
+      onSpanChange={setSpan}
+    />
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/dashboard/trace-waterfall-inspector-block`
+- **Registry item**: `block-dashboard-trace-waterfall-inspector` ([payload JSON](/r/block-dashboard-trace-waterfall-inspector.json))
+- **Story source**: `apps/docs/src/stories/blocks/trace-waterfall-inspector-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-dashboard-trace-waterfall-inspector.json
+```

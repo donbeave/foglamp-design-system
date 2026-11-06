@@ -15,17 +15,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/app-shell.tsx"
     },
     {
-      "name": "block-app-shell-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/app-shell/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
       "name": "block-app-shell-new-project-dialog",
       "type": "registry:block",
       "title": "New Project Dialog",
@@ -68,17 +57,6 @@
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/device-approve-client.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/device-approve-client.tsx"
-    },
-    {
-      "name": "block-auth-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/auth/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
     },
     {
       "name": "block-auth-instrument-empty-state",
@@ -158,17 +136,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/evals/eval-settings-fields.tsx"
     },
     {
-      "name": "block-dashboard-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/dashboard/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
       "name": "block-dashboard-overview-dashboard",
       "type": "registry:block",
       "title": "Overview Dashboard Block",
@@ -235,39 +202,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/how-it-works/chapters.ts"
     },
     {
-      "name": "block-guide-css-modules-d",
-      "type": "registry:block",
-      "title": "Css Modules.D",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/guide/css-modules.d.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
-      "name": "block-guide-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/guide/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
-      "name": "block-guide-observability-guide-module",
-      "type": "registry:block",
-      "title": "Observability Guide.Module",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/guide/observability-guide.module.css, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "upstreamPath": "apps/web/src/components/marketing/how-it-works/observability-guide.module.css",
-      "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/how-it-works/observability-guide.module.css"
-    },
-    {
       "name": "block-guide-observability-guide",
       "type": "registry:block",
       "title": "Observability Guide",
@@ -283,8 +217,8 @@
       "type": "registry:block",
       "title": "Brand Mark",
       "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/chrome/brand-mark.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
+      "provenance": "modified",
+      "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/marketing/brand-mark.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/brand-mark.tsx"
@@ -316,8 +250,8 @@
       "type": "registry:block",
       "title": "Cutting Mat",
       "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/chrome/cutting-mat.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
+      "provenance": "modified",
+      "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/marketing/cutting-mat.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/cutting-mat.tsx"
@@ -354,17 +288,6 @@
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/marketing/github-logo.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/github-logo.tsx"
-    },
-    {
-      "name": "block-marketing-chrome-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/chrome/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
     },
     {
       "name": "block-marketing-chrome-logo",
@@ -486,17 +409,6 @@
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/marketing/landing/faq.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/faq.tsx"
-    },
-    {
-      "name": "block-marketing-cta-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/cta/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
     },
     {
       "name": "block-marketing-demo-demo-chrome",
@@ -622,7 +534,7 @@
     {
       "name": "block-marketing-demo-index",
       "type": "registry:block",
-      "title": "Index",
+      "title": "Dashboard Demo",
       "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/demo/index.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
       "provenance": "modified",
       "provenanceLabel": "Modified (Import/Prop Decoupled)",
@@ -840,17 +752,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figures.tsx"
     },
     {
-      "name": "block-marketing-figures-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/figures/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
       "name": "block-marketing-figures-product-hero",
       "type": "registry:block",
       "title": "Product Hero",
@@ -893,17 +794,6 @@
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/marketing/landing/hero.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/hero.tsx"
-    },
-    {
-      "name": "block-marketing-hero-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/marketing/hero/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
     },
     {
       "name": "block-marketing-hud-landing",
@@ -968,8 +858,8 @@
       "provenance": "tailrocks-original",
       "provenanceLabel": "Newly Added by Tailrocks",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
+      "inspirationPath": "apps/web/src/components/scan/brand.tsx",
+      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/brand.tsx"
     },
     {
       "name": "block-scan-flow-map",
@@ -981,17 +871,6 @@
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/scan/flow-map.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/flow-map.tsx"
-    },
-    {
-      "name": "block-scan-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/scan/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
     },
     {
       "name": "block-scan-kinds",
@@ -1075,8 +954,8 @@
       "type": "registry:block",
       "title": "Scan Prompt",
       "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/scan/scan-prompt.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
+      "provenance": "modified",
+      "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/lib/scan-prompt.ts",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/lib/scan-prompt.ts"
@@ -1102,17 +981,6 @@
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/setup/decision-list.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/setup/decision-list.tsx"
-    },
-    {
-      "name": "block-setup-index",
-      "type": "registry:block",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from blocks/setup/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
     },
     {
       "name": "block-setup-setup-board",
@@ -1335,17 +1203,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/sdk/src/hud/react/format.ts"
     },
     {
-      "name": "hud-index",
-      "type": "registry:component",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from hud/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
       "name": "hud-model-logo",
       "type": "registry:component",
       "title": "Model Logo",
@@ -1416,8 +1273,8 @@
       "type": "registry:component",
       "title": "Brand Mark",
       "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from icons/brand-mark.tsx, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
+      "provenance": "modified",
+      "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/marketing/brand-mark.tsx",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/brand-mark.tsx"
@@ -1445,17 +1302,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/model-logo.tsx"
     },
     {
-      "name": "framerock-source",
-      "type": "registry:internal",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
       "name": "utility-format",
       "type": "registry:lib",
       "title": "Format",
@@ -1474,8 +1320,8 @@
       "provenance": "tailrocks-original",
       "provenanceLabel": "Newly Added by Tailrocks",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
+      "inspirationPath": "apps/web/src/components/app/app-sidebar.tsx",
+      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/app-sidebar.tsx"
     },
     {
       "name": "utility-payload-messages",
@@ -1559,8 +1405,8 @@
       "type": "registry:lib",
       "title": "Favicon",
       "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from lib/scan/favicon.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
+      "provenance": "modified",
+      "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "apps/web/src/components/scan/favicon.ts",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/favicon.ts"
@@ -1650,8 +1496,8 @@
       "provenance": "modified",
       "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "upstreamPath": "apps/web/src/lib/trace-timeline.ts",
-      "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/lib/trace-timeline.ts"
+      "upstreamPath": "packages/api/src/services/traces.ts",
+      "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/api/src/services/traces.ts"
     },
     {
       "name": "utility-utils",
@@ -1680,8 +1526,8 @@
       "type": "registry:style",
       "title": "Globals",
       "description": "Install this style once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from styles/globals.css, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "copied-1-to-1",
-      "provenanceLabel": "1:1 Copied",
+      "provenance": "modified",
+      "provenanceLabel": "Modified (Import/Prop Decoupled)",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
       "upstreamPath": "packages/ui/src/styles/globals.css",
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/styles/globals.css"
@@ -2402,17 +2248,6 @@
       "upstreamUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/foggy/foggy-widget.tsx"
     },
     {
-      "name": "widget-foggy-index",
-      "type": "registry:component",
-      "title": "Index",
-      "description": "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. Foglamp source module from widgets/foggy/index.ts, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.",
-      "provenance": "tailrocks-original",
-      "provenanceLabel": "Newly Added by Tailrocks",
-      "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
-    },
-    {
       "name": "widget-foggy-markdown",
       "type": "registry:component",
       "title": "Markdown",
@@ -2431,8 +2266,8 @@
       "provenance": "tailrocks-original",
       "provenanceLabel": "Newly Added by Tailrocks",
       "upstreamCommit": "7d7e6609108019a74902858d4b07c24825c6318b",
-      "inspirationPath": "apps/web/src/components/marketing/landing/figure-picker.tsx",
-      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx"
+      "inspirationPath": "apps/web/src/components/foggy/foggy-message.tsx",
+      "inspirationUrl": "https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/foggy/foggy-message.tsx"
     },
     {
       "name": "widget-header-slot",

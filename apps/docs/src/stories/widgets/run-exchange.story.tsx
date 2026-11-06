@@ -1,5 +1,5 @@
 /* Derived reference story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs. */
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Conversation, DrawerColumns, DrawerRow, ExpandChevron, Meta } from '@tailrocks/framerock/widgets/run-exchange';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@tailrocks/framerock/ui/table';
 import { defineStory } from '../../lib/story';
@@ -27,6 +27,9 @@ const output = JSON.stringify([
 
 function RunExchangePreview({ clamp = 240, emptyResponse = false, drawerOpen: initialDrawerOpen = true }: { clamp?: number; emptyResponse?: boolean; drawerOpen?: boolean }) {
   const [drawerOpen, setDrawerOpen] = useState(initialDrawerOpen);
+  useEffect(() => {
+    setDrawerOpen(initialDrawerOpen);
+  }, [initialDrawerOpen]);
   return (
     <div className="w-full overflow-x-auto rounded-xl border bg-card">
       <Table>
@@ -52,6 +55,7 @@ export const story = defineStory({
   displayName: 'RunExchange',
   registryItem: 'widget-run-exchange',
   Component: RunExchangePreview,
+  frame: { width: 960, height: 540 },
   args: [
     { variant: 'Expanded run drawer with long folded exchange', initial: { clamp: 240, emptyResponse: false, drawerOpen: true } },
     { variant: 'Expanded exchange', initial: { clamp: 0, emptyResponse: false, drawerOpen: true } },

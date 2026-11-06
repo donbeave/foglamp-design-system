@@ -1,24 +1,14 @@
 ---
-title: ModelLogo
-description: Renders a model-provider icon from its model name.
+title: "Model Logo"
+description: "Renders a model-provider icon from its model name."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/model-logo.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders a model-provider icon from its model name.
+import { story } from '../../../src/stories/widgets/model-logo.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="icon-model-logo" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/model-logo.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -26,10 +16,35 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `modelId` | `string \| null \| undefined` | Model identifier used to resolve its logo. |
 |  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
 
+## Usage
+
+```tsx
+import { ModelLogo } from "@tailrocks/framerock/icons/model-logo";
+
+export function ModelLogoExample({
+  modelId = 'gpt-4o',
+  provider = 'openai',
+}: {
+  modelId?: string;
+  provider?: string;
+} = {}) {
+  return (
+    <div className="flex items-center gap-3">
+      <ModelLogo modelId={modelId} provider={provider} className="size-7" />
+      <span className="text-sm">
+        {modelId}
+      </span>
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/model-logo.story.tsx`](../../../src/stories/widgets/model-logo.story.tsx). The authoritative registry item ID is `icon-model-logo` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/icons/model-logo`
+- **Registry item**: `icon-model-logo` ([payload JSON](/r/icon-model-logo.json))
+- **Story source**: `apps/docs/src/stories/widgets/model-logo.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/icon-model-logo.json
+```

@@ -18,9 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/packages/ui/src/components/toggle-group.tsx; derived here under Apache-2.0.
- */
 import { Toggle as TogglePrimitive } from "@base-ui/react/toggle";
 import { ToggleGroup as ToggleGroupPrimitive } from "@base-ui/react/toggle-group";
 import type { VariantProps } from "class-variance-authority";

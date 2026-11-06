@@ -1,37 +1,51 @@
 ---
-title: ScanBrand
-description: Exports the scan mark, favicon, and model icon used by scan screens.
+title: "Scan Brand"
+description: "Exports the scan mark, favicon, and model icon used by scan screens."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/scan-brand.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Exports the scan mark, favicon, and model icon used by scan screens.
+import { story } from '../../../src/stories/widgets/scan-brand.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-leaf-scan-brand" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/scan/brand.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `BrandMark` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `BrandMark` | `className?` | `string` | CSS class applied to the Framerock three-frame SVG mark. |
+| `Favicon` | `domain?` | `string` | Domain resolved through the `ScanFaviconProvider` URL builder. |
+| | `fallback` | `ReactNode` | Fallback icon or monogram rendered when `domain` is absent or fails to load. |
+| | `className?` | `string` | CSS class controlling size and squircle corner rounding. |
+| `ModelIcon` | `label` | `string` | Model identifier matched against built-in Claude, Gemini, and OpenAI marks before falling back to `Favicon`. |
+| | `domain?` | `string` | Optional provider domain override for favicon resolution. |
+| | `className?` | `string` | CSS class applied to the rendered SVG or favicon image. |
+
+
 
 ## Requirements
 
 `BrandMark`, `Favicon`, and `ModelIcon` are separate named exports from `@tailrocks/framerock/widgets/leaf/scan-brand`.
 
+## Usage
+
+```tsx
+import { BrandMark } from "@tailrocks/framerock/widgets/leaf/scan-brand";
+
+export function ScanBrandExample() {
+  return (
+    <div className="flex items-center gap-3">
+      <BrandMark className="size-9" />
+      <span className="text-sm">Scan identity</span>
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/scan-brand.story.tsx`](../../../src/stories/widgets/scan-brand.story.tsx). The authoritative registry item ID is `widget-leaf-scan-brand` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/leaf/scan-brand`
+- **Registry item**: `widget-leaf-scan-brand` ([payload JSON](/r/widget-leaf-scan-brand.json))
+- **Story source**: `apps/docs/src/stories/widgets/scan-brand.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-leaf-scan-brand.json
+```

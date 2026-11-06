@@ -18,9 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/packages/ui/src/components/sidebar.tsx; derived here under Apache-2.0.
- */
 import { mergeProps } from "@base-ui/react/merge-props";
 import { useRender } from "@base-ui/react/use-render";
 import { type VariantProps, cva } from "class-variance-authority";

@@ -16,10 +16,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/apps/web/src/components/evilcharts; derived here under Apache-2.0.
- */
-
 import { useCallback, useRef, useState } from "react";
 import { ReferenceArea, ReferenceLine } from "recharts";
 

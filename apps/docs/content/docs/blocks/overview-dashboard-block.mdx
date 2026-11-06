@@ -1,34 +1,43 @@
 ---
-title: Overview Dashboard
-description: Overview Dashboard renders the source observability dashboard with its default local data. The story controls the updating state and provides the dashboard shell.
+title: "Overview Dashboard"
+description: "Top-level observability overview dashboard combining KPI stat cards, latency/token/error trend charts, and cost attribution tables."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/overview-dashboard-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Overview Dashboard renders the source observability dashboard with its default local data. The story controls the updating state and provides the dashboard shell.
+import { story } from '../../../src/stories/blocks/overview-dashboard-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-dashboard-overview-dashboard" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/overview/overview-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `OverviewDashboardBlock` | `data?` | `OverviewDashboardData` | Structured dataset rendered by the block. |
+|  | `isLoading?` | `boolean` | Renders loading skeleton placeholders while data is being fetched. |
+|  | `isUpdating?` | `boolean` | Holds the current view while refreshed data is loading. |
+|  | `onboarding?` | `{ apiKey?: string \| null; prompt?: string; docsUrl?: string; onPromptCopied?: () => void }` | Onboarding configuration shown before the first trace arrives. |
 
-`@tailrocks/framerock/blocks/dashboard/overview-dashboard-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/overview-dashboard-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  OverviewDashboardBlock,
+} from "@tailrocks/framerock/blocks/dashboard/overview-dashboard-block";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `isUpdating: boolean`; initial values are `isUpdating: false` |
-| Fixture and callback wiring | The story exposes `isUpdating`. The source block also accepts optional dashboard data, loading state, and onboarding content. |
-| Registry item | `block-dashboard-overview-dashboard`. The portal payload is `/r/block-dashboard-overview-dashboard.json`. |
+export function OverviewExample({
+  isUpdating = false,
+}: {
+  isUpdating?: boolean;
+} = {}) {
+  return <OverviewDashboardBlock isUpdating={isUpdating} />;
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/dashboard/overview-dashboard-block`
+- **Registry item**: `block-dashboard-overview-dashboard` ([payload JSON](/r/block-dashboard-overview-dashboard.json))
+- **Story source**: `apps/docs/src/stories/blocks/overview-dashboard-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-dashboard-overview-dashboard.json
+```

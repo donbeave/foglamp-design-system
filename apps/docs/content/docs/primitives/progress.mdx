@@ -3,26 +3,12 @@ title: "Progress"
 description: "Progress root with track, indicator, label, and value slots, backed by Base UI progress state."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/progress.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Progress
-
-Progress root with track, indicator, label, and value slots, backed by Base UI progress state.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-progress" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/progress.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/progress`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -36,29 +22,54 @@ The table lists values exported from `@tailrocks/framerock/ui/progress`. The dec
 
 The exports forward the props declared by their source component types. The public type for each export appears in the table above.
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
 import { useState } from "react";
+import {
+  Progress,
+  ProgressLabel,
+  ProgressValue,
+} from "@tailrocks/framerock/ui/progress";
 
-import { Progress, ProgressTrack, ProgressIndicator, ProgressLabel, ProgressValue } from "@tailrocks/framerock/ui/progress";
-
-type Args = { value: 68 };
-
-function ProgressStory({ args }: { args: Args }) {
-  const [value, setValue] = useState(68);
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><div className="w-full max-w-md"><Progress value={args.value}><div className="mb-2 flex items-center justify-between"><ProgressLabel>Indexing traces</ProgressLabel><ProgressValue /></div><ProgressTrack><ProgressIndicator /></ProgressTrack></Progress><input aria-label="Progress value" type="range" min="0" max="100" value={args.value} onChange={e => setValue(Number(e.target.value))} className="mt-4 w-full" /></div></div>;
+export function ProgressExample({
+  value = 68,
+  label = "Indexing traces",
+}: {
+  value?: number;
+  label?: string;
+} = {}) {
+  const [currentValue, setCurrentValue] = useState(value);
+  return (
+    <div className="w-full max-w-md">
+      <Progress value={currentValue}>
+        <div className="flex w-full items-center justify-between">
+          <ProgressLabel>
+            {label}
+          </ProgressLabel>
+          <ProgressValue />
+        </div>
+      </Progress>
+      <input
+        aria-label="Progress value"
+        type="range"
+        min="0"
+        max="100"
+        value={currentValue}
+        onChange={(e) => setCurrentValue(Number(e.target.value))}
+        className="mt-4 w-full"
+      />
+    </div>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-progress`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-progress.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-progress.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/progress`
+- **Registry item**: `ui-progress` ([payload JSON](/r/ui-progress.json))
+- **Story source**: `apps/docs/src/stories/primitives/progress.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/progress`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-progress.json
+```

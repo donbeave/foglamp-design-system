@@ -1,34 +1,36 @@
 ---
-title: Observability Guide
-description: Observability Guide renders the source scrollytelling guide with its chapter content and sticky visual treatment. It accepts no story controls.
+title: "Observability Guide"
+description: "Long-form interactive engineering guide to AI agent observability with live embedded traces, waterfall diagrams, and chapter navigation."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/observability-guide-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Observability Guide renders the source scrollytelling guide with its chapter content and sticky visual treatment. It accepts no story controls.
+import { story } from '../../../src/stories/blocks/observability-guide-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-guide-observability-guide" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/how-it-works/observability-guide.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `ObservabilityGuideBlock` | `—` | `—` | Self-contained block component requiring no required props. |
 
-`@tailrocks/framerock/blocks/guide/observability-guide` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/observability-guide-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  ObservabilityGuideBlock,
+} from "@tailrocks/framerock/blocks/guide/observability-guide";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | No editable workbench arguments. |
-| Fixture and callback wiring | The exported guide block takes no props in this story. Its chapter sequence and scroll behavior are defined by the guide source. |
-| Registry item | `block-guide-observability-guide`. The portal payload is `/r/block-guide-observability-guide.json`. |
+export function ObservabilityGuideBlockExample() {
+  return <ObservabilityGuideBlock />;
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/guide/observability-guide`
+- **Registry item**: `block-guide-observability-guide` ([payload JSON](/r/block-guide-observability-guide.json))
+- **Story source**: `apps/docs/src/stories/blocks/observability-guide-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-guide-observability-guide.json
+```

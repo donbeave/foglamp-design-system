@@ -1,24 +1,14 @@
 ---
-title: Evil Brush Range Selector
-description: Provides a draggable range selector over the full dataset with controlled or default indices.
+title: "Evil Brush Range Selector"
+description: "Provides a draggable range selector over the full dataset with controlled or default indices."
 ---
 
-
-
-
-import { story } from "../../../src/stories/charts/evil-brush.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Provides a draggable range selector over the full dataset with controlled or default indices.
+import { story } from '../../../src/stories/charts/evil-brush.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="chart-evilcharts-ui-evil-brush" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/evilcharts/ui/evil-brush.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -48,10 +38,76 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 `EvilBrush` supports controlled `startIndex` and `endIndex`, or uncontrolled `defaultStartIndex` and `defaultEndIndex`. `onChange` receives `{ startIndex, endIndex }`. Its data and `chartConfig` use the EvilCharts data and color configuration.
 
+## Usage
+
+```tsx
+import { useState } from "react";
+import {
+  EvilBrush,
+  type EvilBrushRange,
+} from "@tailrocks/framerock/charts/evilcharts/ui/evil-brush";
+import type { ChartConfig } from "@tailrocks/framerock/charts/evilcharts/ui/chart";
+
+const observabilityConfig = {
+  requests: { label: "Requests", colors: { light: ["#6d5efc"], dark: ["#a59bff"] } },
+  errors: { label: "Errors", colors: { light: ["#e05d71"], dark: ["#ff8292"] } },
+  latency: { label: "Latency", colors: { light: ["#19a98c"], dark: ["#54d9b5"] } },
+} satisfies ChartConfig;
+
+const observabilityData = [
+  { day: "Mon", requests: 116, errors: 9, latency: 178 },
+  { day: "Tue", requests: 132, errors: 12, latency: 194 },
+  { day: "Wed", requests: 124, errors: 7, latency: 169 },
+  { day: "Thu", requests: 158, errors: 15, latency: 218 },
+  { day: "Fri", requests: 147, errors: 11, latency: 203 },
+];
+
+const initialRange = { startIndex: 2, endIndex: 10 };
+
+export function BrushExample({
+  variant = 'area',
+  strokeVariant = 'solid',
+}: {
+  variant?: 'line' | 'area' | 'bar';
+  strokeVariant?: 'solid' | 'dashed' | 'animated-dashed';
+} = {}) {
+  const [range, setRange] = useState<EvilBrushRange>(initialRange);
+  return (
+    <>
+      <div
+      className="mb-2 flex min-h-6 items-center justify-between text-xs text-muted-foreground"
+    >
+      <span>Drag either handle or the selected window to scrub the data</span>
+      <output aria-live="polite">
+        Buckets
+        {range.startIndex + 1}
+        –
+        {range.endIndex + 1}
+      </output>
+    </div>
+      <EvilBrush
+      data={observabilityData}
+      chartConfig={observabilityConfig}
+      xDataKey="day"
+      variant={variant}
+      strokeVariant={strokeVariant}
+      height={84}
+      defaultStartIndex={initialRange.startIndex}
+      defaultEndIndex={initialRange.endIndex}
+      onChange={setRange}
+      curveType="monotone"
+    />
+    </>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/charts/evil-brush.story.tsx`](../../../src/stories/charts/evil-brush.story.tsx). The story registry item is `chart-evilcharts-ui-evil-brush` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-ui-evil-brush.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-evil-brush.json` while the portal is running. The design-system package is not claimed to be published to npm.
+- **Package import**: `@tailrocks/framerock/charts/evilcharts/ui/evil-brush`
+- **Registry item**: `chart-evilcharts-ui-evil-brush` ([payload JSON](/r/chart-evilcharts-ui-evil-brush.json))
+- **Story source**: `apps/docs/src/stories/charts/evil-brush.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-evil-brush.json
+```

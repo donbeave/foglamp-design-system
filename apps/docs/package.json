@@ -22,7 +22,8 @@
     "fumadocs-mdx": "^15.4.10",
     "fumadocs-ui": "npm:@fumadocs/base-ui@^16.17.10",
     "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react-dom": "19.2.5",
+    "sonner": "^2.0.7"
   },
   "devDependencies": {
     "@tailwindcss/vite": "4.3.1",

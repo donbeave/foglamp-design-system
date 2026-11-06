@@ -16,13 +16,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/demo-context.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { createContext, useContext } from "react";
 
 import type { DemoTab } from "./mock-data";

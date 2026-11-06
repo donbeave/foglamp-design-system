@@ -1,88 +1,103 @@
 ---
-title: Chart Tooltip
-description: Configures tooltip appearance, corners, selected index, and formatters.
+title: "Chart Tooltip"
+description: "Configures tooltip appearance, corners, selected index, and formatters."
 ---
 
-
-
-
-import { story } from "../../../src/stories/charts/tooltip.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Configures tooltip appearance, corners, selected index, and formatters.
+import { story } from '../../../src/stories/charts/tooltip.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="chart-evilcharts-ui-tooltip" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/evilcharts/ui/tooltip.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop / Type | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `EvilLineChart` | `config` | `TConfig & ValidateConfigKeys<TData, TConfig>` | Labels and light/dark colors keyed by data series. |
-|  | `data` | `TData[]` | Rows consumed by the component or visualization. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
-|  | `animationType` | `LineAnimationType \| undefined` | Selects the chart reveal animation. |
-|  | `defaultSelectedDataKey` | `string \| null \| undefined` | Sets the initially selected series key for uncontrolled selection. |
-|  | `selectedDataKey` | `string \| null \| undefined` | Controls the currently selected series key. |
-|  | `onSelectionChange` | `((selectedDataKey: string \| null) => void) \| undefined` | Receives the selected series key, or null when selection clears. |
-|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
-|  | `showBrush` | `boolean \| undefined` | Shows the mini-chart range brush. |
-|  | `xDataKey` | `(keyof TData & string) \| undefined` | Data field used for x-axis labels and zoom values. |
-|  | `onZoomSelect` | `ZoomSelectHandler \| undefined` | Receives x-axis endpoint values after a drag. |
-|  | `onZoomReset` | `(() => void) \| undefined` | Runs when the zoom selection resets. |
-|  | `isUpdating` | `boolean \| undefined` | Marks data as refreshing while the current view remains visible. |
-| `Line` | `dataKey` | `string` | Data field used for a series or axis. |
-|  | `strokeVariant` | `StrokeVariant \| undefined` | Selects solid, dashed, or animated dashed strokes. |
-|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
-|  | `isClickable` | `boolean \| undefined` | Enables pointer selection for legend items. |
-|  | `enableBufferLine` | `boolean \| undefined` | Adds the buffered dash overlay to a series stroke. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-| `Grid` | `stroke` | `string \| undefined` | Sets the chart grid line color. |
-|  | `horizontal` | `GridLineType \| undefined` | Configures the horizontal grid lines. |
-|  | `vertical` | `GridLineType \| undefined` | Configures the vertical grid lines. |
-|  | `strokeDasharray` | `string \| number \| readonly number[] \| undefined` | Sets the dash pattern for the grid lines. |
-| `Tooltip` | `variant` | `TooltipVariant \| undefined` | Selects the documented visual variant. |
-|  | `roundness` | `TooltipRoundness \| undefined` | Selects the tooltip corner radius preset. |
-|  | `defaultIndex` | `number \| undefined` | Initial active tooltip index. |
-|  | `cursor` | `boolean \| undefined` | Shows or hides the tooltip cursor highlight. |
-|  | `labelFormatter` | `(((label: ReactNode, payload: readonly Payload<ValueType, NameType>[]) => ReactNode) & ((label: ReactNode, payload: TooltipPayload) => ReactNode)) \| undefined` | Formats the active x-axis label in the tooltip. |
-|  | `valueFormatter` | `((value: ValueType, dataKey: string, payload: Record<string, unknown>) => ReactNode) \| undefined` | Formats each plotted value for display. |
-|  | `reverse` | `boolean \| undefined` | Reverses the tooltip item order. |
-| `XAxis` | `type` | `"number" \| "auto" \| "category" \| undefined` | Selects whether the axis interprets values as numeric or categorical. |
-|  | `width` | `string \| number \| undefined` | Reserves the requested width for the axis. |
-|  | `orientation` | `"top" \| "bottom" \| undefined` | Places the axis on the selected side of the plot. |
-|  | `domain` | `AxisDomain \| undefined` | Sets the minimum and maximum values shown on the axis. |
-|  | `dataKey` | `string \| number \| ((obj: unknown) => unknown) \| undefined` | Data field used for a series or axis. |
-|  | `hide` | `boolean \| undefined` | Hides the axis when true. |
-|  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
-|  | `axisLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the line drawn along the axis. |
-|  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
-|  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
-| `YAxis` | `type` | `"number" \| "auto" \| "category" \| undefined` | Selects whether the axis interprets values as numeric or categorical. |
-|  | `width` | `number \| "auto" \| undefined` | Reserves the requested width for the axis. |
-|  | `orientation` | `"left" \| "right" \| undefined` | Places the axis on the selected side of the plot. |
-|  | `axisLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the line drawn along the axis. |
-|  | `domain` | `AxisDomain \| undefined` | Sets the minimum and maximum values shown on the axis. |
-|  | `dataKey` | `string \| number \| ((obj: unknown) => unknown) \| undefined` | Data field used for a series or axis. |
-|  | `hide` | `boolean \| undefined` | Hides the axis when true. |
-|  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
-|  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
-|  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
+| `ChartTooltip` | `content?` | `ReactNode` | Recharts tooltip primitive pre-configured for Framerock charts. |
+| `ChartTooltipContent` | `variant?` | `TooltipVariant` | Surface treatment (`"default"` \| `"frosted-glass"` \| `"inverted"`). |
+| | `roundness?` | `TooltipRoundness` | Corner radius preset (`"none"` \| `"sm"` \| `"default"` \| `"lg"` \| `"xl"` \| `"full"`). |
+| | `indicator?` | `"line" \| "dot" \| "dashed"` | Swatch indicator shape rendered beside each series row (defaults to `"dot"`). |
+| | `hideLabel?` | `boolean` | Hides the top x-axis bucket header inside the tooltip. |
+| | `hideIndicator?` | `boolean` | Hides the series color swatch indicator. |
+| | `labelFormatter?` | `(label: ReactNode, payload: TooltipPayload) => ReactNode` | Formats the x-axis header label. |
+| | `valueFormatter?` | `(value: ValueType, dataKey: string, payload: Record<string, unknown>) => ReactNode` | Formats each series value cell. |
+| | `reverse?` | `boolean` | Reverses the display order of series rows to match stacked charts. |
+| | `nameKey?`, `labelKey?` | `string` | Custom payload keys used for series names and header labels. |
+| | `className?` | `string` | CSS class applied to the tooltip card. |
+| `TooltipVariant` | `type` | `"default" \| "frosted-glass" \| "inverted"` | Supported tooltip surface variants. |
+| `TooltipRoundness` | `type` | `"none" \| "sm" \| "default" \| "lg" \| "xl" \| "full"` | Supported tooltip corner radius presets. |
 
 ## Requirements
 
 `valueFormatter` receives a value, data key, and row payload. `labelFormatter` receives the label and tooltip payload. `variant` accepts `default` or `frosted-glass`; `roundness` accepts `sm`, `md`, `lg`, or `xl`.
 
+## Usage
+
+```tsx
+import {
+  EvilLineChart,
+  Line,
+  Grid,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "@tailrocks/framerock/charts/evilcharts/charts/line-chart";
+import {
+  TooltipRoundness,
+  TooltipVariant,
+} from "@tailrocks/framerock/charts/evilcharts/ui/tooltip";
+import type { ChartConfig } from "@tailrocks/framerock/charts/evilcharts/ui/chart";
+
+const observabilityConfig = {
+  requests: { label: "Requests", colors: { light: ["#6d5efc"], dark: ["#a59bff"] } },
+  errors: { label: "Errors", colors: { light: ["#e05d71"], dark: ["#ff8292"] } },
+  latency: { label: "Latency", colors: { light: ["#19a98c"], dark: ["#54d9b5"] } },
+} satisfies ChartConfig;
+
+const observabilityData = [
+  { day: "Mon", requests: 116, errors: 9, latency: 178 },
+  { day: "Tue", requests: 132, errors: 12, latency: 194 },
+  { day: "Wed", requests: 124, errors: 7, latency: 169 },
+  { day: "Thu", requests: 158, errors: 15, latency: 218 },
+  { day: "Fri", requests: 147, errors: 11, latency: 203 },
+];
+
+export function TooltipExample({
+  variant = 'frosted-glass',
+  roundness = 'lg',
+}: {
+  variant?: TooltipVariant;
+  roundness?: TooltipRoundness;
+} = {}) {
+  return (
+    <EvilLineChart
+      config={observabilityConfig}
+      data={observabilityData}
+      className="h-[300px]"
+      animationType="none"
+      defaultSelectedDataKey="requests"
+    >
+      <Grid />
+      <XAxis dataKey="day" />
+      <YAxis width={32} />
+      <Tooltip
+        variant={variant}
+        roundness={roundness}
+        defaultIndex={6}
+        valueFormatter={(value) => `${value} units`}
+      />
+      <Line dataKey="requests" isClickable />
+      <Line dataKey="errors" isClickable />
+      <Line dataKey="latency" isClickable />
+    </EvilLineChart>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/charts/tooltip.story.tsx`](../../../src/stories/charts/tooltip.story.tsx). The story registry item is `chart-evilcharts-ui-tooltip` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-ui-tooltip.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-tooltip.json` while the portal is running. The design-system package is not claimed to be published to npm.
+- **Package import**: `@tailrocks/framerock/charts/evilcharts/ui/tooltip`
+- **Registry item**: `chart-evilcharts-ui-tooltip` ([payload JSON](/r/chart-evilcharts-ui-tooltip.json))
+- **Story source**: `apps/docs/src/stories/charts/tooltip.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-tooltip.json
+```

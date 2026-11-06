@@ -16,8 +16,54 @@
  * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
+/// <reference path="./elk-worker.d.ts" />
+
 import type { GraphEdge } from "./scan";
-import type { ELK, ElkNode } from "elkjs/lib/elk-api";
+
+export interface ElkPoint {
+	x: number;
+	y: number;
+}
+
+export interface ElkLabel {
+	id?: string;
+	text?: string;
+	width?: number;
+	height?: number;
+	x?: number;
+	y?: number;
+}
+
+export interface ElkEdgeSection {
+	id?: string;
+	startPoint: ElkPoint;
+	endPoint: ElkPoint;
+	bendPoints?: ElkPoint[];
+}
+
+export interface ElkExtendedEdge {
+	id: string;
+	sources: string[];
+	targets: string[];
+	labels?: ElkLabel[];
+	sections?: ElkEdgeSection[];
+}
+
+export interface ElkNode {
+	id: string;
+	x?: number;
+	y?: number;
+	width?: number;
+	height?: number;
+	children?: ElkNode[];
+	edges?: ElkExtendedEdge[];
+	labels?: ElkLabel[];
+	layoutOptions?: Record<string, string>;
+}
+
+export interface ELK {
+	layout(graph: ElkNode, options?: object): Promise<ElkNode>;
+}
 
 // elkjs is imported lazily, and via elk-api + the fake in-process worker
 // instead of elk.bundled.js: the bundle's own `require("./elk-worker.min.js")`
@@ -26,7 +72,7 @@ import type { ELK, ElkNode } from "elkjs/lib/elk-api";
 let elkInstance: ELK | null = null;
 async function getElk(): Promise<ELK> {
 	if (!elkInstance) {
-		const elkApi = (await import("elkjs/lib/elk-api.js")) as {
+		const elkApi = (await import(("elkjs/lib/elk-api.js"))) as {
 			default: (new (opts: object) => ELK) | { default: new (opts: object) => ELK };
 		};
 		// Bun exposes `self` without a document, so elkjs mistakes its main
@@ -49,8 +95,7 @@ async function getElk(): Promise<ELK> {
 				else Reflect.deleteProperty(globalThis, "self");
 			}
 		} else {
-			// @ts-expect-error — no types for the worker entry
-			worker = await import("elkjs/lib/elk-worker.min.js");
+			worker = (await import("elkjs/lib/elk-worker.min.js")) as unknown as Record<string, unknown>;
 		}
 		// Both modules are CJS; depending on the bundler (turbopack, webpack,
 		// Vercel's nft trace) the constructor lands on the module, .default, or

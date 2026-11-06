@@ -16,6 +16,8 @@
  * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
+/// <reference path="../lib/react-shim.d.ts" />
+
 import { Button as ButtonPrimitive } from "@base-ui/react/button";
 import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";

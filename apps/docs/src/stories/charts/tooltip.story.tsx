@@ -11,5 +11,6 @@ function TooltipStory({ variant, roundness }: TooltipStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/tooltip', Component: TooltipStory, displayName: 'Chart Tooltip', registryItem: 'chart-evilcharts-ui-tooltip',
+	frame: { width: 960, height: 440 },
 	args: { initial: { variant: 'frosted-glass', roundness: 'lg' } },
 });

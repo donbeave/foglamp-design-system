@@ -3,26 +3,12 @@ title: "Dialog"
 description: "Modal dialog built from Base UI root, backdrop, popup, title, description, and close parts. The popup shows its close button by default."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/dialog.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Dialog
-
-Modal dialog built from Base UI root, backdrop, popup, title, description, and close parts. The popup shows its close button by default.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-dialog" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/dialog.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/dialog`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -44,28 +30,66 @@ The table lists values exported from `@tailrocks/framerock/ui/dialog`. The decla
 | `DialogContent.showCloseButton` | `boolean` | Defaults to `true`. |
 | `DialogFooter.showCloseButton` | `boolean` | Defaults to `false`. |
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogClose } from '@tailrocks/framerock/ui/dialog';
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogClose,
+} from "@tailrocks/framerock/ui/dialog";
+import { Button } from "@tailrocks/framerock/ui/button";
+import { Input } from "@tailrocks/framerock/ui/input";
+import { Label } from "@tailrocks/framerock/ui/label";
 
-import { Button } from '@tailrocks/framerock/ui/button';
-
-import { Input } from '@tailrocks/framerock/ui/input';
-
-import { Label } from '@tailrocks/framerock/ui/label';
-
-function DialogExample({ title = 'Create evaluation' }: { title?: string }) { return <Dialog><DialogTrigger render={<Button variant="outline" />}>New evaluation</DialogTrigger><DialogContent><DialogHeader><DialogTitle>{title}</DialogTitle><DialogDescription>Set up a reusable test run for your agent.</DialogDescription></DialogHeader><div className="grid gap-3"><Label htmlFor="eval-name">Name</Label><Input id="eval-name" defaultValue="Support agent regression" /><Label htmlFor="eval-dataset">Dataset</Label><Input id="eval-dataset" defaultValue="support-v3 · 128 cases" /></div><DialogFooter><DialogClose render={<Button variant="outline" />}>Cancel</DialogClose><Button>Create evaluation</Button></DialogFooter></DialogContent></Dialog>; }
+export function DialogExample({
+  title = 'Create evaluation',
+}: {
+  title?: string;
+} = {}) {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>
+        New evaluation
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>
+            {title}
+          </DialogTitle>
+          <DialogDescription>
+            Set up a reusable test run for your agent.
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-3">
+          <Label htmlFor="eval-name">Name</Label>
+          <Input id="eval-name" defaultValue="Support agent regression" />
+          <Label htmlFor="eval-dataset">Dataset</Label>
+          <Input id="eval-dataset" defaultValue="support-v3 · 128 cases" />
+        </div>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>
+            Cancel
+          </DialogClose>
+          <Button>Create evaluation</Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-dialog`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-dialog.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-dialog.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/dialog`
+- **Registry item**: `ui-dialog` ([payload JSON](/r/ui-dialog.json))
+- **Story source**: `apps/docs/src/stories/primitives/dialog.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/dialog`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-dialog.json
+```

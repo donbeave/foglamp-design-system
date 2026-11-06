@@ -12,5 +12,6 @@ function BackgroundStory({ variant }: BackgroundStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/background', Component: BackgroundStory, displayName: 'Chart SVG Background Patterns', registryItem: 'chart-evilcharts-ui-background',
+	frame: { width: 960, height: 440 },
 	args: { initial: { variant: 'dots' } },
 });

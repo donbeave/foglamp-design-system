@@ -3,26 +3,12 @@ title: "Drawer"
 description: "Modal drawer composition with trigger, portal, backdrop, content, heading, and footer parts, backed by the project drawer primitive."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/drawer.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Drawer
-
-Modal drawer composition with trigger, portal, backdrop, content, heading, and footer parts, backed by the project drawer primitive.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-drawer" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/drawer.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/drawer`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -41,24 +27,68 @@ The table lists values exported from `@tailrocks/framerock/ui/drawer`. The decla
 
 The exports forward the props declared by their source component types. The public type for each export appears in the table above.
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerTitle, DrawerDescription, DrawerFooter, DrawerClose } from '@tailrocks/framerock/ui/drawer';
+import {
+  Drawer,
+  DrawerTrigger,
+  DrawerContent,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerClose,
+} from "@tailrocks/framerock/ui/drawer";
+import { Button } from "@tailrocks/framerock/ui/button";
 
-import { Button } from '@tailrocks/framerock/ui/button';
-
-function DrawerExample({ title = 'Trace details' }: { title?: string }) { return <Drawer><DrawerTrigger>Inspect trace</DrawerTrigger><DrawerContent><DrawerHeader><DrawerTitle>{title}</DrawerTitle><DrawerDescription>checkout-api · trace tr_7f92c1 · 2.14 s</DrawerDescription></DrawerHeader><div className="grid gap-3 px-4 py-2 text-sm"><div className="flex justify-between"><span className="text-muted-foreground">Model</span><span>Claude 3.7 Sonnet</span></div><div className="flex justify-between"><span className="text-muted-foreground">Input tokens</span><span>12,418</span></div><div className="flex justify-between"><span className="text-muted-foreground">Cost</span><span>$0.084</span></div></div><DrawerFooter><Button>Open full trace</Button><DrawerClose>Close</DrawerClose></DrawerFooter></DrawerContent></Drawer>; }
+export function DrawerExample({
+  title = 'Trace details',
+}: {
+  title?: string;
+} = {}) {
+  return (
+    <Drawer>
+      <DrawerTrigger>Inspect trace</DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>
+            {title}
+          </DrawerTitle>
+          <DrawerDescription>
+            checkout-api · trace tr_7f92c1 · 2.14 s
+          </DrawerDescription>
+        </DrawerHeader>
+        <div className="grid gap-3 px-4 py-2 text-sm">
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Model</span>
+            <span>Claude 3.7 Sonnet</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Input tokens</span>
+            <span>12,418</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-muted-foreground">Cost</span>
+            <span>$0.084</span>
+          </div>
+        </div>
+        <DrawerFooter>
+          <Button>Open full trace</Button>
+          <DrawerClose>Close</DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
+  );
+}
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-drawer`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-drawer.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-drawer.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/drawer`
+- **Registry item**: `ui-drawer` ([payload JSON](/r/ui-drawer.json))
+- **Story source**: `apps/docs/src/stories/primitives/drawer.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/drawer`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-drawer.json
+```

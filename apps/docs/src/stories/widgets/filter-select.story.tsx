@@ -32,6 +32,7 @@ export const story = defineStory({
   displayName: 'FilterSelect',
   registryItem: 'widget-filter-select',
   Component: FilterSelectPreview,
+  frame: { height: 340 },
   args: [
     { variant: 'Searchable status filter', initial: { allLabel: 'Any status' } },
     { variant: 'Reset label', initial: { allLabel: 'All run states' } },

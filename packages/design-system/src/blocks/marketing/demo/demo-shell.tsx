@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/demo-shell.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { cn } from "@tailrocks/framerock/lib/utils";
 import { motion, useReducedMotion } from "motion/react";
 import { useState } from "react";

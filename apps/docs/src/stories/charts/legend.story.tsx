@@ -11,5 +11,6 @@ function LegendStory({ variant, isClickable }: LegendStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/legend', Component: LegendStory, displayName: 'Chart Legend', registryItem: 'chart-evilcharts-ui-legend',
+	frame: { width: 960, height: 440 },
 	args: { initial: { variant: 'rounded-square', isClickable: true } },
 });

@@ -18,10 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/apps/web/src/components/evilcharts; derived here under Apache-2.0.
- */
-
 import {
 	type ChartConfig,
 	ChartStyle,
@@ -647,7 +643,7 @@ function MiniChart({
 
 	if (variant === "line") {
 		return (
-			<ResponsiveContainer width="100%" height="100%">
+			<ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
 				<LineChart
 					data={data}
 					margin={{ top: 4, right: 0, bottom: 0, left: 0 }}
@@ -676,7 +672,7 @@ function MiniChart({
 	if (variant === "bar") {
 		const r = barRadius ?? 3;
 		return (
-			<ResponsiveContainer width="100%" height="100%">
+			<ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
 				<BarChart
 					data={data}
 					margin={{ top: 2, right: 0, bottom: 0, left: 0 }}
@@ -702,7 +698,7 @@ function MiniChart({
 
 	// Default: area
 	return (
-		<ResponsiveContainer width="100%" height="100%">
+		<ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
 			<AreaChart data={data} margin={{ top: 4, right: 0, bottom: 0, left: 0 }}>
 				<defs>{defsContent}</defs>
 				{keys.map((dk) => (

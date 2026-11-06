@@ -1,24 +1,14 @@
 ---
-title: PaginationFooter
-description: Reports the visible row interval and exposes page changes.
+title: "Pagination Footer"
+description: "Reports the visible row interval and exposes page changes."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/pagination-footer.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Reports the visible row interval and exposes page changes.
+import { story } from '../../../src/stories/widgets/pagination-footer.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-pagination-footer" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/data-table.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -32,10 +22,34 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `pageSizes` | `number[] \| undefined` | Lists the page sizes offered in the selector. |
 |  | `isFetching` | `boolean \| undefined` | Marks the page data as fetching. |
 
+## Usage
+
+```tsx
+import { PaginationFooter } from "@tailrocks/framerock/widgets/data-table";
+
+export function PaginationFooterExample() {
+  return (
+    <div className="w-full">
+      <PaginationFooter
+        page={1}
+        pageSize={25}
+        total={1284}
+        shown={25}
+        noun={['trace', 'traces']}
+        onPageChange={() => undefined}
+        onPageSizeChange={() => undefined}
+      />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/pagination-footer.story.tsx`](../../../src/stories/widgets/pagination-footer.story.tsx). The authoritative registry item ID is `widget-pagination-footer` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/data-table`
+- **Registry item**: `widget-pagination-footer` ([payload JSON](/r/widget-pagination-footer.json))
+- **Story source**: `apps/docs/src/stories/widgets/pagination-footer.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-pagination-footer.json
+```

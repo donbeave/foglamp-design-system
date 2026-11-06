@@ -3,26 +3,12 @@ title: "Native Select"
 description: "Styled native select with option and option-group exports. The select supports default and compact sizes."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/native-select.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Native Select
-
-Styled native select with option and option-group exports. The select supports default and compact sizes.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-native-select" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/native-select.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/native-select`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -36,31 +22,52 @@ The table lists values exported from `@tailrocks/framerock/ui/native-select`. Th
 | --- | --- | --- |
 | `NativeSelect.size` | `default \| sm` | Defaults to `default`. |
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { useState } from "react";
-
-import { NativeSelect, NativeSelectOption } from "@tailrocks/framerock/ui/native-select";
-
+import {
+  NativeSelect,
+  NativeSelectOption,
+} from "@tailrocks/framerock/ui/native-select";
 import { Label } from "@tailrocks/framerock/ui/label";
 
-type Args = { variant: 'default' };
-
-function NativeSelectStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><div className="grid max-w-xs gap-2"><Label htmlFor="region">Deployment region</Label><NativeSelect id="region" defaultValue="us-east"><NativeSelectOption value="us-east">US East</NativeSelectOption><NativeSelectOption value="eu-west">EU West</NativeSelectOption><NativeSelectOption value="ap-south">Asia Pacific</NativeSelectOption></NativeSelect><p className="text-xs text-muted-foreground">Uses the browser’s native selection menu.</p></div></div>;
+export function NativeSelectExample({
+  defaultRegion = "us-east",
+  size = "default",
+  disabled = false,
+}: {
+  defaultRegion?: "us-east" | "eu-west" | "ap-south";
+  size?: "sm" | "default";
+  disabled?: boolean;
+} = {}) {
+  return (
+    <div className="grid w-full max-w-xs gap-2">
+      <Label htmlFor="region">Deployment region</Label>
+      <NativeSelect
+        key={defaultRegion}
+        id="region"
+        size={size}
+        disabled={disabled}
+        defaultValue={defaultRegion}
+      >
+        <NativeSelectOption value="us-east">US East</NativeSelectOption>
+        <NativeSelectOption value="eu-west">EU West</NativeSelectOption>
+        <NativeSelectOption value="ap-south">Asia Pacific</NativeSelectOption>
+      </NativeSelect>
+      <p className="text-xs text-muted-foreground">
+        Uses the browser’s native selection menu.
+      </p>
+    </div>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-native-select`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-native-select.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-native-select.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/native-select`
+- **Registry item**: `ui-native-select` ([payload JSON](/r/ui-native-select.json))
+- **Story source**: `apps/docs/src/stories/primitives/native-select.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/native-select`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-native-select.json
+```

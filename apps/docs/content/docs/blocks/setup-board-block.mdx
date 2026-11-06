@@ -1,34 +1,131 @@
 ---
-title: Setup Board · Plan Edits
-description: Setup Board · Plan Edits displays the setup plan and its approval decisions. The story supplies a plan fixture and records approve or reject actions in local state.
+title: "Setup Board · Plan Edits"
+description: "Interactive instrumentation plan review board combining detected agent/workflow decisions with live flow-map spotlighting."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/setup-board-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Setup Board · Plan Edits displays the setup plan and its approval decisions. The story supplies a plan fixture and records approve or reject actions in local state.
+import { story } from '../../../src/stories/blocks/setup-board-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-setup-setup-board" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/setup/setup-board.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `SetupBoardBlock` | `plan` | `DetectedPlan` | Detected instrumentation plan with agents, workflows, and sessions. |
+|  | `approved?` | `Decisions \| null` | Finalized instrumentation decisions after review approval. |
+|  | `applied?` | `AppliedReport \| null` | Agent completion report once instrumentation has been applied. |
+|  | `status` | `PlanStatus` | Current lifecycle state of the setup review plan. |
+|  | `firstTraceId?` | `string \| null` | Identifier of the first trace received after applying the plan. |
+|  | `approvedAt?` | `string \| null` | ISO timestamp when the setup plan was approved. |
+|  | `agentResumedAt?` | `string \| null` | ISO timestamp when the coding agent resumed execution. |
+|  | `spanCount?` | `number \| null` | Number of spans captured in the verification trace. |
+|  | `secondsToFirstTrace?` | `number \| null` | Elapsed seconds from plan approval to the first trace. |
+|  | `failureStage?` | `string \| null` | Stage identifier when plan application fails. |
+|  | `onApprove` | `(edits: PlanEdits \| undefined) => void` | Callback invoked with user edits when the setup plan is approved. |
+|  | `onReject` | `() => void` | Callback invoked when the setup plan is rejected. |
+|  | `approving` | `boolean` | Marks the approval action as in flight. |
 
-`@tailrocks/framerock/blocks/setup/setup-board` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/setup-board-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { useState } from "react";
+import {
+  SetupBoardBlock,
+} from "@tailrocks/framerock/blocks/setup/setup-board";
+import {
+  ScanFaviconProvider,
+} from "@tailrocks/framerock/blocks/scan/favicon-context";
+import { PlanEdits } from "@tailrocks/framerock/lib/scan/instrumentation";
+import type { DetectedPlan } from "@tailrocks/framerock/lib/scan/instrumentation";
+import type { ScanData } from "@tailrocks/framerock/lib/scan/scan";
+import { getGoogleFavicon } from "@tailrocks/framerock/widgets/leaf/favicon";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `approving: boolean`; initial values are `approving: false` |
-| Fixture and callback wiring | The story exposes `approving`. The block receives a `Plan`, the current approval status, and `onApprove` and `onReject` callbacks. Approval returns the edited plan to local state. |
-| Registry item | `block-setup-setup-board`. The portal payload is `/r/block-setup-setup-board.json`. |
+const scanFixture: ScanData = {
+  version: 1,
+  project: {
+    name: "Framerock",
+    slug: "framerock",
+    tagline: "AI observability, clearly mapped",
+    iconDomain: "tailrocks.com",
+    date: "2026-11-05",
+  },
+  stats: { agents: 1, models: 1, tools: 1, integrations: 0 },
+  topModels: [{ id: "gpt-4o", label: "GPT-4o", domain: "openai.com" }],
+  topTools: [{ id: "search", label: "Search", domain: "exa.ai" }],
+  topIntegrations: [],
+  graph: {
+    nodes: [
+      { id: "support", label: "Support agent", kind: "agent" },
+      { id: "openai", label: "GPT-4o", kind: "model", domain: "openai.com" },
+    ],
+    edges: [{ from: "support", to: "openai", kind: "calls" }],
+  },
+};
 
+const planFixture: DetectedPlan = {
+  version: 1,
+  sdk: { major: 5, version: "5.0.12" },
+  hasReactUi: true,
+  scan: scanFixture,
+  calls: [
+    {
+      id: "call-support",
+      fn: "generateText",
+      sourceRef: "src/agents/support.ts:42",
+      modelId: "gpt-4o",
+    },
+  ],
+  decisions: {
+    agents: [
+      {
+        id: "support-agent",
+        name: "Support agent",
+        callIds: ["call-support"],
+        oneOff: false,
+        confidence: "high",
+        sourceRef: "src/agents/support.ts:42",
+        rationale: "Handles incoming customer support requests.",
+      },
+    ],
+    workflows: [],
+    sessions: [],
+    customer: {
+      recommended: false,
+      confidence: "high",
+      rationale: "Single-workspace deployment.",
+    },
+  },
+};
 
----
+const resolveStoryFavicon = getGoogleFavicon;
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+export function SetupPlanEditsExample({
+  approving = false,
+}: {
+  approving?: boolean;
+} = {}) {
+  const [status, setStatus] = useState<'awaiting_approval' | 'approved' | 'rejected'>('awaiting_approval');
+  const [, setEdits] = useState<PlanEdits | undefined>();
+  return (
+    <ScanFaviconProvider resolve={resolveStoryFavicon}>
+      <SetupBoardBlock
+        plan={planFixture}
+        status={status}
+        approving={approving}
+        onApprove={edits => { setEdits(edits); setStatus('approved'); }}
+        onReject={() => setStatus('rejected')}
+      />
+    </ScanFaviconProvider>
+  );
+}
+```
+
+## Source and registry
+
+- **Package import**: `@tailrocks/framerock/blocks/setup/setup-board`
+- **Registry item**: `block-setup-setup-board` ([payload JSON](/r/block-setup-setup-board.json))
+- **Story source**: `apps/docs/src/stories/blocks/setup-board-block.story.tsx`
+
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-setup-setup-board.json
+```

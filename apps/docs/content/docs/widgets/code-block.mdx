@@ -1,36 +1,45 @@
 ---
-title: CodeBlock
-description: Highlights source text with Shiki and a TypeScript default language.
+title: "Code Block"
+description: "Highlights source text with Shiki and a TypeScript default language."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/code-block.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Highlights source text with Shiki and a TypeScript default language.
+import { story } from '../../../src/stories/widgets/code-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-code-block" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/code-block.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `CodeBlock` | `code` | `string` | Source text highlighted by the code block. |
-|  | `lang` | `string \| undefined` | Sets the language attribute on the rendered SVG. |
-|  | `actions` | `ReactNode` | Renders the supplied action controls. |
-|  | `hideCopy` | `boolean \| undefined` | Hides the copy control when true. |
+| `CodeBlock` | `code` | `string` | Raw source code string highlighted with Shiki and displayed in the block. |
+| | `lang?` | `string` | Shiki syntax highlighting language identifier (defaults to `"typescript"`). |
+| | `actions?` | `ReactNode` | Custom action controls rendered in the top-right toolbar beside the copy button. |
+| | `hideCopy?` | `boolean` | Hides the built-in copy button when `true`. |
+
+## Usage
+
+```tsx
+import { CodeBlock } from "@tailrocks/framerock/widgets/code-block";
+
+export function CodeBlockExample({
+  code = 'const answer = await client.traces.list({ limit: 20 });',
+}: {
+  code?: string;
+} = {}) {
+  return (
+    <div className="w-full">
+      <CodeBlock code={code} />
+    </div>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/code-block.story.tsx`](../../../src/stories/widgets/code-block.story.tsx). The authoritative registry item ID is `widget-code-block` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/code-block`
+- **Registry item**: `widget-code-block` ([payload JSON](/r/widget-code-block.json))
+- **Story source**: `apps/docs/src/stories/widgets/code-block.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-code-block.json
+```

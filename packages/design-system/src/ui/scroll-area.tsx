@@ -18,9 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/packages/ui/src/components/scroll-area.tsx; derived here under Apache-2.0.
- */
 import { ScrollArea as ScrollAreaPrimitive } from "@base-ui/react/scroll-area";
 
 import { cn } from "@tailrocks/framerock/lib/utils";

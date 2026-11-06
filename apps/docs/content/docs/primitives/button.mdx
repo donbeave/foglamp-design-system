@@ -3,26 +3,12 @@ title: "Button"
 description: "Action control with seven visual variants and eight sizes. It preserves Base UI button polymorphism through the render prop and infers native-button behavior when render is absent."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/button.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Button
-
-Action control with seven visual variants and eight sizes. It preserves Base UI button polymorphism through the render prop and infers native-button behavior when render is absent.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-button" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/button.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/button`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -37,22 +23,38 @@ The table lists values exported from `@tailrocks/framerock/ui/button`. The decla
 | `Button.size` | `xs \| sm \| default \| lg \| icon \| icon-xs \| icon-sm \| icon-lg` | Defaults to `default`. |
 | `Button.nativeButton` | `Base UI button prop` | If omitted, true when `render` is absent and false when `render` is supplied. |
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { Button } from '@tailrocks/framerock/ui/button';
+import { Button } from "@tailrocks/framerock/ui/button";
 
-function ButtonExample({ variant = 'default', size = 'default', disabled = false }: { variant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'ghost' | 'link'; size?: 'default' | 'sm' | 'lg'; disabled?: boolean }) { return <div className="flex flex-wrap items-center gap-3"><Button variant={variant} size={size} disabled={disabled}>Run evaluation</Button><Button variant="outline">View trace</Button><Button variant="ghost">More options</Button><Button render={<a href="/traces" />}>View traces</Button></div>; }
+export function ButtonExample({
+  variant = 'default',
+  size = 'default',
+  disabled = false,
+}: {
+  variant?: 'default' | 'secondary' | 'outline' | 'destructive' | 'ghost' | 'link';
+  size?: 'default' | 'sm' | 'lg';
+  disabled?: boolean;
+} = {}) {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <Button variant={variant} size={size} disabled={disabled}>
+        Run evaluation
+      </Button>
+      <Button variant="outline">View trace</Button>
+      <Button variant="ghost">More options</Button>
+    </div>
+  );
+}
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-button`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-button.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-button.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/button`
+- **Registry item**: `ui-button` ([payload JSON](/r/ui-button.json))
+- **Story source**: `apps/docs/src/stories/primitives/button.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/button`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-button.json
+```

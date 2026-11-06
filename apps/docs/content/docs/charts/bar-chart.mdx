@@ -1,24 +1,14 @@
 ---
-title: Evil Bar Chart
-description: Plots configured values as vertical or horizontal bars, with optional stacking and threshold markers.
+title: "Evil Bar Chart"
+description: "Plots configured values as vertical or horizontal bars, with optional stacking and threshold markers."
 ---
 
-
-
-
-import { story } from "../../../src/stories/charts/bar-chart.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Plots configured values as vertical or horizontal bars, with optional stacking and threshold markers.
+import { story } from '../../../src/stories/charts/bar-chart.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="chart-evilcharts-charts-bar-chart" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/evilcharts/charts/bar-chart.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -41,7 +31,7 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `variant` | `BarVariant \| undefined` | Selects the documented visual variant. |
 |  | `radius` | `number \| undefined` | Corner radius of the chart element. |
 |  | `animationType` | `BarAnimationType \| undefined` | Selects the chart reveal animation. |
-|  | `isClickable` | `boolean \| undefined` | Enables pointer selection for legend items. |
+|  | `isClickable` | `boolean \| undefined` | Enables pointer selection on the series mark. |
 |  | `enableHoverHighlight` | `boolean \| undefined` | Highlights the row under the pointer. |
 |  | `glowing` | `boolean \| undefined` | Adds the series glow effect. |
 |  | `bufferBar` | `boolean \| undefined` | Adds the buffer bar overlay. |
@@ -83,16 +73,85 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
 |  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
 |  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
-| `ChartBackground` | `variant` | `BackgroundVariant` | Selects the documented visual variant. |
 
 ## Requirements
 
 Bar series use `dataKey` values present in both the rows and `config`. `layout` controls bar orientation. `stackType` accepts `default`, `stacked`, or `percent`. Give the chart container a measurable height.
 
+## Usage
+
+```tsx
+import {
+  EvilBarChart,
+  Bar,
+  Grid,
+  Legend,
+  Threshold,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "@tailrocks/framerock/charts/evilcharts/charts/bar-chart";
+import {
+  ChartBackground,
+} from "@tailrocks/framerock/charts/evilcharts/ui/background";
+import type { ChartConfig } from "@tailrocks/framerock/charts/evilcharts/ui/chart";
+
+const observabilityConfig = {
+  requests: { label: "Requests", colors: { light: ["#6d5efc"], dark: ["#a59bff"] } },
+  errors: { label: "Errors", colors: { light: ["#e05d71"], dark: ["#ff8292"] } },
+  latency: { label: "Latency", colors: { light: ["#19a98c"], dark: ["#54d9b5"] } },
+} satisfies ChartConfig;
+
+const observabilityData = [
+  { day: "Mon", requests: 116, errors: 9, latency: 178 },
+  { day: "Tue", requests: 132, errors: 12, latency: 194 },
+  { day: "Wed", requests: 124, errors: 7, latency: 169 },
+  { day: "Thu", requests: 158, errors: 15, latency: 218 },
+  { day: "Fri", requests: 147, errors: 11, latency: 203 },
+];
+
+export function BarExample({
+  layout = 'vertical',
+  stacked = false,
+}: {
+  layout?: 'vertical' | 'horizontal';
+  stacked?: boolean;
+} = {}) {
+  return (
+    <EvilBarChart
+      config={observabilityConfig}
+      data={observabilityData}
+      className="h-[300px]"
+      layout={layout}
+      stackType={stacked ? 'stacked' : 'default'}
+    >
+      <ChartBackground variant="grid" />
+      <Grid />
+      <XAxis
+        dataKey={layout === 'vertical' ? 'day' : undefined}
+        type={layout === 'horizontal' ? 'number' : 'category'}
+      />
+      <YAxis
+        dataKey={layout === 'horizontal' ? 'day' : undefined}
+        type={layout === 'horizontal' ? 'category' : 'number'}
+        width={layout === 'horizontal' ? 52 : 36}
+      />
+      <Tooltip variant="frosted-glass" />
+      <Legend align="left" isClickable />
+      <Threshold value={200} label="request budget" />
+      <Bar dataKey="requests" />
+      <Bar dataKey="errors" />
+    </EvilBarChart>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/charts/bar-chart.story.tsx`](../../../src/stories/charts/bar-chart.story.tsx). The story registry item is `chart-evilcharts-charts-bar-chart` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-charts-bar-chart.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-charts-bar-chart.json` while the portal is running. The design-system package is not claimed to be published to npm.
+- **Package import**: `@tailrocks/framerock/charts/evilcharts/charts/bar-chart`
+- **Registry item**: `chart-evilcharts-charts-bar-chart` ([payload JSON](/r/chart-evilcharts-charts-bar-chart.json))
+- **Story source**: `apps/docs/src/stories/charts/bar-chart.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-charts-bar-chart.json
+```

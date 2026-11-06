@@ -1,34 +1,55 @@
 ---
-title: Figure Kit · 22 Source Figures
-description: Figure Kit · 22 Source Figures selects a figure by section and variant ID. The presets show a cost chart, trace X-ray, and quality review.
+title: "Figure Kit · 22 Source Figures"
+description: "Interactive switcher for browsing all 22 marketing landing figures across cost, trace, and quality categories."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/figure-kit-22-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Figure Kit · 22 Source Figures selects a figure by section and variant ID. The presets show a cost chart, trace X-ray, and quality review.
+import { story } from '../../../src/stories/blocks/figure-kit-22-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-marketing-figures-figure-kit-22" provenanceLabel="Newly Added by Tailrocks" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figure-picker.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" notUpstream="This is not an upstream Foglamp source file." />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `FigureKit22Block` | `section?` | `Section` | Marketing figure category (`"costs"` \| `"traces"` \| `"quality"`). |
+|  | `variantId?` | `string` | Figure variant identifier within the selected section. |
 
-`@tailrocks/framerock/blocks/marketing/figures/figure-kit-22-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/figure-kit-22-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { useState } from "react";
+import {
+  FigureKit22Block,
+} from "@tailrocks/framerock/blocks/marketing/figures/figure-kit-22-block";
+import {
+  FIGURES,
+} from "@tailrocks/framerock/blocks/marketing/figures/figures";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `section: 'costs' | 'traces' | 'quality'`, `variantId: string`; presets are `costs` with `chart`, `traces` with `xray`, and `quality` with `review`. |
-| Fixture and callback wiring | The story exposes `section` (`costs`, `traces`, or `quality`) and `variantId`. The component selects one of the 22 source figures for that pair. The workbench offers three presets: `costs` with `chart`, `traces` with `xray`, and `quality` with `review`. |
-| Registry item | `block-marketing-figures-figure-kit-22`. The portal payload is `/r/block-marketing-figures-figure-kit-22.json`. |
+export function FigureKitExample({
+  section = 'costs',
+  variantId = 'chart',
+}: {
+  section?: 'costs' | 'traces' | 'quality';
+  variantId?: string;
+} = {}) {
+  const [activeSection, setActiveSection] = useState<'costs' | 'traces' | 'quality'>(section);
+  const [activeVariant, setActiveVariant] = useState<string>(variantId);
+  return (
+    <FigureKit22Block
+      key={`${activeSection}-${activeVariant}`}
+      section={activeSection}
+      variantId={activeVariant}
+    />
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/marketing/figures/figure-kit-22-block`
+- **Registry item**: `block-marketing-figures-figure-kit-22` ([payload JSON](/r/block-marketing-figures-figure-kit-22.json))
+- **Story source**: `apps/docs/src/stories/blocks/figure-kit-22-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-marketing-figures-figure-kit-22.json
+```

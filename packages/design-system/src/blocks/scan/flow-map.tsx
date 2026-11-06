@@ -18,12 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * with co-founder Abdul Haidar at Foglamp Labs. Apache-2.0.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/scan/flow-map.tsx.
- */
-
 
 import type { NodeKind, ScanData } from "../../lib/scan/scan";
 import { cn } from "../../lib/utils";
@@ -331,7 +325,10 @@ export function FlowMap({
       direction,
       horizontalGroups: workflowGroups,
     }).then((l) => {
-      if (!cancelled) setLayout(l);
+      if (!cancelled) {
+        fitted.current = false;
+        setLayout(l);
+      }
     });
     return () => {
       cancelled = true;
@@ -501,6 +498,9 @@ export function FlowMap({
   const tRef = useRef<Transform>({ x: 0, y: 0, k: 1 });
   const tracedPosRef = useRef<{ x: number; y: number } | null>(null);
   const fitted = useRef(false);
+  useEffect(() => {
+    fitted.current = false;
+  }, [direction]);
   const drag = useRef<{
     px: number;
     py: number;

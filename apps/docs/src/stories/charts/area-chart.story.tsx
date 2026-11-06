@@ -12,5 +12,6 @@ function AreaStory({ variant, isLoading }: AreaStoryProps) {
 export const story = defineStory({
 	id: 'charts/area-chart', Component: AreaStory, displayName: 'Evil Area Chart',
 	registryItem: 'chart-evilcharts-charts-area-chart',
+	frame: { width: 960, height: 440 },
 	args: { initial: { variant: 'gradient', isLoading: false } },
 });

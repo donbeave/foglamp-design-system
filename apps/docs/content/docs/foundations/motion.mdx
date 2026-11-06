@@ -3,7 +3,7 @@ title: Motion and accessibility
 description: Preserve interaction states and respect reduced motion.
 ---
 
-Foglamp uses CSS transitions, animation utilities, and Motion for interactions and illustrative components. Menus and popovers, for example, use open and closed state animations. Preserve the original timing and state classes when extracting a component so that the animation remains tied to its interaction.
+Framerock uses CSS transitions, animation utilities, and Motion for interactions and illustrative components. Menus and popovers, for example, use open and closed state animations. Preserve the original timing and state classes when composing a component so that the animation remains tied to its interaction.
 
 The effects stylesheet and HUD styles include `prefers-reduced-motion` rules. Test motion in both preference modes and keep content and controls usable when animation is reduced. Do not rely on motion alone to communicate a state.
 

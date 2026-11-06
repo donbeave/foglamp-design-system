@@ -36,6 +36,7 @@ export const story = defineStory({
   displayName: 'EvalScores',
   registryItem: 'widget-eval-scores',
   Component: EvalScoresPreview,
+  frame: { height: 460 },
   args: [
     { variant: 'Passing, failing, pending, and missing results', initial: { empty: false } },
     { variant: 'No recorded scores', initial: { empty: true } },

@@ -1,34 +1,55 @@
 ---
-title: Instrument Empty State
-description: Instrument Empty State presents the first-instrument prompt for an agent, workflow, or session. The story uses BrandMark as its icon and supplies a fixed description.
+title: "Instrument Empty State"
+description: "Dashed empty-state card with copyable AI SDK instrumentation snippets for agents, workflows, and sessions."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/instrument-empty-state-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Instrument Empty State presents the first-instrument prompt for an agent, workflow, or session. The story uses BrandMark as its icon and supplies a fixed description.
+import { story } from '../../../src/stories/blocks/instrument-empty-state-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-auth-instrument-empty-state" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/instrument-empty-state.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `InstrumentEmptyStateBlock` | `feature` | `InstrumentFeature` | Target observability feature (`"agent"` \| `"workflow"` \| `"session"`). |
+|  | `icon` | `React.ComponentType<{ className?: string }>` | Header icon component rendered inside the empty state card. |
+|  | `title` | `string` | Primary heading text. |
+|  | `description?` | `string` | Supporting description text. |
 
-`@tailrocks/framerock/blocks/auth/instrument-empty-state` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/instrument-empty-state-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  InstrumentEmptyStateBlock,
+} from "@tailrocks/framerock/blocks/auth/instrument-empty-state";
+import {
+  BrandMark,
+} from "@tailrocks/framerock/blocks/marketing/chrome/brand-mark";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `feature: 'agent' | 'workflow' | 'session'`, `title: string`; initial values are `feature: 'agent', title: 'No agent traces yet'` |
-| Fixture and callback wiring | The story exposes `feature` (`agent`, `workflow`, or `session`) and `title`. It supplies `icon` and `description` as fixed content. |
-| Registry item | `block-auth-instrument-empty-state`. The portal payload is `/r/block-auth-instrument-empty-state.json`. |
+export function InstrumentEmptyStateExample({
+  feature = 'agent',
+  title = 'No agent traces yet',
+}: {
+  feature?: 'agent' | 'workflow' | 'session';
+  title?: string;
+} = {}) {
+  return (
+    <InstrumentEmptyStateBlock
+      feature={feature}
+      title={title}
+      icon={BrandMark}
+      description="Add observability to your first AI workflow."
+    />
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/auth/instrument-empty-state`
+- **Registry item**: `block-auth-instrument-empty-state` ([payload JSON](/r/block-auth-instrument-empty-state.json))
+- **Story source**: `apps/docs/src/stories/blocks/instrument-empty-state-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-auth-instrument-empty-state.json
+```

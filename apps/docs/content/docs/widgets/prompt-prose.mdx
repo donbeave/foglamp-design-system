@@ -1,40 +1,95 @@
 ---
-title: PromptProse
-description: Parses and renders a prompt template with slot examples and token estimates.
+title: "Prompt Prose"
+description: "Parses and renders a prompt template with slot examples and token estimates."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/prompt-prose.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Parses and renders a prompt template with slot examples and token estimates.
+import { story } from '../../../src/stories/widgets/prompt-prose.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-prompt-prose" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/prompt-prose.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop / Parameter | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `PromptProseView` | `template` | `string` | Prompt template text to parse and render. |
-|  | `slots` | `SlotExamples \| undefined` | Example values associated with named prompt slots. |
-|  | `loading` | `boolean \| undefined` | Controls the loading state. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `PromptProseView` | `template` | `string` | Normalized prompt template text to parse and render. |
+| | `slots` | `SlotExamples \| undefined` | Per-slot example values (`{ slots: { examples: { value: string; runs: number }[] }[] }`) displayed inside each `varies per run` hover card. |
+| | `loading?` | `boolean` | Displays loading state inside slot hover cards while examples are being fetched. |
+| | `className?` | `string` | CSS class applied to the root prose container. |
+| `PromptProse` | `template`, `slots?`, `loading?`, `className?` | `{ template: string; versionId?: string; slotCount?: number; slots?: SlotExamples; loading?: boolean; className?: string }` | Wrapper around `PromptProseView` forwarding template and slot example props. |
+| `parsePrompt` | `template` | `(template: string) => Block[]` | Parses a normalized prompt template into headings, paragraphs, lists, XML tags, horizontal rules, and `SLOT_LINE` slot blocks. |
+| `estimateTokens` | `text` | `(text: string) => number` | Estimates token count from string length (`Math.ceil(text.length / 4)`). |
+
+
 
 ## Requirements
 
 `PromptProseView` accepts the prompt template, slot examples, and loading state. `PromptProse` is the lower-level renderer for a template string and optional slot data.
 
+## Usage
+
+```tsx
+import { PromptProseView } from "@tailrocks/framerock/widgets/prompt-prose";
+import { SLOT_LINE } from "@tailrocks/framerock/lib/prompts/infer";
+import { slotValues } from "@tailrocks/framerock/lib/prompts/slots";
+
+const template = [
+  '## Support assistant',
+  '',
+  'Answer clearly and use the workspace context before suggesting a fix.',
+  SLOT_LINE,
+  '## Response policy',
+  '',
+  'Never ask for or repeat secret credentials.',
+  SLOT_LINE,
+].join('\n');
+
+const filledPrompt = [
+  '## Support assistant',
+  '',
+  'Answer clearly and use the workspace context before suggesting a fix.',
+  'Jordan is locked out after rotating an API key. Two production workers need the replacement key.',
+  '## Response policy',
+  '',
+  'Never ask for or repeat secret credentials.',
+  'Confirm both workers use the replacement key before revoking the old one.',
+].join('\n');
+
+const actualSlotValues = slotValues(template, filledPrompt);
+
+const slots = {
+  slots: actualSlotValues.map((value, index) => ({
+    examples: value === null ? [] : [{ value, runs: index === 0 ? 18 : 12 }],
+  })),
+};
+
+export function PromptProseExample({
+  loading = false,
+  label = 'Customer support prompt',
+}: {
+  loading?: boolean;
+  label?: string;
+} = {}) {
+  return (
+    <div className="w-full max-w-lg rounded-xl border bg-card p-4">
+      {label ? (
+          <div
+            className="mb-3 border-b border-border/60 pb-2 text-xs font-medium text-muted-foreground"
+          >
+            {label}
+          </div>
+      ) : null}
+      <PromptProseView template={template} slots={slots} loading={loading} />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/prompt-prose.story.tsx`](../../../src/stories/widgets/prompt-prose.story.tsx). The authoritative registry item ID is `widget-prompt-prose` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/prompt-prose`
+- **Registry item**: `widget-prompt-prose` ([payload JSON](/r/widget-prompt-prose.json))
+- **Story source**: `apps/docs/src/stories/widgets/prompt-prose.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-prompt-prose.json
+```

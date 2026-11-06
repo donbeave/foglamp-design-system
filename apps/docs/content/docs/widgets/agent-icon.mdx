@@ -1,24 +1,14 @@
 ---
-title: AgentIcon
-description: Renders a stable, name-derived agent mark with filled and outline treatments.
+title: "Agent Icon"
+description: "Renders a stable, name-derived agent mark with filled and outline treatments."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/agent-icon.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders a stable, name-derived agent mark with filled and outline treatments.
+import { story } from '../../../src/stories/widgets/agent-icon.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-leaf-agent-icon" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/agent-icon.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -26,10 +16,35 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `filled` | `boolean \| undefined` | Selects the filled or outline treatment. |
 |  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
 
+## Usage
+
+```tsx
+import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
+
+export function AgentIconExample({
+  name = 'Support Assistant',
+  filled = true,
+}: {
+  name?: string;
+  filled?: boolean;
+} = {}) {
+  return (
+    <div className="flex items-center gap-3">
+      <AgentIcon name={name} filled={filled} className="size-8" />
+      <span>
+        {name}
+      </span>
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/agent-icon.story.tsx`](../../../src/stories/widgets/agent-icon.story.tsx). The authoritative registry item ID is `widget-leaf-agent-icon` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/leaf/agent-icon`
+- **Registry item**: `widget-leaf-agent-icon` ([payload JSON](/r/widget-leaf-agent-icon.json))
+- **Story source**: `apps/docs/src/stories/widgets/agent-icon.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-leaf-agent-icon.json
+```

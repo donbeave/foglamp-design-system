@@ -3,26 +3,12 @@ title: "Navigation Menu"
 description: "Site-navigation menu with list, item, trigger, content, positioner, link, and indicator parts. Its link wrapper closes the menu on click by default."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/navigation-menu.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Navigation Menu
-
-Site-navigation menu with list, item, trigger, content, positioner, link, and indicator parts. Its link wrapper closes the menu on click by default.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-navigation-menu" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/navigation-menu.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/navigation-menu`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -45,29 +31,77 @@ The table lists values exported from `@tailrocks/framerock/ui/navigation-menu`. 
 | `NavigationMenuPositioner.sideOffset` | `number` | Defaults to `8`. |
 | `NavigationMenuLink.closeOnClick` | `boolean` | Defaults to `true`. |
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { useState } from "react";
+import {
+  NavigationMenu,
+  NavigationMenuList,
+  NavigationMenuItem,
+  NavigationMenuTrigger,
+  NavigationMenuContent,
+  NavigationMenuLink,
+} from "@tailrocks/framerock/ui/navigation-menu";
 
-import { NavigationMenu, NavigationMenuList, NavigationMenuItem, NavigationMenuTrigger, NavigationMenuContent, NavigationMenuLink } from "@tailrocks/framerock/ui/navigation-menu";
-
-type Args = { variant: 'default' };
-
-function NavigationMenuStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><NavigationMenu><NavigationMenuList><NavigationMenuItem><NavigationMenuTrigger>Platform</NavigationMenuTrigger><NavigationMenuContent><div className="grid w-[22rem] gap-2 p-3"><NavigationMenuLink href="#traces" className="rounded-md p-3 hover:bg-muted"><strong className="block text-sm">Trace explorer</strong><span className="text-xs text-muted-foreground">Inspect model calls and latency.</span></NavigationMenuLink><NavigationMenuLink href="#evaluations" className="rounded-md p-3 hover:bg-muted"><strong className="block text-sm">Evaluations</strong><span className="text-xs text-muted-foreground">Compare quality over time.</span></NavigationMenuLink></div></NavigationMenuContent></NavigationMenuItem><NavigationMenuItem><NavigationMenuTrigger>Resources</NavigationMenuTrigger><NavigationMenuContent><NavigationMenuLink href="#docs" className="block p-4">Documentation</NavigationMenuLink></NavigationMenuContent></NavigationMenuItem></NavigationMenuList></NavigationMenu></div>;
+export function NavigationMenuExample({
+  primaryLabel = "Platform",
+  secondaryLabel = "Resources",
+}: {
+  primaryLabel?: string;
+  secondaryLabel?: string;
+} = {}) {
+  return (
+    <NavigationMenu>
+      <NavigationMenuList>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>
+            {primaryLabel}
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <div className="grid w-[22rem] gap-2 p-3">
+              <NavigationMenuLink
+                href="#traces"
+                className="rounded-md p-3 hover:bg-muted"
+              >
+                <strong className="block text-sm">Trace explorer</strong>
+                <span className="text-xs text-muted-foreground">
+                  Inspect model calls and latency.
+                </span>
+              </NavigationMenuLink>
+              <NavigationMenuLink
+                href="#evaluations"
+                className="rounded-md p-3 hover:bg-muted"
+              >
+                <strong className="block text-sm">Evaluations</strong>
+                <span className="text-xs text-muted-foreground">
+                  Compare quality over time.
+                </span>
+              </NavigationMenuLink>
+            </div>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+        <NavigationMenuItem>
+          <NavigationMenuTrigger>
+            {secondaryLabel}
+          </NavigationMenuTrigger>
+          <NavigationMenuContent>
+            <NavigationMenuLink href="#docs" className="block p-4">
+              Documentation
+            </NavigationMenuLink>
+          </NavigationMenuContent>
+        </NavigationMenuItem>
+      </NavigationMenuList>
+    </NavigationMenu>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-navigation-menu`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-navigation-menu.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-navigation-menu.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/navigation-menu`
+- **Registry item**: `ui-navigation-menu` ([payload JSON](/r/ui-navigation-menu.json))
+- **Story source**: `apps/docs/src/stories/primitives/navigation-menu.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/navigation-menu`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-navigation-menu.json
+```

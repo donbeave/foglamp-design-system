@@ -1,34 +1,54 @@
 ---
-title: Device Approval
-description: Device Approval presents a device authorization code and the approval decision flow. The story supplies a demo email and local asynchronous claim and decision handlers.
+title: "Device Approval"
+description: "CLI and SDK device authorization screen with 8-character verification code entry and approve/deny controls."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/device-approve-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Device Approval presents a device authorization code and the approval decision flow. The story supplies a demo email and local asynchronous claim and decision handlers.
+import { story } from '../../../src/stories/blocks/device-approve-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-auth-device-approve" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/device-approve-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `DeviceApproveBlock` | `initialUserCode` | `string` | Pre-filled 8-character device verification code. |
+|  | `userEmail?` | `string \| null` | Signed-in user email address displayed on the approval screen. |
+|  | `onClaim?` | `(input: { userCode: string; userEmail?: string \| null; }) => Promise<DeviceClaimResult>` | Async handler that validates and claims the entered device code. |
+|  | `onDecision?` | `(input: { userCode: string; action: "approve" \| "deny"; }) => Promise<DeviceDecisionResult>` | Async handler invoked when the user approves or denies the device. |
+|  | `onApproved?` | `(input: { userCode: string }) => void` | Callback fired after device authorization succeeds. |
 
-`@tailrocks/framerock/blocks/auth/device-approve` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/device-approve-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  DeviceApproveBlock,
+} from "@tailrocks/framerock/blocks/auth/device-approve";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `initialUserCode: string`; initial values are `initialUserCode: 'ABCD-1234'` |
-| Fixture and callback wiring | The story exposes `initialUserCode`. It supplies `userEmail`, `onClaim`, and `onDecision`; the mock claim returns a pending result and the mock decision returns success. |
-| Registry item | `block-auth-device-approve`. The portal payload is `/r/block-auth-device-approve.json`. |
+export function DeviceApproveExample({
+  initialUserCode = 'ABCD-1234',
+}: {
+  initialUserCode?: string;
+} = {}) {
+  return (
+    <div className="flex w-full justify-center">
+      <DeviceApproveBlock
+        key={initialUserCode}
+        initialUserCode={initialUserCode}
+        userEmail="alex@example.com"
+        onClaim={async () => ({ kind: 'pending' })}
+        onDecision={async () => ({ kind: 'success' })}
+      />
+    </div>
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/auth/device-approve`
+- **Registry item**: `block-auth-device-approve` ([payload JSON](/r/block-auth-device-approve.json))
+- **Story source**: `apps/docs/src/stories/blocks/device-approve-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-auth-device-approve.json
+```

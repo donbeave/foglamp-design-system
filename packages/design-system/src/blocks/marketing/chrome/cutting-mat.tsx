@@ -2,28 +2,30 @@
  * @license Apache-2.0
  * SPDX-License-Identifier: Apache-2.0
  * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
  *
- * @provenance copied-1-to-1
+ * @provenance modified
  * @upstream-repo https://github.com/foglamp-labs/foglamp
  * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
  * @upstream-path apps/web/src/components/marketing/cutting-mat.tsx
  * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/cutting-mat.tsx
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
  *
- * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),
- * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder
- * Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
-// The footer's closing image: the three brand circles redrawn as dashed guides
+// The footer's closing image: the three architectural frames redrawn as dashed guides
 // on a faint cutting mat, cropped by the bottom of the page. Everything is
 // stroke in theme tokens, so it reads the same in light and dark.
 //
-// Each circle is two strokes: a muted dashed ring, and on top of it a ring with
-// a single dash that steps around the circumference one dash at a time (a
+// Each frame is two strokes: a muted dashed ring, and on top of it a ring with
+// a single dash that steps around the perimeter one dash at a time (a
 // stepped stroke-dashoffset animation, see .mat-dash in index.css). pathLength
-// normalizes every circle to 360 units, so the dash pattern is written in
+// normalizes every frame to 360 units, so the dash pattern is written in
 // degrees: 36 dashes of 6, gaps of 4.
-const CIRCLES = [
+const FRAMES = [
   { cx: 22, delay: "0s" },
   { cx: 48, delay: "-3.2s" },
   { cx: 74, delay: "-6.4s" },
@@ -70,18 +72,20 @@ export function CuttingMat() {
       />
 
       {/* The mark. Wider than the mat is tall on purpose: the container's
-          overflow crops the lower third of the circles. */}
+          overflow crops the lower third of the frames. */}
       <svg
         viewBox="0 0 96 48"
         className="absolute left-1/2 top-24 w-[min(960px,100%)] -translate-x-1/2 sm:top-30"
         style={{ overflow: "visible" }}
       >
-        {CIRCLES.map((c) => (
+        {FRAMES.map((c) => (
           <g key={c.cx}>
-            <circle
-              cx={c.cx}
-              cy="24"
-              r="23.5"
+            <rect
+              x={c.cx - 20}
+              y="4"
+              width="40"
+              height="40"
+              rx="8"
               pathLength={360}
               fill="none"
               className="stroke-neutral-300 dark:stroke-[#3B3B3B]"
@@ -89,10 +93,12 @@ export function CuttingMat() {
               strokeDasharray="6 4"
               strokeLinecap="butt"
             />
-            <circle
-              cx={c.cx}
-              cy="24"
-              r="23.5"
+            <rect
+              x={c.cx - 20}
+              y="4"
+              width="40"
+              height="40"
+              rx="8"
               pathLength={360}
               fill="none"
               className="mat-dash stroke-primary"

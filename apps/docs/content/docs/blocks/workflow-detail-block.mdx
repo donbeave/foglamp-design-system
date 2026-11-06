@@ -1,34 +1,58 @@
 ---
-title: Workflow Detail
-description: Workflow Detail renders a workflow summary and its run details. The story keeps the active run in local state and supplies a no-op navigation callback.
+title: "Workflow Detail"
+description: "Workflow execution dashboard displaying run volume, error rate, duration percentiles, and expandable multi-trace run trees."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/workflow-detail-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Workflow Detail renders a workflow summary and its run details. The story keeps the active run in local state and supplies a no-op navigation callback.
+import { story } from '../../../src/stories/blocks/workflow-detail-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-dashboard-workflow-detail" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/workflows/[name]/workflow-detail-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `WorkflowDetailBlock` | `nameParam?` | `string` | Active workflow name parameter. |
+|  | `data?` | `WorkflowDetailData` | Structured dataset rendered by the block. |
+|  | `isLoading?` | `boolean` | Renders loading skeleton placeholders while data is being fetched. |
+|  | `isUpdating?` | `boolean` | Holds the current view while refreshed data is loading. |
+|  | `initialRun?` | `string \| null` | Initially selected workflow run identifier. |
+|  | `onNavigate?` | `(href: string) => void` | Callback fired when navigating to a linked trace, agent, or workflow. |
+|  | `onRunChange?` | `(id: string \| null) => void` | Callback fired when the selected workflow run changes. |
 
-`@tailrocks/framerock/blocks/dashboard/workflow-detail-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/workflow-detail-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { useState } from "react";
+import {
+  WorkflowDetailBlock,
+} from "@tailrocks/framerock/blocks/dashboard/workflow-detail-block";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `nameParam: string`, `isUpdating: boolean`; initial values are `nameParam: 'Support', isUpdating: false` |
-| Fixture and callback wiring | The story exposes `nameParam` and `isUpdating`. The source block also accepts workflow data, loading state, an initial run ID, `onRunChange`, and `onNavigate`. |
-| Registry item | `block-dashboard-workflow-detail`. The portal payload is `/r/block-dashboard-workflow-detail.json`. |
+export function WorkflowDetailExample({
+  nameParam = 'Support',
+  isUpdating = false,
+}: {
+  nameParam?: string;
+  isUpdating?: boolean;
+} = {}) {
+  const [run, setRun] = useState<string | null>(null);
+  return (
+    <WorkflowDetailBlock
+      nameParam={nameParam}
+      isUpdating={isUpdating}
+      initialRun={run}
+      onRunChange={setRun}
+      onNavigate={() => {}}
+    />
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/dashboard/workflow-detail-block`
+- **Registry item**: `block-dashboard-workflow-detail` ([payload JSON](/r/block-dashboard-workflow-detail.json))
+- **Story source**: `apps/docs/src/stories/blocks/workflow-detail-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-dashboard-workflow-detail.json
+```

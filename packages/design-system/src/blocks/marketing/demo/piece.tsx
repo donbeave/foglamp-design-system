@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/piece.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { TableRow } from "@tailrocks/framerock/ui/table";
 import { motion } from "motion/react";
 import { createContext, useContext } from "react";

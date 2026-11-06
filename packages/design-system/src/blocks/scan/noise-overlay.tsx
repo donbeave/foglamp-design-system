@@ -18,12 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * with co-founder Abdul Haidar at Foglamp Labs. Apache-2.0.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/marketing/noise-overlay.tsx.
- */
-
 
 import { cn } from "../../lib/utils";
 

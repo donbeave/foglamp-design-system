@@ -1,34 +1,51 @@
 ---
-title: Marketing Navbar
-description: Marketing Navbar renders the source marketing navigation with its standard link layout. The story’s `compact` control changes only the preview stage height; it is not passed to the navbar.
+title: "Marketing Navbar"
+description: "Sticky marketing navigation bar with Framerock brand lockup, section links, GitHub link, and keyboard-accessible sign-in button."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/marketing-navbar.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Marketing Navbar renders the source marketing navigation with its standard link layout. The story’s `compact` control changes only the preview stage height; it is not passed to the navbar.
+import { story } from '../../../src/stories/blocks/marketing-navbar.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-marketing-chrome-navbar" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/navbar.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `MarketingNavbar` | `links?` | `MarketingNavLink[]` | Top-level navigation links rendered in the navbar. |
+|  | `loggedIn?` | `boolean` | Switches the primary navbar CTA between Sign in and Dashboard. |
+|  | `homeHref?` | `string` | Destination href for the back-to-home navigation link. |
+|  | `loginHref?` | `string` | Destination href for the sign-in button. |
+|  | `dashboardHref?` | `string` | Destination href for the dashboard button. |
+|  | `githubHref?` | `string` | External repository URL for the GitHub icon link. |
+|  | `brandName?` | `string` | Brand wordmark text (defaults to `"Framerock"`). |
+|  | `onLoginShortcut?` | `() => void` | Callback fired when the keyboard login shortcut is pressed. |
 
-`@tailrocks/framerock/blocks/marketing/chrome/navbar` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/marketing-navbar.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  MarketingNavbar,
+} from "@tailrocks/framerock/blocks/marketing/chrome/navbar";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `compact: boolean`; initial values are `compact: false` |
-| Fixture and callback wiring | The story exposes `compact` as a frame-height control. `MarketingNavbar` receives no props in this story. |
-| Registry item | `block-marketing-chrome-navbar`. The portal payload is `/r/block-marketing-chrome-navbar.json`. |
+export function MarketingNavbarExample({
+  compact = false,
+}: {
+  compact?: boolean;
+} = {}) {
+  return (
+    <div className={`w-full ${compact ? 'min-h-[120px]' : 'min-h-[240px]'}`}>
+      <MarketingNavbar brandName="Framerock" />
+    </div>
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/marketing/chrome/navbar`
+- **Registry item**: `block-marketing-chrome-navbar` ([payload JSON](/r/block-marketing-chrome-navbar.json))
+- **Story source**: `apps/docs/src/stories/blocks/marketing-navbar.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-marketing-chrome-navbar.json
+```

@@ -1,29 +1,20 @@
 ---
-title: RangeProvider
-description: Provides shared range state and the setter returned by useRange.
+title: "Range Provider"
+description: "Provides shared range state and the setter returned by useRange."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/range-provider.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Provides shared range state and the setter returned by useRange.
+import { story } from '../../../src/stories/widgets/range-provider.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-range-context" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/range-context.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop / Return | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `useRange` | `—` | `—` | No arguments; returns RangeContextValue. |
-| `resolvePreset` | `key` | `string` | Argument accepted by resolvePreset. |
+| `RangeProvider` | `children` | `ReactNode` | Descendant components that read or update the shared reporting time range. |
+| `useRange` | `returns` | `RangeContextValue` | Returns `{ range, setRange }` and persists preset selections in `localStorage`. Throws if called outside `RangeProvider`. |
+
+
 
 ## Requirements
 
@@ -31,10 +22,46 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 `RangeProvider` accepts `children: ReactNode`. `useRange()` returns the current `RangeValue` and `setRange(range)`. The provider restores and stores the selected range in browser `localStorage`.
 
+## Usage
+
+```tsx
+import { resolvePreset } from "@tailrocks/framerock/lib/range";
+import {
+  RangeProvider,
+  useRange,
+} from "@tailrocks/framerock/widgets/range-context";
+
+function RangeControls() {
+  const { range, setRange } = useRange();
+  return (
+    <div className="flex items-center gap-3">
+      <span className="text-sm">{range.label}</span>
+      <button
+        type="button"
+        className="rounded-md border px-2 py-1 text-xs"
+        onClick={() => setRange(resolvePreset("24h"))}
+      >
+        Set 24h range
+      </button>
+    </div>
+  );
+}
+
+export function RangeProviderExample() {
+  return (
+    <RangeProvider>
+      <RangeControls />
+    </RangeProvider>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/range-provider.story.tsx`](../../../src/stories/widgets/range-provider.story.tsx). The authoritative registry item ID is `widget-range-context` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/range-context`
+- **Registry item**: `widget-range-context` ([payload JSON](/r/widget-range-context.json))
+- **Story source**: `apps/docs/src/stories/widgets/range-provider.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-range-context.json
+```

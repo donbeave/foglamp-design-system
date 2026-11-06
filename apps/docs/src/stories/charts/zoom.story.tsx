@@ -12,5 +12,6 @@ function ZoomStory({ showBrush }: ZoomStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/zoom', Component: ZoomStory, displayName: 'Drag-to-Zoom Selection', registryItem: 'chart-evilcharts-ui-zoom',
+	frame: { width: 960, height: 440 },
 	args: { initial: { showBrush: true } },
 });

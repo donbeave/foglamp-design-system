@@ -1,34 +1,58 @@
 ---
-title: Agent Detail Inspector
-description: Agent Detail Inspector displays an agent summary with a selectable trace detail. The story keeps the selected trace in local React state and renders the block inside DashboardStoryShell.
+title: "Agent Detail Inspector"
+description: "Agent performance inspector with latency/token charts, trace table, cost and tool breakdowns, and prompt version history."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/agent-detail-inspector-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Agent Detail Inspector displays an agent summary with a selectable trace detail. The story keeps the selected trace in local React state and renders the block inside DashboardStoryShell.
+import { story } from '../../../src/stories/blocks/agent-detail-inspector-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-dashboard-agent-detail-inspector" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/agents/[name]/agent-detail-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `AgentDetailInspectorBlock` | `agentName?` | `string` | Active agent name displayed in the inspector header. |
+|  | `data?` | `AgentDetailData` | Structured dataset rendered by the block. |
+|  | `isLoading?` | `boolean` | Renders loading skeleton placeholders while data is being fetched. |
+|  | `isUpdating?` | `boolean` | Holds the current view while refreshed data is loading. |
+|  | `initialTrace?` | `string \| null` | Initially selected trace identifier in the drawer. |
+|  | `onNavigate?` | `(href: string) => void` | Callback fired when navigating to a linked trace, agent, or workflow. |
+|  | `onTraceChange?` | `(id: string \| null) => void` | Callback fired when the inspected trace changes. |
 
-`@tailrocks/framerock/blocks/dashboard/agent-detail-inspector-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/agent-detail-inspector-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { useState } from "react";
+import {
+  AgentDetailInspectorBlock,
+} from "@tailrocks/framerock/blocks/dashboard/agent-detail-inspector-block";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `agentName: string`, `isUpdating: boolean`; initial values are `agentName: 'Support agent', isUpdating: false` |
-| Fixture and callback wiring | The story exposes `agentName` and `isUpdating`. `onTraceChange` updates the selected trace locally, and `onNavigate` is a no-op. |
-| Registry item | `block-dashboard-agent-detail-inspector`. The portal payload is `/r/block-dashboard-agent-detail-inspector.json`. |
+export function AgentDetailExample({
+  agentName = 'Support agent',
+  isUpdating = false,
+}: {
+  agentName?: string;
+  isUpdating?: boolean;
+} = {}) {
+  const [trace, setTrace] = useState<string | null>(null);
+  return (
+    <AgentDetailInspectorBlock
+      agentName={agentName}
+      isUpdating={isUpdating}
+      initialTrace={trace}
+      onTraceChange={setTrace}
+      onNavigate={() => {}}
+    />
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/dashboard/agent-detail-inspector-block`
+- **Registry item**: `block-dashboard-agent-detail-inspector` ([payload JSON](/r/block-dashboard-agent-detail-inspector.json))
+- **Story source**: `apps/docs/src/stories/blocks/agent-detail-inspector-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-dashboard-agent-detail-inspector.json
+```

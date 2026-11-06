@@ -16,6 +16,7 @@
  * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
+/// <reference path="./css-modules.d.ts" />
 "use client";
 
 import {
@@ -436,7 +437,7 @@ function Workshop({
       </div>
       <figcaption className={styles.sceneCaption}>
         <span className={styles.captionRule} />
-        <span>Your app does the work. Foglamp helps you see it.</span>
+        <span>Your app does the work. Framerock helps you see it.</span>
         <span className={styles.captionRule} />
       </figcaption>
       <div className={styles.sceneLegend}>
@@ -520,7 +521,7 @@ export function ObservabilityGuideBlock() {
           <span className={styles.littleLamp} aria-hidden="true">
             ✳
           </span>
-          A field guide by Foglamp
+          A field guide by Framerock
         </div>
         <div className={styles.heroColumns}>
           <h1>
@@ -655,7 +656,7 @@ export function ObservabilityGuideBlock() {
         </p>
         <div className={styles.endingActions}>
           <Link href="/login">
-            See it in Foglamp
+            See it in Framerock
             <IconArrowUpRight size={17} />
           </Link>
           <button type="button" onClick={() => selectChapter(0)}>

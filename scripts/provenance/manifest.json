@@ -8,11 +8,11 @@
         "primary": "apps/web/src/components/app/app-shell.tsx",
         "secondary": [],
         "evidence": "ShellBody, ProjectSwitcher and NavUser correspond; query and host data are replaced by supplied state.",
-        "reviewed_file_sha256": "38db2d32601cc0491b986a86f91743f80c16dae3102bdc9974e5851fcccb38b0"
+        "reviewed_file_sha256": "c214b8c4639297d5ce8485f03bdf974d5daa867402485e8ce2adac9a813d43e9"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/app-shell/app-shell-block.tsx",
-      "file_sha256": "38db2d32601cc0491b986a86f91743f80c16dae3102bdc9974e5851fcccb38b0",
+      "file_sha256": "c214b8c4639297d5ce8485f03bdf974d5daa867402485e8ce2adac9a813d43e9",
       "body_sha256": "019959a1be204c8fd58ad2e8c2fd6421e16134a073c3dfba3808a60db78a7af6",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/app-shell.tsx",
@@ -26,13 +26,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/app/app-sidebar.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "406da737d85d07056592915da1b6f1a005dbd285ca61628601af7908e355e862"
+        "reviewed_file_sha256": "8f2b90e42439c74a81b929f8c441d43a3fa6c82f4085ce8c317f30572fdea639"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/app/app-sidebar.tsx"
+      ],
       "path": "packages/design-system/src/blocks/app-shell/index.ts",
-      "file_sha256": "406da737d85d07056592915da1b6f1a005dbd285ca61628601af7908e355e862",
+      "file_sha256": "8f2b90e42439c74a81b929f8c441d43a3fa6c82f4085ce8c317f30572fdea639",
       "body_sha256": "96e065b6759d3d6c9aeca11eac946d186df6e5b9eeeba40b4e485d251b372667",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -48,11 +52,11 @@
         "primary": "apps/web/src/components/app/new-project-dialog.tsx",
         "secondary": [],
         "evidence": "NewProjectDialog form and project action adapted to callback.",
-        "reviewed_file_sha256": "a3a9bd6b601f75347cb2e670c0e1221456f73ad73c7043c5add7ee363355519e"
+        "reviewed_file_sha256": "df565e443e1bc722b352e77f67805d7f212fa950c38d3906ce77fc57ce5d9269"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/app-shell/new-project-dialog.tsx",
-      "file_sha256": "a3a9bd6b601f75347cb2e670c0e1221456f73ad73c7043c5add7ee363355519e",
+      "file_sha256": "df565e443e1bc722b352e77f67805d7f212fa950c38d3906ce77fc57ce5d9269",
       "body_sha256": "fefc440d0c62d64e50986eac8b8134e18937977acf0275cab767c424797e2508",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/new-project-dialog.tsx",
@@ -68,12 +72,12 @@
         "primary": "apps/web/src/components/app/sunset-card.tsx",
         "secondary": [],
         "evidence": "SunsetCard hosted-service message and markup adapted to a serverUrl prop.",
-        "reviewed_file_sha256": "cebfae5d750ecd088ac8ab7af2f39b907e11ca60d60b014625f48a386325cc78"
+        "reviewed_file_sha256": "c675a841228aabbd737fc5300c2573edcdd1f616e045b008d239fc69e9b895e5"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/app-shell/sunset-card.tsx",
-      "file_sha256": "cebfae5d750ecd088ac8ab7af2f39b907e11ca60d60b014625f48a386325cc78",
-      "body_sha256": "2d1c1d59fd4ee4c7f2f034b08ebc143e8176aba1181226417c7246bdd6e63e9f",
+      "file_sha256": "c675a841228aabbd737fc5300c2573edcdd1f616e045b008d239fc69e9b895e5",
+      "body_sha256": "0b1d4ee315735ebc4246e2a2186dd5f727d3089ba7d580dda8d5a41b82acaf47",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/sunset-card.tsx",
       "upstream_body_sha256": "3380891ef47a67d98a12a0e34123b99236a40c6ca8ed8123e90338f091013b1b",
@@ -86,8 +90,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/auth/buttons-badges.tsx",
-      "file_sha256": "998e81cd1f225f04db4454fbaf5de6797f912b8b9811f8fadf1ac83ce32003bc",
-      "body_sha256": "b5182c19845874078b1c9d27d226693753d64c3dd798baddd4f215e1578f721e",
+      "file_sha256": "2c458da3c936a9b5612973215aafbe3e229c61b49a537be786ca6472e0c0c022",
+      "body_sha256": "f2ff6fd0679f8159bc3bdbb8166166d7f580665b66b3c04ff64ce35b7dfc5f9e",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/buttons/page.tsx",
       "upstream_body_sha256": "1a6b99483af1c2ebbc0d3e57460fbc52b8d96d0fb497f50db925f8b28ec3b6b2",
@@ -107,12 +111,12 @@
         "primary": "apps/web/src/components/device-approve-client.tsx",
         "secondary": [],
         "evidence": "DeviceShell and phase/claim/decision flow retained; callbacks replace request-bound operations.",
-        "reviewed_file_sha256": "939eca0c44560eaf6478c725968424f122e8d484def0c307c3981f9b1debbc05"
+        "reviewed_file_sha256": "e03b4db3bdf38c983dd6091b01accc6d2a70855a53f326f3614a49e8d6c4bde3"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/auth/device-approve.tsx",
-      "file_sha256": "939eca0c44560eaf6478c725968424f122e8d484def0c307c3981f9b1debbc05",
-      "body_sha256": "014908994d89cd5deb82d9887b3fbc8ba13628a1a1dc2880f2d1aa34f57ba1ac",
+      "file_sha256": "e03b4db3bdf38c983dd6091b01accc6d2a70855a53f326f3614a49e8d6c4bde3",
+      "body_sha256": "cf4fed9a36dcfab4f0cb36da781ef53fea2e5748532b5938cbb40dd3a9bb08d7",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/device-approve-client.tsx",
       "upstream_body_sha256": "1272b39fe234b469b6ff6e40d1f9502bfcd0f32b2b5f5d67c4a3fb7060932034",
@@ -130,13 +134,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/app/(auth)/login/login-form.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "c40422ddd85bd555f4f6cfa87f5eb6255b455117e7190c2e4b78c54c65ca45ae"
+        "reviewed_file_sha256": "d964c974db0fec25a2db1985ccd1703a8f9dc8a1bee5d43c1ed24bbb6148cc5f"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/app/(auth)/login/login-form.tsx"
+      ],
       "path": "packages/design-system/src/blocks/auth/index.ts",
-      "file_sha256": "c40422ddd85bd555f4f6cfa87f5eb6255b455117e7190c2e4b78c54c65ca45ae",
+      "file_sha256": "d964c974db0fec25a2db1985ccd1703a8f9dc8a1bee5d43c1ed24bbb6148cc5f",
       "body_sha256": "0fca87eb8675038706fcad7d52f9254ef3d7dba0248c736ffdbcf2fcfaca1316",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -150,7 +158,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/auth/instrument-empty-state.tsx",
-      "file_sha256": "b278dcb715dcc05191bb3ef9c52d0823e80a02ea182a5e4875dbcdc78a9d14d2",
+      "file_sha256": "31c4a28d57dccfb114c9a43d2370082e7282e01e06514c13bb06cbe4b57afc1c",
       "body_sha256": "8129803b310ac3e66933a9853ac2ad2fdd4c6d71594e74a5cca05e804100f70d",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/instrument-empty-state.tsx",
@@ -171,12 +179,12 @@
         "primary": "apps/web/src/components/login-form.tsx",
         "secondary": [],
         "evidence": "AuthMethods and password, magic-link, forgot-password forms retained; host actions replace auth calls.",
-        "reviewed_file_sha256": "f7b9ccf92e1833709ca171946fa66188648c00ae0fcad32d022b3a1c886e6033"
+        "reviewed_file_sha256": "bbfd0a05eddbe8041c0eebb9f96374a5f85301ce7cb53edb7f48e1730df0d47b"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/auth/login-form.tsx",
-      "file_sha256": "f7b9ccf92e1833709ca171946fa66188648c00ae0fcad32d022b3a1c886e6033",
-      "body_sha256": "7ae7cc1f6665d4cf6ca2dd8691af76a16c6180c6ac20ce1a3013310aa9a1ba70",
+      "file_sha256": "bbfd0a05eddbe8041c0eebb9f96374a5f85301ce7cb53edb7f48e1730df0d47b",
+      "body_sha256": "526f229538bd1618f73ae0b2a92a1d985b2e62e8d880b86f6882704332f031b3",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/login-form.tsx",
       "upstream_body_sha256": "9559cb3316851fdd80597d8bfe2c4a406190a594c561c36b6df378a309178bef",
@@ -196,11 +204,11 @@
         "primary": "apps/web/src/components/app/onboarding-panel.tsx",
         "secondary": [],
         "evidence": "OnboardingPanel prompt and copy flow retained; host action interface adapted.",
-        "reviewed_file_sha256": "507ab4161e1d3a6aef2b0852a902b2d66ecf20003bb00812c41ee5a5736a4f56"
+        "reviewed_file_sha256": "e855c0bcaaf4328109ee8a9edb0bcbfb0745b4414cb9c1b40bd7658ddf4dbfb1"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/auth/onboarding-panel.tsx",
-      "file_sha256": "507ab4161e1d3a6aef2b0852a902b2d66ecf20003bb00812c41ee5a5736a4f56",
+      "file_sha256": "e855c0bcaaf4328109ee8a9edb0bcbfb0745b4414cb9c1b40bd7658ddf4dbfb1",
       "body_sha256": "04d216e86611b65f48c0a4e8e89ce78b7ad40cf39907dbe2601e470761e9e265",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/onboarding-panel.tsx",
@@ -221,11 +229,11 @@
         "primary": "apps/web/src/app/(app)/agents/[name]/agent-detail-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: agent; corresponding source and target harness",
-        "reviewed_file_sha256": "de1dc4866a4f41e94e6889eda88f1a2306723d4d28729df3af8cc0baecebd019"
+        "reviewed_file_sha256": "e2ad26699970735f5995e8cae20cbae1ae941e6e6aebd5f31ea22e647b0dbe7e"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/agent-detail-inspector-block.tsx",
-      "file_sha256": "de1dc4866a4f41e94e6889eda88f1a2306723d4d28729df3af8cc0baecebd019",
+      "file_sha256": "e2ad26699970735f5995e8cae20cbae1ae941e6e6aebd5f31ea22e647b0dbe7e",
       "body_sha256": "11f8db8f83026758029d0c36e698bcf76656f9eebb8686d5176975f5c44ec668",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/agents/[name]/agent-detail-client.tsx",
@@ -241,17 +249,17 @@
         "primary": "apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx",
         "secondary": [],
         "evidence": "Identical exported function and JSX in pinned upstream; exact body comparison decides copied status.",
-        "reviewed_file_sha256": "ec0d7805894a7e938956afa7ae16ab5bb82891f76c9bb7066ab79aa39843a19d"
+        "reviewed_file_sha256": "e80d7df523812698cde1d3b93be580907ebf07d303cfe0262dd07155debccf89"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/eval-chip-placeholders.tsx",
-      "file_sha256": "ec0d7805894a7e938956afa7ae16ab5bb82891f76c9bb7066ab79aa39843a19d",
+      "file_sha256": "e80d7df523812698cde1d3b93be580907ebf07d303cfe0262dd07155debccf89",
       "body_sha256": "b5e6924eb4d4fe3f5f7ef237c016ece7c85c926b7092eb99ef578b335d699ecd",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/app/(app)/evals/[id]/chip-placeholders.tsx",
       "upstream_body_sha256": "b5e6924eb4d4fe3f5f7ef237c016ece7c85c926b7092eb99ef578b335d699ecd",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": []
     },
@@ -261,12 +269,12 @@
         "primary": "apps/web/src/app/(app)/evals/[id]/eval-detail-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: eval; corresponding source and target harness",
-        "reviewed_file_sha256": "5bc6518f0fe4341d66b757f1b64e7f66bca3b3572a3af2d819110f916bab5b04"
+        "reviewed_file_sha256": "5dadd85ccf5a4d8a48c7b2e343be6902bac11b8cac58af57d89beb2ee207b041"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/eval-detail-block.tsx",
-      "file_sha256": "5bc6518f0fe4341d66b757f1b64e7f66bca3b3572a3af2d819110f916bab5b04",
-      "body_sha256": "a91ca4487062d32c52f92f4790e3d1e57df302c34b5477a6f948f64403de9d01",
+      "file_sha256": "5dadd85ccf5a4d8a48c7b2e343be6902bac11b8cac58af57d89beb2ee207b041",
+      "body_sha256": "d02f513efbd1ed00d946c56af9960e3ec974ff110e9bed893250cb18b0826de5",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/evals/[id]/eval-detail-client.tsx",
       "upstream_body_sha256": "491a9b353af39b78fc64e6d3349c9ce89a9e1e3788798d5ac78221995d2d8e76",
@@ -279,7 +287,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/eval-settings-fields.tsx",
-      "file_sha256": "b6bdb612b93a749ba8f9b96fdbec330e71f2f37440b3c1535c77354fd7ec825f",
+      "file_sha256": "784b7d286aa69b85780b6ba1c75a47ddd5b8f954e8528a57329030417c8c709b",
       "body_sha256": "6dacd0a13df6cfed169086bf01e823b5ce026ae509af7fe6e9ea0c1a628e99bd",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/evals/eval-settings-fields.tsx",
@@ -298,13 +306,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/app/(app)/overview-client.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "20842d3db1cf88abca07c12824ce5f290f79daa91042e7f9c2452a3a39da112f"
+        "reviewed_file_sha256": "7ce8ef0f1b2af889430b666c5c2ac964be7d8bc30f22c5287ca3b4755bdd378a"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/app/(app)/overview-client.tsx"
+      ],
       "path": "packages/design-system/src/blocks/dashboard/index.ts",
-      "file_sha256": "20842d3db1cf88abca07c12824ce5f290f79daa91042e7f9c2452a3a39da112f",
+      "file_sha256": "7ce8ef0f1b2af889430b666c5c2ac964be7d8bc30f22c5287ca3b4755bdd378a",
       "body_sha256": "863b349434bff3390be3c99a4d39a14d4b644ffc9801d37711ed82c4048fd798",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -320,11 +332,11 @@
         "primary": "apps/web/src/app/(app)/overview/overview-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: overview; corresponding source and target harness",
-        "reviewed_file_sha256": "410b5510fd8b9be5e097d902b4211c58c7d40bcea45efb39f974c3deae51307a"
+        "reviewed_file_sha256": "a538a7a0ea968ce826ca8e023b55f8aa603cd87743157b2b96afcabe0d126009"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/overview-dashboard-block.tsx",
-      "file_sha256": "410b5510fd8b9be5e097d902b4211c58c7d40bcea45efb39f974c3deae51307a",
+      "file_sha256": "a538a7a0ea968ce826ca8e023b55f8aa603cd87743157b2b96afcabe0d126009",
       "body_sha256": "e3884abd78fbee30d360dd59a67e7082156ee9ea2912d0932ca073dd005fb6ec",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/overview/overview-client.tsx",
@@ -340,11 +352,11 @@
         "primary": "apps/web/src/app/(app)/sessions/[sessionId]/session-detail-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: session; corresponding source and target harness",
-        "reviewed_file_sha256": "803ca2f116a11d74828194be050206137dbced8f3a94a6a70e7c88b35c003d05"
+        "reviewed_file_sha256": "305f2fe5fde80566d584471db395afc1ce3868c1baa6f3eaf894e7d751a43b99"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/session-conversation-inspector-block.tsx",
-      "file_sha256": "803ca2f116a11d74828194be050206137dbced8f3a94a6a70e7c88b35c003d05",
+      "file_sha256": "305f2fe5fde80566d584471db395afc1ce3868c1baa6f3eaf894e7d751a43b99",
       "body_sha256": "032b2f61ed871190f4970eb4e7b0356bb9ab3a5e579e1bc445a2c0879666c1e5",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/sessions/[sessionId]/session-detail-client.tsx",
@@ -360,11 +372,11 @@
         "primary": "apps/web/src/app/(app)/traces/[traceId]/trace-detail-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: trace; corresponding source and target harness",
-        "reviewed_file_sha256": "2c4375e01f0bdbbd07300842fcadf7b6e10761659fa7706cc1d7658c185ad32c"
+        "reviewed_file_sha256": "964187247752a276da06594df92df5b672209fea60ece8f7f677aefac55099ce"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/trace-waterfall-inspector-block.tsx",
-      "file_sha256": "2c4375e01f0bdbbd07300842fcadf7b6e10761659fa7706cc1d7658c185ad32c",
+      "file_sha256": "964187247752a276da06594df92df5b672209fea60ece8f7f677aefac55099ce",
       "body_sha256": "fdc7f43eb9e596a9d2f2e321bc906c7e58e0f40fac986b6b4b53e6a10e5d21f8",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/traces/[traceId]/trace-detail-client.tsx",
@@ -380,11 +392,11 @@
         "primary": "apps/web/src/app/(app)/traces/traces-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: traces; corresponding source and target harness",
-        "reviewed_file_sha256": "b2328dc0a9c31f46b8c8ebd94e4b69b9c4dd22515057b437e41160d76f3c6551"
+        "reviewed_file_sha256": "abc852a2b16aa7e9395da7c7a5cb64689a8bd78e4e6b9972ccd79b1353e4ce30"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/traces-explorer-block.tsx",
-      "file_sha256": "b2328dc0a9c31f46b8c8ebd94e4b69b9c4dd22515057b437e41160d76f3c6551",
+      "file_sha256": "abc852a2b16aa7e9395da7c7a5cb64689a8bd78e4e6b9972ccd79b1353e4ce30",
       "body_sha256": "780b9579e61b1551c815491675089a4281dab99bd3153946a5eee589614bfd29",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/traces/traces-client.tsx",
@@ -400,11 +412,11 @@
         "primary": "apps/web/src/app/(app)/workflows/[name]/workflow-detail-client.tsx",
         "secondary": [],
         "evidence": "W5 dashboard query-bound client inventory: workflow; corresponding source and target harness",
-        "reviewed_file_sha256": "bef34bd887f99e662d58200934a0f569d98495bb2c9203e2b0f0fcfc29fba629"
+        "reviewed_file_sha256": "b3e76d5bd13b86502675e1ac8c5a6cecbf1642b1e6e9b0d0451923f5857b4fae"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/dashboard/workflow-detail-block.tsx",
-      "file_sha256": "bef34bd887f99e662d58200934a0f569d98495bb2c9203e2b0f0fcfc29fba629",
+      "file_sha256": "b3e76d5bd13b86502675e1ac8c5a6cecbf1642b1e6e9b0d0451923f5857b4fae",
       "body_sha256": "a92cb543d2c8ab98549c466d064e2371c1ef4db77bc11d6a26b3dff308155eb2",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/(app)/workflows/[name]/workflow-detail-client.tsx",
@@ -418,8 +430,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/guide/chapters.ts",
-      "file_sha256": "3113c597c52e9b894b87d3adb6baf204e8b2fb3c5ffba9721a625200cd390f76",
-      "body_sha256": "3784890ecb579e198ea2c0d749f684eb8baf922ac3def1cef28ee3323de12f99",
+      "file_sha256": "e0ec6ecfac6f8afc676268b64a205e296726a79c7065767f1f86976341272f67",
+      "body_sha256": "4bbcd914fbf95ed0e477a256c728af3de3272d7dce71ed1adb561863d73ff629",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/how-it-works/chapters.ts",
       "upstream_body_sha256": "d42b46c8778d7b7cdeadea95b9c4af34b2dfb2ddb562329e686716e9a59a27f3",
@@ -437,14 +449,18 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/guide/observability-guide.module.css"
+        ],
         "evidence": "Standalone ambient CSS module declaration for extraction build; no corresponding named upstream file.",
-        "reviewed_file_sha256": "c27f6f86c320f225f2ad697d029320839b159956ddb747ec7bb5d5f732339a41"
+        "reviewed_file_sha256": "71030f95cf1087d4ae56dbc265032dfc0cd966d8719dba372a5d8767c6f76a97"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/guide/observability-guide.module.css"
+      ],
       "path": "packages/design-system/src/blocks/guide/css-modules.d.ts",
-      "file_sha256": "c27f6f86c320f225f2ad697d029320839b159956ddb747ec7bb5d5f732339a41",
-      "body_sha256": "c27f6f86c320f225f2ad697d029320839b159956ddb747ec7bb5d5f732339a41",
+      "file_sha256": "71030f95cf1087d4ae56dbc265032dfc0cd966d8719dba372a5d8767c6f76a97",
+      "body_sha256": "42a2bca7b033377e1c3da41519c31dbc6773ee4d83c29649474ef7a448b39976",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
       "upstream_body_sha256": null,
@@ -457,13 +473,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/guide/observability-guide.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "a6974e6a5169c5f80c0d6771b1f7fcc24e3742141608481dec236c534f39d752"
+        "reviewed_file_sha256": "77e3704c525b27eb49a2ac855412877a43c59225dd438360c8f063da20939cb2"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/guide/observability-guide.tsx"
+      ],
       "path": "packages/design-system/src/blocks/guide/index.ts",
-      "file_sha256": "a6974e6a5169c5f80c0d6771b1f7fcc24e3742141608481dec236c534f39d752",
+      "file_sha256": "77e3704c525b27eb49a2ac855412877a43c59225dd438360c8f063da20939cb2",
       "body_sha256": "a4e0d6239b8e0fd80a8bebbd3e7b7aa28e0f906acc8568a9c4c9153342a64b37",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -477,18 +497,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/guide/observability-guide.module.css",
-      "file_sha256": "54c5ad86714daa6599f5b32ef24f693e006b02e5ed170e29c50a186e6886c6b6",
+      "file_sha256": "e94ef16b9ec2fad6d1da357e5764ce526a409b9289d8ecfc16c590be0bb9e947",
       "body_sha256": "9cbeac2ff570176f2c28d3975dac412e80bb589e00bc86b63aac5001e85c5d4f",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/marketing/how-it-works/observability-guide.module.css",
       "upstream_body_sha256": "9cbeac2ff570176f2c28d3975dac412e80bb589e00bc86b63aac5001e85c5d4f",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/how-it-works/observability-guide.module.css",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -496,8 +516,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/guide/observability-guide.tsx",
-      "file_sha256": "227a18ee881b2eac1397abda1eb164166f21f813b3bf0e5054197bfa1c381f68",
-      "body_sha256": "b1ae1770843aff7f9411d628ed21b078372e27857877c90a29165f91daf83427",
+      "file_sha256": "fea8695973ddf313b1effad723cb40fe5047309ac66f595bb158348467488183",
+      "body_sha256": "2133bbf81d3acf7e9da1a3f3a0a7cfa3429810d7bf8d1a46d46534f7f5fe7bfa",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/how-it-works/observability-guide.tsx",
       "upstream_body_sha256": "6e24cad1dcbc896ad68092c674723124fe061c930cf9aa85c02ea6796c5576ad",
@@ -515,18 +535,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/brand-mark.tsx",
-      "file_sha256": "01bcbdcdd16c22839bbc906bcd11a1b538a7f3834a4d62d1e142d20cc493988c",
-      "body_sha256": "48947ea56798b0b411a36d9cb16495879bef5335f033fa4c48e1306e10de09f6",
-      "proposed_class": "copied-1-to-1",
+      "file_sha256": "9f15ee01e96d5863b0243ad27c1ca05388afa9cb6d746c66eeb66f1ac5201cc1",
+      "body_sha256": "46a7dc7b1302e77e545059c9239ab627306116f65cd6256f8453d4ca275d4dd1",
+      "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/brand-mark.tsx",
       "upstream_body_sha256": "48947ea56798b0b411a36d9cb16495879bef5335f033fa4c48e1306e10de09f6",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/brand-mark.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -534,7 +554,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/code-block.tsx",
-      "file_sha256": "38957977b29011090186fab8c19d6d778b27913c45a58142d7ce5728ee2a5a67",
+      "file_sha256": "cf6acda942c957e64137379c254e92b009481edbd4fc548ec0bb1b35c3dbcce0",
       "body_sha256": "6cec2e2611af6fdec24e9fc84c94036a9fab02b1628a8f8e1d244ca18537b3f4",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/code-block.tsx",
@@ -553,7 +573,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/copy-button.tsx",
-      "file_sha256": "19d85d60cb3f98fb064e24287f291a8959e8c17fd4381d91ab2a941a8b3f04a2",
+      "file_sha256": "59783bc5763bcb7b3255ac9cdd9a63c56822ff357f00bbc7c69ee097fe14c086",
       "body_sha256": "b5f00a092ad20523e90cd760bb534d5d9dd17dec4e8a5df843a19f4c927e2004",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/copy-button.tsx",
@@ -572,18 +592,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/cutting-mat.tsx",
-      "file_sha256": "122a3eeae1e8de2d6ca3cd0415a219349565e067571c2e2a4a85ba93f058a11b",
-      "body_sha256": "e16d151173f734ea781355f6ce167d2007b92083f408062fe2d43bb7c672e4fe",
-      "proposed_class": "copied-1-to-1",
+      "file_sha256": "3c76056a4de49a38f2b4d21f624900b74c86933674cf62663b728892453f9837",
+      "body_sha256": "d7c3b67ea9c9edf20e6eb54412c7501bed532c3b7f3e8c8a3651d8c5be5553d0",
+      "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/cutting-mat.tsx",
       "upstream_body_sha256": "e16d151173f734ea781355f6ce167d2007b92083f408062fe2d43bb7c672e4fe",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/cutting-mat.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -591,7 +611,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/demo-link.ts",
-      "file_sha256": "9855790e7c8abed93d3dd5977994bcca960ac7f722662ab8aef937793a9a6434",
+      "file_sha256": "d85e316e4274ba8b263d9329b73939c2dc4f2545ade1b9363f9488fea3baa6b6",
       "body_sha256": "6e02523fb4274e88f74e9914f75fb94c23b5173f7af9012f1179bd8fedae3455",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/demo-link.ts",
@@ -610,8 +630,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/footer.tsx",
-      "file_sha256": "66e5bc8ef27789f3c6e79a011df2886aea0ccceec3e7e571e93c1ff0461af781",
-      "body_sha256": "11a7d56b3d72b0fbcaf5d4e2ffba65272a322baa358e68121974c1ed7a6a5650",
+      "file_sha256": "9c49b23263e39278adbd08affee4fb8e5c302ff9382a6213970b533c60af3f2e",
+      "body_sha256": "a928e9752a6c6a84bfd2cc49eda1e6e0dffe594998f2fefaa0010f0ec55c9c7d",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/footer.tsx",
       "upstream_body_sha256": "3852fe8cf7133c26b40be96a01822ba6231d8f55be14a0406776ffae8ff3a718",
@@ -629,18 +649,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/github-logo.tsx",
-      "file_sha256": "88ebfa3b9dae669e649e7615ec105536cb81064677971a2e6f5faf520d558ab1",
+      "file_sha256": "20798b7b880559c9ee0ee21b7ccbc3c154ed5167eee2b9211fef2d50ab742977",
       "body_sha256": "ef1059f197d589e3d5e6cccb886af2d3efa6b061dfddeaa01047c09de0d7b546",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/marketing/github-logo.tsx",
       "upstream_body_sha256": "ef1059f197d589e3d5e6cccb886af2d3efa6b061dfddeaa01047c09de0d7b546",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/github-logo.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -648,13 +668,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/marketing/navbar.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "c92b653e29237c888ed477ea177483a157c145716c7c6104dfc744c9dbe97d00"
+        "reviewed_file_sha256": "1a7a387507611456b5b6d62624d9ff57e1e2be0f5ad2dbcdd663d85a36ded2ec"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/marketing/navbar.tsx"
+      ],
       "path": "packages/design-system/src/blocks/marketing/chrome/index.ts",
-      "file_sha256": "c92b653e29237c888ed477ea177483a157c145716c7c6104dfc744c9dbe97d00",
+      "file_sha256": "1a7a387507611456b5b6d62624d9ff57e1e2be0f5ad2dbcdd663d85a36ded2ec",
       "body_sha256": "40737bf65bc0a9c741838c152e19aaaf09621e89fa79dbf10355a7c93c60d403",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -668,8 +692,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/logo.tsx",
-      "file_sha256": "0975fb321d8018207b1ed549cf4595d0236789ecc173987b8bf367f93f63b6d1",
-      "body_sha256": "02e459fb9004ff2b8825ef75d8f7c3e7923ea3478136247cec2557209a2bfad7",
+      "file_sha256": "c09592754216052dbf4216622af00a9d850a1ee4c52960bcd0ca94c7c56ee0ce",
+      "body_sha256": "39b27eb112dfd7c1d548010f88c4e608513139d995b12815db0271da9eec26c8",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/logo.tsx",
       "upstream_body_sha256": "d4990c46f2cc06d36b6ad7334efb63f481a62ced07668cfef98ced279dcbda58",
@@ -689,12 +713,12 @@
         "primary": "apps/web/src/components/marketing/navbar.tsx",
         "secondary": [],
         "evidence": "MarketingNavbar, LINK_CLASS and scroll/key behavior retained with host links and attribution additions.",
-        "reviewed_file_sha256": "4f2ae3d273b663d067828627e8d738b4e45f962d28eff5b25ff07766a2efffbb"
+        "reviewed_file_sha256": "95d4318aef1db3420c74a264affde2fcd4669bd9ef86dacc11c6efaf255385f9"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/navbar.tsx",
-      "file_sha256": "4f2ae3d273b663d067828627e8d738b4e45f962d28eff5b25ff07766a2efffbb",
-      "body_sha256": "32d844866b9a4a08e262b92dc5724a9e844d4b62ee01a8e1fb85467c2d068937",
+      "file_sha256": "95d4318aef1db3420c74a264affde2fcd4669bd9ef86dacc11c6efaf255385f9",
+      "body_sha256": "9b1ceaab73f5d0b33b6e384b83404a985e76cd00009c870c92d82556e702a8df",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/navbar.tsx",
       "upstream_body_sha256": "9aa48d766ec57d45a789aa21f21095d39215ae18ed2fa57a85af9d2b8c6054b3",
@@ -712,7 +736,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/noise-overlay.tsx",
-      "file_sha256": "42c210c289125e0a0eded875145a1fae486dd193aeb973588908ee1533a382a5",
+      "file_sha256": "9e7c8571c7ea138759c673cb73e11d569dce1dc82208a2322e19e6e00dc0f053",
       "body_sha256": "61c78ee59d73f802236707158752465363a6a09c50f4f7d4ad74e34045fab0af",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/noise-overlay.tsx",
@@ -731,7 +755,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/chrome/products.ts",
-      "file_sha256": "068be7430b24433bb719345433ef43d363838940d5ed5b556986080d72892201",
+      "file_sha256": "ae151be9114979784b1a6ba6eba98c3671b96af1d430fefdaa4bf157cd5462a0",
       "body_sha256": "881a35cdbf8b4dc27abb8c00c44c91e2d9bb575d10a301a5d4b5e81df12b523d",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/products.ts",
@@ -752,12 +776,12 @@
         "primary": "apps/web/src/lib/agent-prompt.ts",
         "secondary": [],
         "evidence": "buildKeyedPrompt, buildLandingPrompt and instrumentationBody retained with decoupled endpoint configuration.",
-        "reviewed_file_sha256": "9a5c3c4b79594185509e14286499cf4ef6a4ada41fb4c1f4ab537a0290ff976b"
+        "reviewed_file_sha256": "217fdd76cf418cf465162474e852be82629fd3423375189d25c046bd413800f3"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/agent-prompt.ts",
-      "file_sha256": "9a5c3c4b79594185509e14286499cf4ef6a4ada41fb4c1f4ab537a0290ff976b",
-      "body_sha256": "261c6843fc4b9fe814a437969e7b931709087e4510d5b5b7426288db750f0499",
+      "file_sha256": "217fdd76cf418cf465162474e852be82629fd3423375189d25c046bd413800f3",
+      "body_sha256": "36cf73d7787f886a95cb85a06a352476df2f17ac5a904b3edca9b670f60375e1",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/lib/agent-prompt.ts",
       "upstream_body_sha256": "c772e283bd9011f5b460a7f6242e33d304d21b9047cb6610151877166a86ddce",
@@ -777,12 +801,12 @@
         "primary": "apps/web/src/components/marketing/landing/ask-foggy.tsx",
         "secondary": [],
         "evidence": "AskFoggy rendering and streaming state adapted to caller-supplied async request.",
-        "reviewed_file_sha256": "9c61bca630f736a4e144946468a08ce78a601e2bdeacaf5020ef472a515c1b75"
+        "reviewed_file_sha256": "ad4001d2d47182dfd5529adb75be4ad0f1da86f7c5929e40afd4c10862344b60"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/ask-foggy.tsx",
-      "file_sha256": "9c61bca630f736a4e144946468a08ce78a601e2bdeacaf5020ef472a515c1b75",
-      "body_sha256": "538f9209ad275e3fa9589575e0b26b800917eeed4c241c33a7f5a4819c16fe9a",
+      "file_sha256": "ad4001d2d47182dfd5529adb75be4ad0f1da86f7c5929e40afd4c10862344b60",
+      "body_sha256": "7493484f5cabcc94eef66bf36f757a981d923dc88b730a65f137632ff6b9dd0f",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/ask-foggy.tsx",
       "upstream_body_sha256": "54f7889d35b4db68482b32806972af420a0f573dcf4e7b1ac924d6bfa66ba3d3",
@@ -797,11 +821,11 @@
         "primary": "apps/web/src/components/marketing/landing/compact-cta.tsx",
         "secondary": [],
         "evidence": "CompactCtaSection rendering retained with host-facing props.",
-        "reviewed_file_sha256": "fcbb21e9dce269f591ab059cfc58b8405c4b8419a3c810a22ec5872260047271"
+        "reviewed_file_sha256": "297cc9a3d85d2cf4dc4d73f6752334dcf89e43f0838829f10b92e9c9e7c1c7ef"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/compact-cta.tsx",
-      "file_sha256": "fcbb21e9dce269f591ab059cfc58b8405c4b8419a3c810a22ec5872260047271",
+      "file_sha256": "297cc9a3d85d2cf4dc4d73f6752334dcf89e43f0838829f10b92e9c9e7c1c7ef",
       "body_sha256": "e93c584a4a505f5ce42a9426dfb51babef767b2b7ce49e52eef8645e34f51d30",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/compact-cta.tsx",
@@ -820,7 +844,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/copy-prompt-button.tsx",
-      "file_sha256": "bc580ba81138eedf4430a2c5b34e9382835682c8b9ec7061d4a0a516e924ec04",
+      "file_sha256": "76cd3c0c58d0f095022722aae0772f428015077e6bed7ffb1f26ef215b5e204a",
       "body_sha256": "f25af28f55a9e11a3ca0022697cc6f3009c1dd759d5e03af7aef56345c9257c9",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/copy-prompt-button.tsx",
@@ -839,7 +863,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/cta-agent-details.tsx",
-      "file_sha256": "bed2bc19533305c49d6d2e069e58c6348ed42f273339fef9049096c344908428",
+      "file_sha256": "2cb8a649ad9a4d4baa23eabd3f57000ba5e24782229867bd148a489d8e3f5d05",
       "body_sha256": "344fbb67fa1030c83bcfb62a73e777d5d940858e27d6172e795334d1f85394d0",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/cta-agent-details.tsx",
@@ -858,7 +882,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/cta.tsx",
-      "file_sha256": "1c78882e1471184b8ccad9e4bc04b33ab25faf7ae8c57f8c2ad3774f9698afae",
+      "file_sha256": "673a6af9c2ac52e791fb4d6a725fa39bee89f50f135e15b9ae310ab70688b937",
       "body_sha256": "4375b1b3ae96666f4dc799539d52d505c6563784af433161e7e57cde826a51b2",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/cta.tsx",
@@ -877,8 +901,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/cta/faq.tsx",
-      "file_sha256": "5cbc2a601fddfa5c2c678a3f839aca5fa0a7aa9adc56f0453f662c03f91aefe6",
-      "body_sha256": "33f2ecd0e8eca5430f87cd42ab15f2a7669915bde42ac667dd007b8a38958cfa",
+      "file_sha256": "8d53248833ea4f1137d3ae4dc5ac97d46efa08b8bd9cc0019133e84870f4b059",
+      "body_sha256": "64ff72ee368ea3f69cc534faed013718529f11d9640de23ba222ca265c1a4bf4",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/faq.tsx",
       "upstream_body_sha256": "9167a2e0e48c4c4573318c8a142e5944d78d9c0521366e1e7ea5b459f6921a97",
@@ -896,13 +920,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/marketing/landing/faq.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "b0bc945d6fc6c6d4cfd3fc010e17bce4e94c834cdda98107bf5f961524eaf9c0"
+        "reviewed_file_sha256": "1f90d98827e331c2ede8fca1861cc2a63f2c03eb622d6521d93c5e2a1345f4c5"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/marketing/landing/faq.tsx"
+      ],
       "path": "packages/design-system/src/blocks/marketing/cta/index.ts",
-      "file_sha256": "b0bc945d6fc6c6d4cfd3fc010e17bce4e94c834cdda98107bf5f961524eaf9c0",
+      "file_sha256": "1f90d98827e331c2ede8fca1861cc2a63f2c03eb622d6521d93c5e2a1345f4c5",
       "body_sha256": "32bb76dbfb5bcd48352d8eb047dd69010455cbb193466f55a3eff3b5ed1ebb79",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -916,7 +944,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/demo-chrome.tsx",
-      "file_sha256": "a6fbac8bbd28742ed3f0d27a35084ea385363a1971b9e1e63c0d0e90a4d08305",
+      "file_sha256": "5b018efcb7f42825ad9891ddd064c83d11fe6333147c0e59785a775335b82a42",
       "body_sha256": "90cf2816e40e4e7c657c74019f1713f962e9a0a0680d4b404b1a4877d544e46c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/demo-chrome.tsx",
@@ -935,18 +963,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/demo-context.tsx",
-      "file_sha256": "709bc5e83dd7d7be8971f5b1c16960d993981c1b2aa234465897ce03d0a4b18f",
+      "file_sha256": "62aff83c0b9d163026214d03eebec633a68c230a8d1d5fbed60eca58861901a7",
       "body_sha256": "97065344e0ad73f7bd902b248b131dc1c33e9650884349139edd02db049998c2",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/marketing/demo/demo-context.tsx",
       "upstream_body_sha256": "97065344e0ad73f7bd902b248b131dc1c33e9650884349139edd02db049998c2",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/demo/demo-context.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -954,7 +982,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/demo-shell.tsx",
-      "file_sha256": "477a021bb092f4c80b03fa961f49b482b15afc113e9578b2ae0c1d04752a2864",
+      "file_sha256": "e77f19b9f4c634368fa6231f504e76750dd21cff6fee00d00c24df7cb42613ef",
       "body_sha256": "6249b8ca3ec9cef517634d1803dbc1090f657131b6b2d690c1dd2242c4d0d709",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/demo-shell.tsx",
@@ -973,7 +1001,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/demo-sidebar.tsx",
-      "file_sha256": "763c347dbe01a48044ceb4df03251f6a08dec658c792e0201e0a26f4b40e1bc5",
+      "file_sha256": "ab9fad9492d9b57424dd812931707c6b1733303e07ea6df7cfd17db271956e87",
       "body_sha256": "2ad58a643c68d3bd1c33fda694e0aea2d6a7d74347293573f0f6c4af917419b9",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/demo-sidebar.tsx",
@@ -992,7 +1020,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/detail/agent-detail.tsx",
-      "file_sha256": "4f38c3ab1ac6647fadc078dfb7b74bc2e674a1c922934913fe58b82fcbf89f7f",
+      "file_sha256": "d6739809c5533349b53c2c6180e73f28f7cf51d0fd6c81f210474522fe936b43",
       "body_sha256": "cfa394fb48518b4925d460be4ed10c13ae80117566833293ae05b1f94bad2ab3",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/detail/agent-detail.tsx",
@@ -1011,7 +1039,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/detail/breakdown-cards.tsx",
-      "file_sha256": "157deb90a7ae2ad259c764bd2b404dd984758c70f30b03b2b4b1bdf7ad9f5735",
+      "file_sha256": "b82e1f2e618508c06d8cf96e34c180edcebaf210e2e2b6b086f61247d5dbd02e",
       "body_sha256": "1b4c2071f83351c246929ed8d3348f6dc749e16bc16d6e222ca43182d7df69c2",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/detail/breakdown-cards.tsx",
@@ -1030,7 +1058,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/detail/eval-detail.tsx",
-      "file_sha256": "66816af40856174f2075c8f09fe0ea12af37707e3e97849ed7ba9c558c0e929e",
+      "file_sha256": "c7a7f527ad60cfb881f3507cb473aaf68e5524076187f0bf121d23a746080eef",
       "body_sha256": "2702bb11b3efad36424cc4b3415f0e75c87b8d46ec44dedef90dc21027c745b3",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/detail/eval-detail.tsx",
@@ -1049,7 +1077,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/detail/session-detail.tsx",
-      "file_sha256": "cd413741973dd6143374e6344cd85abb3dc9a67b2ab500da6f974dc8fc7c03ec",
+      "file_sha256": "599c03dd090424607abba1808f3fe79ecaf94ff4b6613ba5b9e17aebde93bbda",
       "body_sha256": "5e82f1643db4a0c8f5196cd93c56d721932658ea3dab9ea118f3e5f01620d259",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/detail/session-detail.tsx",
@@ -1068,8 +1096,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/detail/trace-detail.tsx",
-      "file_sha256": "201cd0fe3bd945639bec81c700458aa9939c06f14c60d49fabff3beae755284f",
-      "body_sha256": "c10e76186c72a8ce1cd85cc7cf463cbccf856a2703eb1521aecbbd046116b10f",
+      "file_sha256": "f1a177c0064e7dcf18ca1831ba4c9365d478a169db723ee904f053ffbfc72917",
+      "body_sha256": "91b30773818888ffa6468f11ee7e71271f4e8a6b34e91cc53371a28c99918226",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/detail/trace-detail.tsx",
       "upstream_body_sha256": "fae299eff84940410c2e491a18b86c6905ed6d174f632d89e8bae7eb67ddee44",
@@ -1087,7 +1115,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/detail/workflow-detail.tsx",
-      "file_sha256": "4f746f5a150d5e7b82e339cf9a5cff0ce1268296a6ff8227db51b50de55c7785",
+      "file_sha256": "3325a20284819bccb8997ad21da12d9b2f5ed30901a585420a6e8c03026bc5e9",
       "body_sha256": "7abde1078a55494f94a9c716a13bff92904f0493f7fd886a41ef72e4df2a275a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/detail/workflow-detail.tsx",
@@ -1106,18 +1134,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/entrance.ts",
-      "file_sha256": "48208e11de9d43b291e534bf94a1be4fad2788e4aa6b1cad7ea3f50cad8af80d",
+      "file_sha256": "1998ec3a7a0f6e43dd4d5c943cdd02fe378a388c41d9b18049f5bb684e628805",
       "body_sha256": "8d5aabc9ff235dee269d1409e99f33fe4101c2f71fcb283db287c006f31e54be",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/marketing/demo/entrance.ts",
       "upstream_body_sha256": "8d5aabc9ff235dee269d1409e99f33fe4101c2f71fcb283db287c006f31e54be",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/demo/entrance.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -1125,7 +1153,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/index.tsx",
-      "file_sha256": "51806e293e9a37a8c01d267796aa56e0df5fef28c36f0f9519307a8763cfee6d",
+      "file_sha256": "22b3e85880ec42ec45129b0bded4d8f2260c4f45e6968fa97999eafaad2420a6",
       "body_sha256": "3ee7f90f1e3380a81456866409c924137d7fd215c705f9dbd0d60d921ea768c1",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/index.tsx",
@@ -1144,7 +1172,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/mock-data.ts",
-      "file_sha256": "fb5def9820c2d7eb700dda24cadbbdeabe9a21f073aba937258d272daff8c220",
+      "file_sha256": "ed5b3dcc63a31e0c7b0e1c1570211f8c624008c187a7aebf63adcb366d5f7b7e",
       "body_sha256": "f9305b5e6645b900e7322e14d461cc6d34cf5eb4b0337a5c48ef5310ca4281ee",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/mock-data.ts",
@@ -1163,7 +1191,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/piece.tsx",
-      "file_sha256": "33ae66b11a9880b98250ee7dfc3f5a7f246c5a05622371128ce1209824334187",
+      "file_sha256": "f77fd7b6e0cbc4ee7b59cc38190da345b380ef5e67f382514aff6f5006377f2c",
       "body_sha256": "78cd086495e9cfbafe44fbbc81c3f6dffc3820d40359e94487923dd8a0a794cd",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/piece.tsx",
@@ -1182,7 +1210,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/agents-tab.tsx",
-      "file_sha256": "03d4113ba2372285565673aabde4b67801c66a7110765e085704c917f8112873",
+      "file_sha256": "49d7384cdae85187d45ec3deb954463f489fe4408a96288e6c234c130b1c0d56",
       "body_sha256": "7a9222b734291300eba395d04501e47ae4b3c139facaab4d0830da2408f122be",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/agents-tab.tsx",
@@ -1201,7 +1229,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/alerts-tab.tsx",
-      "file_sha256": "84e66db57af7898c4cae09e25476c392e683ce964248b526cc103b5693dcb26f",
+      "file_sha256": "72ad88cf72b22faaa5bf4cceaf4e869aff0dc4827b5c49a1e50d9d28a4d2ddbd",
       "body_sha256": "b8d63528857f3a8b3bbb2038c14fd1d8d0004495a27af0b3a8a3405f2e7857e7",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/alerts-tab.tsx",
@@ -1220,7 +1248,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/evals-tab.tsx",
-      "file_sha256": "cf3ad575277ffb658b404eda23c92de53fef80cab4a57bbd7a5f555bfc091cc3",
+      "file_sha256": "74fc37f79dfcf43b2d11d3c8bffacf0689809865a7d408c87b9c6fe76231a35a",
       "body_sha256": "6782b03ec0ab3e61784c09e3bc773994c69ffa4dd0034389673a4bb9064b3235",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/evals-tab.tsx",
@@ -1239,7 +1267,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/overview-tab.tsx",
-      "file_sha256": "21716796fe942a11218975c499dc7c266003520c9e9a4eb56e4a619b708c6f87",
+      "file_sha256": "2097e71a5ceed012c0a49b48feef32f823efef8bf1931fed428e6f14d2127d96",
       "body_sha256": "a952710886572f103835841afe663052df83efdddbb4a322563f8ad55bfe8ced",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/overview-tab.tsx",
@@ -1258,7 +1286,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/sessions-tab.tsx",
-      "file_sha256": "00072e29c6eca0c2e5591893716b4e763040ca7b63ad71cc013e47cb09173add",
+      "file_sha256": "9de05a1eee237061221d43eb942bc5edf9d5d23edd8839dd6d0a013a37d5be4d",
       "body_sha256": "66ec8c6e0a6cda864b85352c58b10a90686f4207e8314067fce4c9e2fa20b7d8",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/sessions-tab.tsx",
@@ -1277,7 +1305,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/traces-tab.tsx",
-      "file_sha256": "b936e1e8ce8849c3ab5d0f8f3a684497b0fcb86fd57f3619ed2f0b2d820ce610",
+      "file_sha256": "a3823118fc465eaedb313c192089764c5a631fae6913f3a4aa3e69ba069d73f2",
       "body_sha256": "742e8ea68eab35f413f5a6f954c54cd735bf94d282a863b760e1c9ee3e240026",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/traces-tab.tsx",
@@ -1296,7 +1324,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/demo/tabs/workflows-tab.tsx",
-      "file_sha256": "529f8f322e11ba826fa15d5f51b61122aa62ec1f38fabfe42b5fde5307c26fca",
+      "file_sha256": "1e0685d22f0a8c84e33428206cd315d267becb8f21a2c6e0c9bcfa360fd2a42e",
       "body_sha256": "4d7f64bdc233f4aa49943adb77213c83ef7bc33b6154f9657e8bfca103a8e6c9",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/demo/tabs/workflows-tab.tsx",
@@ -1315,7 +1343,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/feature-section.tsx",
-      "file_sha256": "2e7f9abc13d1db80936a2c01dd3a3f415c0bf6b9134df25d301043445f7d18aa",
+      "file_sha256": "6c8b98bc2ce13ec94abc6802509422057968e0e54dd10440eba8ebcf402b9851",
       "body_sha256": "3654d42db7d50cda92fb72601ed8451bbacd71916f89b5eb674b52068cb24809",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/feature/feature-section.tsx",
@@ -1334,7 +1362,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/features.tsx",
-      "file_sha256": "2a8023da2046e13c7ae833af0ffff437f1966c1f5020cd6eb55cddebaf1a4445",
+      "file_sha256": "b1ddf82517e0d6394e93c0d3b445a04098c89e86f10f8562b85eea254a555d3a",
       "body_sha256": "155a7c0fb9f69518fb0a10666e8d9ed2b10118df1c3a30276c41a32d5fec2bed",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/features.tsx",
@@ -1353,13 +1381,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/marketing/landing/figure-picker.tsx"
+        ],
         "evidence": "New prop-driven composition of local FigureVariant; implementation calls imported component and does not inline source figure bodies.",
-        "reviewed_file_sha256": "12df9c6cac3062e3815dbe77db9d1ffe5da0099f3fc2ee558526e4bbca1b3c04"
+        "reviewed_file_sha256": "a0e6b7935497554ec08ae42758f6fdbc6b3678869e5da0b22f0d9c9987baa47e"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/marketing/landing/figure-picker.tsx"
+      ],
       "path": "packages/design-system/src/blocks/marketing/figures/figure-kit-22-block.tsx",
-      "file_sha256": "12df9c6cac3062e3815dbe77db9d1ffe5da0099f3fc2ee558526e4bbca1b3c04",
+      "file_sha256": "a0e6b7935497554ec08ae42758f6fdbc6b3678869e5da0b22f0d9c9987baa47e",
       "body_sha256": "7c66474003bd0c9576cb4ffa842f9ce9e5d6543ed852893d3deb9c3042a8639b",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -1373,7 +1405,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figure-kit.tsx",
-      "file_sha256": "5adec1acf24b386eccce4e05ab44d8cadec177abf6ef4ffe5e0fd9e04324850d",
+      "file_sha256": "4d6dabdc6b80ab9b316f527c783d12ffbc4ee112709b8749f65ed36e9bc72637",
       "body_sha256": "a3089eb4869d9c738d6b8ec08a47d234c55bc52d1fa73b5ec6c1eb0c887feae9",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/figure-kit.tsx",
@@ -1394,11 +1426,11 @@
         "primary": "apps/web/src/components/marketing/landing/figure-picker.tsx",
         "secondary": [],
         "evidence": "CHOSEN variant picker retained with lazy host wrapper.",
-        "reviewed_file_sha256": "6df0847e2076c459f26549a08c2064ae19db729b71b7ee2fcb99973a8b59f41f"
+        "reviewed_file_sha256": "e55ea54371493ba1dee9fb14e86ebe159357231f76bad5cb5ea03c751827af7a"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figure-picker.tsx",
-      "file_sha256": "6df0847e2076c459f26549a08c2064ae19db729b71b7ee2fcb99973a8b59f41f",
+      "file_sha256": "e55ea54371493ba1dee9fb14e86ebe159357231f76bad5cb5ea03c751827af7a",
       "body_sha256": "a900e769c75a21dfa34e1d82a1d01e4cc1ef97357bbb3c3b74d041efb5ba8a2b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/figure-picker.tsx",
@@ -1417,18 +1449,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figure-reveal.tsx",
-      "file_sha256": "dac1ceb6099f9d4f459ce56834bbb04204e6bd7665521bc19d6eb907b40353f0",
+      "file_sha256": "306cb2acfdb5d3a6c66e02977a307ede7264ce49ce7d6588a406d84586ea3405",
       "body_sha256": "9e35155e1804a70a97a719bee828c45a9484c164a7115107ed1c44e4bad43a92",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/marketing/landing/figure-reveal.tsx",
       "upstream_body_sha256": "9e35155e1804a70a97a719bee828c45a9484c164a7115107ed1c44e4bad43a92",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/landing/figure-reveal.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -1436,7 +1468,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figures-costs.tsx",
-      "file_sha256": "9f7b304bd798f1cf100fe8b788dfe7fb1ba993962b94bbe7ca5c24ef70960873",
+      "file_sha256": "ec8ebc58a5e53e4581969acacfb951fda5a66400b990a683db5cd904368bfcf1",
       "body_sha256": "97cfbfacaf917eb0671f99c17c280cd0c668a7c874ca298b8b401e5a907bd1a4",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/figures-costs.tsx",
@@ -1455,7 +1487,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figures-scenes.tsx",
-      "file_sha256": "5a335e414301a642b35c4a67c88bfba722ce37e1771d98a4196e1a91ebff7c1c",
+      "file_sha256": "336113b60757bb4656a7842f61971a980e91ec4263fcc1ecba62ba3a30dfd66f",
       "body_sha256": "2990702ac097748513c17e7fa92c8fb1e395387d4fdaa5265f391ab9e0ac88ce",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/figures-scenes.tsx",
@@ -1474,7 +1506,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figures-traces.tsx",
-      "file_sha256": "73b270a0a60cb2f796277993951a47bdd4b0fc584845193a029fd44d74c9a6f6",
+      "file_sha256": "8d3d5e14daadcc7146bb2a1bd35b4118e940ec4911cdfa2aa5e16773ed5a07e5",
       "body_sha256": "f357c72c4fce30af78279a91e0a95dce4ac99c1758939abfe25d813ba89817d1",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/figures-traces.tsx",
@@ -1495,11 +1527,11 @@
         "primary": "apps/web/src/components/marketing/landing/figures.tsx",
         "secondary": [],
         "evidence": "FIGURES section/variant catalog retained, with lazy component type adaptation.",
-        "reviewed_file_sha256": "1b9a83974afe43182f7e49f11db1b0d58675a905f30e4b7e694fd71cc62c7e45"
+        "reviewed_file_sha256": "4c68937ab20b9415974ad9ec7be85a1d01c5d18076562a717fefdb449b6acd28"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/figures.tsx",
-      "file_sha256": "1b9a83974afe43182f7e49f11db1b0d58675a905f30e4b7e694fd71cc62c7e45",
+      "file_sha256": "4c68937ab20b9415974ad9ec7be85a1d01c5d18076562a717fefdb449b6acd28",
       "body_sha256": "2406d2532b504d0462b0f08fa2a5b1bc9c151943c97ac1fc8fd44df3b935281c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/figures.tsx",
@@ -1518,14 +1550,18 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/marketing/landing/figure-picker.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "0a112ebe0495f34af6f5b19b433a7437700ee59c85b2f8d0a4f52d4170dc3f12"
+        "reviewed_file_sha256": "245ed0fe3654e9f0f22f31ed78bbd68b6c137d7dd30697b657d697fb3042d584"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/marketing/landing/figure-picker.tsx"
+      ],
       "path": "packages/design-system/src/blocks/marketing/figures/index.ts",
-      "file_sha256": "0a112ebe0495f34af6f5b19b433a7437700ee59c85b2f8d0a4f52d4170dc3f12",
-      "body_sha256": "515ef9e9a0471c46a48fb2098881fba133f167987d4b978a923e1feb227d0adf",
+      "file_sha256": "245ed0fe3654e9f0f22f31ed78bbd68b6c137d7dd30697b657d697fb3042d584",
+      "body_sha256": "d921437fd7540f04f2ffe3b3c9dffbbb8136fb1ebb693b99e534391d5c5c5833",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
       "upstream_body_sha256": null,
@@ -1538,7 +1574,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/product-hero.tsx",
-      "file_sha256": "461080bb637ec9e279fa8f1ff2450ace0f1daef27487407bad79fb4fdd185cc9",
+      "file_sha256": "3cba2e6a60cb6d68f1b10f7490e83524c8c6e340bb29f415cc9136419b6c7ed3",
       "body_sha256": "916f2b654c3487c0331cc85e7a92257631d9fa00cab8af2d3212dd3e256949d5",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/feature/product-hero.tsx",
@@ -1557,7 +1593,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/figures/visuals.tsx",
-      "file_sha256": "46a5949615680ad44c4c6d7cca20e889ff00c50dc5b845db048a1386772ea60a",
+      "file_sha256": "fffbc073b4f50d4daa1d0743b2942e1efd5e55fe526d7f974d2693b3a9cc6421",
       "body_sha256": "1baaf66cebef57452387996cdbe07144fdb000af94dc44fec3578e59e2aaa9b3",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/feature/visuals.tsx",
@@ -1576,7 +1612,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/hero/hero-demo.tsx",
-      "file_sha256": "4a41ae36429942f095fe57dd8d593d739f7de45a9af8882d8946b4f36b0f7ce1",
+      "file_sha256": "b3147de518608d510f3073213711895a9af6c0dbc64964f6132d9b48e1c666f1",
       "body_sha256": "6d56a2f37484227483a826e221e563c8ed0cd8a071ad54d1f3e722e823472919",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/hero-demo.tsx",
@@ -1595,8 +1631,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/hero/hero.tsx",
-      "file_sha256": "91f29227ec668a9c1328faaf4535b4907351452ffd6bb57f07b2a8f1baa21985",
-      "body_sha256": "322327910126ebd506a7afe5ec80757cd819cf7722ac0658b9fce3c5dfdccc95",
+      "file_sha256": "db83e69eec0ab580e4be9f363b7e6d10c78e47d9e01cce83f9c55937c0956dd4",
+      "body_sha256": "97ceb622e031ef67f7625ec8247da9e58328a319fa1966f1137c24ecf47644f8",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/landing/hero.tsx",
       "upstream_body_sha256": "902d5d7689283948e766c700500e1ee935779ed8d801ac2ce292b4d5d49be7f0",
@@ -1614,13 +1650,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/marketing/landing/hero.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "8b94b06dc43e7eb175fea2f187538b1b814a012c63b23a619e394a776dabaa77"
+        "reviewed_file_sha256": "41312b747d13f2e6cffe7ebd529a4f8964954b6dad7977b37bae6493f44c34a8"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/marketing/landing/hero.tsx"
+      ],
       "path": "packages/design-system/src/blocks/marketing/hero/index.ts",
-      "file_sha256": "8b94b06dc43e7eb175fea2f187538b1b814a012c63b23a619e394a776dabaa77",
+      "file_sha256": "41312b747d13f2e6cffe7ebd529a4f8964954b6dad7977b37bae6493f44c34a8",
       "body_sha256": "34d7ff8ea62bf005be7b277620f050b2e8851c00df8b5389e8be73583b352dc6",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -1636,12 +1676,12 @@
         "primary": "apps/web/src/app/hud/hud-landing.tsx",
         "secondary": [],
         "evidence": "HudLanding motion, runStorm and simulator structure retained with injected demo stream.",
-        "reviewed_file_sha256": "8bbccbddc1587d968b69f480c74f768de75f762ac271798339f455f8e93403dd"
+        "reviewed_file_sha256": "0a973c0bbf04020101c1918b9e928b7496d68fa65b96cef28138cfbd83f4b862"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/marketing/hud-landing.tsx",
-      "file_sha256": "8bbccbddc1587d968b69f480c74f768de75f762ac271798339f455f8e93403dd",
-      "body_sha256": "2eba4d8088d9803a3fa871a9b713d7e05990970c5442b0db6fa0f844b23eaec1",
+      "file_sha256": "0a973c0bbf04020101c1918b9e928b7496d68fa65b96cef28138cfbd83f4b862",
+      "body_sha256": "d74ba77d79bb03c3b88bd5eb6b0763ceb239602fa3589c09fe554ae18b9d2997",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/hud/hud-landing.tsx",
       "upstream_body_sha256": "7f188d46e19d5e19067c3acb70def06c8b04921ce64c667851f0f0665c3e9ce9",
@@ -1659,8 +1699,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/brand.tsx",
-      "file_sha256": "7163ab7c4d2df54ea48d5d001602f00c8e55ae75cf9b740d577b765ad630bbe7",
-      "body_sha256": "aebe9b36b60a6b93525e2efca0a42964ce7eaa86c6fe3bb8cf3169a4c2c78ce8",
+      "file_sha256": "6a17be323115732aa58ca71732f1017889e00374ef5409bfea39ef79a2db7c6e",
+      "body_sha256": "758c494d4b4fcc7051c2fb4974362328e44d36ef619850b18a47bd57dda31465",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/brand.tsx",
       "upstream_body_sha256": "a19ec9dd1d70023b14071be996b846660ad8e8df4e64c6bd5fd0fa7623d01233",
@@ -1678,7 +1718,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/changes-card.tsx",
-      "file_sha256": "347b5f355945f883b901e8078bb1b51b8e5bbf49b8655a5ca9d1db5521962ef0",
+      "file_sha256": "64e4f73e9f8b568174ba9be3579641622a6a81a1f750115410564521e6338c9d",
       "body_sha256": "6184eb0fc2077f66a46135b25680aa21cad9580e36872c0e7444c2edfd67d3d0",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/changes-card.tsx",
@@ -1697,7 +1737,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/copy-scan-prompt-button.tsx",
-      "file_sha256": "b75986e27d6e7ef7b5b43f5c5b752b16b516bab9ff97923312d417556ea6412a",
+      "file_sha256": "bbbdacdb30b1541091b86d621bb679d1f0cb8942cff9486186fd9fadb2bdc42c",
       "body_sha256": "a864fa4fcd61c688a043b08061287be17eaab4e888b0022b09f9ca1e5f9f9a6a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/scan/copy-scan-prompt-button.tsx",
@@ -1716,7 +1756,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/embed-board.tsx",
-      "file_sha256": "19de5573ff007a68fcb1442d6ea784845e590b8e88bb6f229e76e26b725b4131",
+      "file_sha256": "8f58ecd4e764901fc387b95aee8ce06f03509d7e81b28d376d9fc36fc7e97531",
       "body_sha256": "287fe7e41214d368d8bc5b65938382e14a0e590e3d1489b78ad30dec26bee9d9",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/embed-board.tsx",
@@ -1735,13 +1775,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/scan/brand.tsx"
+        ],
         "evidence": "New React context/provider injection adapter around local favicon resolver; not the upstream scan brand implementation.",
-        "reviewed_file_sha256": "16e1101264d7340d0c27ad957db9831ce09a00a1ea6087816f0d951270d055eb"
+        "reviewed_file_sha256": "998503ca031fc6c9ac4d8cf25f04cf56d6da310f5e4d84fccaa84bda45ad4d33"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/scan/brand.tsx"
+      ],
       "path": "packages/design-system/src/blocks/scan/favicon-context.tsx",
-      "file_sha256": "16e1101264d7340d0c27ad957db9831ce09a00a1ea6087816f0d951270d055eb",
+      "file_sha256": "998503ca031fc6c9ac4d8cf25f04cf56d6da310f5e4d84fccaa84bda45ad4d33",
       "body_sha256": "4c412ff46d712be21947fe47db901072eafef5d79f5a9478ecf495c517657092",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -1755,8 +1799,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/flow-map.tsx",
-      "file_sha256": "0e6039819a753e5810a06b4a5300d01846b0d71c360b977a06a1f7e5239e5b4b",
-      "body_sha256": "c077c8cad466c48384924b8a4d05ff710a5a7e00d7f086d933d7a70f77c0b60e",
+      "file_sha256": "7e132e103e5a33564edbc16909c14fe20dd13f39f89d210d711d1274a640da2c",
+      "body_sha256": "840f6641525ed1419d369f41a1ef49b29bb05791fc5e4e3aa1dd3339d5b17234",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/flow-map.tsx",
       "upstream_body_sha256": "a5f4ac6dd412bcdf0509a3b4ad5c45730b2d78c27b7444e4a7044223bdce4a21",
@@ -1774,13 +1818,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/scan/scan-board.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "c516b0ecd82d457507d984b183668297ee192c962f87f67271e5b2d782f4e1e7"
+        "reviewed_file_sha256": "b9293a406f4414e581f665391b84f627dc6cf07f2f12faef1e0269e2a856a6b4"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/scan/scan-board.tsx"
+      ],
       "path": "packages/design-system/src/blocks/scan/index.ts",
-      "file_sha256": "c516b0ecd82d457507d984b183668297ee192c962f87f67271e5b2d782f4e1e7",
+      "file_sha256": "b9293a406f4414e581f665391b84f627dc6cf07f2f12faef1e0269e2a856a6b4",
       "body_sha256": "9b850dcd4ad9dc9a1fea804207f4d8e34f1da9bbe014d5429eaf6369cfa79315",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -1794,7 +1842,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/kinds.tsx",
-      "file_sha256": "e3d92182d899a8be7d9b93465ee8890ee7d9004e9923e41c0b9109a1a5ddf9dd",
+      "file_sha256": "3569ee8797613521c035c012727b4b152a1a588fd2e46dd20dbdd9ca47763276",
       "body_sha256": "43c0910558a2f213e38b40120fb6e15c0b8b15f1ff4dc90d065708e5699129ce",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/kinds.tsx",
@@ -1813,7 +1861,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/left-rail.tsx",
-      "file_sha256": "261e08f887cf24891514609a8a78fc2b3e30866f0e6ac691dce87e5fa5043fbc",
+      "file_sha256": "1175b59010cfe5f1fae3737f90539f84e6a2fc98a061608ae55c554c0d0d9597",
       "body_sha256": "18a92e863c8477db1310fc91c08a7a0e396eecab2f9cc3caa9c498065759c54c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/left-rail.tsx",
@@ -1832,7 +1880,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/noise-overlay.tsx",
-      "file_sha256": "e5f1e8c16c2049bbcbdecc0c4c89e2a018d4b410fe0023fb5fa1c678b6196187",
+      "file_sha256": "046609dbe35fe5d56a69a0950741aa8834223ff1b02d839a7747d0ddee947b87",
       "body_sha256": "52eb13b71bd19695557347d380a8794316db76d2c4a38f4926ab53b8db24f523",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/noise-overlay.tsx",
@@ -1851,8 +1899,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/personality-card.tsx",
-      "file_sha256": "ef98044b5cd1b5892abe6e7c48055c6e677524144e13bf88ac25755b9eb20ec8",
-      "body_sha256": "92aa4d9d319dfcf03dabb25d0d21666167017b5e7219745a7918df02d08ef420",
+      "file_sha256": "a7723e9cd5efb1df5aae9494682f07efc7aea512a2a2aa98dc60da491b4532fb",
+      "body_sha256": "2ba9d6ddeed6201e45607c48365709d051bd5afb3597d55d74f26486ed224f1d",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/personality-card.tsx",
       "upstream_body_sha256": "543640c20a0d485930607046c987f0c3ed00fccbf5fecaf626407e21e9e2e71a",
@@ -1870,8 +1918,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/powered-by.tsx",
-      "file_sha256": "b604421345ad32362b7f887dcf43c87d98f8bfe67578db8d888d97fde591509e",
-      "body_sha256": "830a477d828757e5f00a6c5526aa73774a333ddfc71993ccf908f0d1bee7eaa8",
+      "file_sha256": "df5a846b944cc92032058f0d2f5c9cd77f65ec1c82bb3fee7194cc2a656111e1",
+      "body_sha256": "1a0c056dba04c2aaa44e6af3b800dbfe362d9a986a806381840cf1116e1e3a93",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/powered-by.tsx",
       "upstream_body_sha256": "3066f76b66b883383fbba72086f4b05cc860e52a4f74dae740a6d3af7e2e83e5",
@@ -1889,7 +1937,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/scan-board.tsx",
-      "file_sha256": "0363252881596acf88234161833d342725a89d859c6cc4ee8a48b2aa99f21203",
+      "file_sha256": "880db2b50772c2de34abf897c84f761d6be9175c06dac9a4e271767796259665",
       "body_sha256": "2c5ea045c37a3ee12dc3563c7287d8e95a81b66e342f49a03cf14a2fa8e38a80",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/scan-board.tsx",
@@ -1908,8 +1956,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/scan-landing.tsx",
-      "file_sha256": "4e73ed1c29418d27a93a64716b227880ac077b0aefdab3998182b97f4a373df8",
-      "body_sha256": "a003b3ab2a56804b3ec3c4afdc56dfbd5be39fff1024956ebf413ee9de2e9de8",
+      "file_sha256": "337b45f173c887de7ac33f6c73ead24d7eec2ac015af2cc1ad7109f9e5874ee5",
+      "body_sha256": "4535dcc46626070437ecc5bc5418c87942ece2bbb572b63d20adb9287349c4eb",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/app/scan/scan-landing.tsx",
       "upstream_body_sha256": "68a989d1ceae1ae942857ffd1155374988ab2fce12bbb808dd231386a04931f8",
@@ -1927,18 +1975,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/scan-prompt.ts",
-      "file_sha256": "d20916c455b71c3b12ac08fb276d26d52e67833e0ffe0a1f561263dde2d59408",
-      "body_sha256": "c9d0c02e2c8bb04960217793544061f6cf0ba4b29774f36b5cc1ad5b2e8c93ef",
-      "proposed_class": "copied-1-to-1",
+      "file_sha256": "789d8bb49a6b6d3fc76a2c348fbbb79516c2b4dd087285ee89b47fe00dc3eb49",
+      "body_sha256": "e682a902641050ff41e30342a9b5f61a42b4a2b9464246e1e5e00f05bee0c52a",
+      "proposed_class": "modified",
       "upstream_path": "apps/web/src/lib/scan-prompt.ts",
       "upstream_body_sha256": "c9d0c02e2c8bb04960217793544061f6cf0ba4b29774f36b5cc1ad5b2e8c93ef",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/lib/scan-prompt.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -1946,13 +1994,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/scan/flow-map.tsx"
+        ],
         "evidence": "Standalone bun test fixture and render assertions for extracted scan components.",
-        "reviewed_file_sha256": "9ceb9b0e55ca12593920eeb5f55ee4ce15f749ca4784a2d41da2fceb526121d6"
+        "reviewed_file_sha256": "36f38ebb7a804b8e0a1dc1f277eb471284b9c757d3fd8b9031885f75108f497a"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/scan/flow-map.tsx"
+      ],
       "path": "packages/design-system/src/blocks/scan/scan.test.tsx",
-      "file_sha256": "9ceb9b0e55ca12593920eeb5f55ee4ce15f749ca4784a2d41da2fceb526121d6",
+      "file_sha256": "36f38ebb7a804b8e0a1dc1f277eb471284b9c757d3fd8b9031885f75108f497a",
       "body_sha256": "0204e7bd774692ca74641bbe1e3974800b7097cf349c971c32f59b5128c3270f",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -1966,7 +2018,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/scan/share-bar.tsx",
-      "file_sha256": "8aa5804a09ed7b1cf193d50906d2430f37e0f91d1039cb324ff12dad1d77b870",
+      "file_sha256": "3a43fbf7cacff45f6c73bfd0e4de6a4eb2832faa79b4abf13122152f70feb449",
       "body_sha256": "e2107336a2daf5a43e17bafab67d7b4e305a7ca483678c6bc1445c34b6eef71a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/share-bar.tsx",
@@ -1998,7 +2050,7 @@
           "apps/web/src/components/scan/powered-by.tsx"
         ],
         "evidence": "New repository audit script reads these ten upstream components as test inputs; none is the source of the script body. W5 directory mapping is not a valid source-file mapping.",
-        "reviewed_file_sha256": "a3ca98ae0f1e4f6d051e44612338a4226540fd6259e31684631797d6a5f72d96"
+        "reviewed_file_sha256": "0243f3e7e4284cbe24b5cf4d3ef4ddbee3a97d04b5d03301a68ab1ddd255bdd1"
       },
       "secondary_upstream_paths": [
         "apps/web/src/components/scan/flow-map.tsx",
@@ -2013,8 +2065,8 @@
         "apps/web/src/components/scan/powered-by.tsx"
       ],
       "path": "packages/design-system/src/blocks/scan/verify-source.ts",
-      "file_sha256": "a3ca98ae0f1e4f6d051e44612338a4226540fd6259e31684631797d6a5f72d96",
-      "body_sha256": "60a5c320537c6da5622d9f15f0d1c218309e9a68bcc202b984f504cff84987ef",
+      "file_sha256": "0243f3e7e4284cbe24b5cf4d3ef4ddbee3a97d04b5d03301a68ab1ddd255bdd1",
+      "body_sha256": "64e4cfe5f1dbcabee155f39d2eb1453e60d7ae94fc7ebd92bba741ec5595c636",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
       "upstream_body_sha256": null,
@@ -2027,7 +2079,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/setup/decision-list.tsx",
-      "file_sha256": "e5e9d5cd5da0c5b2f0978b02380bd6f43c069f87861e797fd40e26a156a24edf",
+      "file_sha256": "ddc8dc2e86bc2c04f45ba9902f0200bef4af09e68b2cd3e6e4c49836b1b7dce2",
       "body_sha256": "133338677bef0a12719387abc154faa60f502aa2ec715e2b2a1c9079414f6c6f",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/setup/decision-list.tsx",
@@ -2046,13 +2098,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/app/setup/setup-flow.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "18727aea955378c74c9e9f2e1a0b1b468a753400162559cf1a605cbae3a1d2b0"
+        "reviewed_file_sha256": "7a9f918c5285c31a81955df3c075ec88a0408a67615ccf2c4d68413e5bff03eb"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/app/setup/setup-flow.tsx"
+      ],
       "path": "packages/design-system/src/blocks/setup/index.ts",
-      "file_sha256": "18727aea955378c74c9e9f2e1a0b1b468a753400162559cf1a605cbae3a1d2b0",
+      "file_sha256": "7a9f918c5285c31a81955df3c075ec88a0408a67615ccf2c4d68413e5bff03eb",
       "body_sha256": "d763d17c191b72eea17b5a55634a4380d781f3c66d849a4489a46e6c5a4db5d9",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -2066,7 +2122,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/setup/setup-board.tsx",
-      "file_sha256": "0460ebb6016b4d24e8ac89441b60963d1660d4bde86c0f7bec8d100fa3f6c2bb",
+      "file_sha256": "9eb0defacbdc63cdb70063ec6300fe5a30da65e0278e5e8dd019dbd84a0273dc",
       "body_sha256": "dd2897480f8a8b62e4c6eae5b212383917aaa36f59c2cc81e87e25c2f9364601",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/setup/setup-board.tsx",
@@ -2085,8 +2141,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/setup/setup-summary.tsx",
-      "file_sha256": "ac33a0772004ca25a114030b889f0fe08de249665aa2477cb259fbf5beb59766",
-      "body_sha256": "77c69fd3f2bf7ea6df26c9cb17e487bc92e20e2c5a44a9ef118f3da19c864bb2",
+      "file_sha256": "c3f891a666a86aa4582e11ee6d073f18558a6e119a82975a38c2e87d55f027f5",
+      "body_sha256": "690fadb1d78c85cdec116f09e152e9ac27d142728d4b8a3b0e18894a7a97e85a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/setup/setup-summary.tsx",
       "upstream_body_sha256": "24aeab68dff2d7c89757832de60a7e1190028993e224554c63e16cecf5fb1512",
@@ -2104,7 +2160,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/blocks/setup/verification-report.tsx",
-      "file_sha256": "0a945349f9920f1ae995dabc647c22f5cceba524dbe3e7bf69379d1b5dd6aa0d",
+      "file_sha256": "e61ee74965375765b1ff9c93753b005233ab29ff7e6341171316ce862b6d2456",
       "body_sha256": "f0e6f73882733acb0f5b9751a4443f8bc43936742064f11e0d53ae8a9608fdca",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/setup/verification-report.tsx",
@@ -2123,7 +2179,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/charts/area-chart.tsx",
-      "file_sha256": "1c335342a23686df03541a5f4a73dc98bc941bf5055ce0d6ee95064d113c08af",
+      "file_sha256": "9b8002763cafa903660e3f6f3c0d75110b6277f394023467a7ef2d2520f08e85",
       "body_sha256": "43feadcbd169b723ea7f87d0961d9ed9c0f12901de36d696000e4603a69802fc",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/charts/area-chart.tsx",
@@ -2142,7 +2198,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/charts/bar-chart.tsx",
-      "file_sha256": "514d7bc786766f63fc392237b3cd41f3e843e042c34f5023f1a3b2c82c784454",
+      "file_sha256": "ea34751dbfa556a3c31dbc87851bdb667aeec42b43f2842549f4de6c7b14f91a",
       "body_sha256": "736214ff1a98cae02e57371288ed878e638c47309809f1f8dfe409c7c6bce880",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/charts/bar-chart.tsx",
@@ -2161,7 +2217,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/charts/donut-chart.tsx",
-      "file_sha256": "ba4c81358b0a095e92e40c032170e7f9aa0e322124a5b6723bdd48f0f107b847",
+      "file_sha256": "863a0547b50dc94668aad7ca96bf18a3400365e48abcfcdfe5d7ceae88d0feac",
       "body_sha256": "19a770507acc81b0651f858e365a348758d9bcc9df204e74cf44c5cc665b5776",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/charts/donut-chart.tsx",
@@ -2180,7 +2236,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/charts/line-chart.tsx",
-      "file_sha256": "6e3b193e67268dfe6b60ba38fcb8b5e41e90eb47adecc3a4d8660ede259b23b2",
+      "file_sha256": "c146049a913a0849e77abb0c46d86e2743799736d6da0b9edc3110895029e6ca",
       "body_sha256": "470edc23e4962825d0753417798dbfb311e1f7b2965f109c7266459280d3b59d",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/charts/line-chart.tsx",
@@ -2199,18 +2255,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/background.tsx",
-      "file_sha256": "e5af2bfa75659bcb1f15ad394b901f840a2373cd3afa720db33a7df2878fb718",
+      "file_sha256": "d3fa29585b901aa966453228520623abc00a30f5aca41d7d117145d94f8776a6",
       "body_sha256": "11f499acf34e37b646dfcc62b350fccc2527fb981d51d8bc059853731b76e52e",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/evilcharts/ui/background.tsx",
       "upstream_body_sha256": "11f499acf34e37b646dfcc62b350fccc2527fb981d51d8bc059853731b76e52e",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/evilcharts/ui/background.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2218,7 +2274,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/chart.tsx",
-      "file_sha256": "fe4fcb479e8202a6d6c50b49f83e9dddb2908d3b8ac0db49d7af84d147bcee07",
+      "file_sha256": "07f323eb0409cec975f4c72ed92fa783071dfeb9ee55b2991f3bc5dc9b303661",
       "body_sha256": "982e6876610416de02fb4a23df350d6581563a93ada1d4105bfa48457553169f",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/ui/chart.tsx",
@@ -2241,7 +2297,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/dot.tsx",
-      "file_sha256": "ffadb44e914e3b47775460a2c32c4663ab94438321b891d6e9ff0cdbec09f15f",
+      "file_sha256": "ade084a87dd84ec42419eb28cb76a6908275b80c6664635996155eb8aae1dd11",
       "body_sha256": "840a12775143208b038dfc6ae149edcd495d4d4c80004e749babdab55634ee84",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/ui/dot.tsx",
@@ -2260,8 +2316,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/evil-brush.tsx",
-      "file_sha256": "2a4edecf0b7119bea73921f54083de7199faf6815e325c3f53765d13ef12d421",
-      "body_sha256": "3a4374d5e175d9d060f7e00cd447bd57cd849dc1c89a7f3beaf5cb75ede68afa",
+      "file_sha256": "3917ff7860de54357685f929b084b8cacdf5427596be23a48b3b7392de8559d8",
+      "body_sha256": "58ed7f288156171d987fff8cd55343a6e1b69dca8a80dfa004211bcb0b4c2533",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/ui/evil-brush.tsx",
       "upstream_body_sha256": "e46502cc7debe95d78f9029ad50bdf2ef43fe43c5abd1b290c3834769668f16e",
@@ -2279,7 +2335,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/legend.tsx",
-      "file_sha256": "9c6416c97515a179adf62221bd080db2d8494a1264ff3b33c980a1949d7b21b0",
+      "file_sha256": "115430712240ef261088eb94453be73780a22ab497399c1c02631976badb47e7",
       "body_sha256": "cf3b93088560f284ecb971293c355adc2253a2b3aa3dae7c0c4231ffa44f4f23",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/ui/legend.tsx",
@@ -2298,7 +2354,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/tooltip.tsx",
-      "file_sha256": "e937efa2652fbddd618a23ea3f23ce8405408ed6befeae1222e57d11ce5f51b4",
+      "file_sha256": "d4be18981acd1c19c7aca33c0a086968bc62e49688088eeedb71d96d66c6912c",
       "body_sha256": "0872e1c0f9b86e8a57a9836fdc33fba68f3a74f0ac890b4332262727cece4bf5",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/evilcharts/ui/tooltip.tsx",
@@ -2317,18 +2373,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/charts/evilcharts/ui/zoom.tsx",
-      "file_sha256": "b9ed959273f0f8ad6f1c5ca2fa7b60d6216875d4a567c8983e2bf17b5fb67463",
+      "file_sha256": "77c9d819f4e51efd121d4333b8c1a2779cb44f4032551761c6c03a6caa91ee29",
       "body_sha256": "7342bef30ed8ba27ae85ca84a2782aa28e78d3c27748b48d263ee4b9e4b88c4a",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/evilcharts/ui/zoom.tsx",
       "upstream_body_sha256": "7342bef30ed8ba27ae85ca84a2782aa28e78d3c27748b48d263ee4b9e4b88c4a",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/evilcharts/ui/zoom.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2336,18 +2392,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hooks/use-app-hooks.ts",
-      "file_sha256": "b2d6c0b9175025041c69d56607c6dc0692ccc2e48529697fed9f5cd044efeb75",
+      "file_sha256": "f76c57da211af384d228b179558f57a654fa9b11a0956a35d2f6d55b54fd4a75",
       "body_sha256": "d283cbfe8279c12a270985c2779e782ca87e1862be2affba444ae38dcb40f4e7",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/app/hooks.ts",
       "upstream_body_sha256": "d283cbfe8279c12a270985c2779e782ca87e1862be2affba444ae38dcb40f4e7",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/app/hooks.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2355,18 +2411,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hooks/use-copied.ts",
-      "file_sha256": "692d44595d477558f12c6cdffd4e03c537f59e4cffe5b86b7c97253aaeda9510",
+      "file_sha256": "4687c100bbad1655800cfe2f0f45737e55bbddef466638e2df2bc31ea5659399",
       "body_sha256": "0b054961543cf37a56922f9e4d04fa1afe9690e37736fb62a1da5424a076bc95",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/app/use-copied.ts",
       "upstream_body_sha256": "0b054961543cf37a56922f9e4d04fa1afe9690e37736fb62a1da5424a076bc95",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/app/use-copied.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2374,18 +2430,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hooks/use-mobile.ts",
-      "file_sha256": "15b9893c9a040d71fbfadce8bed54e80d827cf96129665ec51345f5aff154ea8",
+      "file_sha256": "1744ce2bbee665997fb93630b7e5a1b757a71d64d65910f19ffe5611f5af398c",
       "body_sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/ui/src/hooks/use-mobile.ts",
       "upstream_body_sha256": "ad0936f84f1df79d3697bfbff9c18f8ad58431c1cbaf2359c6a853b0fcc9f28b",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/ui/src/hooks/use-mobile.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2393,8 +2449,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/FoglampHUD.tsx",
-      "file_sha256": "c8e187518e4cc666485dde5c5d98ed66897f1393a2c1b6ce720c6b5725f5a933",
-      "body_sha256": "9dc07033e441c8475326afd9149e4c904d2ad83df19512b9b26a2e2ff20af783",
+      "file_sha256": "c7e3473c36d24613dc20613887657a2d39ec5bbca5c462c4f7205c081f3e2b54",
+      "body_sha256": "4e59fe7b8f67a160fe49addfbd6817814112fbd01d566aa63ac265b28b360a0f",
       "proposed_class": "modified",
       "upstream_path": "packages/sdk/src/hud/react/FoglampHUD.tsx",
       "upstream_body_sha256": "e0caebf09eb207f80c950e6de53f95540df2153daa6ae94598301dae89d06532",
@@ -2412,7 +2468,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/events.ts",
-      "file_sha256": "f964e2959239fc8fe36c21c2a5a0b7d38ef99d651c07642fa0c1607be1e5556b",
+      "file_sha256": "d321dba601583064120881cb5d10dae5ba58d887eb79e8fd1ec1daf2df7d72cc",
       "body_sha256": "fa9728c4aac75088f7be63c7f58a3e4183d5fa4e69b5d1eadeb84deb09ed455d",
       "proposed_class": "modified",
       "upstream_path": "packages/sdk/src/hud/events.ts",
@@ -2431,18 +2487,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/format.ts",
-      "file_sha256": "4b15ac93570e623041cfb9c3ea9621c85f445c72a4e7dc2ef83fdf03d6d7dfe3",
+      "file_sha256": "2c978de2db389e7abc80293e251562e917011772439100cd3440c1963aab7d1f",
       "body_sha256": "295befd46b7f35c4301660a6b1775a0591affd4981461f8a05feb26f22c1589a",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/sdk/src/hud/react/format.ts",
       "upstream_body_sha256": "295befd46b7f35c4301660a6b1775a0591affd4981461f8a05feb26f22c1589a",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/sdk/src/hud/react/format.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2450,13 +2506,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "packages/hud/src/FoglampHUD.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "04941916bc95fae8c10f61ac791accdb79b9e72fd61e30f0ef04433e2993e1bf"
+        "reviewed_file_sha256": "9b5564666ded801751bb07150791d2a111c6bed006061dc6a8a406f1afff51eb"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "packages/hud/src/FoglampHUD.tsx"
+      ],
       "path": "packages/design-system/src/hud/index.ts",
-      "file_sha256": "04941916bc95fae8c10f61ac791accdb79b9e72fd61e30f0ef04433e2993e1bf",
+      "file_sha256": "9b5564666ded801751bb07150791d2a111c6bed006061dc6a8a406f1afff51eb",
       "body_sha256": "ef5dcd01fedd17cb055b139df86eacd6544785827375f83b21b8a98887338ffc",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -2470,18 +2530,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/model-logo.tsx",
-      "file_sha256": "b4c2297a3b7dfab58ba98fb4d51b2ff00ccd0e4791b4af82315f8e1319344a39",
+      "file_sha256": "654d01590932e4b8529cb5cd4ba5fae2e20538b11c5a7be47023e18ef6afaadd",
       "body_sha256": "1a0492e529499f238c85957d90ead6d51cdc3be4deec12c5edadf03ea1b24e1c",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/sdk/src/hud/react/model-logo.tsx",
       "upstream_body_sha256": "1a0492e529499f238c85957d90ead6d51cdc3be4deec12c5edadf03ea1b24e1c",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/sdk/src/hud/react/model-logo.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2489,7 +2549,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/model.test.ts",
-      "file_sha256": "c4400ceda88244d1a94d6c138bcd7385c92434afd27520f84227fbbaaf2ea9f9",
+      "file_sha256": "a6cee40744f9d622c32a89d7d3f49ee30d8d8911d785519df5dd8f1b2557038e",
       "body_sha256": "3564defc70b31f0b85ad4ed6855faf5d8ce3b7c7d277411542296e25da9634cc",
       "proposed_class": "modified",
       "upstream_path": "packages/sdk/src/hud/react/model.test.ts",
@@ -2508,8 +2568,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/model.ts",
-      "file_sha256": "b8c11f78028ec795fbe026f0a3be1d5f4410c873c5c6e0b8f711c45e079c2026",
-      "body_sha256": "f20a9586f112842c4ada6b0acf0d20ede37f6103208acb0e0e3a7e0f21859718",
+      "file_sha256": "86271e6e0122c2944a7d1e386e7b9015d888f39965b3bd052bd853ae8f746ac1",
+      "body_sha256": "0e4358a27b4f2ed3b949838ed6e7beadae16baed3ab56df6e4830e1c0927f4ec",
       "proposed_class": "modified",
       "upstream_path": "packages/sdk/src/hud/react/model.ts",
       "upstream_body_sha256": "80534a40b36f40b8d91f2e592cc4414b22627d19c513d9c01fff14759f4ed1e8",
@@ -2527,18 +2587,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/styles.ts",
-      "file_sha256": "b5e2179d46952ef83d06998d87f34b16ef092127474a85c62c8a7b274df49cf7",
+      "file_sha256": "e5a3bf0d458092c44c7d244c24af1c755f8286fe473aa4a29a9c2404edfb78f4",
       "body_sha256": "166a8298f08e096335b3cbabe7ae5088604272548f77c484e1f1753b7963375e",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/sdk/src/hud/react/styles.ts",
       "upstream_body_sha256": "166a8298f08e096335b3cbabe7ae5088604272548f77c484e1f1753b7963375e",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/sdk/src/hud/react/styles.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2548,12 +2608,12 @@
         "primary": "packages/sdk/src/hud/react/useHudStream.ts",
         "secondary": [],
         "evidence": "ConnStatus, reducer/clear and useHudStream adapted from EventSource to injected local stream.",
-        "reviewed_file_sha256": "ab7bcb8efa3257c405ef011d2acf776615652f13f5e24b0d9b29fa0fefa32419"
+        "reviewed_file_sha256": "86df7c47e56824b5accd89b8cce27070d3e7dd61db60b7ed1e03c20b2486c365"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/useHudStream.ts",
-      "file_sha256": "ab7bcb8efa3257c405ef011d2acf776615652f13f5e24b0d9b29fa0fefa32419",
-      "body_sha256": "5926b36323c95e2aabe4161d914708c9fc0cb4d33291412dc3b596c7822933bc",
+      "file_sha256": "86df7c47e56824b5accd89b8cce27070d3e7dd61db60b7ed1e03c20b2486c365",
+      "body_sha256": "01f2b7537bafc1b6077173c2592d9a48179dfe8fe92afa1058367cc741ca419f",
       "proposed_class": "modified",
       "upstream_path": "packages/sdk/src/hud/react/useHudStream.ts",
       "upstream_body_sha256": "d6191ce50730ef6c0030893a0f5c2c9ceb2791f9bce7e5aeccb31b2459234b83",
@@ -2566,18 +2626,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/hud/wire.ts",
-      "file_sha256": "41c2bcf292f20cf5f23ad95be4e29e601636b304c71f6556e9a79f443b2bd3dc",
+      "file_sha256": "65654516a05c5f908f8a446bb488ac2634020f53fff48fabe0e1d2308e959a62",
       "body_sha256": "ce5cb6fa3cda8e95a23a9ca003b1e4902887e91e0ce1e9ec40f18ad0985a0821",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/sdk/src/wire.ts",
       "upstream_body_sha256": "ce5cb6fa3cda8e95a23a9ca003b1e4902887e91e0ce1e9ec40f18ad0985a0821",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/sdk/src/wire.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2585,18 +2645,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/icons/brand-logos.tsx",
-      "file_sha256": "b48e9961eb3dd25a46113fa63be994d688ffdffcdd4d3413b4007c70da82d950",
+      "file_sha256": "200fe44896865a5d801f8a5ce6aa61daf5f7a211861b15901af60c95d2024282",
       "body_sha256": "1a8fc6b644e5c31e32c19303d63afcf169e6f642951136e2627f4ebe114d9fda",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/brand-logos.tsx",
       "upstream_body_sha256": "1a8fc6b644e5c31e32c19303d63afcf169e6f642951136e2627f4ebe114d9fda",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/brand-logos.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2604,18 +2664,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/icons/brand-mark.tsx",
-      "file_sha256": "557a0fb3939f7498bc0a741d4a1e845ddac085124779de254619fdab54b010ec",
-      "body_sha256": "48947ea56798b0b411a36d9cb16495879bef5335f033fa4c48e1306e10de09f6",
-      "proposed_class": "copied-1-to-1",
+      "file_sha256": "9f15ee01e96d5863b0243ad27c1ca05388afa9cb6d746c66eeb66f1ac5201cc1",
+      "body_sha256": "46a7dc7b1302e77e545059c9239ab627306116f65cd6256f8453d4ca275d4dd1",
+      "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/brand-mark.tsx",
       "upstream_body_sha256": "48947ea56798b0b411a36d9cb16495879bef5335f033fa4c48e1306e10de09f6",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/marketing/brand-mark.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2623,8 +2683,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/icons/logo.tsx",
-      "file_sha256": "163330845e0b625e7f9d4e21a79fce0baee69842d6f031f156c90db53b9fc142",
-      "body_sha256": "2935075fd35b704c98f87b51d02d1490ce839e4cb5e7328093a8032760bb6e98",
+      "file_sha256": "31ddcd2c2af196dc8fb73200a810ff3239d945542a2f708e332a6c377cf566b5",
+      "body_sha256": "c6326894121b6efddccc8206a84c6ca467fbc01d7d92d005e62cba3fc673d9f1",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/marketing/logo.tsx",
       "upstream_body_sha256": "d4990c46f2cc06d36b6ad7334efb63f481a62ced07668cfef98ced279dcbda58",
@@ -2642,8 +2702,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/icons/model-logo.tsx",
-      "file_sha256": "91cc3a12a541ecb6643e0a8767d587c79e5f126d74ec6d794ba668ec78ac9ba2",
-      "body_sha256": "1badc2152dc4a075ce0c12087cb6e93b8bb9334b3827fdc8fb8a04e04d5993d8",
+      "file_sha256": "9782f684f5bd7a168e0bf50fb086e2620d503c32b22f40053e4f4671913bded4",
+      "body_sha256": "9722aaecd76f5583827cd617b6e03e984de31a1b4bd7ee14933cc9609af99a8c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/model-logo.tsx",
       "upstream_body_sha256": "30e05529e6ffe252e882229ebeb0b6d23255c459b8bd7c5e9ae657e87be76303",
@@ -2661,14 +2721,18 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "packages/ui/src/components/button.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "6f4081c43bc2b251ee78369f8ba942f88664eb87a29522bf4fce27fa7cb4f2ea"
+        "reviewed_file_sha256": "caca0134c379c350c3be6b403d6932a4b23189b7bbdb30a2f5c4b2c83165682a"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "packages/ui/src/components/button.tsx"
+      ],
       "path": "packages/design-system/src/index.ts",
-      "file_sha256": "6f4081c43bc2b251ee78369f8ba942f88664eb87a29522bf4fce27fa7cb4f2ea",
-      "body_sha256": "0857153d33f4a98560652ac8e314c3fe3ff4f0e4434e0203c8fa226c1d879d3a",
+      "file_sha256": "caca0134c379c350c3be6b403d6932a4b23189b7bbdb30a2f5c4b2c83165682a",
+      "body_sha256": "4236a6296d93a2d2da98e543efffecb3c5520d335965a1fbce3ed116e1cdcad5",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
       "upstream_body_sha256": null,
@@ -2681,18 +2745,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/format.ts",
-      "file_sha256": "e2a3b88a96128bb23baee28c25f0670ff56dbe309f83b49ddfafd5377579fae3",
+      "file_sha256": "4893ffab18937de0e3452ed7f61d3aa849c084b434ae35ba98649db7b0b5457d",
       "body_sha256": "a24134b1c88210f095437918c9ef9c1675ee25cfc19812b0695f4d8879b8e06f",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/lib/format.ts",
       "upstream_body_sha256": "a24134b1c88210f095437918c9ef9c1675ee25cfc19812b0695f4d8879b8e06f",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/lib/format.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2700,14 +2764,18 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/app/app-sidebar.tsx"
+        ],
         "evidence": "Integration-authored generic React provider and polymorphic link adapter, replacing host router coupling; no matching upstream integration file.",
-        "reviewed_file_sha256": "9176cf9009335d2363e45b922b302c6b59f3d46ff77caabc04ae018216e0e800"
+        "reviewed_file_sha256": "965ac4a805d2dbc8c0a77e361112e9e145597bbafbb51174a7279da0ea1a0d5c"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/app/app-sidebar.tsx"
+      ],
       "path": "packages/design-system/src/lib/link-context.tsx",
-      "file_sha256": "9176cf9009335d2363e45b922b302c6b59f3d46ff77caabc04ae018216e0e800",
-      "body_sha256": "2d07aa3d56793c350de0981028627db74185ea2db9e7c3e6d984ce0b29f72caf",
+      "file_sha256": "965ac4a805d2dbc8c0a77e361112e9e145597bbafbb51174a7279da0ea1a0d5c",
+      "body_sha256": "c18bf45700c2b0ccdf4d364e7da4fc2a74255c417c2605f6d6e91c55cfef4dc5",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
       "upstream_body_sha256": null,
@@ -2720,18 +2788,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/payload-messages.test.ts",
-      "file_sha256": "7e5940629022b0e7c015b996d64cc84cca560ce466de953ab1eb26fa0d150b4b",
+      "file_sha256": "333c7147fd3443a142b972cc874acb705c041fb8de5b8ec65f4c6a721d6a8afa",
       "body_sha256": "86d0a977f26e6c2df79b5b0554fb840f1a98b4bb64822c1d8e487aecf8546433",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/app/payload-messages.test.ts",
       "upstream_body_sha256": "86d0a977f26e6c2df79b5b0554fb840f1a98b4bb64822c1d8e487aecf8546433",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/app/payload-messages.test.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2739,18 +2807,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/payload-messages.ts",
-      "file_sha256": "5e6df2a174b066857080f3dc5286aa8bc60d62d3eaf105decb9f9bc47861aba0",
+      "file_sha256": "5123928ef8571078859b4dcf0bd609d4284309bbbb9cd387976cd21eba2d817e",
       "body_sha256": "21bd4a54e294faa2ff2aeed8c87dd530e2559afe72d122755daba7ed1281b2fa",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/app/payload-messages.ts",
       "upstream_body_sha256": "21bd4a54e294faa2ff2aeed8c87dd530e2559afe72d122755daba7ed1281b2fa",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/app/payload-messages.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2758,18 +2826,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/diff.ts",
-      "file_sha256": "e249d1948a43e341fd498c7fdacae8898759cbdb6b1e27cf5d163678704b1758",
+      "file_sha256": "c557582a5c788e29ee9f8f2b6477c79af12460813b52bb9e6c363421af0d4b18",
       "body_sha256": "d2030e8f916eb26cc8578ae201f53436811472efe0514ee8d0e8d8e53e340e03",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/diff.ts",
       "upstream_body_sha256": "d2030e8f916eb26cc8578ae201f53436811472efe0514ee8d0e8d8e53e340e03",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/diff.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2777,18 +2845,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/index.ts",
-      "file_sha256": "b6033ab98796610ab9757f127dede9fe8b5a52f4258cdc41e7d37fa74cdcb6f3",
+      "file_sha256": "0424a5744eafd09b5b624e6108c91bcab0217abf4f09432de1af1f3056bcdb8e",
       "body_sha256": "96548199cf102b3612bfc65f1057465e67b93ecbb6d67feb6252ff5620ec6b73",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/index.ts",
       "upstream_body_sha256": "96548199cf102b3612bfc65f1057465e67b93ecbb6d67feb6252ff5620ec6b73",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/index.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2796,18 +2864,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/infer.test.ts",
-      "file_sha256": "196b46dc3501e1835bd6ce5936af5163b892b301ff109aebf98a5237736384e8",
+      "file_sha256": "e4a97977adb39074881b96fde9ed3f4b17fb332104cb5ae594f55b954d5aad58",
       "body_sha256": "ddb0cd5f56ea5de40ffb0ec20648dc9c6e2ead026c037fdbea62dd12d455a9cf",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/infer.test.ts",
       "upstream_body_sha256": "ddb0cd5f56ea5de40ffb0ec20648dc9c6e2ead026c037fdbea62dd12d455a9cf",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/infer.test.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2815,18 +2883,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/infer.ts",
-      "file_sha256": "3da97eb03f38e5c0fa20ebc6b8498d148008996835a9181120847ef2259fcaa7",
+      "file_sha256": "448d2b7f5a7bfac22d66b8135959ef1a0279303f424742dbabefe329cb61ee2e",
       "body_sha256": "c5c4f7b980656709ab73c876183c82deb8d7c2e5d7fbdff7b3cf7884ca09cff9",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/infer.ts",
       "upstream_body_sha256": "c5c4f7b980656709ab73c876183c82deb8d7c2e5d7fbdff7b3cf7884ca09cff9",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/infer.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2834,18 +2902,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/normalize.test.ts",
-      "file_sha256": "55e1b7a53c3af19830b538bd725d9fea68242b9891b5ce32731a01f92ec7be08",
+      "file_sha256": "8c07853a8b3f30b87f8fbe03a406dc494b60dceb614ea69be87fe20cd27c9f76",
       "body_sha256": "0303b06bba9b404e0cbae110fe2db16bf5b9af10cc381198d77b92ad379d34fe",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/normalize.test.ts",
       "upstream_body_sha256": "0303b06bba9b404e0cbae110fe2db16bf5b9af10cc381198d77b92ad379d34fe",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/normalize.test.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2853,18 +2921,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/normalize.ts",
-      "file_sha256": "698a2f8a4be640f337d0545100b1b6612db71e1db6303e32caa5afe610238872",
+      "file_sha256": "1f980e23af971ba096cde5a36d1175f7e2fd855c33c1ac84bb7ff969a15c53df",
       "body_sha256": "b2a57479bbd9bd8c3e90bc8e4fae35a2b246e71609d12a4c054e543712324414",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/normalize.ts",
       "upstream_body_sha256": "b2a57479bbd9bd8c3e90bc8e4fae35a2b246e71609d12a4c054e543712324414",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/normalize.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2872,18 +2940,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/slots.test.ts",
-      "file_sha256": "d3735ec16b0105579f862c8bf5b26fde75829b2332f27710af9d97af288a6025",
+      "file_sha256": "2583b3146675325f128b1785e6b0d744ae3f791cde25cb0c7fb0a9a246b20889",
       "body_sha256": "eb2014e94233361b778614fcbf2502e5b52ae0caf9f63043324c04b8b92905bb",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/slots.test.ts",
       "upstream_body_sha256": "eb2014e94233361b778614fcbf2502e5b52ae0caf9f63043324c04b8b92905bb",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/slots.test.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2891,18 +2959,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/prompts/slots.ts",
-      "file_sha256": "875079d1cdd365367e772f4c6fc5be5532d1087f2d61e99cd1bcf9132e3f93b1",
+      "file_sha256": "d1cecb670db722e9b703103539f114350074a85b8f024b184881ddd060a748e1",
       "body_sha256": "b4a2c7b98d7a3d118ff953847ab7e9b50d7a2a9fdae042096768c7fd5bb1053f",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/prompts/src/slots.ts",
       "upstream_body_sha256": "b4a2c7b98d7a3d118ff953847ab7e9b50d7a2a9fdae042096768c7fd5bb1053f",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/prompts/src/slots.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2910,37 +2978,61 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/range.ts",
-      "file_sha256": "b87027746afa658574b4e3e4b292ad715abef8cc93eae372e518001cf5397ab8",
+      "file_sha256": "d928e023e66ebff5a6a85fc9b86db9291acd2eadd0c7a8f61f8b58104adb5ad7",
       "body_sha256": "7487e6c438220456ea5561832f2695dfa3ccd54d67eb3e6bf9b844da0ab235a8",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/lib/range.ts",
       "upstream_body_sha256": "7487e6c438220456ea5561832f2695dfa3ccd54d67eb3e6bf9b844da0ab235a8",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/lib/range.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
+    },
+    {
+      "path": "packages/design-system/src/lib/react-shim.d.ts",
+      "file_sha256": "2a02aa044d57d482f52853a3083bc7ef49730271f2855987c92c29c8c82ef282",
+      "body_sha256": "f516cacf6b5edad5f6b3fa7cd7607cd80ada0089e7152e0d728fa5b33da91209",
+      "proposed_class": "tailrocks-original",
+      "upstream_path": null,
+      "upstream_body_sha256": null,
+      "secondary_upstream_paths": [
+        "packages/ui/src/components/button.tsx"
+      ],
+      "evidence": null,
+      "similarity": null,
+      "flags": [],
+      "candidates": [],
+      "review": {
+        "classification": "tailrocks-original",
+        "primary": null,
+        "secondary": [
+          "packages/ui/src/components/button.tsx"
+        ],
+        "evidence": "React 19 ReactSVG module augmentation shim for @tabler/icons-react compatibility.",
+        "reviewed_file_sha256": "2a02aa044d57d482f52853a3083bc7ef49730271f2855987c92c29c8c82ef282"
+      }
     },
     {
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/alerts.ts",
-      "file_sha256": "3d0cf44d39e4e85ac9b791c1fea02ae3f0efe3491ed6c2941504fb187c45865f",
+      "file_sha256": "2da5510592cb46dccb7eeb710530202944667208c8681320e475bc86f38388be",
       "body_sha256": "695a5a10b3df85f48a70b32247a5a5b5c5a13c3351bd13f83045d971bf9d4cf1",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/contracts/src/alerts.ts",
       "upstream_body_sha256": "695a5a10b3df85f48a70b32247a5a5b5c5a13c3351bd13f83045d971bf9d4cf1",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/contracts/src/alerts.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2948,7 +3040,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/diff.ts",
-      "file_sha256": "f242975edf31384414254e9c61c90eb5670e351c682b26ed9d0de76d050e5e27",
+      "file_sha256": "b27157635cce39cd80782b4c091fe7f9e91220a7187ebd6a079737406237c4f3",
       "body_sha256": "ba0ccb6b6b64d62c0fc2b191d41d6cf6f39e87e6018bc42cf5cad74f158472b8",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/diff.ts",
@@ -2964,21 +3056,45 @@
       ]
     },
     {
+      "path": "packages/design-system/src/lib/scan/elk-worker.d.ts",
+      "file_sha256": "9eef8c7a926b0f601ddecb1163a0b1c55d9961f4389d4fc61f5833ba103901d2",
+      "body_sha256": "bff53b9208b5edcac8e2cdc9cc9799500084b3fe47ff762a337031101dfdf82e",
+      "proposed_class": "tailrocks-original",
+      "upstream_path": null,
+      "upstream_body_sha256": null,
+      "secondary_upstream_paths": [
+        "apps/web/src/lib/scan/layout.ts"
+      ],
+      "evidence": null,
+      "similarity": null,
+      "flags": [],
+      "candidates": [],
+      "review": {
+        "classification": "tailrocks-original",
+        "primary": null,
+        "secondary": [
+          "apps/web/src/lib/scan/layout.ts"
+        ],
+        "evidence": "Ambient TypeScript declarations for elkjs worker URL and React 19 ReactSVG compatibility.",
+        "reviewed_file_sha256": "9eef8c7a926b0f601ddecb1163a0b1c55d9961f4389d4fc61f5833ba103901d2"
+      }
+    },
+    {
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/favicon.ts",
-      "file_sha256": "9b02a97b212594b6d240652b6cc15496f442920d777296939c27c2410d402bd9",
-      "body_sha256": "284d4af358470083711f0a07bbdf8e403b9250434594625e1ff72bca0b8e8ca5",
-      "proposed_class": "copied-1-to-1",
+      "file_sha256": "a335faf05c369d9dfd4974e209ee8072f8dbb2a2340a9128df53aa4cd0ac4e02",
+      "body_sha256": "d9d4936dbeee2653bfbe40325313c6945f354a303f56e6c3fddc51522b0ad7f0",
+      "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/favicon.ts",
       "upstream_body_sha256": "284d4af358470083711f0a07bbdf8e403b9250434594625e1ff72bca0b8e8ca5",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/scan/favicon.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -2986,7 +3102,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/fold-graph.ts",
-      "file_sha256": "f615f3aca93ff74574af068876913a64243ee2ba297e248c688057c1baf8457d",
+      "file_sha256": "87d71172d9cb4a63e5afdab79008aad31121ac852e827bce6984b089553621f0",
       "body_sha256": "704d6e8d7e017c2bbc6fd6e65dabffc17766f3d279d6dfc57972c91e24b6c424",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/fold-graph.ts",
@@ -3005,18 +3121,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/instrumentation.ts",
-      "file_sha256": "7a513a3b5ff33759c86000e2fd27c00409eb1afe0e11b35807ef4e9474920f6e",
+      "file_sha256": "255d8d66eeef8d9e1fc2732484e7d8965f6266510907e264b5276b2e6d6446df",
       "body_sha256": "40277a6ed1045a1756bc4077a8dfa4681a9a21c8ce79b17f69f7df4073c8bb6a",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/contracts/src/instrumentation.ts",
       "upstream_body_sha256": "40277a6ed1045a1756bc4077a8dfa4681a9a21c8ce79b17f69f7df4073c8bb6a",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/contracts/src/instrumentation.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3024,8 +3140,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/layout.ts",
-      "file_sha256": "052e5cb9f532e088c144817668e30941e53ea729c548a413e416ccdfa968446d",
-      "body_sha256": "dea1c4a68c7cee46c0f36fc80a8c4ed98056d7e6432686ec14757991400bdd75",
+      "file_sha256": "ab10978662909735923c9720a16d354a3b25ea34db0fa1040382e156ba5940be",
+      "body_sha256": "150b19e651212fa75323ca484e302c566291af45a57ecc5e2b3ce1165fc92faa",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/layout.ts",
       "upstream_body_sha256": "d3782f1950b57addcc5677cd8e207fdc2c4fbb47abd05053badc543682063725",
@@ -3043,7 +3159,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/personality.ts",
-      "file_sha256": "884ede236077d39ac687a4e618dd831375c6598f93b845b2c8840b69e6ff454a",
+      "file_sha256": "c60e7c30b9cde8f9041f509771f2ae70c1f146410dddcf3ec66e87c5cbefd4a5",
       "body_sha256": "711f961a7a46cd97ae208bfd8d3e321bcbb9f6b8645e441a330fa4a51ef3c41c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/personality.ts",
@@ -3062,18 +3178,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/scan.ts",
-      "file_sha256": "9bf415468e958461fd1dfd67309bc7a167b7a2f11cfc0fa51485bffdb94757b3",
+      "file_sha256": "b8c6751196b9bc3d5aef564746e609b7d699bd78d92450e2ec9851e3fac5f5d8",
       "body_sha256": "10d2c5cf1eb35ecb0dc9f6bbe8f27540125bab8e9bef592f467d57fbb29fcb6c",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/contracts/src/scan.ts",
       "upstream_body_sha256": "10d2c5cf1eb35ecb0dc9f6bbe8f27540125bab8e9bef592f467d57fbb29fcb6c",
       "evidence": "basename-and-body-similarity",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/contracts/src/scan.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3081,18 +3197,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/scan/v1.ts",
-      "file_sha256": "fb26cd20cf0a33f68da7ceb06fad1c7b413b933de10b79714d6ca39fcb621f6e",
+      "file_sha256": "3fa8f0b03764cadbd69915bb3b12b7924777b1efbcf224d809e9834d7fd8e31b",
       "body_sha256": "f3ba78dcc3bf674711d2a0a51ff9ac055d9f470ed7e68253efd04a3069528e02",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/contracts/src/v1.ts",
       "upstream_body_sha256": "f3ba78dcc3bf674711d2a0a51ff9ac055d9f470ed7e68253efd04a3069528e02",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/contracts/src/v1.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3100,7 +3216,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/trace-timeline.ts",
-      "file_sha256": "5959e42fb682d1918350cfa31a765060091745798f5e203d732e3e0654c52bad",
+      "file_sha256": "4f3eb7e4ca6d1f6747519f87488541c0d241996e129423ddefe8573a99c645d6",
       "body_sha256": "66a05e01e61dd5f32fae411dd3e54951724b624074a15de9baa3db7cc7eaf952",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/lib/trace-timeline.ts",
@@ -3118,22 +3234,24 @@
     {
       "review": {
         "classification": "modified",
-        "primary": "apps/web/src/lib/trace-timeline.ts",
+        "primary": "packages/api/src/services/traces.ts",
         "secondary": [
-          "packages/api/src/services/traces.ts"
+          "apps/web/src/lib/trace-timeline.ts",
+          "packages/sdk/src/types.ts"
         ],
         "evidence": "TraceSpan adapts the upstream trace-timeline RouterOutputs trace span; upstream traces service constructs returned fields. Manual field-level review remains necessary.",
-        "reviewed_file_sha256": "463725212cf5f78b159a817d2b25202c2a432c2b1e978b9b6a3a61a7b06ec11c"
+        "reviewed_file_sha256": "3f6506e6098df5671994a1d17246684c92eec01012cc48194ba11778ba01bc3f"
       },
       "secondary_upstream_paths": [
-        "packages/api/src/services/traces.ts"
+        "apps/web/src/lib/trace-timeline.ts",
+        "packages/sdk/src/types.ts"
       ],
       "path": "packages/design-system/src/lib/types.ts",
-      "file_sha256": "463725212cf5f78b159a817d2b25202c2a432c2b1e978b9b6a3a61a7b06ec11c",
+      "file_sha256": "3f6506e6098df5671994a1d17246684c92eec01012cc48194ba11778ba01bc3f",
       "body_sha256": "d195a00dfbf05fede446e5ca09a3bfa52949f660c899556ec3b166a0a1a86025",
       "proposed_class": "modified",
-      "upstream_path": "apps/web/src/lib/trace-timeline.ts",
-      "upstream_body_sha256": "0c66ff89deaee35b3b65a7ea5f1537c23c9d7e02040c9271e4ed5ca45c39c2d8",
+      "upstream_path": "packages/api/src/services/traces.ts",
+      "upstream_body_sha256": "89f85c25a0ac825cb9355116039ef6cb634502e765febe3127dd1b85d919bb81",
       "evidence": "basename-and-body-similarity",
       "similarity": 0.0377,
       "flags": [
@@ -3147,26 +3265,26 @@
         "primary": "packages/ui/src/lib/utils.ts",
         "secondary": [],
         "evidence": "Body is the same single cn re-export; competing candidates can also have this generic one-line body.",
-        "reviewed_file_sha256": "7b232b6a6187bcf3edc33dbe9473d8c2f57987460a0d633a1ff3d28745e01087"
+        "reviewed_file_sha256": "892ef7e8640b344876f553a685235cde6a368a89a201fdedb5fde327bae51b54"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/lib/utils.ts",
-      "file_sha256": "7b232b6a6187bcf3edc33dbe9473d8c2f57987460a0d633a1ff3d28745e01087",
+      "file_sha256": "892ef7e8640b344876f553a685235cde6a368a89a201fdedb5fde327bae51b54",
       "body_sha256": "55bbdc94cef3e0c8a8bba386e94f97228dd2c967fe61466fc565378890550c08",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/ui/src/lib/utils.ts",
       "upstream_body_sha256": "55bbdc94cef3e0c8a8bba386e94f97228dd2c967fe61466fc565378890550c08",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/ui/src/lib/utils.ts",
-          "similarity": 1.0
+          "similarity": 1
         },
         {
           "path": "apps/web/src/lib/utils.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3174,7 +3292,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/styles/effects.css",
-      "file_sha256": "4d65b8516498fafd1e406e64e7835b8c5479a155776e95a68c8be87a7c134ec9",
+      "file_sha256": "505c9a84e0f027ca7c13d986ef0e11aad089d3af7abe9471d9f661148397dea5",
       "body_sha256": "a1cde65c3484ff1a978aa080763303f39b5d637a079f48e5c74c6597180d1bbf",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/index.css",
@@ -3193,18 +3311,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/styles/globals.css",
-      "file_sha256": "ebbdb42fe92ab2b0a956f35dbe990adacaa38ddc445cd85e0c812b80dc97fdfc",
-      "body_sha256": "b80c8b7aaa6d6b9679c2bb79ba687571843cfe20514fe6b2e1d7c8c3be07a606",
-      "proposed_class": "copied-1-to-1",
+      "file_sha256": "bbf453ab07533b3a10200625f21a5ee252deb1a296260f4abeaf5b9c16928b2a",
+      "body_sha256": "ecf6acf826c41bd99166ccd8f4874777fe1ac566605c42c4ab69994438b28e26",
+      "proposed_class": "modified",
       "upstream_path": "packages/ui/src/styles/globals.css",
       "upstream_body_sha256": "b80c8b7aaa6d6b9679c2bb79ba687571843cfe20514fe6b2e1d7c8c3be07a606",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/ui/src/styles/globals.css",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3212,7 +3330,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/accordion.tsx",
-      "file_sha256": "91975a83b4e072c70df882fc72dcaf12bbfa0d39561b4901a07b6631af9da19a",
+      "file_sha256": "5b4016b6a34dd4018d86b39318c047eb0eb94bbfc5310f126c8048af6244d691",
       "body_sha256": "bd47a2c0a6d4196322a7fc7cebe88715c5b4f5087cf34060e86f307d592b6534",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/accordion.tsx",
@@ -3231,7 +3349,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/alert-dialog.tsx",
-      "file_sha256": "ebef8c11ce2f0840316305582acb0fce78cbc2be7d37f63fae775d479f4db833",
+      "file_sha256": "4735100b983c93d72704ca4d1faabec518da0d166fc010e2c7b5b22bb52c0a80",
       "body_sha256": "5dcdbed5504a2427330d2f032b61ffa62d7cf7a8fe014c6b231e092df075592f",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/alert-dialog.tsx",
@@ -3250,7 +3368,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/alert.tsx",
-      "file_sha256": "b229a8ac60d8ae72e53663519204513847be6fa26d3578ce2cb5ff6d7f0b6aab",
+      "file_sha256": "fb95783baed7aa2d3a6ffb6689baa213b0da826611b234ad27e276f995835cdd",
       "body_sha256": "bf1ba0e34bff30d5c7c1e5f679abe48124cde363ebebfe73d2b5d7d5199c5722",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/alert.tsx",
@@ -3269,7 +3387,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/aspect-ratio.tsx",
-      "file_sha256": "5ec5f80ca5c24ab973fdc99aaa3a593f3da50bff30266fc659e632521e337185",
+      "file_sha256": "e106351059da8c9adfdd2094cc7e3e2d6a6b9ab681710f5dc92cdfce5ab4321b",
       "body_sha256": "d0d443ed4727bea4b349efda1c746f17fc05353805f302a6b758a5d8f7815cb4",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/aspect-ratio.tsx",
@@ -3288,7 +3406,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/avatar.tsx",
-      "file_sha256": "2eaca62d992d10b41744140e439683fa05fb93b183c84371a59871520986d546",
+      "file_sha256": "c030dcf1fca207b543d7d919cf19eec9e3e27c3d10ee659758e95f801851b78b",
       "body_sha256": "d61b258834a3e3dbbe3ed38811d9384abd48791dd2b24ff309c1c087552e81c5",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/avatar.tsx",
@@ -3307,7 +3425,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/badge.tsx",
-      "file_sha256": "ba097ee8ce12806a01cafc527e839d45feb6a55fd847c190f9678d9e23bd82a5",
+      "file_sha256": "c3665c1eaddce414fcbd7255ece05766561d96b540930c8fe0e4d7a8107ae2e7",
       "body_sha256": "a7f26e658eafdebf36469eb86d55ad2e340af2add21b1bd39a3e651105d09003",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/badge.tsx",
@@ -3326,7 +3444,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/breadcrumb.tsx",
-      "file_sha256": "28ff2f6c4990f34addba76a81c5dd91e7161ecfd40734f14bcde07309a15d15b",
+      "file_sha256": "63cfbc13dd245dfd6ef6cbf0fa6a16b025584ffa35c4cc68556ddb5127a86365",
       "body_sha256": "dcd31a0fd8df65f5ea08fd18ff1151357c999c46a7a5dc59c6d549105f549919",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/breadcrumb.tsx",
@@ -3345,7 +3463,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/button-group.tsx",
-      "file_sha256": "efd8536e6a4c0b7e0abe3e59ed1b2b7a16482387f8be32347acd4acfe88465a4",
+      "file_sha256": "8493231f4866328387cc22db4212cd964c79dab6ca91928a40b9ab37a41f8ee9",
       "body_sha256": "8b88484ca8e6919b22d115366cc700d5907ea211c0af4db9d22edf3fb4a9d2ed",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/button-group.tsx",
@@ -3364,18 +3482,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/button-styles.ts",
-      "file_sha256": "368936d996bb531c46415540a3bbc6b63097efcf6fdaab32896b252e2584fd59",
+      "file_sha256": "c2d17ee60ef346f559e51ef9d108e8861a72a7a8e64d0bc431b06ad75007e85d",
       "body_sha256": "d5fc20a75c6b46be0963f96e3cabb97b51c1aa316ca666ee8559d51f93e7cf78",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/app/button-styles.ts",
       "upstream_body_sha256": "d5fc20a75c6b46be0963f96e3cabb97b51c1aa316ca666ee8559d51f93e7cf78",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/app/button-styles.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3383,8 +3501,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/button.tsx",
-      "file_sha256": "783aba8582a560a3bb9aee7d6c2b1da1072118502be3a9ea57e5f99ed1e45c44",
-      "body_sha256": "aa600a89d0be9cead9a8cbf8af2610ccefc3f0cb97236248483528b50a82d679",
+      "file_sha256": "bf663dfd4647652be37dbd3733ffd16c75bc4c3c9ff285f71107f16dbcbf93d2",
+      "body_sha256": "8d74c81b048045131f168011bb0a86b17481d3401ce311de3f204f5b47095dfb",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/button.tsx",
       "upstream_body_sha256": "cc8e3d9c5b242462c924fd613f8de66720e756a6493637c13a898f56829c4aaf",
@@ -3402,7 +3520,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/calendar.tsx",
-      "file_sha256": "c6dc0fd84a21d515fd3f1ecc979fc54e526463ce7200ec292d7f7eed2c278fdc",
+      "file_sha256": "01744c1bae9ff78ef152da8eef8d1903670b7b0feb23e1f16aff2f73c41e8809",
       "body_sha256": "884b95606a0b059487dcb596fb0e0478c718e9f60f65e6f2a7d08f55e1fdc23f",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/calendar.tsx",
@@ -3421,7 +3539,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/card.tsx",
-      "file_sha256": "6d5d9ddbea13101acb6e3e8c8bd57999e663cd3e4aef8c89b5178deec49be5d2",
+      "file_sha256": "32d0807fa0e2298727111b605e053647879abd309e65c72c3587e35ee4624b55",
       "body_sha256": "b6355c08908cb60064439c28f8501849c0b2620bba4843ed66756da319768406",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/card.tsx",
@@ -3440,7 +3558,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/carousel.tsx",
-      "file_sha256": "8f6c7f825d29f69480649b29b229d2fb7edba23b3b8771412b2d09108f6c821d",
+      "file_sha256": "4022ee01668303091ff0cbeba44be046f90009db7fe02f885f7e7490b4c8d9a4",
       "body_sha256": "5e41859712dbcb3e50d1d18cbe388e7e8a95d863828ee4f2db6c4e3c2dd48e33",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/carousel.tsx",
@@ -3459,7 +3577,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/chart.tsx",
-      "file_sha256": "d2de46dc0495be1fb08127794d335f275afef3b6eb3d6bcdb836b805176764e8",
+      "file_sha256": "ef260e530eebb6e3521e92d74b360d1e66b9f8659e6625135b15c2b4d77a7b03",
       "body_sha256": "06bbbe1ae84a392d97fc7efb6461447ac4fd0e586b3d936d3d7460974c5d92af",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/chart.tsx",
@@ -3482,7 +3600,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/checkbox.tsx",
-      "file_sha256": "3efa73c0fb88a7795f931cfaf4118afa96303fbe9d94544d94426065ed2dd5df",
+      "file_sha256": "9453770791cf52f48f102cac31ed96657f13810784edbfb9d771a50783237fb3",
       "body_sha256": "41860e388d3b1e869daf17a1fe08745519f4c1628c902d520e7709b4f320a0c7",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/checkbox.tsx",
@@ -3501,18 +3619,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/collapsible.tsx",
-      "file_sha256": "bbfcfb71d7255bb8d497648f5309525e358336ebd78b6cbbc6d690f9f46c5ab7",
+      "file_sha256": "2ff04627e0f55f09335eb58a9f4900f22953f35cf77d53e5f98a06395f85100a",
       "body_sha256": "c653dd17b62c3d7d1a3c5bcae9baf4c84fdcf97a67250b052ceb4938dcc693f5",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/ui/src/components/collapsible.tsx",
       "upstream_body_sha256": "c653dd17b62c3d7d1a3c5bcae9baf4c84fdcf97a67250b052ceb4938dcc693f5",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/ui/src/components/collapsible.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3520,7 +3638,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/combobox.tsx",
-      "file_sha256": "3f9d1b39b066f1d6f4372409bcd6f8053deae6131a0042056c41987739463ba4",
+      "file_sha256": "125787de6928184f8b2c26d7b736a3548406064100512a6950e2d00798ed489f",
       "body_sha256": "22ea2b55182df4a741d68c0d43125b91d5073233424217954b49f21446973628",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/combobox.tsx",
@@ -3539,7 +3657,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/command.tsx",
-      "file_sha256": "849d73a60725b9bef916edb62f2b8b4fd66cd875e278840dcb107f27090c2d0c",
+      "file_sha256": "60d62c5bbb19978e8f06e3f8df7a0e8fa7cc15a5e8fa2f3fc47d156dd7d6ad6d",
       "body_sha256": "0f3af71f6d07eb3dd1b3d0eca81a5337dad2f7ff3f43f72f1afe460fe9855d8f",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/command.tsx",
@@ -3558,7 +3676,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/context-menu.tsx",
-      "file_sha256": "74c653f332ed13f5a74d53a15e5fe146af17fd8c4d361480c32829723b128d15",
+      "file_sha256": "0ab64812ae705ecacc608ef6caad3917567167ffa40cf72469d1b29878991442",
       "body_sha256": "8625d8a18dbda4c530d06b19f8f6d0b0915ee0a918f1cde55db23a9eef20115d",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/context-menu.tsx",
@@ -3577,7 +3695,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/dialog.tsx",
-      "file_sha256": "524efacdd17e921323433db4541f7c3427edce28ef581abbf3edf82df50039ce",
+      "file_sha256": "5d0139b6dcb3b1a210987087bdc44e864276842adbdb12f8513b526ade953f25",
       "body_sha256": "914363a2ed4959fc41f9acc66f2249184dd283512eacce944b1c8ec8ab91f5da",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/dialog.tsx",
@@ -3596,18 +3714,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/direction.tsx",
-      "file_sha256": "ee83ccd7a295dfb0641d616b89339a3cf4be859e21c54d5f7d38b607e9478325",
+      "file_sha256": "01a15939b5b71b9ee5d56ff8be58ea79f6d1bed6b08e9b53b709ab35f2a2e7e5",
       "body_sha256": "105ab57951c1169dcfec78e90486b4c45631083c631abfab76634e3512494614",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/ui/src/components/direction.tsx",
       "upstream_body_sha256": "105ab57951c1169dcfec78e90486b4c45631083c631abfab76634e3512494614",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/ui/src/components/direction.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -3615,7 +3733,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/drawer.tsx",
-      "file_sha256": "1170ba80560fcaa48e634f2d5d8fc96de96d4f0c8fc3c3f1107f83a8f89ba8fe",
+      "file_sha256": "6e15bd7f32bbdc6f6691fd478f17ba39cb300defc5c4c23c5e5a7b5a03596fa6",
       "body_sha256": "7bb2ca0147097a05a7a0f4998a53b85bf11bfc19077b69d83837817b6b97c3a3",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/drawer.tsx",
@@ -3634,7 +3752,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/dropdown-menu.tsx",
-      "file_sha256": "ca35571ed79b9f3bbc4c8705251cee743b873e71cdec55ad2d0dcbccde066a7d",
+      "file_sha256": "d17c0f2d853de1b4256d4ac31b7fc91e203562bcc8a08f97c5aad373c473d823",
       "body_sha256": "41e712f356639ba93981010c0caa2310a03e1d3e2dfb0e8158f1eead4d4f879e",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/dropdown-menu.tsx",
@@ -3653,7 +3771,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/empty.tsx",
-      "file_sha256": "11960a8761ab379355c691919c1603884fe70e4c211fbef5354aa8f24e1b9531",
+      "file_sha256": "f19fb5c5ca21e014d2e698d7ea6e5c63463aead7ffabf990674cebf6710535ff",
       "body_sha256": "68e3cebc52cb2f577758badbffdcf846d5415d8919bec697deec302b42a78c77",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/empty.tsx",
@@ -3672,7 +3790,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/field.tsx",
-      "file_sha256": "809e7c02eadc7848a21164f33456c92025143a2231eff3bc6c15dbbb80128e1e",
+      "file_sha256": "e592a264b71ce362cbaa5d4813a69c5fb21d2ba97ab563bc804ce296014ac3c7",
       "body_sha256": "3f9cf7c69a4996dd0e8ed56157992992ff5f7c18e58b713b03e40f8b799fd9a9",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/field.tsx",
@@ -3691,7 +3809,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/hover-card.tsx",
-      "file_sha256": "dba022a5dd325eecf0585b34a76d5e0886377396e1fd5928d15064d2b613a13c",
+      "file_sha256": "8a80e7c1b755d5fc7ff4e8e1d99e69b6ca82a65d848403b13af278af16cc61ca",
       "body_sha256": "376c160304e297a76430ccfa5a54c413ac8e3186b2dae9de0eb726dec89f3489",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/hover-card.tsx",
@@ -3710,7 +3828,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/input-group.tsx",
-      "file_sha256": "e4b18ee330932e8ced0dce6f36936a2e88a49d8b50e52196e0dcb1bba857fcab",
+      "file_sha256": "3950824e3b01908d523267b47fab3156481c1e4ad08474a1217a3b7245f23b0d",
       "body_sha256": "166a3ffe5e42b3210a12eac2e92a778886024fb9627d7e43d78cbde69b8ddf70",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/input-group.tsx",
@@ -3729,7 +3847,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/input-otp.tsx",
-      "file_sha256": "3278ee574abd39af301997790366be202a463b7ae26a25227e48304bdcd248f4",
+      "file_sha256": "fe4ad826271fe44983d76d9b6cd6d214898d49614eb13d901eb2af27d529a11d",
       "body_sha256": "680a7d78c53a26d9bd6be5bfad7f083ebefa6a5510ea7543e6ec19ae35d69bd4",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/input-otp.tsx",
@@ -3748,7 +3866,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/input.tsx",
-      "file_sha256": "797c21734552aed6a8f8e2ca579107d415447f46797359c85fa37720c1713f96",
+      "file_sha256": "998063b5f5e8bd110e18d2c10bf5b60e5ba060de6cdffc2949b8dcc099740df2",
       "body_sha256": "0a7da7e9fe79e0ca8edbd4f15f5567dcc5226b542375e7b487e0d775b327af08",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/input.tsx",
@@ -3767,7 +3885,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/item.tsx",
-      "file_sha256": "2a6a65a7372f5585d1556c5e28754868adcda11fa1f1e02275ec67dab0a9203b",
+      "file_sha256": "62f296b3be798cf9d527d660764c4b46fc50d1b90c39bfbcf101eb3aeaec1abb",
       "body_sha256": "3f636228be244253fb66b701461e148c34d015f1ecc5da4e2aa1a1af2252829f",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/item.tsx",
@@ -3786,7 +3904,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/kbd.tsx",
-      "file_sha256": "6bbece59f261bc7260a55bd2c2ed2cc0d6c834793bdf47105704994faea8422d",
+      "file_sha256": "3e8c261de785dfa32a3e73732771b5130ea9f4dc8d0f7751f69f046d684ffeb8",
       "body_sha256": "1ffbe1ceee182e68d5cc4b5d850e757522097fde6cf05ddc999bff037692afe1",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/kbd.tsx",
@@ -3805,7 +3923,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/label.tsx",
-      "file_sha256": "86fa8fb8d3b9f19c98b7d7fb7c83b2da309d8378308afd1f56504acfd70d195f",
+      "file_sha256": "902c38b2a1d0052c7cd1df2b20fb67dc77464ec52d5abf134a96956fb189b2f8",
       "body_sha256": "9fddbb545e2284c94a70f5b5ed52d41e798bcffc71fe62c2808688d13735036b",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/label.tsx",
@@ -3824,7 +3942,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/loader.tsx",
-      "file_sha256": "3e260953a36f4bf61e55e0c9cdb098bf1a6d75614b2f740096829431079ddf54",
+      "file_sha256": "f9fd6755b757cb01d2fbcc6bec9edc63651976993d513440d8455bdfdfc62492",
       "body_sha256": "e0df969d1daf89746044d4c021b1a5a846fa577f02f0f0e60e317695bedad0ce",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/loader.tsx",
@@ -3843,7 +3961,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/menubar.tsx",
-      "file_sha256": "08aa951ad8b2e334cb1dd152c1caeda1771ccd61288e96a446a752d9c1c09a7e",
+      "file_sha256": "bf4f85d2f279cdc899ed71dc88292d0296ff484fe45b878db4e3e61fefda1542",
       "body_sha256": "37898e8c95420b9ceb84ae73beee4f0b6969d1b5da37a5054febb61428ab5407",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/menubar.tsx",
@@ -3862,7 +3980,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/native-select.tsx",
-      "file_sha256": "2e1e79fdcd2c11fef0746075423e2e59904eecfc37a5508020846a03b048a99f",
+      "file_sha256": "b6cf59a5ae56fa381fbd471148659e8e53f15bebc0b371e8e1a82ede9e640192",
       "body_sha256": "42806cc2b5392b1030040eb7fd61c82aa1eb7699a0ffc231cfdef4eff83e8c70",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/native-select.tsx",
@@ -3881,7 +3999,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/navigation-menu.tsx",
-      "file_sha256": "ffd0f82a308bad83ace479932fcaa5c9da710f438b34ae3cdf529a5fb9dc2378",
+      "file_sha256": "7a47c393a68e70c942a86cf99b2cfbce631807b2774f33763fffabfa7a648301",
       "body_sha256": "c03549d5aa8fb699599c7b895692a3899daeda91d4f5e77c79b77ece4fc731bb",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/navigation-menu.tsx",
@@ -3900,7 +4018,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/pagination.tsx",
-      "file_sha256": "83c08f8fd12e23a5a89e63368ec153346fde3e49382d930bb4a0eaf9b85b8a40",
+      "file_sha256": "bdb610a44ab3616dc5cc398d5bf7b280533cd6d29911d3f61a966b73390ec056",
       "body_sha256": "711427a43ccefea15a4647ed0a81beb023d2edc3ea3cb2f64368b1f49b09d996",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/pagination.tsx",
@@ -3919,7 +4037,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/popover.tsx",
-      "file_sha256": "d7074f06fc3188abed62f9ae6ba871cb41263bfab600c7331e79e974f274a0d9",
+      "file_sha256": "5e4c61446e4e8d84d0430aff43a88c365b42702209b93e6c909736d8d12d4d83",
       "body_sha256": "5f7f8643bf3210ab7221764c5a97ae0a26008a28bd437274099bc7014d92f580",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/popover.tsx",
@@ -3938,7 +4056,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/progress.tsx",
-      "file_sha256": "f38f8c545b8baecc166c7da0019d4f45bf77ec33ee7672890b95ee0c7b5ecf45",
+      "file_sha256": "f0d6bc32cb60974b534b539b4aa93c30cfe565e480e49d2c3e1651bb17274cd7",
       "body_sha256": "d7fb039d0bcd6f3623bfd92c1adb19886b90a637e30655d8cb8088c9b0d1a665",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/progress.tsx",
@@ -3957,7 +4075,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/radio-group.tsx",
-      "file_sha256": "952adb9d0a31543f61e5e4ffb19a2791dcbe8423f259bc10a5cd0be28693b6b8",
+      "file_sha256": "948725b4d5409aa0944e18434f9fc10f4781d285baee13a211bb85b5c7a9d36d",
       "body_sha256": "f41d864b1cc16481b8ff229524a1f80e87b7808e74a659e0f8a2f96a471fd1c1",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/radio-group.tsx",
@@ -3976,7 +4094,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/resizable.tsx",
-      "file_sha256": "a7d75c08418a2f91787f0bbb5b602eb42c1933a30e2d4ff28c88a97124040c98",
+      "file_sha256": "f2eceb707fcf944550fb2e7ae555c2777fa53b682e3f9fa1373170f6985d2881",
       "body_sha256": "d5ff31f8b9187b775b7fedc5ef3c1890e46d33d862e6d1d970e77926e2911f6b",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/resizable.tsx",
@@ -3995,7 +4113,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/scroll-area.tsx",
-      "file_sha256": "70f32fc58bf02b84536d395bb50e37bfcd7e48e77a85db3c81b9af47de7886d2",
+      "file_sha256": "8faff8c3905281a27a85b595383af50a7829304f74041e0f05389547eb42bbbd",
       "body_sha256": "8343fe15b55e788bb2360f882d6aa06c23ae888b2ec7ea566cb9971ef4ed01fe",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/scroll-area.tsx",
@@ -4014,7 +4132,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/select.tsx",
-      "file_sha256": "b9aa8adcb23c525d15c98ae9225838d32012c22d9c670df05500c6c782e1bbc0",
+      "file_sha256": "22bd1afc41ba9054bb72a736ddbbd20874a0a6f499f9ed845fa3a6c052aa23ed",
       "body_sha256": "e8f7610806049dfca31c7a1af0b631b3ce573da4fb6969644bb37fe824d588f8",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/select.tsx",
@@ -4033,7 +4151,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/separator.tsx",
-      "file_sha256": "24840c6d1d5becd32d2cde4eef68cffc7110e3eed08d5baaada25bf5de47af9b",
+      "file_sha256": "8b2c4aa98ee32130b25c52607c39373637990b73800d2ffe851decdd4f203dae",
       "body_sha256": "8f3823f77664824dc5f33db03c39ec63ae1ef62a979ad2c89490b7d21ef424de",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/separator.tsx",
@@ -4052,7 +4170,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/sheet.tsx",
-      "file_sha256": "fb08305aa4d1f723a88676b4ec3b6d1e8167fe8b34e9ab1bb952597558ce7fb4",
+      "file_sha256": "d1a2ba43ad026467500adecccde8292eb1dab7739113c522e6b3e9ad29472db9",
       "body_sha256": "b1ee7f41a205286c65d79e5b217544a6a3e3bcc442b04c7d8010163368bd54b1",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/sheet.tsx",
@@ -4071,7 +4189,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/sidebar.tsx",
-      "file_sha256": "2e5ff0c514a83d5b20c6bc21fed6e7b11accfe9a31242e0d55d82fc4ed9bc14f",
+      "file_sha256": "cb126aa2e49e9611dd28c48fb200ac251efe05e81aec50d1ad1411d7443c9d13",
       "body_sha256": "da3898cb4913ddf1de83024afba7f737199904a9f6fcd7e29cda1108ac629c92",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/sidebar.tsx",
@@ -4090,7 +4208,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/skeleton.tsx",
-      "file_sha256": "93785952a08b1d73dc290ccf877ec99298c2be123a94a1d449921f39e21b7220",
+      "file_sha256": "994c596ff9e77142a6af6de0639870796d1290c3b2cd82588e6bd73e9e460a5a",
       "body_sha256": "7cbe0beccbb262d36c90d092c3cf15c08aacc8e39ea93e01fd69d88d256ffdd2",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/skeleton.tsx",
@@ -4109,7 +4227,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/slider.tsx",
-      "file_sha256": "95a1016d82d12e78662276f05be756a7f8952f15647911e102bc341418f64f71",
+      "file_sha256": "bc443064356aa569bd1d757c7c6b3c901eb2c5923f884ce05e2e4e6784c05d51",
       "body_sha256": "90cd9a5522daffbfe436d4f6f341a1338c8b6af3b61775debfa2cf70e793f680",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/slider.tsx",
@@ -4128,18 +4246,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/sonner.tsx",
-      "file_sha256": "e42e3ad32058f56688d5a52a6693def48d40443cb031b408b71712e87a898de0",
+      "file_sha256": "a2ba3139e6a69c43af6a63d642ad60e9f9777fb583054ec3e1e0a1400d309801",
       "body_sha256": "6261f364d6ecee4aea940e0fa72e043c461b0fc5b337d6669f48968e06b24ee6",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "packages/ui/src/components/sonner.tsx",
       "upstream_body_sha256": "6261f364d6ecee4aea940e0fa72e043c461b0fc5b337d6669f48968e06b24ee6",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "packages/ui/src/components/sonner.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -4147,7 +4265,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/spinner.tsx",
-      "file_sha256": "af3007b71d49fffc44b1a233bb6ca9958f726933050dd93498686efed485813a",
+      "file_sha256": "00551b1b76cbe88c8a9cd6a43efbe6871cd16f4d8976a5a11e2401b93335b697",
       "body_sha256": "59294951d2e7c5e27f9a6881622111460b992df5d24aed1def8a6a820020871d",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/spinner.tsx",
@@ -4166,7 +4284,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/switch.tsx",
-      "file_sha256": "4df9c88f8ac3020e9d652c783e27c4659b35008af421e2000c5437bfa17d115e",
+      "file_sha256": "911a6d4c2e5c222e3b56bed28402bbada06b3a739c772242d71b3788f658355c",
       "body_sha256": "0ab10a6b63963ee3a100c7740d87315159892c080119c9b721fbdd33701d08c6",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/switch.tsx",
@@ -4185,7 +4303,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/table.tsx",
-      "file_sha256": "72200a92904f0dfbcd83134f721f6cd7c3fb619beffea7a39045309322299779",
+      "file_sha256": "f9ab8c55e5a2a6dd461cbb269c8ba0453957e564dd366c3f36392ef48ce34455",
       "body_sha256": "ba168397a33875dfa22683cbed10e8a35792549ac5900ca3607ec6c77295cad2",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/table.tsx",
@@ -4204,7 +4322,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/tabs.tsx",
-      "file_sha256": "87ed714d490030657572bdd72f856b73b598f3444128411d6c8db32e5c378fca",
+      "file_sha256": "d85b40cb3d5bdbceb584e429dda8ecc200a80ed627238ed757c7df0d9f60648b",
       "body_sha256": "ea926e111b38c7292fa0ddc718d3fbd188df3762f4f01889d65fab5a00f05107",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/tabs.tsx",
@@ -4223,7 +4341,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/textarea.tsx",
-      "file_sha256": "89e31c6e8001807819c284f12fe24b5a79880439e6732a91c2cb19ab7d3f2f56",
+      "file_sha256": "687b0ba6e3c9891b632409066cf544f958f6ddf2de4b77867902cc009e0063b7",
       "body_sha256": "9b5180f36868059667d11a29489947c80f7487bc68f69d47e76ae8548827a249",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/textarea.tsx",
@@ -4242,7 +4360,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/toggle-group.tsx",
-      "file_sha256": "44d6515fd47b2e0492e3c503ec7c54f4762865de5a6c2084d1198df1363af1de",
+      "file_sha256": "af0fe652937be9214e10002320c677ad02d84562bfa04452752906a2c1086599",
       "body_sha256": "2a0f4c67bb12c99da24085a617fc5382ef38e11d8216ea443bfcf7f83e6802e0",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/toggle-group.tsx",
@@ -4261,7 +4379,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/toggle.tsx",
-      "file_sha256": "33377ef03ee2c3761569b6630e81241c85b939bf4996e2070b49b52b1d737590",
+      "file_sha256": "fd37e98d1aaef2f2698303bf70ea847c9a92d5d9d4e89bc0b8d6ee4054fdcebb",
       "body_sha256": "48fe85764b3968bb9b70e0a9dd693edf6da725c090ade7d9ed09f9da1b34f886",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/toggle.tsx",
@@ -4280,7 +4398,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/ui/tooltip.tsx",
-      "file_sha256": "1a1097f33955de15bc0976fd61e5e48294d35a540a188cf9f662d7f5caf4c410",
+      "file_sha256": "0b009007f3eb11dc0fd77eba18e176892a363665b91771d559d193ddbab9e3ab",
       "body_sha256": "7de3a6e2c31963c3ecdd0ac5e087f37ec6eb6d0b5a30e1a6d55fd8053d8fc448",
       "proposed_class": "modified",
       "upstream_path": "packages/ui/src/components/tooltip.tsx",
@@ -4299,7 +4417,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/animated-api-key.tsx",
-      "file_sha256": "7438fc1a3e05f38dd2c6b8604b4c4643f28000458fb965ba7779ac3c5932e594",
+      "file_sha256": "e4e2f4d19b4af425b1f1c0fe368c50b9110a07967595c38769f42a898b0854ab",
       "body_sha256": "9ee4751f5bbbb5b9071a81f225bba38ccd352874bd8eb0c34c76b491e5ba5b99",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/animated-api-key.tsx",
@@ -4318,7 +4436,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/code-block.tsx",
-      "file_sha256": "7387ae15b5ddeaac11d82bd74c78feab51835593573208d4a30f60d9c28377db",
+      "file_sha256": "2e010d3903d3d40534e73c141dffee6bd01242fa2d45aeaf74ef0cc6dc452cc1",
       "body_sha256": "5e3b61d0fd9cfebb351a03686c50032def2cb048e42f0dd68930487d8bd2bffe",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/code-block.tsx",
@@ -4337,7 +4455,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/context-chip.tsx",
-      "file_sha256": "5c57c956e9c03b2371facd7f82e164f9796358589eaf965948f779162618e4b7",
+      "file_sha256": "93de3cb9e07982600d2921c9caeb4e6d2a5f8cb8616452a01ae6cd31644f4201",
       "body_sha256": "81daf72b3a001ea8764b026c97029a53d9e6bab70ac448d67a5d5fa13f79774a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/context-chip.tsx",
@@ -4358,12 +4476,12 @@
         "primary": "apps/web/src/components/app/cost-breakdown-card.tsx",
         "secondary": [],
         "evidence": "CATEGORIES, chart bucket and view rendering retained with supplied row data.",
-        "reviewed_file_sha256": "7f7d83f7a2f1280bf2ba6ffb403382fec0a33c3be62dca26d6df3eb83b3d382a"
+        "reviewed_file_sha256": "295e2a190c376d06d0206936b7218fe5df78a640c0ad0964d589d1f063992f31"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/cost-breakdown.tsx",
-      "file_sha256": "7f7d83f7a2f1280bf2ba6ffb403382fec0a33c3be62dca26d6df3eb83b3d382a",
-      "body_sha256": "9bf34f06539eba7d90353e5244438a358760b2a70aeb5938241b1ae532f0fbd3",
+      "file_sha256": "295e2a190c376d06d0206936b7218fe5df78a640c0ad0964d589d1f063992f31",
+      "body_sha256": "e807d3929bda7e2fc2d3edbb1ab5b26ddfe445426276e89256b64e6a41f93b53",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/cost-breakdown-card.tsx",
       "upstream_body_sha256": "46a99bb466eb23ba1d65924624dd25507b438aa5e2550e66faeddaf6216c9ad5",
@@ -4381,7 +4499,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/data-table.tsx",
-      "file_sha256": "d63734961ee46b3df8dd893c5a7dd1af187b4a2c8cc6e264ed4a2f36da075fcd",
+      "file_sha256": "3b761a4c1dacf8c6f069966510f7087e33f874f8fdcfa63af3ce37733d35a5f9",
       "body_sha256": "de2618af7fbb8994a54699319173160690557dfceec570380028e787ef4e7276",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/data-table.tsx",
@@ -4400,7 +4518,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/dev-toolbar.tsx",
-      "file_sha256": "ae5b883ce4a6e0c4e9cbbdd1c6fc629a46d43c31dc17089d6e91777aa340600d",
+      "file_sha256": "0ef07911dc906a6a078fe54526ef29898d7be40102546c9dd06fe7cd52978154",
       "body_sha256": "ff3e7bc9719361c5946a872064b8ff53af4cc5ca64447bf079fea45966de0900",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/dev-toolbar.tsx",
@@ -4419,7 +4537,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/eval-scores.tsx",
-      "file_sha256": "ac67e1c556d16832cede45b88d8a621038e343a6617cfc5e60674242b13cac99",
+      "file_sha256": "a581f1ca3fc53c352dcca88cb52730d2b824de76d9ca6a338867924aae55d5a6",
       "body_sha256": "4c76b4b640ba509cda5c634707f0131685ac17bb497aa781293066490b1bd900",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/eval-scores.tsx",
@@ -4438,8 +4556,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/foggy/foggy-message.tsx",
-      "file_sha256": "e9cf1dbab7ab40066945fdeb0bc1e5d36471e346dc4e093e5ad4fcb0b3dd854c",
-      "body_sha256": "e7735a106d0a55de274ea2a257a2b5dece070f32ba6e002cc9109be0e3183185",
+      "file_sha256": "30bf1dee00653339b6a647b47526140d8f2c1bfaef8b93404c18b1be2d9e60c4",
+      "body_sha256": "480e2f9c11d85eecad7fe6b21548d52f6a42f542e9eeff0e9114edf4f5edddb6",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/foggy/foggy-message.tsx",
       "upstream_body_sha256": "b0143bc2748949486b94fb91e103af13fe9a244c5643a0004c1bd117f2d8960d",
@@ -4457,7 +4575,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/foggy/foggy-widget.tsx",
-      "file_sha256": "9f65ec110796704fc8fd31ac58b618aa57073203bc06a752d3e3e9176eb9db7b",
+      "file_sha256": "542e1fab2a659b1e60a3d9ae3730bc88f571f0c9aa11710fe67d59ae52cfd3c8",
       "body_sha256": "4569e67530b4386b4d5184cbf111a56baa1896ae101634104371062bf580f8f6",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/foggy/foggy-widget.tsx",
@@ -4476,13 +4594,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/foggy/foggy-drawer.tsx"
+        ],
         "evidence": "Integration export barrel assembling local extracted modules; no upstream counterpart at this integration boundary. Review imported modules separately.",
-        "reviewed_file_sha256": "c4365f9759726b9d7d73e52f79d0e06c40fc932fe5fe479cb1950da4f0b002ab"
+        "reviewed_file_sha256": "93b51ff53041e3f8136070273242ce115f043980ca3e1a7c8390a484cce9ce3c"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/foggy/foggy-drawer.tsx"
+      ],
       "path": "packages/design-system/src/widgets/foggy/index.ts",
-      "file_sha256": "c4365f9759726b9d7d73e52f79d0e06c40fc932fe5fe479cb1950da4f0b002ab",
+      "file_sha256": "93b51ff53041e3f8136070273242ce115f043980ca3e1a7c8390a484cce9ce3c",
       "body_sha256": "91918f3a058b100d1f2d29307d5a63f54674fa4db3a548e774633904322fdd65",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -4496,7 +4618,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/foggy/markdown.tsx",
-      "file_sha256": "dd8d0b315555ac791059dff7567fdc6e880ce0b40b8bc9cef48be3842dbdaf5e",
+      "file_sha256": "5d57312c6972d3ff41f30720fa7562c25fa8757945c560b40d9afbec88e0d8c3",
       "body_sha256": "1db768484bd9ff227e3439948a9b5780a8bdced7fab1b000463902f5e2d64c6b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/markdown.tsx",
@@ -4515,13 +4637,17 @@
       "review": {
         "classification": "tailrocks-original",
         "primary": null,
-        "secondary": [],
+        "secondary": [
+          "apps/web/src/components/foggy/foggy-message.tsx"
+        ],
         "evidence": "Standalone adapter message shape introduced for decoupling; upstream foggy-message uses AI SDK UIMessage rather than this definition.",
-        "reviewed_file_sha256": "d3ec3be912c5ed22cce4f1a13335e4089dd7f2052b43afb881c8f01aad770a11"
+        "reviewed_file_sha256": "5ec0fc77c7358828d859ad1356baac573034fa3dd1d7d72594ca2e767a078494"
       },
-      "secondary_upstream_paths": [],
+      "secondary_upstream_paths": [
+        "apps/web/src/components/foggy/foggy-message.tsx"
+      ],
       "path": "packages/design-system/src/widgets/foggy/types.ts",
-      "file_sha256": "d3ec3be912c5ed22cce4f1a13335e4089dd7f2052b43afb881c8f01aad770a11",
+      "file_sha256": "5ec0fc77c7358828d859ad1356baac573034fa3dd1d7d72594ca2e767a078494",
       "body_sha256": "5c31ed878559b88915672a3aafc01cde00683b1e528c2b320dc4dadc9eb14e46",
       "proposed_class": "tailrocks-original",
       "upstream_path": null,
@@ -4535,18 +4661,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/header-slot.tsx",
-      "file_sha256": "6d29ecdbf5fe5f148562e9fc0167478fea8b7ff8dedd1a682ffa187bcebfa19a",
+      "file_sha256": "ee5f91d9b0d42b0de2bb032e3856a8379dd6be6080a42ae23baefbb610059e07",
       "body_sha256": "e26a1ae749e91592bcdca09bcc25c481fd34d38ec5b6b003f5b699c477919c5a",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/components/app/header-slot.tsx",
       "upstream_body_sha256": "e26a1ae749e91592bcdca09bcc25c481fd34d38ec5b6b003f5b699c477919c5a",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/components/app/header-slot.tsx",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -4554,7 +4680,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/heat-cell.tsx",
-      "file_sha256": "8183e0ab1e0d6fd491fbe8aae5c1c3c6714fe66b96e1b18ecc604050b7cb4303",
+      "file_sha256": "62913489780132c630f1861a77644d893699ead346f3d20a46fe0d07c0596e83",
       "body_sha256": "be707a7bde983c4b97a69210c2f56a24b3af9cddc88a05f6a38e7ef64c5c2d1b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/heat-cell.tsx",
@@ -4573,7 +4699,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/agent-icon.tsx",
-      "file_sha256": "ffa9e68675ca5c58448c3548d42fdd25344f3a8726a0418382a0172d9d01f4ae",
+      "file_sha256": "8848feef8b5a796c008af31b9e4d2dc91c4ab8ac55088d53327744899055bf6d",
       "body_sha256": "ee098383dadf26cc3f1be92f06bd08be3d730d762b7b280801262aa0e0117f10",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/agent-icon.tsx",
@@ -4592,7 +4718,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/copy-button.tsx",
-      "file_sha256": "3b648ecea0d6321d5ecda2ea9fea5f04a59c7f51b4bb970959bd22a5aba40a24",
+      "file_sha256": "f0719c89a55593afa6326fc1ddd3c6dc46ecdfc5c6327c566c5f7ba0f75aca60",
       "body_sha256": "b90f9410602fa0e0c5c6d18de44c822dd13b93e6cf351f9e0a32bef7f7a6bf42",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/copy-button.tsx",
@@ -4611,7 +4737,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/copy-icon.tsx",
-      "file_sha256": "a41888c85e28ea84ed7ea35cc7b448a2f043deab03f260c801dab9c3ece88cbf",
+      "file_sha256": "0b5017f599fdb58f6db376f6650c4640a40d847045b071740b10116346c5e8fc",
       "body_sha256": "ef42d9d0775af371e816f170f1d7c53ecac8b9d4ab23352a685bf5237064259c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/copy-icon.tsx",
@@ -4630,7 +4756,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/customer-avatar.tsx",
-      "file_sha256": "f08416392e762e9336491af02dccb5bc0b8561a16193770e02ccdf6e4eb31a70",
+      "file_sha256": "190c45f1a2890f60ed2e22b90aaa76f7df94ff0d54e8b8b46cf6fea1dec24303",
       "body_sha256": "2e08fa0ea1d26a2dce4adfd77fd372ea32ecac8e3711b170995611cdf711edb6",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/customer-avatar.tsx",
@@ -4649,18 +4775,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/favicon.ts",
-      "file_sha256": "e5acb9bee4fdee9591d37937b66f92686b9505c33f5ec14f82c775f69b1d3fd3",
+      "file_sha256": "ad598663f6083f9848bc732ce74761453c73768d9bebe8569c439de3527e4a0b",
       "body_sha256": "05bdbaa226fcab0dbff057d62ec3ff6117ee6f8728143c0e09ab760577fec09e",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/lib/favicon.ts",
       "upstream_body_sha256": "05bdbaa226fcab0dbff057d62ec3ff6117ee6f8728143c0e09ab760577fec09e",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/lib/favicon.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -4668,7 +4794,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/node-flow.tsx",
-      "file_sha256": "820e9a76be8a4ce685737334753d53f506cb4d4b99d79bfec8c5e04189845ade",
+      "file_sha256": "0e42d799a9e276cfb9e586834bd4652512966250695dd095daa06d69766ca786",
       "body_sha256": "2e2170e87a5029493f17018d50aeba68587ede1ddd4937f55a27347615393832",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/node-flow.tsx",
@@ -4687,18 +4813,18 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/preset-meta.ts",
-      "file_sha256": "3aa95df5e388bcbb40447a044af61bb17105f7d269663a0ee9036a014e350b9f",
+      "file_sha256": "beb39c35cc3836f786c0b1ab5c18b2f4d6dd65fe5f83d317855f7fe3699316f3",
       "body_sha256": "c77ce045b7cfbc5444e32feb81eb0807afef49caa4a7d83ea856ef71a7ff35a0",
       "proposed_class": "copied-1-to-1",
       "upstream_path": "apps/web/src/app/(app)/evals/preset-meta.ts",
       "upstream_body_sha256": "c77ce045b7cfbc5444e32feb81eb0807afef49caa4a7d83ea856ef71a7ff35a0",
       "evidence": "w5-harness-map",
-      "similarity": 1.0,
+      "similarity": 1,
       "flags": [],
       "candidates": [
         {
           "path": "apps/web/src/app/(app)/evals/preset-meta.ts",
-          "similarity": 1.0
+          "similarity": 1
         }
       ]
     },
@@ -4706,7 +4832,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/project-icon.tsx",
-      "file_sha256": "c8e287b5d561b07d167a60eaa1eb1df5997c6a6ea7352e7654946a1b9addc5f8",
+      "file_sha256": "6dc3fee0c374bff1a568fe1f784ed336d5e2bba48328dca72080c83fc66f0a41",
       "body_sha256": "5119298b8178718b8d18311ddf45dafc8a98a50adac67a202f910e899a1f4dbd",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/project-icon.tsx",
@@ -4725,7 +4851,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/relative-time.tsx",
-      "file_sha256": "55d54003d553c816b51a3c1747c8e967ca7d334aa9578ee5b49e01dfee0dfa38",
+      "file_sha256": "a98640388c7a8ffa0de560a108f72ae6fb1dabcd0ab550d92260ca5a5ff2c83b",
       "body_sha256": "4a7fec50f1ce814e7c267f11fd34e0519139f9d9245007aed09c2743127edd12",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/relative-time.tsx",
@@ -4744,8 +4870,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/scan-brand.tsx",
-      "file_sha256": "18304e045fbd004b31c8f4f80de843a5bfb8987727907e279d8a6ed33d0c666b",
-      "body_sha256": "cefcc9630b6c8bb9fcbf4fbbc874f0d49920962ab37ca717a6473e135f06d8ab",
+      "file_sha256": "de09ff8b6eda197eac3f2f386a4130bec7bfed0d90143c56874adfd8e924d601",
+      "body_sha256": "22b527f744d5cf5fa809db6859d5fa8aa31f75ffb2ac960417ea391fe7929bf8",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/scan/brand.tsx",
       "upstream_body_sha256": "a19ec9dd1d70023b14071be996b846660ad8e8df4e64c6bd5fd0fa7623d01233",
@@ -4763,7 +4889,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/span-type.tsx",
-      "file_sha256": "1e9fafec436ea5c8e9931aa8381d9f1568af9f1bdd48a6e4c42bff65a8a51ff7",
+      "file_sha256": "bc73c7a6dfd23a30afe42faa893a5f29fdde68cb5e773bed839560388dc61faf",
       "body_sha256": "9178a0b9d1b1a3c7a4973f8fb6b811d6fdeaf1d7cef2feef1bb35d8eac4ca814",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/span-type.tsx",
@@ -4782,7 +4908,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/stat.tsx",
-      "file_sha256": "92556fe3d923e8e3be187f156b889a4f1bdd23ad627fcfa90b532a4fb55768dc",
+      "file_sha256": "54dab1e7639e281031b7e2326ac8d5e4a6ee5f74c470cc7eaca86a039472313e",
       "body_sha256": "f5aaded59e2627374e70e0d1f547637607b6b51c6bd7e8a560dc246c75329f1b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/stat.tsx",
@@ -4803,12 +4929,12 @@
         "primary": "apps/web/src/components/app/sunset-card.tsx",
         "secondary": [],
         "evidence": "HOSTED_SERVER_URL, SHUTDOWN_DATE and SunsetCard retained with host server URL prop.",
-        "reviewed_file_sha256": "48180ea9884c0b9344f842bc0c45ce0b786fd6375a2121516b5607ff329ca5d9"
+        "reviewed_file_sha256": "8c51648c616602382d6910b32add2fbf6cd49034e319e5af098bc014bebf5694"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/sunset-card.tsx",
-      "file_sha256": "48180ea9884c0b9344f842bc0c45ce0b786fd6375a2121516b5607ff329ca5d9",
-      "body_sha256": "5cc005509ffe6084c6e444845fe1f2081fa37427e6475af751b01a8af1d5a6de",
+      "file_sha256": "8c51648c616602382d6910b32add2fbf6cd49034e319e5af098bc014bebf5694",
+      "body_sha256": "343bd81cdf90799a85e8bd822d0e225dfcdf5453b4e3dd708bf8edcc56197a4b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/sunset-card.tsx",
       "upstream_body_sha256": "3380891ef47a67d98a12a0e34123b99236a40c6ca8ed8123e90338f091013b1b",
@@ -4826,7 +4952,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/leaf/tool-icon.tsx",
-      "file_sha256": "76f68eda761792841a995d217d25c3ea35257c4cee64b02f4bc78c0004e5fdc8",
+      "file_sha256": "8b96f5e7cec96ec030c916e2c8a52854172c6ccc19b86541289402de4754373f",
       "body_sha256": "139c1396c5ce8c24d17075a49ffa409821fad5df674e7be6092d65644b6ecf52",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/tool-icon.tsx",
@@ -4845,7 +4971,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/markdown.tsx",
-      "file_sha256": "a30f8c9092588a15946f9fd67d893d1b910f0c35b10d308990934362962af12c",
+      "file_sha256": "438b4452a539a527f61f7108d33a48a39004d9ae4052a15df22aba7a05cab466",
       "body_sha256": "3e1b567a2fe6f792e83a5fb0cd3b24549b7cc53ba01bc9e11cce3ccd2fb5c59b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/markdown.tsx",
@@ -4864,7 +4990,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/model-chip.tsx",
-      "file_sha256": "9c710de2f840269da4ce0ee9e3bdf987ca3752f3328795706ddbd19f7d323e74",
+      "file_sha256": "e0aba158e383fb439c049260021e07540a3d9fba71d47a64b989b4dad8a5af59",
       "body_sha256": "fe08f156725c6c19f06aa02349dc565ae7a36f966c39dfa5c24ca931b5bcfb04",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/model-chip.tsx",
@@ -4883,7 +5009,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/nav.ts",
-      "file_sha256": "6749f8bf944f6c6856bde7dc618ba5169831031fe6ebaf7ee4dcbce454477204",
+      "file_sha256": "87828fb7fb60b6e3ddaf4d262cfd0ef143960ca426d34a071e24e61c77a7c56c",
       "body_sha256": "d51ad108c75b79861ff443232808ba1debaf03ea7a75974ccc2c116a72d626d7",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/nav.ts",
@@ -4902,7 +5028,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/page-parts.tsx",
-      "file_sha256": "b8fb7eaee4e0816e27377ff50ee71d53b1ee00a1c63843e2e4dac99498218b8e",
+      "file_sha256": "e71e42477eed33b8cc6b26ce59d6165ab51718e986c32631d028811dc3d75361",
       "body_sha256": "e3d96d17733ad00a07c967451fdcc266b498fa406ccfdcfe7a2a5e89287cb441",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/page-parts.tsx",
@@ -4921,8 +5047,8 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/payload-view.tsx",
-      "file_sha256": "081ea2b377555e89148e352dd3801720902dde229f0b676052beaf94cca80de4",
-      "body_sha256": "0bb14fbfa14fe686d17f760931ef456a7297490d46e975cca059fad11a2d3dcf",
+      "file_sha256": "cc91b804ebdb4c4741c20bfea55f51cf1210b95d73d759c55bf9eb6ece36d739",
+      "body_sha256": "d6dc45141b970969c1f4a85b1657c54915257450dcecbcca50da075050d81a82",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/payload-view.tsx",
       "upstream_body_sha256": "d43c31682234859d6d64ea58db74de8595b324a36a75dc02d33c1315cb78377e",
@@ -4942,11 +5068,11 @@
         "primary": "apps/web/src/components/app/project-context.tsx",
         "secondary": [],
         "evidence": "Project, ProjectContext, ProjectProvider and useProject adapt query state to supplied/mock projects.",
-        "reviewed_file_sha256": "9cd19c131afed2f717c63d729a006e6d557b4fc353a8b26d1242fe009bff72ce"
+        "reviewed_file_sha256": "24843e427809c9635e85f0f5608ca87aa40e245c652939f53d64de9846cc1020"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/project-context.tsx",
-      "file_sha256": "9cd19c131afed2f717c63d729a006e6d557b4fc353a8b26d1242fe009bff72ce",
+      "file_sha256": "24843e427809c9635e85f0f5608ca87aa40e245c652939f53d64de9846cc1020",
       "body_sha256": "f75554e876f86281e799a4084c60883cdc34b5981cffd1b44e455ded98686466",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/project-context.tsx",
@@ -4960,7 +5086,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/prompt-prose.tsx",
-      "file_sha256": "e30c1faa4713017dd58549c9e4bf7c729bf8474f9838066335aded651b91fb80",
+      "file_sha256": "e0db7daca63ed40cc4dec1bd132092bf580ebdd0ba5de3bcf2886245052b6ce6",
       "body_sha256": "f128678ffa18fb922b5a94f02f00efcaa31fc946ac73be593b7be3690793bc7a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/prompt-prose.tsx",
@@ -4979,7 +5105,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/prompt-version-chip.tsx",
-      "file_sha256": "259ab642df0735738fd24754dd3a1f6f3a49257e4a665c24b5736040b8b7a28f",
+      "file_sha256": "52f7e2764e9d2d53bd8139505dd2c0ca445542e4c141838e9f38a8ba66d58075",
       "body_sha256": "09c5cd3ab0b091afc6e1e80e6e7623c78cae53bf7ac62719d9e04e594740db20",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/prompt-version-chip.tsx",
@@ -4998,7 +5124,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/prompt-versions-card.tsx",
-      "file_sha256": "f6f7adf28e021d6dfec5ac37be7e797cbf8bfeb61a56bacb19ceebb664f6a668",
+      "file_sha256": "41a2f27d8a6426bf255a9a8cf6519a0555f93e06ac8aee33cff4be60ad57085d",
       "body_sha256": "327b5e4ebb5735ac042c09ad4e4c10ef3fffe951b102e21834e217ddd1c24b73",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/prompt-versions-card.tsx",
@@ -5019,11 +5145,11 @@
         "primary": "apps/web/src/components/app/quota-card.tsx",
         "secondary": [],
         "evidence": "QuotaCard and percentage/over-quota presentation adapted to host usage props.",
-        "reviewed_file_sha256": "e5ee3b2ba18e3696a88c7a64b7a127cd175cb83c04c4981a94d7ef35eb4df722"
+        "reviewed_file_sha256": "babde3c5e301875d5abb833398f4653b67af159c811267f0709a59f61f86b83e"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/quota-card.tsx",
-      "file_sha256": "e5ee3b2ba18e3696a88c7a64b7a127cd175cb83c04c4981a94d7ef35eb4df722",
+      "file_sha256": "babde3c5e301875d5abb833398f4653b67af159c811267f0709a59f61f86b83e",
       "body_sha256": "d42e11ef9c05f0e099463074cbfb83f547f2791e72dcaa93049866d35561cb5f",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/quota-card.tsx",
@@ -5042,7 +5168,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/range-context.tsx",
-      "file_sha256": "356154b807023870190986eb76222b696caf9e59f71c915a2aefacca13fe3239",
+      "file_sha256": "d4341486c9cb6b1007f77e81b32bbdcc5d05367db2d75c1f31ee5ee873773f97",
       "body_sha256": "9a4b06e9a657817c8ab923c80810275188f070810ea9f96a7cec9da538b3776a",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/range-context.tsx",
@@ -5061,7 +5187,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/range-picker.tsx",
-      "file_sha256": "f757d3786911edaaa291c5dd885d4fcde7b774660f94c2f8278d78c30587c683",
+      "file_sha256": "c529888df390d551aa8a5b9a8fd88b7509f5034914d02009073e65d1a171486a",
       "body_sha256": "19c5335cbc46b10956b104d0218ea6e9b9b65f42666d37d55a85105e0fa2810c",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/range-picker.tsx",
@@ -5080,7 +5206,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/route-header.tsx",
-      "file_sha256": "c94d324f40b64205708412b2a6deb7e789a775ccb24491d6627a779f80ffa117",
+      "file_sha256": "936bb4b66285d3e0018ef96077255020c0bdc333e4a1900cde66a12dcc4083db",
       "body_sha256": "5ace64e5501ae5137c17f142627c787d614d69d391c4fe39dea810c105b98a26",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/route-header.tsx",
@@ -5099,7 +5225,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/run-exchange.tsx",
-      "file_sha256": "40fa73ae2d5d06e0c3d47d001901e301cd930c67567587a06317b804c3a1e869",
+      "file_sha256": "7ac5985561245d4d8267f1c0b53bb59a73b678fe3f959385225776d4f13b5245",
       "body_sha256": "838c50498f26cffbda748bf6706f2674d4bf13a4cd5db26ebed23fb05a61635b",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/run-exchange.tsx",
@@ -5118,7 +5244,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/theme-switcher.tsx",
-      "file_sha256": "7be395c1afc9fec30a31dd7ebed60b88a0e0554a4a447e365c5240a9af3fd7e9",
+      "file_sha256": "b7a632399c1e933358e93d5b34ea6275039e2c7841051cb331c849f267b66385",
       "body_sha256": "e1f65cf53489171a5f85cc9f4342da00c25e09538484d2a956ecf239539ea5fc",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/theme-switcher.tsx",
@@ -5141,14 +5267,14 @@
           "apps/web/src/components/app/page-parts.tsx"
         ],
         "evidence": "Tool card rows and ToolRowsSkeleton adapted to host data; ScrollFade is inlined and adapted from page-parts.",
-        "reviewed_file_sha256": "7ccc497b0833db016b427a6d382dbf4157cd6d6947864b358cb174020b7615df"
+        "reviewed_file_sha256": "d029919bf9e53c4d0b4e77df8603e5e69bbd20553a4865e08e312bf218a9232a"
       },
       "secondary_upstream_paths": [
         "apps/web/src/components/app/page-parts.tsx"
       ],
       "path": "packages/design-system/src/widgets/tool-breakdown.tsx",
-      "file_sha256": "7ccc497b0833db016b427a6d382dbf4157cd6d6947864b358cb174020b7615df",
-      "body_sha256": "91307e800df7520b86efb3f56c3e88528835cecfc422645b8d7264b0c1f10056",
+      "file_sha256": "d029919bf9e53c4d0b4e77df8603e5e69bbd20553a4865e08e312bf218a9232a",
+      "body_sha256": "9166603c34335552c638f1f725ad20359bd48e0cc112891f58dc3b7a9b515ff1",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/tool-breakdown-card.tsx",
       "upstream_body_sha256": "de70beed7fe2127d5a6397533a75cb50996985fa6a628b605259f38856f67d4c",
@@ -5163,7 +5289,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/trace-timeline.tsx",
-      "file_sha256": "80d4543a72505643abb16b89900c7547a405384055c790e020f6fa3e5c7acf03",
+      "file_sha256": "844f6ba9b1babb9d31c1b1037f4bb6d5e4d4551b5f2ea3f587fe7a77c687675e",
       "body_sha256": "ba0a4c6124e67e1ff22b441e141bfbeaa710ca1dea87c2998e6a8a7ec9b5c407",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/trace-timeline.tsx",
@@ -5182,7 +5308,7 @@
       "review": null,
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/trend-charts.tsx",
-      "file_sha256": "a200f7995cdccdc62e2052552a14cf9e004b63304a97ff2a2247d7db1c039d01",
+      "file_sha256": "3e97b090a2c4eaafbe2342c8e5dd5a3eeb1cb4ce7c80b067f2248a11a631917e",
       "body_sha256": "270968397bcfa4aec007785d28c3e89d573f8484a00685bd3418774f0f2018ed",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/app/trend-charts.tsx",
@@ -5203,11 +5329,11 @@
         "primary": "apps/web/src/components/user-menu.tsx",
         "secondary": [],
         "evidence": "UserMenu presentation adapted to host session and sign-out props.",
-        "reviewed_file_sha256": "90cdd50ad9a547555740915c472a330c5e6608eb5fdd1471751810cef87bb66f"
+        "reviewed_file_sha256": "08ecc25fcf2c82f2e0b2943ed6bc78219a74a039c88611b90aaf1efaa28ae665"
       },
       "secondary_upstream_paths": [],
       "path": "packages/design-system/src/widgets/user-menu.tsx",
-      "file_sha256": "90cdd50ad9a547555740915c472a330c5e6608eb5fdd1471751810cef87bb66f",
+      "file_sha256": "08ecc25fcf2c82f2e0b2943ed6bc78219a74a039c88611b90aaf1efaa28ae665",
       "body_sha256": "6ced79314d1ab8c6a901067bac289e4e628763317448be4bbb75ed78cefa4eb5",
       "proposed_class": "modified",
       "upstream_path": "apps/web/src/components/user-menu.tsx",

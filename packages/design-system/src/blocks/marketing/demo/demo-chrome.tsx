@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/demo-chrome.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { Badge } from "@tailrocks/framerock/ui/badge";
 import { Button } from "@tailrocks/framerock/ui/button";
 import { cn } from "@tailrocks/framerock/lib/utils";

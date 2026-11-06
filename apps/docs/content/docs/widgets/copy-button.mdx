@@ -1,37 +1,49 @@
 ---
-title: CopyButton
-description: Copies a supplied value and exposes the copied state through its icon.
+title: "Copy Button"
+description: "Copies a supplied value and exposes the copied state through its icon."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/copy-button.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Copies a supplied value and exposes the copied state through its icon.
+import { story } from '../../../src/stories/widgets/copy-button.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-leaf-copy-button" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/copy-button.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `CopyButton` | `value` | `string` | Controlled value or source data passed to the component. |
-|  | `title` | `string` | Sets the component heading or SVG title. |
-|  | `stopPropagation` | `boolean \| undefined` | Stops the event from bubbling when true. |
-|  | `iconSize` | `string \| undefined` | Sets the icon size. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `CopyButton` | `value` | `string` | Text string copied to the clipboard when activated. |
+| | `title?` | `string` | Accessible tooltip and `aria-label` text for the copy button (defaults to `"Copy"`). |
+| | `stopPropagation?` | `boolean` | Calls `e.stopPropagation()` on click so nested table row clicks are not triggered. |
+| | `iconSize?` | `string` | Tailwind size class applied to the copy/check icon (defaults to `"size-3.5"`). |
+| | `className?` | `string` | CSS class applied to the button element. |
+
+## Usage
+
+```tsx
+import { CopyButton } from "@tailrocks/framerock/widgets/leaf/copy-button";
+
+export function CopyButtonExample({
+  value = 'sk_live_framerock_demo_42',
+}: {
+  value?: string;
+} = {}) {
+  return (
+    <div className="flex items-center gap-2">
+      <code className="text-xs">
+        {value}
+      </code>
+      <CopyButton value={value} title="Copy demo API key" />
+    </div>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/copy-button.story.tsx`](../../../src/stories/widgets/copy-button.story.tsx). The authoritative registry item ID is `widget-leaf-copy-button` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/leaf/copy-button`
+- **Registry item**: `widget-leaf-copy-button` ([payload JSON](/r/widget-leaf-copy-button.json))
+- **Story source**: `apps/docs/src/stories/widgets/copy-button.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-leaf-copy-button.json
+```

@@ -26,5 +26,18 @@ function StoryPage() {
     }).catch(() => { if (active) setMissing(true); });
     return () => { active = false; };
   }, [id]);
-  return <><StoryFrameAppearance />{Frame ? <div className={centered ? "flex min-h-screen items-center justify-center p-8" : undefined}><Frame /></div> : missing ? <p role="status">Story not found.</p> : null}</>;
+  return (
+    <>
+      <StoryFrameAppearance />
+      {Frame ? (
+        <div className={centered ? "flex min-h-screen w-full items-center justify-center p-6" : "w-full"}>
+          <div className={centered ? "flex w-full justify-center" : "w-full"}>
+            <Frame />
+          </div>
+        </div>
+      ) : missing ? (
+        <p role="status">Story not found.</p>
+      ) : null}
+    </>
+  );
 }

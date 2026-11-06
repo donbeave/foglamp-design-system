@@ -29,6 +29,12 @@ const outputDir = path.join(root, "apps/docs/public/r");
 const designManifest = JSON.parse(await readFile(path.join(root, "packages/design-system/package.json"), "utf8"));
 const docsManifest = JSON.parse(await readFile(path.join(root, "apps/docs/package.json"), "utf8"));
 const registryWorkspaceManifest = JSON.parse(await readFile(path.join(root, "packages/registry/package.json"), "utf8"));
+const provenanceManifest = JSON.parse(await readFile(path.join(root, "scripts/provenance/manifest.json"), "utf8")) as {
+  entries: Array<{ path: string; secondary_upstream_paths?: string[] }>;
+};
+const provenanceByRelative = new Map(
+  provenanceManifest.entries.map((entry) => [entry.path.replace(/^packages\/design-system\/src\//, ""), entry]),
+);
 const workspaceLock = await readFile(path.join(root, "bun.lock"), "utf8");
 const excluded = /(?:\.test|\.spec)\.[cm]?[jt]sx?$|(?:^|\/)verify-source(?:\.[^/]*)?$|(?:^|\/)tsconfig\.json$/;
 const extensions = new Set([".ts", ".tsx", ".js", ".jsx", ".css"]);
@@ -97,12 +103,11 @@ const fontSetupContent = `/**
  * SPDX-License-Identifier: Apache-2.0
  * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
  * @provenance tailrocks-original
- * Authored by Tailrocks; inspired by Gustavo Fior (@gustavo-fior), Abdul Haidar,
- * and Foglamp Labs (https://foglamp.dev). Font bytes retain their own license.
- *
- * Third-party font notice:
-${fontNotice}
- */\n@import "@fontsource-variable/geist-mono";\n@import "@fontsource-variable/host-grotesk";\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interRegular.toString("base64")}") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interItalic.toString("base64")}") format("woff2"); font-style: italic; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: "Inter Fallback"; src: local("Arial"); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89%; }\n@font-face { font-family: "Geist Mono Fallback"; src: local("Arial"); ascent-override: 74.67%; descent-override: 21.92%; line-gap-override: 0.00%; size-adjust: 134.59%; }\n@font-face { font-family: "Host Grotesk Fallback"; src: local("Arial"); ascent-override: 96.69%; descent-override: 30.01%; line-gap-override: 0.00%; size-adjust: 104.98%; }\n:root { --font-sans: Inter, "Inter Fallback", sans-serif; --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", monospace; --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif; }\n@theme inline { --font-mono: var(--font-geist-mono); }\n`;
+ * @inspiration https://github.com/foglamp-labs/foglamp (Gustavo Fior @gustavo-fior, Abdul Haidar, Foglamp Labs — https://foglamp.dev)
+ * Authored by Tailrocks; inspired by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev).
+ */
+
+@import "@fontsource-variable/geist-mono";\n@import "@fontsource-variable/host-grotesk";\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interRegular.toString("base64")}") format("woff2"); font-style: normal; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: Inter; src: url("data:font/woff2;base64,${interItalic.toString("base64")}") format("woff2"); font-style: italic; font-weight: 100 900; font-display: swap; }\n@font-face { font-family: "Inter Fallback"; src: local("Arial"); ascent-override: 89.79%; descent-override: 22.36%; line-gap-override: 0.00%; size-adjust: 107.89%; }\n@font-face { font-family: "Geist Mono Fallback"; src: local("Arial"); ascent-override: 74.67%; descent-override: 21.92%; line-gap-override: 0.00%; size-adjust: 134.59%; }\n@font-face { font-family: "Host Grotesk Fallback"; src: local("Arial"); ascent-override: 96.69%; descent-override: 30.01%; line-gap-override: 0.00%; size-adjust: 104.98%; }\n:root { --font-sans: Inter, "Inter Fallback", sans-serif; --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", monospace; --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif; }\n@theme inline { --font-mono: var(--font-geist-mono); }\n\n/* Apache-2.0 Section 4(b) Registry Packaging Notice: Authored by Tailrocks; inspired by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev) at https://github.com/foglamp-labs/foglamp/tree/7d7e6609108019a74902858d4b07c24825c6318b. SPDX-License-Identifier: Apache-2.0 | SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)\n\n${fontNotice}\n*/\n`;
 
 function targetPath(relative: string): string {
   return `src/components/framerock/${relative}`;
@@ -142,7 +147,15 @@ function itemName(relative: string): string {
 }
 
 function isPublicEntry(relative: string): boolean {
-  // These are implementation/server helpers, never standalone UI entries.
+  // Exclude root index, pure barrel index.ts files, ambient .d.ts files, CSS modules, and internal helpers.
+  if (
+    relative === "index.ts"
+    || relative.endsWith("/index.ts")
+    || relative.endsWith(".d.ts")
+    || relative.endsWith(".module.css")
+  ) {
+    return false;
+  }
   return relative !== "ui/button-styles.ts"
     && relative !== "lib/prompts/index.ts"
     && relative !== "lib/prompts/normalize.ts"
@@ -236,7 +249,7 @@ function getExternalDependencies(files: RegistryFile[]): string[] {
 function installedVersion(name: string): string {
   const manifests = [designManifest, docsManifest, registryWorkspaceManifest];
   const declared = manifests
-    .map((manifest) => manifest.dependencies?.[name] ?? manifest.devDependencies?.[name])
+    .map((manifest) => manifest.dependencies?.[name] ?? manifest.devDependencies?.[name] ?? manifest.peerDependencies?.[name])
     .find((value) => typeof value === "string" && !value.startsWith("workspace:"));
   const exact = typeof declared === "string" && /^(?:\d+\.){2}\d+(?:-[0-9A-Za-z.-]+)?$/.test(declared)
     ? declared
@@ -264,17 +277,17 @@ function rewriteImports(contents: string, sourceRelative: string): string {
   return result;
 }
 
-// The shadcn CLI can strip leading comments while rewriting imports. Keep a
-// second copy after the first statement so installed files retain the notice.
-function retainInstalledNotice(content: string, file: string): string {
+// Validate that every distributed file retains its leading legal header and
+// append a single-line EOF backup notice on TS/TSX/CSS files so shadcn's
+// transform cannot strip the required Apache-2.0 attribution markers.
+function retainInstalledNotice(content: string, file: string, upstreamPath?: string): string {
+  if (file === fontSetupPath) return content;
   const header = content.match(/^\/\*\*[\s\S]*?\*\//)?.[0];
   if (!header) throw new Error(`Missing legal header: ${file}`);
-  if (file.endsWith(".css")) return `${content}\n${header}\n`;
-  const kind = file.endsWith(".tsx") || file.endsWith(".jsx") ? ts.ScriptKind.TSX : ts.ScriptKind.TS;
-  const ast = ts.createSourceFile(file, content, ts.ScriptTarget.Latest, true, kind);
-  const first = ast.statements[0];
-  if (!first) return `${content}\n${header}\n`;
-  return `${content.slice(0, first.end)}\n\n${header}${content.slice(first.end)}`;
+  const refUrl = upstreamPath
+    ? `https://github.com/foglamp-labs/foglamp/blob/${commit}/${upstreamPath}`
+    : `https://github.com/foglamp-labs/foglamp/tree/${commit}`;
+  return `${content.trimEnd()}\n/* Apache-2.0 Section 4(b) Registry Packaging Notice: Modified by Tailrocks for standalone @framerock registry installation (rewritten import specifiers); 1:1 visual design and behavior preserved from Foglamp by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev) at ${refUrl}. SPDX-License-Identifier: Apache-2.0 | SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev) */\n`;
 }
 
 async function closure(entry: string): Promise<string[]> {
@@ -287,6 +300,14 @@ async function closure(entry: string): Promise<string[]> {
       const resolved = resolveLocal(relative, request);
       if (resolved) await visit(resolved);
     }
+    for (const ref of ts.preProcessFile(source, true, true).referencedFiles) {
+      const request = ref.fileName.startsWith(".") ? ref.fileName : `./${ref.fileName}`;
+      const resolved = resolveLocal(relative, request);
+      if (resolved) await visit(resolved);
+    }
+    if (source.includes("@tabler/icons-react") && absoluteByRelative.has("lib/react-shim.d.ts")) {
+      await visit("lib/react-shim.d.ts");
+    }
   };
   await visit(entry);
   // Global CSS is a separate installable entry so the canonical Inter bytes
@@ -296,14 +317,17 @@ async function closure(entry: string): Promise<string[]> {
 }
 
 const commit = "7d7e6609108019a74902858d4b07c24825c6318b";
-function provenanceFor(source: string): Provenance {
+function provenanceFor(source: string, relative: string): Provenance {
   const tag = (key: string) => source.match(new RegExp(`^ \\* @${key} (.+)$`, "m"))?.[1];
   const provenance = tag("provenance");
   if (!provenance || !["copied-1-to-1", "modified", "tailrocks-original"].includes(provenance)) throw new Error("Missing provenance header");
   const provenanceLabel = provenance === "copied-1-to-1" ? "1:1 Copied" : provenance === "modified" ? "Modified (Import/Prop Decoupled)" : "Newly Added by Tailrocks";
   const upstreamPath = tag("upstream-path");
   const upstreamUrl = tag("upstream-url");
-  const inspirationPath = provenance === "tailrocks-original" ? "apps/web/src/components/marketing/landing/figure-picker.tsx" : undefined;
+  const manifestEntry = provenanceByRelative.get(relative);
+  const inspirationPath = provenance === "tailrocks-original"
+    ? manifestEntry?.secondary_upstream_paths?.[0]
+    : undefined;
   return { provenance, provenanceLabel, upstreamCommit: commit, ...(upstreamPath && upstreamUrl ? { upstreamPath, upstreamUrl } : {}), ...(inspirationPath ? { inspirationPath, inspirationUrl: `https://github.com/foglamp-labs/foglamp/blob/${commit}/${inspirationPath}` } : {}) };
 }
 
@@ -334,10 +358,11 @@ for (const relative of [...absoluteByRelative.keys()].filter(isPublicEntry).sort
         '@source "../../../../node_modules/streamdown/dist/*.js";',
       );
     }
-    if (source.includes("@provenance copied-1-to-1")) {
+    if (source.includes("@provenance copied-1-to-1") && content !== source) {
       content = content.replace(" */", " * Apache-2.0 Section 4(b) Registry Packaging Notice: Tailrocks modified comments and/or imports or assets for registry distribution.\n */");
     }
-    content = retainInstalledNotice(content, file);
+    const fileUpstreamPath = source.match(/^ \* @upstream-path (.+)$/m)?.[1];
+    content = retainInstalledNotice(content, file, fileUpstreamPath);
     itemFiles.push({ path: targetPath(file), target: targetPath(file), type: toType(file), content });
   }
   if (relative === "styles/globals.css") {
@@ -345,11 +370,13 @@ for (const relative of [...absoluteByRelative.keys()].filter(isPublicEntry).sort
   }
   const { type } = classify(relative);
   const dependencies = getExternalDependencies(itemFiles);
+  const defaultTitle = path.basename(relative).replace(/\.[^.]+$/, "").replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const title = relative === "blocks/marketing/demo/index.tsx" ? "Dashboard Demo" : defaultTitle;
   items.push({
-    ...provenanceFor(await readFile(absoluteByRelative.get(relative)!, "utf8")),
+    ...provenanceFor(await readFile(absoluteByRelative.get(relative)!, "utf8"), relative),
     name,
     type,
-    title: path.basename(relative).replace(/\.[^.]+$/, "").replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
+    title,
     description: `${relative === "styles/globals.css" ? "Install this style once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. " : "Install style-globals once and import @/components/framerock/styles/globals.css to activate Foglamp tokens, effects, and fonts. "}Foglamp source module from ${relative}, designed by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs.`,
     files: itemFiles,
     ...(dependencies.length ? { dependencies } : {}),
@@ -472,4 +499,5 @@ await writeFile(path.join(outputDir, "story-items.json"), `${JSON.stringify({
   items: stories,
 }, null, 2)}\n`);
 await writeFile(path.join(outputDir, "framerock.json"), `${JSON.stringify(registry, null, 2)}\n`);
+await writeFile(path.join(outputDir, "registry.json"), `${JSON.stringify(registry, null, 2)}\n`);
 console.log(`Built ${items.length} shadcn registry items and ${stories.length} story catalog entries with full source/import closure.`);

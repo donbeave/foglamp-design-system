@@ -1,48 +1,66 @@
 ---
-title: StatCard
-description: Composes a statistic label and value with optional delta, chart, and meter details.
+title: "Stat Card"
+description: "Composes a statistic label and value with optional delta, chart, and meter details."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/stat-card.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Composes a statistic label and value with optional delta, chart, and meter details.
+import { story } from '../../../src/stories/widgets/stat-card.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-stat-card" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/page-parts.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `StatCard` | `label` | `string` | Visible label text. |
-|  | `href` | `string \| undefined` | Optional link destination. |
-|  | `value` | `ReactNode` | Controlled value or source data passed to the component. |
-|  | `hint` | `ReactNode` | Supporting hint shown near the value. |
-|  | `prefix` | `ReactNode` | Text shown before the formatted value. |
-|  | `suffix` | `ReactNode` | Text shown after the formatted value. |
-|  | `formatValue` | `((n: number) => string) \| undefined` | Formats the value before display. |
-|  | `delta` | `Delta \| null \| undefined` | Change value shown beside the main statistic. |
-|  | `deltaInverted` | `boolean \| undefined` | Treats a negative delta as favorable. |
-|  | `size` | `"sm" \| "default" \| undefined` | Selects the rendered icon size. |
-|  | `icon` | `Icon \| undefined` | Icon component rendered beside the label. |
-|  | `iconClassName` | `string \| undefined` | Adds a class to the leading icon. |
-|  | `chart` | `ReactNode` | Sparkline data shown beside the statistic. |
-|  | `loading` | `boolean \| undefined` | Controls the loading state. |
-|  | `skeleton` | `boolean \| undefined` | Shows skeleton placeholders when true. |
-|  | `chartPlaceholder` | `ReactNode` | Content shown when no chart data is available. |
+| `StatCard` | `label` | `string` | Metric label rendered at the top of the card. |
+| | `value` | `ReactNode` | Primary statistic value; numeric values animate smoothly on change. |
+| | `href?` | `string` | Optional drill-down link destination for the card. |
+| | `prefix?`, `suffix?` | `ReactNode` | Static affixes rendered before or after an animated numeric value. |
+| | `formatValue?` | `(n: number) => string` | Formatter called on each animation frame for numeric values. |
+| | `delta?` | `Delta \| null` | Period-over-period change badge computed by `formatDelta`. |
+| | `deltaInverted?` | `boolean` | Treats upward deltas as unfavorable (red) for cost, error, and latency metrics. |
+| | `size?` | `"default" \| "sm"` | Card density preset (`"sm"` tightens padding and value typography). |
+| | `icon?` | `Icon` | Tabler icon component displayed in the top-right corner. |
+| | `iconClassName?` | `string` | Color or size class applied to `icon`. |
+| | `chart?` | `ReactNode` | Full-bleed bottom visual such as `<CardSparkline />` or `<PillMeter />`. |
+| | `loading?`, `skeleton?` | `boolean` | Reserves layout height while loading and renders shimmer placeholders when `skeleton` is true. |
+| | `chartPlaceholder?` | `ReactNode` | Stand-in visual rendered in the `chart` slot during skeleton loading. |
+| `CardSparkline` | `data`, `dashedLast?`, `className?` | `{ data: number[]; dashedLast?: boolean; className?: string }` | Full-bleed mini area sparkline pinned to the bottom edge of a `StatCard`. |
+| `CardSparklinePlaceholder` | `—` | `() => JSX.Element` | Muted placeholder line for `CardSparkline` during loading states. |
+| `PillMeter` | `fraction`, `count?`, `className?` | `{ fraction: number \| null; count?: number; className?: string }` | Segmented capsule meter visualizing a `0..1` pass rate or utilization ratio. |
+
+## Usage
+
+```tsx
+import { StatCard } from "@tailrocks/framerock/widgets/page-parts";
+
+export function StatCardExample({
+  label = 'Total runs',
+  value = 1284,
+  loading = false,
+}: {
+  label?: string;
+  value?: number;
+  loading?: boolean;
+} = {}) {
+  return (
+    <div className="w-64">
+      <StatCard
+        label={label}
+        value={value}
+        delta={{ pct: 18, dir: 'up' }}
+        loading={loading}
+      />
+    </div>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/stat-card.story.tsx`](../../../src/stories/widgets/stat-card.story.tsx). The authoritative registry item ID is `widget-stat-card` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/page-parts`
+- **Registry item**: `widget-stat-card` ([payload JSON](/r/widget-stat-card.json))
+- **Story source**: `apps/docs/src/stories/widgets/stat-card.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-stat-card.json
+```

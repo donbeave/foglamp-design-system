@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/detail/agent-detail.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { DRAWER_BUTTON_CLASS } from "@tailrocks/framerock/ui/button-styles";
 import { spanTypeIcon } from "@tailrocks/framerock/widgets/leaf/span-type";
 import { Badge } from "@tailrocks/framerock/ui/badge";

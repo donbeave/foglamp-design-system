@@ -34,7 +34,7 @@ const DEFAULT_NAV_LINKS: MarketingNavLink[] = [
   { label: "Scan", href: "/scan" },
   { label: "HUD", href: "/hud" },
   { label: "Pricing", href: "/pricing" },
-  { label: "Docs", href: "https://docs.foglamp.dev", external: true },
+  { label: "Docs", href: "/docs" },
 ];
 
 export type MarketingNavLink = {
@@ -83,8 +83,8 @@ export function MarketingNavbar({
   homeHref = "/homepage",
   loginHref = "/login",
   dashboardHref = "/overview",
-  githubHref = "https://github.com/foglamp-labs/foglamp",
-  brandName = "Foglamp",
+  githubHref = "https://github.com/tailrocks/framerock",
+  brandName = "Framerock",
   onLoginShortcut,
 }: MarketingNavbarProps = {}) {
 
@@ -143,20 +143,6 @@ export function MarketingNavbar({
           <Logo brandName={brandName} />
         </FramerockLink>
 
-        <div className="hidden min-w-0 flex-col text-[10px] leading-tight text-muted-foreground sm:flex">
-          <span>Original design by</span>
-          <span className="flex items-center gap-1 whitespace-nowrap">
-            <span>
-              <a href="https://gustavofior.com" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">Gustavo Fior</a>{" "}
-              <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">(@gustavo-fior)</a>
-            </span>
-            <span aria-hidden="true">·</span>
-            <a href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">Abdul Haidar</a>
-            <span aria-hidden="true">·</span>
-            <a href="https://foglamp.dev" target="_blank" rel="noreferrer noopener" className="hover:text-foreground">Foglamp Labs</a>
-          </span>
-        </div>
-
         <div className="flex items-center gap-5">
           <nav
             aria-label="Primary"
@@ -170,7 +156,7 @@ export function MarketingNavbar({
           <div className={cn("flex items-center gap-2")}>
             <Button
               variant="ghost"
-              aria-label="Foglamp on GitHub"
+              aria-label="Framerock on GitHub"
               className="mr-1.5 max-[380px]:hidden"
               size="icon"
               render={
@@ -197,19 +183,6 @@ export function MarketingNavbar({
             )}
           </div>
         </div>
-      </div>
-      <div className="flex flex-wrap items-center justify-center gap-x-1 gap-y-0.5 border-t border-border/40 px-3 py-1 text-[9px] leading-tight text-muted-foreground sm:hidden">
-        <span>Original design by</span>
-        <span>
-          <a href="https://gustavofior.com" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">Gustavo Fior</a>{" "}
-          <a href="https://github.com/gustavo-fior" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">(@gustavo-fior)</a>
-        </span>
-        <span aria-hidden="true">·</span>
-        <a href="https://www.linkedin.com/in/abdulhdr/" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">Abdul Haidar</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://foglamp.dev" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">Foglamp Labs</a>
-        <span aria-hidden="true">·</span>
-        <a href="https://github.com/foglamp-labs/foglamp" target="_blank" rel="noreferrer noopener" className="underline underline-offset-2">foglamp-labs/foglamp</a>
       </div>
     </header>
   );

@@ -12,5 +12,6 @@ function LineStory({ strokeVariant, isLoading }: LineStoryProps) {
 export const story = defineStory({
 	id: 'charts/line-chart', Component: LineStory, displayName: 'Evil Line Chart',
 	registryItem: 'chart-evilcharts-charts-line-chart',
+	frame: { width: 960, height: 440 },
 	args: { initial: { strokeVariant: 'solid', isLoading: false } },
 });

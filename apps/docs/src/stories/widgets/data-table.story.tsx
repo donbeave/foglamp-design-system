@@ -78,5 +78,6 @@ export const story = defineStory({
   displayName: 'DataTable',
   registryItem: 'widget-data-table',
   Component: DataTablePreview,
+  frame: { width: 960, height: 520 },
   args: [{ variant: 'Search, sibling filters, sortable rows', initial: {} }],
 });

@@ -18,12 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * with co-founder Abdul Haidar at Foglamp Labs. Apache-2.0.
- * Extracted AS-IS from foglamp-labs/foglamp: apps/web/src/components/scan/personality-card.tsx.
- */
-
 
 import type { ScanData } from "../../lib/scan/scan";
 import { cn } from "../../lib/utils";
@@ -73,9 +67,9 @@ export function PersonalityCard({ data }: { data: ScanData }) {
 					{personality.title}
 				</span>
 			</div>
-			{/* foglamp brand mark */}
+			{/* framerock brand mark */}
 			<a
-				href="https://foglamp.dev"
+				href="https://github.com/tailrocks/framerock"
 				target="_blank"
 				rel="noopener noreferrer"
 				className="absolute top-5 right-5 text-white transition-opacity hover:opacity-80"

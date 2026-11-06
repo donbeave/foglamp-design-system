@@ -16,9 +16,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/apps/web/src/components/app/hooks.ts; derived here under Apache-2.0.
- */
 import { useEffect, useMemo, useRef, useState } from "react";
 
 // General-purpose UI hooks shared across list/table pages. These used to live in

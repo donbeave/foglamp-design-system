@@ -4,7 +4,7 @@
  */
 @import "@tailrocks/framerock/styles/globals.css";
 @import "@tailrocks/framerock/styles/effects.css";
-@import "fumadocs-ui/css/neutral.css";
+@import "fumadocs-ui/css/shadcn.css";
 @import "fumadocs-ui/css/preset.css";
 @import "@fontsource-variable/geist-mono";
 @import "@fontsource-variable/host-grotesk";
@@ -39,14 +39,14 @@
   line-gap-override: 0.00%;
   size-adjust: 107.89%;
 }
-/* Next 16.2.4 Google font fallback metrics for the source Latin families. */
+/* System monospace fallback metrics for Geist Mono. */
 @font-face {
   font-family: "Geist Mono Fallback";
-  src: local("Arial");
+  src: local("SFMono-Regular"), local("Menlo"), local("Monaco"), local("Consolas");
   ascent-override: 74.67%;
   descent-override: 21.92%;
   line-gap-override: 0.00%;
-  size-adjust: 134.59%;
+  size-adjust: 100.00%;
 }
 @font-face {
   font-family: "Host Grotesk Fallback";
@@ -56,10 +56,16 @@
   line-gap-override: 0.00%;
   size-adjust: 104.98%;
 }
-:root { --font-sans: Inter, "Inter Fallback", sans-serif; --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", monospace; --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif; }
-@theme inline { --font-mono: var(--font-geist-mono); }
+:root {
+  --font-sans: Inter, "Inter Fallback", sans-serif;
+  --font-geist-mono: "Geist Mono Variable", "Geist Mono Fallback", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --font-host-grotesk: "Host Grotesk Variable", "Host Grotesk Fallback", sans-serif;
+}
+@theme inline {
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
 
-/* Restore Foglamp's base cascade only where extracted components are rendered.
+/* Restore Foglamp's base cascade where extracted components are rendered.
  * Fumadocs' later base rules otherwise replace the source foreground and border. */
 @layer base {
   [data-source-surface] {
@@ -73,16 +79,10 @@
   }
 }
 
-/* Keep the search shortcut stationary while its monospace font loads. */
+/* Keep the search shortcut stationary while its monospace font loads without clipping Ctrl/⌘. */
 @layer base {
   button[data-search-full] > div > kbd {
     flex: none;
     text-align: center;
-  }
-  button[data-search-full] > div > kbd:first-child {
-    width: 1.40234375rem;
-  }
-  button[data-search-full] > div > kbd:last-child {
-    width: 1.400390625rem;
   }
 }

@@ -33,6 +33,7 @@ import { formatCost, formatDuration, formatTokens, formatTps } from "./format";
 import {
   rows,
   type HudRow,
+  type HudState,
   type HudStep,
   type HudToolCall,
   type HudTrace,
@@ -44,10 +45,18 @@ import { useHudStream, type ConnStatus, type HudStream } from "./useHudStream";
 export interface FoglampHUDProps {
   /** Optional local/mock event source. No connection is opened by default. */
   stream?: HudStream;
+  /** Optional static initial state for non-streaming previews. */
+  initialState?: HudState;
+  /** Optional local broker port for SSE connection when stream/initialState are omitted. */
+  port?: number;
+  /** Optional SSE endpoint URL when stream/initialState are omitted. */
+  url?: string;
   /** Start expanded (otherwise starts as the pill). Default false. */
   defaultOpen?: boolean;
   /** Color theme. "system" follows the host app (its `.dark` class) / OS. Default "system". */
   theme?: "light" | "dark" | "system";
+  /** Alias for theme to support initial/controlled story presets. */
+  defaultTheme?: "light" | "dark" | "system";
   /** Mask prompt/response/tool payloads on screen — set before recording or screen-sharing. */
   redact?: boolean;
 }
@@ -258,7 +267,7 @@ export function FoglampHUD(props: FoglampHUDProps): ReactNode {
     };
   }, []);
 
-  const theme = useResolvedTheme(props.theme ?? "system");
+  const theme = useResolvedTheme(props.theme ?? props.defaultTheme ?? "system");
   useEffect(() => {
     hostRef.current?.setAttribute("data-theme", theme);
   }, [theme, mount]);
@@ -308,10 +317,19 @@ function useResolvedTheme(
 const HIDE_KEY = "foglamp-hud-hidden";
 
 function HudApp(props: FoglampHUDProps) {
-  const { state, conn } = useHudStream(props.stream);
+  const { state, conn } = useHudStream(props.stream, {
+    initialState: props.initialState,
+    port: props.port,
+    url: props.url,
+  });
   const [mode, setMode] = useState<Mode>(
     props.defaultOpen ? "expanded" : "pill"
   );
+  useEffect(() => {
+    if (props.defaultOpen !== undefined) {
+      setMode(props.defaultOpen ? "expanded" : "pill");
+    }
+  }, [props.defaultOpen]);
   // Hidden-for-session: seeded from sessionStorage so the choice survives
   // reloads (but not a new tab/session). Guarded — storage can throw in
   // sandboxed iframes.
@@ -453,7 +471,7 @@ function HideAlert({
     <div
       className={`fl-hide-alert ${closing ? "closing" : ""}`}
       role="alertdialog"
-      aria-label="Hide Foglamp HUD"
+      aria-label="Hide Framerock HUD"
       // Only the exit animation runs while `closing` (it overrides the pulse),
       // so any animationend in that state means the exit finished.
       onAnimationEnd={() => {
@@ -545,7 +563,7 @@ function Pill({
           onExpand();
         }
       }}
-      aria-label="Expand Foglamp HUD"
+      aria-label="Expand Framerock HUD"
     >
       <BrandMark className="fl-brand" />
       {count > 0 && <span className="fl-count">{count}</span>}
@@ -777,7 +795,7 @@ function TraceList({
   };
 
   return (
-    <div className="fl-panel" role="dialog" aria-label="Foglamp traces">
+    <div className="fl-panel" role="dialog" aria-label="Framerock traces">
       <div className="fl-header fl-header-list">
         <div className="fl-title">
           <b>Traces</b>
@@ -919,7 +937,7 @@ function TraceDetail({
   }, [rowList.length]);
 
   return (
-    <div className="fl-panel fl-panel-detail" role="dialog" aria-label="Foglamp trace">
+    <div className="fl-panel fl-panel-detail" role="dialog" aria-label="Framerock trace">
       <div className="fl-header">
         <button
           type="button"
@@ -1198,7 +1216,7 @@ function Footer({ trace }: { trace: HudTrace }) {
 
 // ---- Vendored assets (Shadow DOM = no Tailwind / no app imports) ----------
 
-/** Foglamp brand mark — three overlapping circles; lead circle is theme-aware. */
+/** Framerock brand mark — three interlocking rounded-square frames; lead frame is theme-aware. */
 function BrandMark({ className }: { className?: string }) {
   return (
     <svg
@@ -1207,9 +1225,12 @@ function BrandMark({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
       aria-hidden="true"
     >
-      <circle cx="24" cy="24" r="24" fill="var(--fl-brand-lead)" />
-      <circle cx="48" cy="24" r="24" fill="#0090FD" />
-      <circle cx="72" cy="24" r="24" fill="#FF5513" />
+      <rect x="4" y="4" width="40" height="40" rx="10" fill="var(--fl-brand-lead)" />
+      <rect x="28" y="4" width="40" height="40" rx="10" fill="#0090FD" />
+      <rect x="52" y="4" width="40" height="40" rx="10" fill="#FF5513" />
+      <rect x="14" y="14" width="20" height="20" rx="4" fill="var(--fl-bg, #0d0d0d)" fillOpacity="0.9" />
+      <rect x="38" y="14" width="20" height="20" rx="4" fill="var(--fl-bg, #0d0d0d)" fillOpacity="0.9" />
+      <rect x="62" y="14" width="20" height="20" rx="4" fill="var(--fl-bg, #0d0d0d)" fillOpacity="0.9" />
     </svg>
   );
 }

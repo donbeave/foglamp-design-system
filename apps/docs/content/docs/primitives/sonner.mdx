@@ -3,26 +3,12 @@ title: "Sonner"
 description: "Toaster adapter that forwards Sonner ToasterProps and keeps the project theme and visual treatment."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/sonner.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Sonner
-
-Toaster adapter that forwards Sonner ToasterProps and keeps the project theme and visual treatment.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-sonner" provenanceLabel="1:1 Copied" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/sonner.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/sonner`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -32,29 +18,49 @@ The table lists values exported from `@tailrocks/framerock/ui/sonner`. The decla
 
 The exports forward the props declared by their source component types. The public type for each export appears in the table above.
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
 import { useState } from "react";
-
+import { Button } from "@tailrocks/framerock/ui/button";
 import { Toaster } from "@tailrocks/framerock/ui/sonner";
 
-type Args = { variant: 'default' };
-
-function SonnerStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><div className="flex flex-wrap gap-2"><button className="rounded-md bg-primary px-3 py-2 text-primary-foreground" onClick={() => document.dispatchEvent(new CustomEvent("foglamp:toast", { detail: { type: "success", message: "Evaluation passed" } }))}>Success toast</button><button className="rounded-md px-3 py-2 shadow-(--custom-shadow)" onClick={() => document.dispatchEvent(new CustomEvent("foglamp:toast", { detail: { type: "error", message: "Export failed" } }))}>Error toast</button><Toaster /></div></div>;
+export function SonnerExample() {
+  const [visible, setVisible] = useState(true);
+  return (
+    <div className="relative flex min-h-40 w-full max-w-md flex-col items-start justify-between rounded-xl border bg-muted/15 p-4">
+      <Button type="button" size="sm" onClick={() => setVisible(true)}>
+        Show notification
+      </Button>
+      {visible ? (
+        <div
+          role="status"
+          aria-live="polite"
+          className="mt-4 flex w-full items-start justify-between gap-3 rounded-lg border bg-popover p-3.5 text-popover-foreground shadow-md"
+        >
+          <div className="grid gap-1">
+            <div className="text-xs font-medium">Evaluation run queued</div>
+            <div className="text-xs text-muted-foreground">
+              Results will stream into the trace table.
+            </div>
+          </div>
+          <Button variant="ghost" size="xs" onClick={() => setVisible(false)}>
+            Dismiss
+          </Button>
+        </div>
+      ) : null}
+      <Toaster />
+    </div>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-sonner`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-sonner.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-sonner.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/sonner`
+- **Registry item**: `ui-sonner` ([payload JSON](/r/ui-sonner.json))
+- **Story source**: `apps/docs/src/stories/primitives/sonner.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/sonner`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-sonner.json
+```

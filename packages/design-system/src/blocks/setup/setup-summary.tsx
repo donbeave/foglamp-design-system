@@ -161,7 +161,7 @@ export function SetupSummary({
     <Card className="rounded-[28px] squircle:rounded-[28px] py-0">
       <CardContent className="px-5 py-4">
         <h1 className="font-display text-[15px] font-semibold tracking-tight">
-          Foglamp{" "}
+          Framerock{" "}
           <span className="font-sans font-normal tracking-normal text-sm">
             found {phrase(parts)}.
           </span>

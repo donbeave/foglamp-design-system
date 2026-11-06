@@ -1,34 +1,52 @@
 ---
-title: Scan Landing
-description: Scan Landing presents the scan prompt and the call to try Foglamp. The story makes the destination editable and provides a local no-op copy callback.
+title: "Scan Landing"
+description: "Interactive codebase scan landing hero with copyable CLI command and embedded architecture flow map preview."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/scan-landing-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Scan Landing presents the scan prompt and the call to try Foglamp. The story makes the destination editable and provides a local no-op copy callback.
+import { story } from '../../../src/stories/blocks/scan-landing-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-scan-scan-landing" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/scan/scan-landing.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `ScanLanding` | `prompt?` | `string` | Onboarding or instrumentation prompt copied by the CTA button. |
+|  | `onCopy?` | `() => void` | Callback fired when the scan prompt is copied. |
+|  | `tryFoglampHref?` | `string` | Destination href for the primary call-to-action link. |
 
-`@tailrocks/framerock/blocks/scan/scan-landing` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/scan-landing-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { ScanLanding } from "@tailrocks/framerock/blocks/scan/scan-landing";
+import {
+  ScanFaviconProvider,
+} from "@tailrocks/framerock/blocks/scan/favicon-context";
+import { getGoogleFavicon } from "@tailrocks/framerock/widgets/leaf/favicon";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `tryFoglampHref: string`; initial values are `tryFoglampHref: '#scan-demo'` |
-| Fixture and callback wiring | The story exposes `tryFoglampHref`. The source component also accepts an optional prompt and `onCopy` callback. |
-| Registry item | `block-scan-scan-landing`. The portal payload is `/r/block-scan-scan-landing.json`. |
+const resolveStoryFavicon = getGoogleFavicon;
 
+export function ScanLandingExample({
+  tryFoglampHref = '#scan-demo',
+}: {
+  tryFoglampHref?: string;
+} = {}) {
+  return (
+    <ScanFaviconProvider resolve={resolveStoryFavicon}>
+      <div className="w-full">
+        <ScanLanding tryFoglampHref={tryFoglampHref} onCopy={() => {}} />
+      </div>
+    </ScanFaviconProvider>
+  );
+}
+```
 
----
+## Source and registry
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+- **Package import**: `@tailrocks/framerock/blocks/scan/scan-landing`
+- **Registry item**: `block-scan-scan-landing` ([payload JSON](/r/block-scan-scan-landing.json))
+- **Story source**: `apps/docs/src/stories/blocks/scan-landing-block.story.tsx`
+
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-scan-scan-landing.json
+```

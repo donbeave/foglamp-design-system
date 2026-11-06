@@ -102,3 +102,5 @@ export function FoggyMessage({ message }: { message: FoggyMessageData }) {
     </div>
   );
 }
+
+export { FoggyMessage as FoggyAssistantMessage };

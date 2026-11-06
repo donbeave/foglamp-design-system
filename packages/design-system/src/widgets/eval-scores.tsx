@@ -18,9 +18,6 @@
 
 "use client";
 
-/** Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs.
- * Extracted from foglamp-labs/foglamp under the Apache-2.0 license. */
-
 import { cn } from "../lib/utils";
 import { Badge } from "../ui/badge";
 import {

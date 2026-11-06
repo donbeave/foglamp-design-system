@@ -1,35 +1,53 @@
 ---
-title: FoggyMessage
-description: Renders one Foggy conversation message from the widget message model.
+title: "Foggy Message"
+description: "Renders one Foggy conversation message from the widget message model."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/foggy-message.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders one Foggy conversation message from the widget message model.
+import { story } from '../../../src/stories/widgets/foggy-message.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-foggy-foggy-message" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/foggy/foggy-message.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `FoggyMessage` | `message` | `FoggyMessageData` | Foggy conversation message data. |
+| `FoggyMessage` (`FoggyAssistantMessage`) | `message` | `FoggyMessageData` | Chat turn record (`{ id: string; role: "user" \| "assistant"; parts: FoggyMessagePart[] }`) rendered as user bubbles, assistant markdown prose, and tool-invocation status chips. |
 
-`FoggyMessageData` has an `id`, a `role` (`user`, `assistant`, or `system`), and a `parts` array. Text parts have `{ type: "text", text }`. Tool parts have a `tool-<name>` or `dynamic-tool` type, an optional `toolName`, and a state string.
+## Usage
+
+```tsx
+import {
+  FoggyMessage,
+} from "@tailrocks/framerock/widgets/foggy/foggy-message";
+
+export function FoggyMessageExample() {
+  return (
+    <FoggyMessage
+      message={{
+        id: "message-1",
+        role: "assistant",
+        parts: [
+          {
+            type: "text",
+            text: "I found **three failed traces** in the staging project.",
+          },
+          {
+            type: "tool-searchTraces",
+            state: "output-available",
+          },
+        ],
+      }}
+    />
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/foggy-message.story.tsx`](../../../src/stories/widgets/foggy-message.story.tsx). The authoritative registry item ID is `widget-foggy-foggy-message` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/foggy/foggy-message`
+- **Registry item**: `widget-foggy-foggy-message` ([payload JSON](/r/widget-foggy-foggy-message.json))
+- **Story source**: `apps/docs/src/stories/widgets/foggy-message.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-foggy-foggy-message.json
+```

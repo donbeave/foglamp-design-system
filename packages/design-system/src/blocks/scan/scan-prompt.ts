@@ -2,19 +2,21 @@
  * @license Apache-2.0
  * SPDX-License-Identifier: Apache-2.0
  * SPDX-FileCopyrightText: Copyright (c) 2026 Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (https://foglamp.dev)
+ * SPDX-FileCopyrightText: Copyright (c) 2026 Tailrocks (https://github.com/tailrocks)
  *
- * @provenance copied-1-to-1
+ * @provenance modified
  * @upstream-repo https://github.com/foglamp-labs/foglamp
  * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
  * @upstream-path apps/web/src/lib/scan-prompt.ts
  * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/lib/scan-prompt.ts
+ * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
  *
- * Copied 1:1 without modification from Foglamp (https://github.com/foglamp-labs/foglamp),
- * originally designed and implemented by Gustavo Fior (@gustavo-fior) and co-founder
- * Abdul Haidar at Foglamp Labs (https://foglamp.dev).
+ * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the
+ * original Foglamp source (https://github.com/foglamp-labs/foglamp) created by
+ * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
-export const SCAN_ENDPOINT = "https://api.foglamp.dev/scan";
+export const SCAN_ENDPOINT = "https://framerock.tailrocks.com/scan";
 
 // The `ScanData` shape and the rules that keep every map consistent. Exported
 // because the setup prompt (lib/setup-prompt.ts) embeds the same object inside
@@ -83,18 +85,18 @@ export const SCAN_RULES = `- Caps: topModels <= 3, topTools <= 10, topIntegratio
 - Every edge's from/to must reference an existing node id; ids unique.
 - Use today's date for project.date.`;
 
-export const SCAN_PROMPT = `Analyze THIS repository and publish a shareable "codebase scan" to foglamp —
+export const SCAN_PROMPT = `Analyze THIS repository and publish a shareable "codebase scan" to framerock —
 a map of how the codebase works and how it uses AI. You produce only the data
 (a small JSON object); a fixed renderer draws the scan. Write no HTML or CSS.
 
 ## Steps
-1. Investigate the repo and build the JSON below. Write it to .foglamp/scan.json.
+1. Investigate the repo and build the JSON below. Write it to .framerock/scan.json.
 2. Tell the user plainly: "This uploads a high-level summary of your architecture
    (models, tools, integrations, and main flows — no code or secrets) to
-   foglamp.dev and creates a public, unlisted link." Continue only if they agree.
+   framerock.tailrocks.com and creates a public, unlisted link." Continue only if they agree.
 3. Upload it (see "Publish") and capture the JSON response.
-4. Save the response to .foglamp/scan.lock.json (so a later run updates the same
-   URL). Make sure .foglamp/ is gitignored — the edit token is a secret.
+4. Save the response to .framerock/scan.lock.json (so a later run updates the same
+   URL). Make sure .framerock/ is gitignored — the edit token is a secret.
 5. Open the returned url and give it to the user.
 
 ## How to investigate
@@ -111,25 +113,25 @@ a map of how the codebase works and how it uses AI. You produce only the data
   (crons/queues/workers), the agents, the models/tools they use, and the
   datastores/services they read and write.
 
-## Output contract — write EXACTLY this shape to .foglamp/scan.json
+## Output contract — write EXACTLY this shape to .framerock/scan.json
 ${SCAN_SHAPE}
 
 ## Rules (these keep every scan consistent — do not break them)
 ${SCAN_RULES}
 
 ## Publish
-First run (no .foglamp/scan.lock.json):
+First run (no .framerock/scan.lock.json):
   curl -sS -X POST ${SCAN_ENDPOINT} \\
-    -H 'content-type: application/json' --data @.foglamp/scan.json
+    -H 'content-type: application/json' --data @.framerock/scan.json
 
-Update run (a .foglamp/scan.lock.json exists) — keep the same URL:
-  jq -n --slurpfile d .foglamp/scan.json \\
-        --arg t "$(jq -r .editToken .foglamp/scan.lock.json)" \\
+Update run (a .framerock/scan.lock.json exists) — keep the same URL:
+  jq -n --slurpfile d .framerock/scan.json \\
+        --arg t "$(jq -r .editToken .framerock/scan.lock.json)" \\
         '{data: $d[0], editToken: $t}' \\
   | curl -sS -X POST ${SCAN_ENDPOINT} \\
       -H 'content-type: application/json' --data @-
 
 The response is JSON: { "slug", "url", "editToken", "expiresAt" }. Save it to
-.foglamp/scan.lock.json, then open url. On a 422 error, fix .foglamp/scan.json
+.framerock/scan.lock.json, then open url. On a 422 error, fix .framerock/scan.json
 to satisfy the rules and retry.
 `;

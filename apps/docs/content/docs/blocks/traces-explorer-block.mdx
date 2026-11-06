@@ -1,34 +1,67 @@
 ---
-title: Traces Explorer
-description: Traces Explorer lists traces and opens the selected trace in the waterfall inspector. The story keeps selection local and uses the dashboard shell.
+title: "Traces Explorer"
+description: "Filterable, sortable, and paginated traces table with agent, workflow, model, customer, and error-status filters."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/traces-explorer-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Traces Explorer lists traces and opens the selected trace in the waterfall inspector. The story keeps selection local and uses the dashboard shell.
+import { story } from '../../../src/stories/blocks/traces-explorer-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-dashboard-traces-explorer" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/traces/traces-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `TracesExplorerBlock` | `traces?` | `TraceExplorerRow[]` | Map of trace IDs to span arrays for the trace waterfall preview. |
+|  | `isLoading?` | `boolean` | Renders loading skeleton placeholders while data is being fetched. |
+|  | `isFetching?` | `boolean` | Indicates background pagination or filter refetching. |
+|  | `promptVersions?` | `{ id: string; agentName: string; number: number; current: boolean }[]` | Available prompt versions for filtering traces. |
+|  | `onTraceSelect?` | `(traceId: string) => void` | Callback fired when a trace row is selected. |
+|  | `onFiltersChange?` | `(filters: TracesExplorerFilters) => void` | Callback fired when search, filter, or sort controls change. |
 
-`@tailrocks/framerock/blocks/dashboard/traces-explorer-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/traces-explorer-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { useState } from "react";
+import {
+  TracesExplorerBlock,
+} from "@tailrocks/framerock/blocks/dashboard/traces-explorer-block";
+import {
+  TraceWaterfallInspectorBlock,
+} from "@tailrocks/framerock/blocks/dashboard/trace-waterfall-inspector-block";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `isLoading: boolean`, `isFetching: boolean`; initial values are `isLoading: false, isFetching: false` |
-| Fixture and callback wiring | The story exposes `isLoading` and `isFetching`. It wires `onTraceSelect` to the inspector view and supplies a no-op `onFiltersChange`; trace and prompt-version data use source defaults. |
-| Registry item | `block-dashboard-traces-explorer`. The portal payload is `/r/block-dashboard-traces-explorer.json`. |
+export function TracesExplorerExample() {
+  const [traceId, setTraceId] = useState<string | null>(null);
 
+  if (traceId) {
+    return (
+      <div>
+        <button
+          type="button"
+          className="mb-3 text-sm text-muted-foreground hover:text-foreground"
+          onClick={() => setTraceId(null)}
+        >
+          ← Back to traces
+        </button>
+        <TraceWaterfallInspectorBlock traceId={traceId} />
+      </div>
+    );
+  }
 
----
+  return (
+    <TracesExplorerBlock
+      onTraceSelect={setTraceId}
+      onFiltersChange={() => {}}
+    />
+  );
+}
+```
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+## Source and registry
+
+- **Package import**: `@tailrocks/framerock/blocks/dashboard/traces-explorer-block`
+- **Registry item**: `block-dashboard-traces-explorer` ([payload JSON](/r/block-dashboard-traces-explorer.json))
+- **Story source**: `apps/docs/src/stories/blocks/traces-explorer-block.story.tsx`
+
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-dashboard-traces-explorer.json
+```

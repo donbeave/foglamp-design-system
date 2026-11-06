@@ -3,26 +3,12 @@ title: "Radio Group"
 description: "Radio-group container and radio item, backed by Base UI state and keyboard behavior."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/radio-group.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Radio Group
-
-Radio-group container and radio item, backed by Base UI state and keyboard behavior.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-radio-group" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/radio-group.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/radio-group`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -33,29 +19,59 @@ The table lists values exported from `@tailrocks/framerock/ui/radio-group`. The 
 
 The exports forward the props declared by their source component types. The public type for each export appears in the table above.
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
 import { useState } from "react";
+import {
+  RadioGroup,
+  RadioGroupItem,
+} from "@tailrocks/framerock/ui/radio-group";
 
-import { RadioGroup, RadioGroupItem } from "@tailrocks/framerock/ui/radio-group";
-
-type Args = { variant: 'default' };
-
-function RadioGroupStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><fieldset className="grid gap-3"><legend className="mb-2 text-sm font-medium">Default time range</legend>{[["1h","Last hour"],["24h","Last 24 hours"],["7d","Last 7 days"]].map(([value,label]) => <label key={value} className="flex items-center gap-3"><RadioGroupItem value={value} /><span className="text-sm">{label}</span></label>)}</fieldset></div>;
+export function RadioGroupExample({
+  defaultValue = "balanced",
+  disabled = false,
+}: {
+  defaultValue?: "fast" | "balanced" | "thorough";
+  disabled?: boolean;
+} = {}) {
+  const [value, setValue] = useState<string>(defaultValue);
+  const options = [
+    ["fast", "Fast · low latency"],
+    ["balanced", "Balanced · default judge"],
+    ["thorough", "Thorough · multi-step rubric"],
+  ] as const;
+  return (
+    <fieldset className="grid gap-3">
+      <legend className="mb-2 text-sm font-medium">Evaluation mode</legend>
+      <RadioGroup
+        value={value}
+        onValueChange={(next) => { if (typeof next === "string") setValue(next); }}
+        disabled={disabled}
+      >
+        {options.map(([optionValue, label]) => (
+            <label
+              key={optionValue}
+              className="flex cursor-pointer items-center gap-3"
+            >
+              <RadioGroupItem value={optionValue} />
+              <span className="text-sm">
+                {label}
+              </span>
+            </label>
+        ))}
+      </RadioGroup>
+    </fieldset>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-radio-group`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-radio-group.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-radio-group.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/radio-group`
+- **Registry item**: `ui-radio-group` ([payload JSON](/r/ui-radio-group.json))
+- **Story source**: `apps/docs/src/stories/primitives/radio-group.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/radio-group`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-radio-group.json
+```

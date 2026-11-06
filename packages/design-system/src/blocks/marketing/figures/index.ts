@@ -11,7 +11,8 @@
  * Foglamp Labs (https://foglamp.dev). Not an upstream Foglamp source file.
  */
 
-export { FigureKit22Block, type FigureKit22BlockProps } from "./figure-kit-22-block";
+export { FigureKit22Block, FigureKit22Block as FigureKit, type FigureKit22BlockProps } from "./figure-kit-22-block";
+export { FigureReveal } from "./figure-reveal";
 export { FIGURES, type Section, type Variant } from "./figures";
 export { Figure, FigureVariant } from "./figure-picker";
 export {

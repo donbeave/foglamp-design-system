@@ -4,14 +4,14 @@
 import type { ReactNode } from 'react';
 import type { ComponentPropsWithoutRef } from 'react';
 import { AppShellBlock } from '@tailrocks/framerock/blocks/app-shell/app-shell-block';
-import { FoglampLinkProvider } from '@tailrocks/framerock/lib/link-context';
+import { FramerockLinkProvider } from '@tailrocks/framerock/lib/link-context';
 import { getGoogleFavicon } from '@tailrocks/framerock/widgets/leaf/favicon';
 import type { ScanData } from '@tailrocks/framerock/lib/scan/scan';
 import type { DetectedPlan } from '@tailrocks/framerock/lib/scan/instrumentation';
 
 export const scanFixture: ScanData = {
   version: 1,
-  project: { name: 'Foglamp', slug: 'foglamp', tagline: 'AI observability, clearly mapped', iconDomain: 'foglamp.dev', date: '2026-11-05' },
+  project: { name: 'Framerock', slug: 'framerock', tagline: 'AI observability, clearly mapped', iconDomain: 'tailrocks.com', date: '2026-11-05' },
   stats: { agents: 2, models: 2, tools: 2, integrations: 1 },
   topModels: [{ id: 'gpt-4o', label: 'GPT-4o', domain: 'openai.com' }, { id: 'claude-sonnet', label: 'Claude Sonnet', domain: 'anthropic.com' }],
   topTools: [{ id: 'search', label: 'Search', domain: 'exa.ai' }, { id: 'database', label: 'Database' }],
@@ -57,11 +57,11 @@ function LocalStoryLink({ onClick, ...props }: ComponentPropsWithoutRef<'a'>) {
 }
 
 export function StoryLinkAdapter({ children }: { children: ReactNode }) {
-  return <FoglampLinkProvider component={LocalStoryLink}>{children}</FoglampLinkProvider>;
+  return <FramerockLinkProvider component={LocalStoryLink}>{children}</FramerockLinkProvider>;
 }
 
 export function DashboardStoryShell({ children }: { children: ReactNode }) {
-  return <StoryLinkAdapter><div className="h-[760px] overflow-hidden rounded-lg"><AppShellBlock pathname="/overview" user={{ name: 'Alex Rivera', email: 'alex@example.com' }}>{children}</AppShellBlock></div></StoryLinkAdapter>;
+  return <StoryLinkAdapter><div className="h-[800px] w-full overflow-hidden rounded-lg"><AppShellBlock pathname="/overview" user={{ name: 'Alex Rivera', email: 'alex@example.com' }}>{children}</AppShellBlock></div></StoryLinkAdapter>;
 }
 
 export const resolveStoryFavicon = getGoogleFavicon;

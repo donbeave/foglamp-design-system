@@ -1,12 +1,42 @@
 /* Derived primitive story. Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar, and Foglamp Labs (foglamp-labs/foglamp); Apache-2.0. */
-import { useState } from "react";
 import { Item, ItemGroup, ItemMedia, ItemContent, ItemTitle, ItemDescription, ItemActions } from "@tailrocks/framerock/ui/item";
 import { defineStory } from "../../lib/story";
 
-type Args = { variant: 'outline' };
-function ItemStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><ItemGroup><Item variant={args.variant}><ItemMedia variant="icon">✦</ItemMedia><ItemContent><ItemTitle>Production deployment</ItemTitle><ItemDescription>Model evaluation completed · 2 minutes ago</ItemDescription></ItemContent><ItemActions><button className="text-sm text-primary">Review</button></ItemActions></Item></ItemGroup></div>;
+function ItemStory({
+  title = "Production deployment",
+  meta = "Model evaluation completed · 2 minutes ago",
+  variant = "outline",
+}: {
+  title?: string;
+  meta?: string;
+  variant?: "default" | "outline" | "muted";
+}) {
+  return (
+    <div className="flex min-h-24 w-full max-w-lg items-center justify-center p-4">
+      <ItemGroup>
+        <Item variant={variant}>
+          <ItemMedia variant="icon">✦</ItemMedia>
+          <ItemContent>
+            <ItemTitle>{title}</ItemTitle>
+            <ItemDescription>{meta}</ItemDescription>
+          </ItemContent>
+          <ItemActions>
+            <button type="button" className="text-sm text-primary">Review</button>
+          </ItemActions>
+        </Item>
+      </ItemGroup>
+    </div>
+  );
 }
 
-export const story = defineStory({ id: "primitives/item", registryItem: "ui-item", displayName: "Item", Component: ItemStory, args: [{ variant: "Default", initial: { args: { variant: 'outline' } } }] });
+export const story = defineStory({
+  id: "primitives/item",
+  registryItem: "ui-item",
+  displayName: "Item",
+  Component: ItemStory,
+  args: [
+    { variant: "Outline", initial: { title: "Production deployment", meta: "Model evaluation completed · 2 minutes ago", variant: "outline" } },
+    { variant: "Muted", initial: { title: "Staging trace capture", meta: "12 spans indexed · 14s ago", variant: "muted" } },
+    { variant: "Default", initial: { title: "Prompt revision v14", meta: "Active in production", variant: "default" } },
+  ],
+});

@@ -12,5 +12,6 @@ function BarStory({ layout, stacked }: BarStoryProps) {
 export const story = defineStory({
 	id: 'charts/bar-chart', Component: BarStory, displayName: 'Evil Bar Chart',
 	registryItem: 'chart-evilcharts-charts-bar-chart',
+	frame: { width: 960, height: 440 },
 	args: { initial: { layout: 'vertical', stacked: false } },
 });

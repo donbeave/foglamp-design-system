@@ -1,34 +1,49 @@
 ---
-title: Session Conversation Inspector
-description: Session Conversation Inspector renders a session transcript from the built-in demo data. The story controls the session ID and loading state.
+title: "Session Conversation Inspector"
+description: "Multi-turn session transcript inspector displaying user messages, assistant responses, tool calls, and per-turn token/cost metrics."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/session-conversation-inspector-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Session Conversation Inspector renders a session transcript from the built-in demo data. The story controls the session ID and loading state.
+import { story } from '../../../src/stories/blocks/session-conversation-inspector-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-dashboard-session-conversation-inspector" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/app/(app)/sessions/[sessionId]/session-detail-client.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `SessionConversationInspectorBlock` | `sessionId?` | `string` | Active session identifier. |
+|  | `data?` | `SessionDetailData \| null` | Structured dataset rendered by the block. |
+|  | `isLoading?` | `boolean` | Renders loading skeleton placeholders while data is being fetched. |
 
-`@tailrocks/framerock/blocks/dashboard/session-conversation-inspector-block` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/session-conversation-inspector-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import {
+  SessionConversationInspectorBlock,
+} from "@tailrocks/framerock/blocks/dashboard/session-conversation-inspector-block";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `sessionId: string`, `isLoading: boolean`; initial values are `sessionId: 'ses_a91f', isLoading: false` |
-| Fixture and callback wiring | The story exposes `sessionId` and `isLoading`. The component accepts optional session data or `null`; the story uses the source default data. |
-| Registry item | `block-dashboard-session-conversation-inspector`. The portal payload is `/r/block-dashboard-session-conversation-inspector.json`. |
+export function SessionConversationExample({
+  sessionId = 'ses_a91f',
+  isLoading = false,
+}: {
+  sessionId?: string;
+  isLoading?: boolean;
+} = {}) {
+  return (
+    <SessionConversationInspectorBlock
+      sessionId={sessionId}
+      isLoading={isLoading}
+    />
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/dashboard/session-conversation-inspector-block`
+- **Registry item**: `block-dashboard-session-conversation-inspector` ([payload JSON](/r/block-dashboard-session-conversation-inspector.json))
+- **Story source**: `apps/docs/src/stories/blocks/session-conversation-inspector-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-dashboard-session-conversation-inspector.json
+```

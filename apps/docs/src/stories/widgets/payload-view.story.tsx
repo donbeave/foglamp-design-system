@@ -28,6 +28,7 @@ export const story = defineStory({
   displayName: 'PayloadView',
   registryItem: 'widget-payload-view',
   Component: PayloadViewPreview,
+  frame: { height: 520 },
   args: [
     { variant: 'Full conversation', initial: { foldBeforeLastUser: false, showPreviousCall: false } },
     { variant: 'Fold older turns', initial: { foldBeforeLastUser: true, showPreviousCall: false } },

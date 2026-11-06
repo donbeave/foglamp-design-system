@@ -4,4 +4,4 @@ import { RangePicker } from '@tailrocks/framerock/widgets/range-picker';
 import { resolvePreset } from '@tailrocks/framerock/lib/range';
 import { defineStory } from '../../lib/story';
 function RangePickerPreview({ compact = false }: { compact?: boolean }) { const [range, setRange] = useState(() => resolvePreset('7d')); return <RangePicker value={range} onChange={setRange} compact={compact}/>; }
-export const story = defineStory({ id: 'widgets/range-picker', displayName: 'RangePicker', registryItem: 'widget-range-picker', Component: RangePickerPreview, args: [{ variant: 'Full control', initial: { compact: false } }, { variant: 'Compact trigger', initial: { compact: true } }] });
+export const story = defineStory({ id: 'widgets/range-picker', displayName: 'RangePicker', registryItem: 'widget-range-picker', Component: RangePickerPreview, frame: { height: 420 }, args: [{ variant: 'Full control', initial: { compact: false } }, { variant: 'Compact trigger', initial: { compact: true } }] });

@@ -294,7 +294,7 @@ export function LoginFormBlock({
       <p className="mb-6 text-sm text-muted-foreground tracking-normal">
         {mode === "forgot"
           ? "We'll email you a link to choose a new password."
-          : "Sign in to your Foglamp account to continue."}
+          : "Sign in to your Framerock account to continue."}
       </p>
 
       {methods.google && mode !== "forgot" && (
@@ -341,11 +341,14 @@ export function LoginFormBlock({
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
-                {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-xs text-destructive">
-                    {error?.message}
-                  </p>
-                ))}
+                {field.state.meta.errors.map((error) => {
+                  const message = (error as { message?: string } | undefined)?.message;
+                  return (
+                    <p key={message} className="text-xs text-destructive">
+                      {message}
+                    </p>
+                  );
+                })}
               </div>
             )}
           </passwordForm.Field>
@@ -373,11 +376,14 @@ export function LoginFormBlock({
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
-                {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-xs text-destructive">
-                    {error?.message}
-                  </p>
-                ))}
+                {field.state.meta.errors.map((error) => {
+                  const message = (error as { message?: string } | undefined)?.message;
+                  return (
+                    <p key={message} className="text-xs text-destructive">
+                      {message}
+                    </p>
+                  );
+                })}
               </div>
             )}
           </passwordForm.Field>
@@ -421,11 +427,14 @@ export function LoginFormBlock({
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
-                {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-xs text-destructive">
-                    {error?.message}
-                  </p>
-                ))}
+                {field.state.meta.errors.map((error) => {
+                  const message = (error as { message?: string } | undefined)?.message;
+                  return (
+                    <p key={message} className="text-xs text-destructive">
+                      {message}
+                    </p>
+                  );
+                })}
               </div>
             )}
           </forgotForm.Field>
@@ -478,11 +487,14 @@ export function LoginFormBlock({
                   onBlur={field.handleBlur}
                   onChange={(e) => field.handleChange(e.target.value)}
                 />
-                {field.state.meta.errors.map((error) => (
-                  <p key={error?.message} className="text-xs text-destructive">
-                    {error?.message}
-                  </p>
-                ))}
+                {field.state.meta.errors.map((error) => {
+                  const message = (error as { message?: string } | undefined)?.message;
+                  return (
+                    <p key={message} className="text-xs text-destructive">
+                      {message}
+                    </p>
+                  );
+                })}
               </div>
             )}
           </magicForm.Field>

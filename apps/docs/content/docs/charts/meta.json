@@ -2,15 +2,15 @@
   "title": "Charts",
   "pages": [
     "area-chart",
-    "background",
     "bar-chart",
-    "chart",
     "donut-chart",
-    "dot",
-    "evil-brush",
-    "legend",
     "line-chart",
+    "chart",
     "tooltip",
-    "zoom"
+    "legend",
+    "dot",
+    "background",
+    "zoom",
+    "evil-brush"
   ]
 }

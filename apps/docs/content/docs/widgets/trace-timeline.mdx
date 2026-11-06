@@ -1,24 +1,14 @@
 ---
-title: TraceTimeline
-description: Renders trace spans on a timed waterfall and reports the selected span.
+title: "Trace Timeline"
+description: "Renders trace spans on a timed waterfall and reports the selected span."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/trace-timeline.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders trace spans on a timed waterfall and reports the selected span.
+import { story } from '../../../src/stories/widgets/trace-timeline.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-trace-timeline" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/trace-timeline.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -37,10 +27,122 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 `TraceTimeline` receives normalized spans and a selected span ID. `onSelect` reports the selected ID; `reveal` accepts `hold` or `play`. Repeated sibling spans can be grouped by the timeline.
 
+## Usage
+
+```tsx
+import { useState } from "react";
+import { TraceTimeline } from "@tailrocks/framerock/widgets/trace-timeline";
+import type { TraceSpan } from "@tailrocks/framerock/lib/types";
+
+const baseSpan: TraceSpan = {
+  spanId: "span-root",
+  parentSpanId: null,
+  spanType: "agent",
+  name: "Support assistant",
+  startTime: "2025-02-14 10:00:00.000",
+  endTime: "2025-02-14 10:00:02.400",
+  durationMs: 2_400,
+  status: "ok",
+  errorMessage: null,
+  provider: null,
+  modelId: null,
+  inputTokens: 1240,
+  outputTokens: 214,
+  totalTokens: 1454,
+  reasoningTokens: 0,
+  cachedInputTokens: 620,
+  cacheWriteInputTokens: 0,
+  imageCount: 0,
+  webSearchCount: 0,
+  requestCount: 1,
+  ttftMs: null,
+  reasoningDurationMs: null,
+  totalCost: 0.0042,
+  promptCost: 0.0021,
+  completionCost: 0.0021,
+  requestCost: null,
+  imageCost: null,
+  webSearchCost: null,
+  reasoningCost: null,
+  cacheReadCost: 0.0002,
+  cacheWriteCost: null,
+  pricingSource: "fixture",
+  pricedModelId: "gpt-4o",
+  pricedAt: null,
+  metadata: { environment: "staging" },
+  input: "Summarize the latest support conversation.",
+  output: "The customer needs help rotating an API key.",
+  toolCatalog: null,
+  systemPrompt: null,
+  promptHash: "sha-01",
+  modelCallMs: null,
+  responseTimeMs: 1840,
+  effectiveOutputTps: 116,
+  effectiveTotalTps: 790,
+  outputTps: 116,
+  inputTps: 674,
+  chunkJitter: null,
+  systemFingerprint: null,
+  safetyMetadata: null,
+  sources: null,
+  rateLimit: null,
+};
+
+const spans: TraceSpan[] = [
+  baseSpan,
+  {
+    ...baseSpan,
+    spanId: "span-retrieval-1",
+    parentSpanId: "span-root",
+    spanType: "llm",
+    name: "Retrieve customer context",
+    startTime: "2025-02-14 10:00:00.200",
+    endTime: "2025-02-14 10:00:00.500",
+    durationMs: 300,
+    modelId: "gpt-4o",
+    provider: "openai",
+    modelCallMs: 220,
+    ttftMs: 100,
+    reasoningDurationMs: 70,
+  },
+  {
+    ...baseSpan,
+    spanId: "span-final-answer",
+    parentSpanId: "span-root",
+    spanType: "llm",
+    name: "Compose response",
+    startTime: "2025-02-14 10:00:01.600",
+    endTime: "2025-02-14 10:00:02.300",
+    durationMs: 700,
+    modelId: "gpt-4o",
+    provider: "openai",
+    modelCallMs: 490,
+    ttftMs: 180,
+    reasoningDurationMs: 150,
+  },
+];
+
+export function TraceTimelineExample() {
+  const [selected, setSelected] = useState<string | null>(null);
+  return (
+    <div className="w-full">
+      <TraceTimeline
+        spans={spans}
+        selected={selected}
+        onSelect={setSelected}
+        reveal="play"
+      />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/trace-timeline.story.tsx`](../../../src/stories/widgets/trace-timeline.story.tsx). The authoritative registry item ID is `widget-trace-timeline` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/trace-timeline`
+- **Registry item**: `widget-trace-timeline` ([payload JSON](/r/widget-trace-timeline.json))
+- **Story source**: `apps/docs/src/stories/widgets/trace-timeline.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-trace-timeline.json
+```

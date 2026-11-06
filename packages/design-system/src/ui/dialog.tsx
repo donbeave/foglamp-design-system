@@ -18,9 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/packages/ui/src/components/dialog.tsx; derived here under Apache-2.0.
- */
 import { Dialog as DialogPrimitive } from "@base-ui/react/dialog";
 import type * as React from "react";
 

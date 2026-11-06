@@ -245,3 +245,5 @@ export function CostBreakdownView({
 		</Card>
 	);
 }
+
+export const CostBreakdownCard = CostBreakdownView;

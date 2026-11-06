@@ -3,26 +3,12 @@ title: "Checkbox"
 description: "Base UI checkbox root with project input-control styling and forwarded checkbox state and accessibility props."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/checkbox.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Checkbox
-
-Base UI checkbox root with project input-control styling and forwarded checkbox state and accessibility props.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-checkbox" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/checkbox.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/checkbox`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -32,26 +18,50 @@ The table lists values exported from `@tailrocks/framerock/ui/checkbox`. The dec
 
 The exports forward the props declared by their source component types. The public type for each export appears in the table above.
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { useState } from 'react';
+import { useState } from "react";
+import { Checkbox } from "@tailrocks/framerock/ui/checkbox";
+import {
+  Field,
+  FieldLabel,
+  FieldDescription,
+} from "@tailrocks/framerock/ui/field";
 
-import { Checkbox } from '@tailrocks/framerock/ui/checkbox';
-
-import { Field, FieldLabel, FieldDescription } from '@tailrocks/framerock/ui/field';
-
-function CheckboxExample({ disabled = false }: { disabled?: boolean }) { const [checked, setChecked] = useState(true); return <Field orientation="horizontal" data-disabled={disabled}><Checkbox id="include-retries" checked={checked} onCheckedChange={setChecked} disabled={disabled} /><div><FieldLabel htmlFor="include-retries">Include retry attempts</FieldLabel><FieldDescription>Count retries as separate evaluation requests.</FieldDescription></div></Field>; }
+export function CheckboxExample({
+  disabled = false,
+}: {
+  disabled?: boolean;
+} = {}) {
+  const [checked, setChecked] = useState(true);
+  return (
+    <Field orientation="horizontal" data-disabled={disabled}>
+      <Checkbox
+        id="include-retries"
+        checked={checked}
+        onCheckedChange={setChecked}
+        disabled={disabled}
+      />
+      <div>
+        <FieldLabel htmlFor="include-retries">
+          Include retry attempts
+        </FieldLabel>
+        <FieldDescription>
+          Count retries as separate evaluation requests.
+        </FieldDescription>
+      </div>
+    </Field>
+  );
+}
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-checkbox`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-checkbox.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-checkbox.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/checkbox`
+- **Registry item**: `ui-checkbox` ([payload JSON](/r/ui-checkbox.json))
+- **Story source**: `apps/docs/src/stories/primitives/checkbox.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/checkbox`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-checkbox.json
+```

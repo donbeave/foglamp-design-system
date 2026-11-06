@@ -62,6 +62,7 @@ export const story = defineStory({
   displayName: 'TraceTimeline',
   registryItem: 'widget-trace-timeline',
   Component: TraceTimelinePreview,
+  frame: { width: 960, height: 560 },
   args: [
     { variant: 'Repeated retrievals and model-call phases', initial: { reveal: 'play' } },
     { variant: 'Hold the phase bars before reveal', initial: { reveal: 'hold' } },

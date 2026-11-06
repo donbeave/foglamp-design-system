@@ -1,34 +1,65 @@
 ---
-title: Login Form
-description: Login Form presents the authentication methods enabled by its configuration. The story toggles the magic-link method and replaces the form with a local signed-in status after completion.
+title: "Login Form"
+description: "Authentication card supporting Google OAuth, email/password sign-in, password reset, and passwordless magic links."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/login-form-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Login Form presents the authentication methods enabled by its configuration. The story toggles the magic-link method and replaces the form with a local signed-in status after completion.
+import { story } from '../../../src/stories/blocks/login-form-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-auth-login-form" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/login-form.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `LoginFormBlock` | `methods?` | `AuthMethods` | Enabled sign-in methods (`emailPassword`, `magicLink`, `google`). |
+|  | `next?` | `string \| null` | Sanitized post-authentication redirect path. |
+|  | `resetPasswordHref?` | `string` | Route path for the host password reset screen. |
+|  | `onGoogleSignIn?` | `(input: { callbackURL: string; }) => Promise<LoginFormActionResult>` | Async handler for Google OAuth sign-in. |
+|  | `onPasswordSignIn?` | `(input: { email: string; password: string; callbackURL: string; }) => Promise<LoginFormActionResult>` | Async handler for email and password sign-in. |
+|  | `onPasswordReset?` | `(input: { email: string; redirectTo: string; }) => Promise<LoginFormActionResult>` | Async handler for password reset requests. |
+|  | `onMagicLinkSignIn?` | `(input: { email: string; callbackURL: string; }) => Promise<LoginFormActionResult>` | Async handler for passwordless magic-link sign-in. |
+|  | `onSignedIn?` | `(completion: LoginFormCompletion) => void` | Callback invoked after authentication completes. |
 
-`@tailrocks/framerock/blocks/auth/login-form` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/login-form-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { LoginFormBlock } from "@tailrocks/framerock/blocks/auth/login-form";
+import {
+  LoginFormCompletion,
+} from "@tailrocks/framerock/blocks/auth/login-form";
+import { useState } from "react";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | `magicLink: boolean`; initial values are `magicLink: true` |
-| Fixture and callback wiring | The story exposes `magicLink`. It enables email/password and Google methods, and tracks the `onSignedIn` completion locally. The exported block accepts a methods configuration and an `onSignedIn` callback. |
-| Registry item | `block-auth-login-form`. The portal payload is `/r/block-auth-login-form.json`. |
+export function LoginFormExample({
+  magicLink = true,
+}: {
+  magicLink?: boolean;
+} = {}) {
+  const [done, setDone] = useState<LoginFormCompletion | null>(null);
+  return (
+    <div className="mx-auto flex w-full max-w-md justify-center">
+      {done ? (
+          <p role="status" className="rounded-xl bg-muted p-4">
+            Local demo signed in with
+            {done.method}
+            .
+          </p>
+      ) : (
+          <LoginFormBlock
+            methods={{ emailPassword: true, magicLink, google: true }}
+            onSignedIn={setDone}
+          />
+      )}
+    </div>
+  );
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/auth/login-form`
+- **Registry item**: `block-auth-login-form` ([payload JSON](/r/block-auth-login-form.json))
+- **Story source**: `apps/docs/src/stories/blocks/login-form-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-auth-login-form.json
+```

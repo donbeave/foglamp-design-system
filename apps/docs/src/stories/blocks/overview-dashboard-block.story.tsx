@@ -3,4 +3,4 @@ import { OverviewDashboardBlock } from '@tailrocks/framerock/blocks/dashboard/ov
 import { defineStory } from '../../lib/story';
 import { DashboardStoryShell } from './fixtures';
 function OverviewStory({ isUpdating }: { isUpdating: boolean }) { return <DashboardStoryShell><OverviewDashboardBlock isUpdating={isUpdating} /></DashboardStoryShell>; }
-export const story = defineStory({ id: 'blocks/overview-dashboard-block', displayName: 'Overview Dashboard', registryItem: 'block-dashboard-overview-dashboard', Component: OverviewStory, args: { initial: { isUpdating: false } } });
+export const story = defineStory({ id: 'blocks/overview-dashboard-block', displayName: 'Overview Dashboard', registryItem: 'block-dashboard-overview-dashboard', Component: OverviewStory, frame: { width: 1280, height: 800 }, args: { initial: { isUpdating: false } } });

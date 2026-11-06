@@ -16,6 +16,8 @@
  * Gustavo Fior (@gustavo-fior) and co-founder Abdul Haidar at Foglamp Labs (https://foglamp.dev).
  */
 
+/// <reference path="../lib/react-shim.d.ts" />
+
 import { cn } from "../lib/utils";
 import { IconCpu } from "@tabler/icons-react";
 import type { SVGProps } from "react";

@@ -3,4 +3,4 @@ import { OnboardingPanelBlock } from '@tailrocks/framerock/blocks/auth/onboardin
 import { StorySurface } from './fixtures';
 import { defineStory } from '../../lib/story';
 function OnboardingPanelStory({ apiKey }: { apiKey: string }) { return <StorySurface><OnboardingPanelBlock apiKey={apiKey} onPromptCopied={() => {}} /></StorySurface>; }
-export const story = defineStory({ id: 'blocks/onboarding-panel-block', displayName: 'Onboarding Panel', registryItem: 'block-auth-onboarding-panel', Component: OnboardingPanelStory, args: { initial: { apiKey: 'fl_demo_1234567890' } } });
+export const story = defineStory({ id: 'blocks/onboarding-panel-block', displayName: 'Onboarding Panel', registryItem: 'block-auth-onboarding-panel', Component: OnboardingPanelStory, frame: { width: 1040, height: 460 }, args: { initial: { apiKey: 'fr_demo_1234567890' } } });

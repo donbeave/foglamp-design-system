@@ -257,10 +257,10 @@ function runStatus(status: SpanStatus): RunStatus {
 function stepsFromSpans(spans: Span[]): HudStep[] {
   return spans
     .filter((s) => s.spanType === "llm")
-    .map((s) => {
+    .map((s, idx) => {
       const match = s.spanId.match(/:step:(\d+)$/);
       return {
-        stepNumber: match ? Number(match[1]) : 0,
+        stepNumber: match ? Number(match[1]) : idx,
         status: runStatus(s.status),
         ttftMs: s.ttftMs,
         outputTokens: s.usage?.outputTokens ?? 0,

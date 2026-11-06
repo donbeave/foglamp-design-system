@@ -3,26 +3,12 @@ title: "Kbd"
 description: "Keyboard-key label and group wrapper for displaying one key or a sequence of keys."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/kbd.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Kbd
-
-Keyboard-key label and group wrapper for displaying one key or a sequence of keys.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-kbd" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/kbd.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/kbd`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -33,29 +19,47 @@ The table lists values exported from `@tailrocks/framerock/ui/kbd`. The declared
 
 The exports forward the props declared by their source component types. The public type for each export appears in the table above.
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { useState } from "react";
-
 import { Kbd, KbdGroup } from "@tailrocks/framerock/ui/kbd";
 
-type Args = { variant: 'default' };
-
-function KbdStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><div className="flex flex-col gap-4"><p className="text-sm">Open command search</p><KbdGroup><Kbd>⌘</Kbd><Kbd>K</Kbd></KbdGroup><p className="text-sm text-muted-foreground">Keyboard shortcuts stay legible in both themes.</p></div></div>;
+export function KbdExample({
+  shortcut = "⌘K",
+  label = "Command palette",
+}: {
+  shortcut?: string;
+  label?: string;
+} = {}) {
+  const keys = shortcut.length > 1 && shortcut.startsWith("⌘") ? ["⌘", shortcut.slice(1)] : [shortcut];
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-3">
+        <span className="text-sm">
+          {label}
+        </span>
+        <KbdGroup>
+          {keys.map((key, idx) => (
+              <Kbd key={idx}>
+                {key}
+              </Kbd>
+          ))}
+        </KbdGroup>
+      </div>
+      <p className="text-xs text-muted-foreground">
+        Keyboard shortcuts stay legible in both themes.
+      </p>
+    </div>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-kbd`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-kbd.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-kbd.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/kbd`
+- **Registry item**: `ui-kbd` ([payload JSON](/r/ui-kbd.json))
+- **Story source**: `apps/docs/src/stories/primitives/kbd.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/kbd`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-kbd.json
+```

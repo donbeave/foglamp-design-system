@@ -1,20 +1,11 @@
 ---
-title: Costs Small
-description: The small figure in the costs section, rendered by CostSmall.
+title: "Costs Small"
+description: "The small figure in the costs section, rendered by CostSmall."
 ---
 
-
-
-
-import { story } from '../../../src/stories/figures/costs-small.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-CostSmall is the small entry in `FIGURES.costs`. The story selects it with `FigureVariant`; the selected figure itself takes no props.
+import { story } from '../../../src/stories/figures/costs-small.story';
 
 <story.WithControl />
-
-<StoryProvenance registryItem="figure-costs-small" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/figures-costs.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
 
 ## Selection and rendering
 
@@ -28,9 +19,24 @@ CostSmall is the small entry in `FIGURES.costs`. The story selects it with `Figu
 
 The story uses the exact section and variant above. `FigureVariant` lazy-loads the matching source figure, wraps it in `FigureReveal`, and shows a reserved-height fallback while the module loads. The reveal choreography starts when the figure enters view. Figure content uses the source module’s local demo data.
 
-The story is `apps/docs/src/stories/figures/costs-small.story.tsx`. The registry route is `/r/figure-costs-small.json` on the portal origin.
+## Usage
 
+```tsx
+import {
+  FigureVariant,
+} from "@tailrocks/framerock/blocks/marketing/figures/figure-picker";
 
----
+export function CostsSmallFigureExample() {
+  return <FigureVariant section="costs" variantId="small" />;
+}
+```
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+## Source and registry
+
+- **Package import**: `@tailrocks/framerock/blocks/marketing/figures/figure-picker`
+- **Registry item**: `figure-costs-small` ([payload JSON](/r/figure-costs-small.json))
+- **Story source**: `apps/docs/src/stories/figures/costs-small.story.tsx`
+
+```bash
+npx shadcn@latest add http://localhost:3000/r/figure-costs-small.json
+```

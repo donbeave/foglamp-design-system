@@ -3,26 +3,12 @@ title: "Tooltip"
 description: "Base UI tooltip root, trigger, popup, and provider. Popup placement is configurable, and provider delay defaults to zero milliseconds."
 ---
 
-
-
-
 import { story } from '../../../src/stories/primitives/tooltip.story';
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-# Tooltip
-
-Base UI tooltip root, trigger, popup, and provider. Popup placement is configurable, and provider delay defaults to zero milliseconds.
-
-## Live preview
 
 <story.WithControl />
 
-<StoryProvenance registryItem="ui-tooltip" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/ui/src/components/tooltip.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## API and props
 
-The table lists values exported from `@tailrocks/framerock/ui/tooltip`. The declared type comes from the component source.
 
 | Export | Declared props or type | Role |
 | --- | --- | --- |
@@ -41,29 +27,50 @@ The table lists values exported from `@tailrocks/framerock/ui/tooltip`. The decl
 | `TooltipContent.align` | `Base UI positioner alignment` | Defaults to `center`. |
 | `TooltipContent.alignOffset` | `number` | Defaults to `0`. |
 
-## Example
-
-The example is the portal story fixture without its story registration. It uses the same package imports as the live preview.
+## Usage
 
 ```tsx
-import { useState } from "react";
+import {
+  TooltipProvider,
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@tailrocks/framerock/ui/tooltip";
 
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from "@tailrocks/framerock/ui/tooltip";
-
-type Args = { variant: 'default' };
-
-function TooltipStory({ args }: { args: Args }) {
-
-  return <div className="flex min-h-24 w-full items-center justify-center p-4"><TooltipProvider><div className="flex items-center gap-2"><span className="text-sm">Sampling rate</span><Tooltip><TooltipTrigger aria-label="About sampling">ⓘ</TooltipTrigger><TooltipContent>Percentage of requests captured for analysis.</TooltipContent></Tooltip></div></TooltipProvider></div>;
+export function TooltipExample({
+  content = "Percentage of requests captured for analysis.",
+  side = "top",
+}: {
+  content?: string;
+  side?: "top" | "right" | "bottom" | "left";
+} = {}) {
+  return (
+    <TooltipProvider>
+      <div className="flex items-center gap-2">
+        <span className="text-sm">Sampling rate</span>
+        <Tooltip>
+          <TooltipTrigger
+            className="inline-flex size-6 items-center justify-center rounded-full border border-border/60 text-xs"
+            aria-label="About sampling"
+          >
+            ⓘ
+          </TooltipTrigger>
+          <TooltipContent side={side}>
+            {content}
+          </TooltipContent>
+        </Tooltip>
+      </div>
+    </TooltipProvider>
+  );
 }
 ```
 
-## Registry item
+## Source and registry
 
-The story panel resolves this component as registry item `ui-tooltip`. When the portal runs locally at `http://localhost:3000`, the JSON URL is `http://localhost:3000/r/ui-tooltip.json`. The matching local install command is `npx shadcn@latest add http://localhost:3000/r/ui-tooltip.json`. This URL is local to the running portal, not a public registry address.
+- **Package import**: `@tailrocks/framerock/ui/tooltip`
+- **Registry item**: `ui-tooltip` ([payload JSON](/r/ui-tooltip.json))
+- **Story source**: `apps/docs/src/stories/primitives/tooltip.story.tsx`
 
-The package import path is `@tailrocks/framerock/ui/tooltip`. The workspace declares `@tailrocks/framerock` as a package; these docs do not claim npm publication.
-
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs](https://foglamp.dev). Extracted from the [Foglamp source repository](https://github.com/foglamp-labs/foglamp), licensed under Apache 2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/ui-tooltip.json
+```

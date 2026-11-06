@@ -1,24 +1,14 @@
 ---
-title: FilterSelect
-description: Provides an option list with an explicit value and change callback.
+title: "Filter Select"
+description: "Provides an option list with an explicit value and change callback."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/filter-select.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Provides an option list with an explicit value and change callback.
+import { story } from '../../../src/stories/widgets/filter-select.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-filter-select" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/data-table.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -30,10 +20,47 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
 |  | `allowFreeText` | `boolean \| undefined` | Allows values outside the listed options. |
 
+## Usage
+
+```tsx
+import { useState } from "react";
+import { FilterSelect } from "@tailrocks/framerock/widgets/data-table";
+
+const statusOptions: { value: string; label: string }[] = [
+  { value: 'completed', label: 'Completed' },
+  { value: 'running', label: 'Running' },
+  { value: 'failed', label: 'Failed' },
+  { value: 'queued', label: 'Queued' },
+  { value: 'cancelled', label: 'Cancelled' },
+  { value: 'timed_out', label: 'Timed out' },
+  { value: 'retrying', label: 'Retrying' },
+  { value: 'waiting', label: 'Waiting' },
+  { value: 'paused', label: 'Paused' },
+];
+
+export function FilterSelectExample({
+  allLabel = 'Any status',
+}: {
+  allLabel?: string;
+} = {}) {
+  const [value, setValue] = useState<string>('completed');
+  return (
+    <FilterSelect
+      value={value}
+      onChange={setValue}
+      allLabel={allLabel}
+      options={statusOptions}
+    />
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/filter-select.story.tsx`](../../../src/stories/widgets/filter-select.story.tsx). The authoritative registry item ID is `widget-filter-select` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/data-table`
+- **Registry item**: `widget-filter-select` ([payload JSON](/r/widget-filter-select.json))
+- **Story source**: `apps/docs/src/stories/widgets/filter-select.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-filter-select.json
+```

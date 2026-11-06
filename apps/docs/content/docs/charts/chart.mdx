@@ -1,84 +1,33 @@
 ---
-title: Chart Container and Context
-description: Provides the shared chart container, theme configuration, and loading state used by EvilCharts.
+title: "Chart Container and Context"
+description: "Provides the shared chart container, theme configuration, and loading state used by EvilCharts."
 ---
 
-
-
-
-import { story } from "../../../src/stories/charts/chart.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Provides the shared chart container, theme configuration, and loading state used by EvilCharts.
+import { story } from '../../../src/stories/charts/chart.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="chart-evilcharts-ui-chart" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/evilcharts/ui/chart.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop / Parameter | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `EvilAreaChart` | `config` | `TConfig & ValidateConfigKeys<TData, TConfig>` | Labels and light/dark colors keyed by data series. |
-|  | `data` | `TData[]` | Rows consumed by the component or visualization. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
-|  | `animationType` | `AreaAnimationType \| undefined` | Selects the chart reveal animation. |
-|  | `stackType` | `StackType \| undefined` | Selects the chart stack behavior. |
-|  | `selectedDataKey` | `string \| null \| undefined` | Controls the currently selected series key. |
-|  | `defaultSelectedDataKey` | `string \| null \| undefined` | Sets the initially selected series key for uncontrolled selection. |
-|  | `onSelectionChange` | `((selectedDataKey: string \| null) => void) \| undefined` | Receives the selected series key, or null when selection clears. |
-|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
-|  | `showBrush` | `boolean \| undefined` | Shows the mini-chart range brush. |
-|  | `xDataKey` | `(keyof TData & string) \| undefined` | Data field used for x-axis labels and zoom values. |
-|  | `onZoomSelect` | `ZoomSelectHandler \| undefined` | Receives x-axis endpoint values after a drag. |
-|  | `onZoomReset` | `(() => void) \| undefined` | Runs when the zoom selection resets. |
-|  | `isUpdating` | `boolean \| undefined` | Marks data as refreshing while the current view remains visible. |
-| `Area` | `dataKey` | `string` | Data field used for a series or axis. |
-|  | `variant` | `AreaVariant \| undefined` | Selects the documented visual variant. |
-|  | `strokeVariant` | `StrokeVariant \| undefined` | Selects solid, dashed, or animated dashed strokes. |
-|  | `curveType` | `CurveType \| undefined` | Selects Recharts curve interpolation. |
-|  | `animationType` | `AreaAnimationType \| undefined` | Selects the chart reveal animation. |
-|  | `connectNulls` | `boolean \| undefined` | Connects points across null values. |
-|  | `isClickable` | `boolean \| undefined` | Enables pointer selection for legend items. |
-|  | `enableBufferLine` | `boolean \| undefined` | Adds the buffered dash overlay to a series stroke. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-| `Grid` | `stroke` | `string \| undefined` | Sets the chart grid line color. |
-|  | `horizontal` | `GridLineType \| undefined` | Configures the horizontal grid lines. |
-|  | `vertical` | `GridLineType \| undefined` | Configures the vertical grid lines. |
-|  | `strokeDasharray` | `string \| number \| readonly number[] \| undefined` | Sets the dash pattern for the grid lines. |
-| `Tooltip` | `variant` | `TooltipVariant \| undefined` | Selects the documented visual variant. |
-|  | `roundness` | `TooltipRoundness \| undefined` | Selects the tooltip corner radius preset. |
-|  | `defaultIndex` | `number \| undefined` | Initial active tooltip index. |
-|  | `cursor` | `boolean \| undefined` | Shows or hides the tooltip cursor highlight. |
-|  | `labelFormatter` | `(((label: ReactNode, payload: readonly Payload<ValueType, NameType>[]) => ReactNode) & ((label: ReactNode, payload: TooltipPayload) => ReactNode)) \| undefined` | Formats the active x-axis label in the tooltip. |
-|  | `valueFormatter` | `((value: ValueType, dataKey: string, payload: Record<string, unknown>) => ReactNode) \| undefined` | Formats each plotted value for display. |
-|  | `reverse` | `boolean \| undefined` | Reverses the tooltip item order. |
-| `XAxis` | `type` | `"number" \| "auto" \| "category" \| undefined` | Selects whether the axis interprets values as numeric or categorical. |
-|  | `width` | `string \| number \| undefined` | Reserves the requested width for the axis. |
-|  | `orientation` | `"top" \| "bottom" \| undefined` | Places the axis on the selected side of the plot. |
-|  | `domain` | `AxisDomain \| undefined` | Sets the minimum and maximum values shown on the axis. |
-|  | `dataKey` | `string \| number \| ((obj: unknown) => unknown) \| undefined` | Data field used for a series or axis. |
-|  | `hide` | `boolean \| undefined` | Hides the axis when true. |
-|  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
-|  | `axisLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the line drawn along the axis. |
-|  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
-|  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
-| `YAxis` | `type` | `"number" \| "auto" \| "category" \| undefined` | Selects whether the axis interprets values as numeric or categorical. |
-|  | `width` | `number \| "auto" \| undefined` | Reserves the requested width for the axis. |
-|  | `orientation` | `"left" \| "right" \| undefined` | Places the axis on the selected side of the plot. |
-|  | `axisLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the line drawn along the axis. |
-|  | `domain` | `AxisDomain \| undefined` | Sets the minimum and maximum values shown on the axis. |
-|  | `dataKey` | `string \| number \| ((obj: unknown) => unknown) \| undefined` | Data field used for a series or axis. |
-|  | `hide` | `boolean \| undefined` | Hides the axis when true. |
-|  | `tickCount` | `number \| undefined` | Requests the target number of axis ticks. |
-|  | `tickLine` | `boolean \| SVGProps<SVGLineElement> \| undefined` | Configures the tick marks drawn from the axis. |
-|  | `tickFormatter` | `((value: any, index: number) => string) \| undefined` | Formats each axis tick label. |
-| `ChartBackground` | `variant` | `BackgroundVariant` | Selects the documented visual variant. |
+| `ChartContainer` | `config` | `ChartConfig` | Series labels, icons, and light/dark color palettes keyed by series ID. |
+| | `children` | `ReactNode` | Recharts plot elements rendered inside the responsive container. |
+| | `footer?` | `ReactNode` | Optional content rendered below the plot (such as `EvilBrush`). |
+| | `isUpdating?` | `boolean` | Dims the plot while refreshed data is loading (defaults to `false`). |
+| | `height?` | `number \| "${number}%"` | Responsive container height (defaults to `"100%"`). |
+| | `width?` | `number \| "${number}%"` | Responsive container width (defaults to `"100%"`). |
+| | `aspect?` | `number` | Optional width-to-height aspect ratio. |
+| | `debounce?` | `number` | Resize observer debounce in milliseconds (defaults to `100`). |
+| | `className?` | `string` | CSS class applied to the outer chart wrapper. |
+| `ChartStyle` | `id`, `config` | `{ id: string; config: ChartConfig }` | Injects scoped CSS custom properties (`--color-<key>`) for light and dark themes. |
+| `useChart` | `—` | `() => { config: ChartConfig }` | Reads the active `ChartConfig` from `ChartContainer` context. |
+| `LoadingIndicator` | `—` | `() => JSX.Element` | Animated pulsing badge displayed while a chart is in its loading state. |
+| `getLoadingData` | `points?`, `min?`, `max?` | `(points?: number, min?: number, max?: number) => { value: number }[]` | Generates placeholder series points for chart loading skeletons. |
+| `getColorsCount` | `config`, `key` | `(config: ChartConfig, key: string) => number` | Returns the number of configured theme colors for a series key. |
+| `niceCeil` | `max` | `(max: number) => number` | Rounds a maximum axis value up to a human-friendly tick ceiling. |
+| `niceDomain` | `max` | `([min, max]: [number, number]) => [number, number]` | Computes a padded numeric domain for Y axes. |
+| `axisValueToPercentFormatter` | `value` | `(value: number) => string` | Formats a `0..1` ratio as a percentage tick label. |
 
 ## Requirements
 
@@ -86,32 +35,68 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 The shared container is exported from `@tailrocks/framerock/charts/evilcharts/ui/chart` as `ChartContainer`. It requires a measurable width and height from the parent or its responsive sizing props.
 
-| `ChartContainer` prop | Type | Meaning |
-| :--- | :--- | :--- |
-| `config` | `ChartConfig` | Series labels and at least one light or dark color array for each configured series. |
-| `children` | `ReactNode` | Recharts axes, grid, tooltip, and series. |
-| `footer` | `ReactNode` | Optional content below the responsive plot, such as `EvilBrush`. |
-| `isUpdating` | `boolean` | Dims the plot while refreshed data arrives. Defaults to `false`. |
-| `height` | `string \| number` | Responsive plot height. |
-| `width` | `string \| number` | Responsive plot width. |
-| `aspect` | `number` | Responsive plot aspect ratio. |
-| `debounce` | `number` | Resize observer debounce in milliseconds. Defaults to `100`. |
+## Usage
 
-Each `ChartConfig` entry accepts an optional `label`, optional icon component, and `colors`. The `colors` object must include `light`, `dark`, or both. Each value is an array of colors used by the series.
+```tsx
+import {
+  EvilAreaChart,
+  Area,
+  Grid,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "@tailrocks/framerock/charts/evilcharts/charts/area-chart";
+import {
+  ChartBackground,
+} from "@tailrocks/framerock/charts/evilcharts/ui/background";
+import type { ChartConfig } from "@tailrocks/framerock/charts/evilcharts/ui/chart";
 
-```ts
-const config = {
-  requests: {
-    label: "Requests",
-    colors: { light: ["#0090fd"], dark: ["#55b3ff"] },
-  },
+const observabilityConfig = {
+  requests: { label: "Requests", colors: { light: ["#6d5efc"], dark: ["#a59bff"] } },
+  errors: { label: "Errors", colors: { light: ["#e05d71"], dark: ["#ff8292"] } },
+  latency: { label: "Latency", colors: { light: ["#19a98c"], dark: ["#54d9b5"] } },
 } satisfies ChartConfig;
+
+const observabilityData = [
+  { day: "Mon", requests: 116, errors: 9, latency: 178 },
+  { day: "Tue", requests: 132, errors: 12, latency: 194 },
+  { day: "Wed", requests: 124, errors: 7, latency: 169 },
+  { day: "Thu", requests: 158, errors: 15, latency: 218 },
+  { day: "Fri", requests: 147, errors: 11, latency: 203 },
+];
+
+export function ChartExample({
+  isUpdating = false,
+  backgroundVariant = 'dots',
+}: {
+  isUpdating?: boolean;
+  backgroundVariant?: 'dots' | 'grid' | 'cross-hatch';
+} = {}) {
+  return (
+    <EvilAreaChart
+      config={observabilityConfig}
+      data={observabilityData}
+      className="h-[300px]"
+      isUpdating={isUpdating}
+      animationType="none"
+    >
+      <ChartBackground variant={backgroundVariant} />
+      <Grid />
+      <XAxis dataKey="day" />
+      <YAxis width={32} />
+      <Tooltip variant="frosted-glass" />
+      <Area dataKey="requests" variant="gradient" />
+    </EvilAreaChart>
+  );
+}
 ```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/charts/chart.story.tsx`](../../../src/stories/charts/chart.story.tsx). The story registry item is `chart-evilcharts-ui-chart` in [`public/r/story-items.json`](../../../public/r/story-items.json), with its [registry payload](../../../public/r/chart-evilcharts-ui-chart.json). The story panel builds an install command from the current portal origin. For local development, run `npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-chart.json` while the portal is running. The design-system package is not claimed to be published to npm.
+- **Package import**: `@tailrocks/framerock/charts/evilcharts/ui/chart`
+- **Registry item**: `chart-evilcharts-ui-chart` ([payload JSON](/r/chart-evilcharts-ui-chart.json))
+- **Story source**: `apps/docs/src/stories/charts/chart.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/chart-evilcharts-ui-chart.json
+```

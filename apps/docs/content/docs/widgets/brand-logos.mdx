@@ -1,38 +1,81 @@
 ---
-title: BrandLogos
-description: Exports provider brand marks as individual React components.
+title: "Brand Logos"
+description: "Exports provider brand marks as individual React components."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/brand-logos.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Exports provider brand marks as individual React components.
+import { story } from '../../../src/stories/widgets/brand-logos.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="icon-brand-logos" provenanceLabel="1:1 Copied" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/brand-logos.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `AnthropicLogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-| `GoogleLogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-| `OpenAILogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-| `MistralLogo` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `OpenAILogo` | `className?` | `string` | OpenAI blossom mark (`SVGProps<SVGSVGElement>`). |
+| `AnthropicLogo` | `className?` | `string` | Anthropic wordmark glyph (`SVGProps<SVGSVGElement>`). |
+| `ClaudeLogo` | `className?` | `string` | Claude starburst mark (`SVGProps<SVGSVGElement>`). |
+| `ClaudeCodeLogo` | `className?` | `string` | Claude Code terminal mark (`SVGProps<SVGSVGElement>`). |
+| `GeminiLogo` | `className?` | `string` | Google Gemini spark mark (`SVGProps<SVGSVGElement>`). |
+| `GoogleLogo` | `className?` | `string` | Google G mark (`SVGProps<SVGSVGElement>`). |
+| `MistralLogo` | `className?` | `string` | Mistral pixel M mark (`SVGProps<SVGSVGElement>`). |
+| `GrokLogo` | `className?` | `string` | xAI Grok orbital slash mark (`SVGProps<SVGSVGElement>`). |
+| `DeepSeekLogo` | `className?` | `string` | DeepSeek whale mark (`SVGProps<SVGSVGElement>`). |
+| `CohereLogo` | `className?` | `string` | Cohere geometric mark (`SVGProps<SVGSVGElement>`). |
+| `PerplexityLogo` | `className?` | `string` | Perplexity asterisk prism mark (`SVGProps<SVGSVGElement>`). |
+| `GroqLogo` | `className?` | `string` | Groq monogram mark (`SVGProps<SVGSVGElement>`). |
+| `MetaLogo` | `className?` | `string` | Meta infinity loop mark (`SVGProps<SVGSVGElement>`). |
+| `QwenLogo` | `className?` | `string` | Alibaba Qwen geometric mark (`SVGProps<SVGSVGElement>`). |
+| `OpenRouterLogo` | `className?` | `string` | OpenRouter routing arrows mark (`SVGProps<SVGSVGElement>`). |
+| `MicrosoftLogo` | `className?` | `string` | Microsoft four-square window mark (`SVGProps<SVGSVGElement>`). |
+| `AWSLogo` | `className?` | `string` | Amazon Web Services smile mark (`SVGProps<SVGSVGElement>`). |
+| `OllamaLogo` | `className?` | `string` | Ollama llama silhouette mark (`SVGProps<SVGSVGElement>`). |
+| `MiniMaxLogo` | `className?` | `string` | MiniMax wave mark (`SVGProps<SVGSVGElement>`). |
+| `KimiLogo` | `className?` | `string` | Moonshot Kimi mark (`SVGProps<SVGSVGElement>`). |
+| `ZaiLogo` | `className?` | `string` | Z.ai monogram mark (`SVGProps<SVGSVGElement>`). |
+| `NvidiaLogo` | `className?` | `string` | NVIDIA eye spiral mark (`SVGProps<SVGSVGElement>`). |
+| `CodexLogo` | `className?` | `string` | OpenAI Codex hex mark (`SVGProps<SVGSVGElement>`). |
+| `OlwenLogo` | `className?` | `string` | Olwen brand mark (`SVGProps<SVGSVGElement>`). |
+| `OptionLogo` | `className?` | `string` | Option symbol mark (`SVGProps<SVGSVGElement>`). |
 
-Each provider mark accepts the standard SVG props and forwards them to its `<svg>` element.
+Each provider mark accepts standard `SVGProps<SVGSVGElement>` and forwards them to its root `<svg>` element.
+
+## Usage
+
+```tsx
+import {
+  AnthropicLogo,
+  GoogleLogo,
+  MistralLogo,
+  OpenAILogo,
+} from "@tailrocks/framerock/icons/brand-logos";
+
+const providers = [
+  { name: "OpenAI", Logo: OpenAILogo },
+  { name: "Anthropic", Logo: AnthropicLogo },
+  { name: "Google", Logo: GoogleLogo },
+  { name: "Mistral", Logo: MistralLogo },
+];
+
+export function BrandLogosExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-6">
+      {providers.map(({ name, Logo }) => (
+        <div key={name} className="flex items-center gap-2">
+          <Logo className="size-6" />
+          <span className="text-sm">{name}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/brand-logos.story.tsx`](../../../src/stories/widgets/brand-logos.story.tsx). The authoritative registry item ID is `icon-brand-logos` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/icons/brand-logos`
+- **Registry item**: `icon-brand-logos` ([payload JSON](/r/icon-brand-logos.json))
+- **Story source**: `apps/docs/src/stories/widgets/brand-logos.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/icon-brand-logos.json
+```

@@ -10,5 +10,6 @@ function ChartStory({ isUpdating, backgroundVariant }: ChartStoryProps) {
 
 export const story = defineStory({
 	id: 'charts/chart', Component: ChartStory, displayName: 'Chart Container & Context', registryItem: 'chart-evilcharts-ui-chart',
+	frame: { width: 960, height: 440 },
 	args: { initial: { backgroundVariant: 'dots', isUpdating: false } },
 });

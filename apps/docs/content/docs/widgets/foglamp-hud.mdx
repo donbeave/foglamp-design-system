@@ -1,24 +1,14 @@
 ---
-title: FoglampHUD
-description: Displays live trace, step, token, and tool events from an injected HUD stream.
+title: "Foglamp HUD"
+description: "Displays live trace, step, token, and tool events from an injected HUD stream."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/foglamp-hud.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Displays live trace, step, token, and tool events from an injected HUD stream.
+import { story } from '../../../src/stories/widgets/foglamp-hud.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="hud-foglamphud" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/sdk/src/hud/react/FoglampHUD.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -26,16 +16,111 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `defaultOpen` | `boolean \| undefined` | Starts the HUD expanded when true. |
 |  | `theme` | `"light" \| "dark" \| "system" \| undefined` | HUD color mode; system follows the host theme. |
 |  | `redact` | `boolean \| undefined` | Masks prompt, response, and tool payload text. |
-| `createMockHudStream` | `initialEvents` | `readonly HudEvent[]` | Argument accepted by createMockHudStream. |
+| `createMockHudStream` | `initialEvents` | `readonly HudEvent[]` | Initial HUD events replayed by the local mock stream. |
 
 ## Requirements
 
 `FoglampHUD` does not open a network connection. Pass an explicit `HudStream` when you want events. `createMockHudStream(events)` creates a local stream from `HudEvent[]`. The HUD props are `stream`, `defaultOpen`, `theme`, and `redact`.
 
+## Usage
+
+```tsx
+import { FoglampHUD, createMockHudStream } from "@tailrocks/framerock/hud";
+
+const now = Date.now();
+
+const stream = createMockHudStream([
+  {
+    type: 'trace.start',
+    ts: now,
+    traceId: 'trace-demo-1',
+    name: 'Support assistant',
+    agentName: 'Support assistant',
+    provider: 'openai',
+    model: 'gpt-4o',
+  },
+  {
+    type: 'step.start',
+    ts: now + 10,
+    traceId: 'trace-demo-1',
+    stepNumber: 0,
+    provider: 'openai',
+    model: 'gpt-4o',
+  },
+  {
+    type: 'tool.start',
+    ts: now + 40,
+    traceId: 'trace-demo-1',
+    toolCallId: 'call_lookup_1',
+    toolName: 'lookupCustomerAccount',
+    input: JSON.stringify({ email: 'jordan@acme.example', workspace: 'production' }),
+  },
+  {
+    type: 'tool.end',
+    ts: now + 110,
+    traceId: 'trace-demo-1',
+    toolCallId: 'call_lookup_1',
+    toolName: 'lookupCustomerAccount',
+    status: 'ok',
+    durationMs: 70,
+    output: JSON.stringify({ accountId: 'acct_01HZXA29', activeWorkers: 2, pendingRotation: true }),
+  },
+  {
+    type: 'step.end',
+    ts: now + 120,
+    traceId: 'trace-demo-1',
+    stepNumber: 0,
+    status: 'ok',
+    durationMs: 110,
+    outputTps: 118,
+  },
+  {
+    type: 'step.start',
+    ts: now + 130,
+    traceId: 'trace-demo-1',
+    stepNumber: 1,
+    provider: 'openai',
+    model: 'gpt-4o',
+  },
+  {
+    type: 'step.tokens',
+    ts: now + 260,
+    traceId: 'trace-demo-1',
+    stepNumber: 1,
+    outputTokens: 64,
+    tps: 124,
+  },
+]);
+
+export function FoglampHUDExample({
+  defaultOpen = true,
+  redact = false,
+  hudTheme = 'dark',
+}: {
+  defaultOpen?: boolean;
+  redact?: boolean;
+  hudTheme?: 'light' | 'dark';
+} = {}) {
+  return (
+    <div className="relative h-[540px] w-full">
+      <FoglampHUD
+        key={`${defaultOpen}-${hudTheme}-${redact}`}
+        stream={stream}
+        defaultOpen={defaultOpen}
+        redact={redact}
+        theme={hudTheme}
+      />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/foglamp-hud.story.tsx`](../../../src/stories/widgets/foglamp-hud.story.tsx). The authoritative registry item ID is `hud-foglamphud` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/hud`
+- **Registry item**: `hud-foglamphud` ([payload JSON](/r/hud-foglamphud.json))
+- **Story source**: `apps/docs/src/stories/widgets/foglamp-hud.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/hud-foglamphud.json
+```

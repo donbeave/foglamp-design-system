@@ -29,7 +29,7 @@ function AppShellStory({ pathname, isLoading, content = 'overview' }: AppShellSt
   ) : (
     <section className="px-6"><h1 className="text-2xl font-semibold">Overview</h1><p className="mt-2 text-muted-foreground">A local app shell demo. Navigation and project selection stay inside this story.</p></section>
   );
-  return <StorySurface><StoryLinkAdapter><div className="h-[760px] overflow-hidden rounded-lg"><AppShellBlock pathname={pathname} projects={projects} isLoading={isLoading} onNewProject={createProject} user={{ name: 'Alex Rivera', email: 'alex@example.com' }}>{children}</AppShellBlock></div></StoryLinkAdapter></StorySurface>;
+  return <StorySurface><StoryLinkAdapter><div className="h-[800px] w-full overflow-hidden rounded-lg"><AppShellBlock pathname={pathname} projects={projects} isLoading={isLoading} onNewProject={createProject} user={{ name: 'Alex Rivera', email: 'alex@example.com' }}>{children}</AppShellBlock></div></StoryLinkAdapter></StorySurface>;
 }
 
 export const story = defineStory({

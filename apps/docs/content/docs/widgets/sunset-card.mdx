@@ -1,24 +1,14 @@
 ---
-title: SunsetCard
-description: Shows the service sunset notice and its fixed shutdown date.
+title: "Sunset Card"
+description: "Shows the service sunset notice and its fixed shutdown date."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/sunset-card.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Shows the service sunset notice and its fixed shutdown date.
+import { story } from '../../../src/stories/widgets/sunset-card.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-leaf-sunset-card" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/sunset-card.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -30,15 +20,39 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 
 The source UI labels that hosted endpoint with a shutdown date of October 18, 2026. This page documents the component text and does not assert the current status of the hosted service.
 
+## Usage
+
 ```tsx
-<SunsetCard serverUrl="https://api.foglamp.dev" />
-<SunsetCard serverUrl={null} />
+import { SunsetCard } from "@tailrocks/framerock/widgets/leaf/sunset-card";
+
+const HOSTED_SERVER_URL = 'https://cloud.framerock.dev';
+
+export function SunsetCardExample({
+  serverUrl = HOSTED_SERVER_URL,
+}: {
+  serverUrl?: string | null;
+} = {}) {
+  return (
+    <div className="w-72">
+      <SunsetCard serverUrl={serverUrl} />
+      {!serverUrl ? (
+          <div
+            className="rounded-lg border border-dashed bg-muted/20 p-3 text-xs text-muted-foreground"
+          >
+            Self-hosted instance detected — sunset notice hidden.
+          </div>
+      ) : null}
+    </div>
+  );
+}
 ```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/sunset-card.story.tsx`](../../../src/stories/widgets/sunset-card.story.tsx). The authoritative registry item ID is `widget-leaf-sunset-card` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/leaf/sunset-card`
+- **Registry item**: `widget-leaf-sunset-card` ([payload JSON](/r/widget-leaf-sunset-card.json))
+- **Story source**: `apps/docs/src/stories/widgets/sunset-card.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-leaf-sunset-card.json
+```

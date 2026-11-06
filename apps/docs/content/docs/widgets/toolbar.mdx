@@ -1,42 +1,85 @@
 ---
-title: Toolbar
-description: Arranges table controls and trailing summary content.
+title: "Toolbar"
+description: "Arranges table controls and trailing summary content."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/toolbar.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Arranges table controls and trailing summary content.
+import { story } from '../../../src/stories/widgets/toolbar.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-toolbar" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/data-table.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `SearchInput` | `value` | `string` | Controlled value or source data passed to the component. |
-|  | `onChange` | `(value: string) => void` | Receives the next value when the user changes the control. |
-|  | `placeholder` | `string \| undefined` | Text shown while the field is empty. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
-| `ToggleChip` | `active` | `boolean` | Whether the filter chip is selected. |
-|  | `onClick` | `() => void` | Runs when the user activates the control. |
-|  | `children` | `ReactNode` | Content rendered inside the component. |
-| `Toolbar` | `children` | `ReactNode` | Content rendered inside the component. |
-|  | `trailing` | `ReactNode` | Content aligned after toolbar controls. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `Toolbar` | `children` | `ReactNode` | Filter controls (`SearchInput`, `FilterSelect`, `ToggleChip`, `ClearFiltersButton`) grouped on the leading side. |
+| | `trailing?` | `ReactNode` | Summary counts or action buttons aligned to the trailing edge. |
+| | `className?` | `string` | CSS class applied to the toolbar container. |
+
+## Usage
+
+```tsx
+import { useState } from "react";
+import {
+  ClearFiltersButton,
+  FilterSelect,
+  SearchInput,
+  ToggleChip,
+  Toolbar,
+} from "@tailrocks/framerock/widgets/data-table";
+
+const statuses = [
+  { value: "ok", label: "Healthy" },
+  { value: "error", label: "Errored" },
+];
+
+export function ToolbarExample() {
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("");
+  const [errorsOnly, setErrorsOnly] = useState(false);
+  const hasFilters = Boolean(search || status || errorsOnly);
+
+  return (
+    <Toolbar
+      trailing={
+        <span className="text-xs text-muted-foreground">128 traces</span>
+      }
+    >
+      <SearchInput
+        value={search}
+        onChange={setSearch}
+        placeholder="Search traces…"
+      />
+      <FilterSelect
+        value={status}
+        onChange={setStatus}
+        allLabel="All statuses"
+        options={statuses}
+      />
+      <ToggleChip
+        active={errorsOnly}
+        onClick={() => setErrorsOnly((prev) => !prev)}
+      >
+        Errors only
+      </ToggleChip>
+      <ClearFiltersButton
+        show={hasFilters}
+        onClick={() => {
+          setSearch("");
+          setStatus("");
+          setErrorsOnly(false);
+        }}
+      />
+    </Toolbar>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/toolbar.story.tsx`](../../../src/stories/widgets/toolbar.story.tsx). The authoritative registry item ID is `widget-toolbar` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/data-table`
+- **Registry item**: `widget-toolbar` ([payload JSON](/r/widget-toolbar.json))
+- **Story source**: `apps/docs/src/stories/widgets/toolbar.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-toolbar.json
+```

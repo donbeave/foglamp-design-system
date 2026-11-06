@@ -1,41 +1,73 @@
 ---
-title: ToolBreakdown
-description: Groups tool usage rows and their costs for the supplied range data.
+title: "Tool Breakdown"
+description: "Groups tool usage rows and their costs for the supplied range data."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/tool-breakdown.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Groups tool usage rows and their costs for the supplied range data.
+import { story } from '../../../src/stories/widgets/tool-breakdown.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-tool-breakdown" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/tool-breakdown-card.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `ToolBreakdownView` | `tools` | `readonly ToolBreakdownItem[]` | Tool usage rows displayed by the breakdown. |
-|  | `isLoading` | `boolean \| undefined` | Shows the component loading state. |
-|  | `isUpdating` | `boolean \| undefined` | Marks data as refreshing while the current view remains visible. |
-|  | `title` | `string \| undefined` | Sets the component heading or SVG title. |
-|  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `ToolBreakdownView` (`ToolBreakdownCard`) | `tools` | `readonly ToolBreakdownItem[]` | Per-tool call counts, error counts, and latency percentiles (`p50`, `p95`, `p99`). |
+| | `isLoading?` | `boolean` | Renders skeleton rows while initial tool metrics load. |
+| | `isUpdating?` | `boolean` | Dims the card while refreshed range data is loading. |
+| | `title?` | `string` | Card heading text (defaults to `"Tool calls"`). |
+| | `className?` | `string` | CSS class applied to the outer card. |
+
+
 
 ## Requirements
 
 Pass the tool breakdown rows and resolved reporting range to the view. The story places the view in its shared range-provider frame.
 
+## Usage
+
+```tsx
+import {
+  ToolBreakdownView,
+} from "@tailrocks/framerock/widgets/tool-breakdown";
+
+const toolBreakdownFixture = [
+  {
+    toolName: "search_customers",
+    callCount: 164,
+    errorCount: 3,
+    runCount: 98,
+    totalRunCount: 120,
+    latencyMs: { p50: 82, p95: 248, p99: 410 },
+  },
+  {
+    toolName: "create_ticket",
+    callCount: 72,
+    errorCount: 1,
+    runCount: 68,
+    totalRunCount: 120,
+    latencyMs: { p50: 121, p95: 360, p99: 540 },
+  },
+];
+
+export function ToolBreakdownExample({
+  isLoading = false,
+}: {
+  isLoading?: boolean;
+} = {}) {
+  return (
+    <div className="w-full max-w-xl">
+      <ToolBreakdownView tools={toolBreakdownFixture} isLoading={isLoading} />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/tool-breakdown.story.tsx`](../../../src/stories/widgets/tool-breakdown.story.tsx). The authoritative registry item ID is `widget-tool-breakdown` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/tool-breakdown`
+- **Registry item**: `widget-tool-breakdown` ([payload JSON](/r/widget-tool-breakdown.json))
+- **Story source**: `apps/docs/src/stories/widgets/tool-breakdown.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-tool-breakdown.json
+```

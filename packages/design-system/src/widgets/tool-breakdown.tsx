@@ -169,6 +169,8 @@ export function ToolBreakdownView({
 	);
 }
 
+export const ToolBreakdownCard = ToolBreakdownView;
+
 /** The original EmptyState layout composed from the same UI primitives. */
 function ToolEmptyState() {
 	return (

@@ -1,40 +1,72 @@
 ---
-title: TrendCharts
-description: Exports the selectable chart legend and range-bucket helpers used by trend views.
+title: "Trend Charts"
+description: "Exports the selectable chart legend and range-bucket helpers used by trend views."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/trend-charts.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Exports the selectable chart legend and range-bucket helpers used by trend views.
+import { story } from '../../../src/stories/widgets/trend-charts.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-trend-charts" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/trend-charts.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Parameter / Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `ChartLegend` | `config` | `ChartConfig` | Labels and light/dark colors keyed by data series. |
-|  | `selected` | `string \| null` | Current selected identifier, or null when nothing is selected. |
-|  | `onSelect` | `(key: string \| null) => void` | Receives the selected item or series. |
-| `themed` | `color` | `string` | Argument accepted by themed. |
+| `ChartLegend` | `config`, `selected`, `onSelect` | `{ config: ChartConfig; selected: string \| null; onSelect: (key: string \| null) => void }` | Interactive pill legend that isolates a single series on click and restores all series on second click. |
+| `themed` | `color` | `(color: string) => { light: [string]; dark: [string] }` | Wraps a CSS color string into a light/dark color tuple for `ChartConfig`. |
+| `makeBucketLabel` | `from`, `to` | `(from: Date, to: Date) => (bucket: string) => string` | Returns a locale time/date formatter tailored to the active window span. |
+| `formatBucketFull` | `bucket` | `(bucket: string) => string` | Formats a UTC bucket string into a full tooltip timestamp. |
+| `thinTicks` | `buckets`, `maxTicks?` | `(buckets: readonly string[], maxTicks?: number) => string[]` | Downsamples x-axis bucket strings to prevent tick label collisions. |
+| `fillBuckets` | `rows`, `from`, `to`, `makeEmpty` | `<T extends { bucket: string }>(rows: T[], from: Date, to: Date, makeEmpty: (bucket: string) => T) => T[]` | Zero-fills missing time buckets across a query window so quiet intervals keep proportional x-axis width. |
+| `useFrozen` | `value`, `frozen` | `<T>(value: T, frozen: boolean) => T` | Retains the last non-frozen value while a background range refetch is in flight. |
+| `useZoomRange` | `—` | `() => { zoomTo: (fromBucket: string, toBucket: string) => void; reset: () => void }` | Connects chart drag-to-zoom callbacks to the shared `RangeProvider` state with double-click undo. |
+
+
 
 ## Requirements
 
 `ChartLegend` is controlled by `selected` and `onSelect`. The module also exports bucket-formatting helpers and `useZoomRange`; that hook reads shared range state and requires `RangeProvider`.
 
+## Usage
+
+```tsx
+import { useState } from "react";
+import {
+  ChartLegend,
+  themed,
+} from "@tailrocks/framerock/widgets/trend-charts";
+
+const config = { input: { label: 'Input', colors: themed('#f97316') }, output: { label: 'Output', colors: themed('#0090fd') }, errors: { label: 'Errors', colors: themed('#ef4444') } };
+
+export function TrendChartsExample() {
+  const [selected, setSelected] = useState<string | null>(null);
+  return (
+    <div className="rounded-xl border bg-card p-4">
+      <div className="mb-4 text-sm font-medium">Activity over time</div>
+      <ChartLegend
+        config={config}
+        selected={selected}
+        onSelect={setSelected}
+      />
+      <div className="mt-5 grid h-24 grid-cols-12 items-end gap-2">
+        {[35, 52, 42, 74, 58, 82, 61, 92, 68, 77, 49, 88].map((height, i) => (
+            <span
+              key={i}
+              className="rounded-t bg-primary/70"
+              style={{ height: `${height}%` }}
+            />
+        ))}
+      </div>
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/trend-charts.story.tsx`](../../../src/stories/widgets/trend-charts.story.tsx). The authoritative registry item ID is `widget-trend-charts` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/trend-charts`
+- **Registry item**: `widget-trend-charts` ([payload JSON](/r/widget-trend-charts.json))
+- **Story source**: `apps/docs/src/stories/widgets/trend-charts.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-trend-charts.json
+```

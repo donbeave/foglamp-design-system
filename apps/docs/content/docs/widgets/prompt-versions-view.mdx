@@ -1,24 +1,14 @@
 ---
-title: PromptVersionsView
-description: Compares prompt versions, their templates, and slot values.
+title: "Prompt Versions View"
+description: "Compares prompt versions, their templates, and slot values."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/prompt-versions-view.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Compares prompt versions, their templates, and slot values.
+import { story } from '../../../src/stories/widgets/prompt-versions-view.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-prompt-versions-card" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/prompt-versions-card.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
 
 | Export | Prop | Type | Meaning |
 | :--- | :--- | :--- | :--- |
@@ -28,10 +18,61 @@ The table lists public exports used by this story. Prop names and TypeScript typ
 |  | `className` | `string \| undefined` | Adds a class to the rendered root element. |
 |  | `renderProse` | `((version: PromptVersion) => ReactNode) \| undefined` | Renders a version template as prose. |
 
+## Usage
+
+```tsx
+import {
+  PromptVersionsView,
+} from "@tailrocks/framerock/widgets/prompt-versions-card";
+
+const promptVersionsFixture = [
+  {
+    id: "v1",
+    number: 1,
+    template: "You are a helpful support assistant.\n{{customer_context}}",
+    slotCount: 1,
+    hashCount: 3,
+    runCount: 128,
+    firstSeen: "2025-02-01T08:00:00Z",
+    lastSeen: "2025-02-08T12:00:00Z",
+    current: false,
+  },
+  {
+    id: "v2",
+    number: 2,
+    template: "You are a concise support assistant.\n{{customer_context}}",
+    slotCount: 1,
+    hashCount: 5,
+    runCount: 84,
+    firstSeen: "2025-02-08T12:00:00Z",
+    lastSeen: "2025-02-14T10:00:00Z",
+    current: true,
+  },
+];
+
+export function PromptVersionsExample({
+  loading = false,
+}: {
+  loading?: boolean;
+} = {}) {
+  return (
+    <div className="w-full">
+      <PromptVersionsView
+        versions={promptVersionsFixture}
+        loading={loading}
+        skeleton={loading}
+      />
+    </div>
+  );
+}
+```
+
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/prompt-versions-view.story.tsx`](../../../src/stories/widgets/prompt-versions-view.story.tsx). The authoritative registry item ID is `widget-prompt-versions-card` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/prompt-versions-card`
+- **Registry item**: `widget-prompt-versions-card` ([payload JSON](/r/widget-prompt-versions-card.json))
+- **Story source**: `apps/docs/src/stories/widgets/prompt-versions-view.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-prompt-versions-card.json
+```

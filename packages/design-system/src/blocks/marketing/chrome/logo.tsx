@@ -21,11 +21,11 @@ import { cn } from "../../../lib/utils";
 import { BrandMark } from "./brand-mark";
 
 /**
- * Foglamp logo lockup — the three-circle brand mark next to the "Foglamp"
+ * Framerock logo lockup — the three-frame brand mark next to the "Framerock"
  * wordmark, set in Host Grotesk (the marketing display face, `font-display`).
  * Used in the marketing navbar and footer.
  */
-export function Logo({ className, brandName = "Foglamp" }: { className?: string; brandName?: string }) {
+export function Logo({ className, brandName = "Framerock" }: { className?: string; brandName?: string }) {
 	return (
 		<span className={cn("flex items-center gap-2", className)}>
 			<BrandMark className="h-3.5 w-auto" />

@@ -27,8 +27,8 @@ import { AskFoggy } from "./ask-foggy";
 import type { AskFoggyRequest } from "./ask-foggy";
 import { Button } from "../../../ui/button";
 
-const DOCS_ORIGIN = "https://docs.foglamp.dev";
-const GITHUB_URL = "https://github.com/foglamp-labs/foglamp";
+const DOCS_ORIGIN = "/docs";
+const GITHUB_URL = "https://github.com/tailrocks/framerock";
 
 // Six questions, hairline rows, and under them a public Foggy that answers
 // everything else from the docs. Answers are also emitted as FAQPage JSON-LD
@@ -38,22 +38,22 @@ type Faq = { q: string; a: string; links?: { label: string; href: string }[] };
 
 const FAQS: Faq[] = [
   {
-    q: "What is Foglamp?",
+    q: "What is Framerock?",
     a: "Observability for AI agents built on the Vercel AI SDK. Every generateText and streamText call becomes a trace with its cost, latency, tokens, prompt, and response. Evals score what your agents say, and alerts watch cost, errors, and pass rates. It is open source and you can run it yourself.",
     links: [{ label: "Read the docs", href: DOCS_ORIGIN }],
   },
   {
     q: "Which AI SDK versions are supported?",
-    a: "Versions 4 through 6 use wrap() from foglamp/wrap around your model calls. Version 7 uses the native telemetry integration: registerTelemetry(foglamp()) once at startup. The setup prompt reads your installed version and picks the right path.",
+    a: "Versions 4 through 6 use wrap() around your model calls. Version 7 uses the native telemetry integration: registerTelemetry() once at startup. The setup prompt reads your installed version and picks the right path.",
     links: [
-      { label: "Instrumentation guide", href: `${DOCS_ORIGIN}/ai-instrument` },
+      { label: "Instrumentation guide", href: `${DOCS_ORIGIN}/foundations/installation` },
     ],
   },
   {
     q: "Can I self-host it?",
-    a: "Yes. Foglamp is Apache 2.0 and ships with a docker compose file that brings up the app, Postgres, and ClickHouse. Nothing in the self-hosted version phones home.",
+    a: "Yes. Framerock is Apache 2.0 and ships with a docker compose file that brings up the app, Postgres, and ClickHouse. Nothing in the self-hosted version phones home.",
     links: [
-      { label: "Self-hosting guide", href: `${DOCS_ORIGIN}/self-hosting` },
+      { label: "Self-hosting guide", href: `${DOCS_ORIGIN}/foundations/installation` },
       { label: "GitHub", href: GITHUB_URL },
     ],
   },
@@ -64,8 +64,8 @@ const FAQS: Faq[] = [
   },
   {
     q: "What does the SDK add to my request latency?",
-    a: "Nothing on the request path. Spans are batched in memory and flushed in the background every five seconds. On serverless, call flush() before the function returns. If Foglamp is unreachable, your agent keeps running and the batch is dropped.",
-    links: [{ label: "SDK reference", href: `${DOCS_ORIGIN}/sdk` }],
+    a: "Nothing on the request path. Spans are batched in memory and flushed in the background every five seconds. On serverless, call flush() before the function returns. If Framerock is unreachable, your agent keeps running and the batch is dropped.",
+    links: [{ label: "SDK reference", href: `${DOCS_ORIGIN}/foundations/architecture` }],
   },
 ];
 

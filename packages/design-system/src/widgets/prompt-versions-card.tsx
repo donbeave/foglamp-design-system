@@ -18,9 +18,6 @@
 
 "use client";
 
-/** Original design by Gustavo Fior (@gustavo-fior), Abdul Haidar and Foglamp Labs.
- * Extracted from foglamp-labs/foglamp under the Apache-2.0 license. */
-
 import { type DiffOp, lineDiff } from "@tailrocks/framerock/lib/prompts/diff";
 import { SLOT_LINE } from "@tailrocks/framerock/lib/prompts/infer";
 import { Badge } from "../ui/badge";

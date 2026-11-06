@@ -1,34 +1,34 @@
 ---
-title: Hero 3D Demo
-description: Hero 3D Demo renders the marketing hero and its interactive dashboard demonstration. It accepts no story controls.
+title: "Hero 3D Demo"
+description: "Marketing hero section with blurred-rise headline, copy-prompt CTA, and 3D perspective dashboard entrance choreography."
 ---
 
-
-
-
-import { story } from '../../../src/stories/blocks/hero-3d-demo-block.story'
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Hero 3D Demo renders the marketing hero and its interactive dashboard demonstration. It accepts no story controls.
+import { story } from '../../../src/stories/blocks/hero-3d-demo-block.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="block-marketing-hero-hero" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/landing/hero.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
+## Public API
 
-## Package entry
+| Export | Prop | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `Hero3DDemoBlock` | `—` | `—` | Self-contained block component requiring no required props. |
 
-`@tailrocks/framerock/blocks/marketing/hero` exports this block. The interactive preview above comes from `apps/docs/src/stories/blocks/hero-3d-demo-block.story.tsx`.
+## Usage
 
-## API reference
+```tsx
+import { Hero3DDemoBlock } from "@tailrocks/framerock/blocks/marketing/hero";
 
-| Entry | Contract |
-| --- | --- |
-| Story arguments | No editable workbench arguments. |
-| Fixture and callback wiring | The exported hero block takes no props in this story. The source demo uses its own interaction state and reduced-motion handling. |
-| Registry item | `block-marketing-hero-hero`. The portal payload is `/r/block-marketing-hero-hero.json`. |
+export function Hero3DDemoBlockExample() {
+  return <Hero3DDemoBlock />;
+}
+```
 
+## Source and registry
 
----
+- **Package import**: `@tailrocks/framerock/blocks/marketing/hero`
+- **Registry item**: `block-marketing-hero-hero` ([payload JSON](/r/block-marketing-hero-hero.json))
+- **Story source**: `apps/docs/src/stories/blocks/hero-3d-demo-block.story.tsx`
 
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior), [gustavofior.com](https://gustavofior.com), and [@heyimgustavo](https://x.com/heyimgustavo), with co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/) at [Foglamp Labs (foglamp-labs/foglamp)](https://github.com/foglamp-labs/foglamp). The source project is licensed under [Apache-2.0](https://github.com/foglamp-labs/foglamp/blob/main/LICENSE).
+```bash
+npx shadcn@latest add http://localhost:3000/r/block-marketing-hero-hero.json
+```

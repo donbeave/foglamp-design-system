@@ -1,33 +1,34 @@
 ---
-title: BrandMark
-description: Renders the Foglamp brand glyph.
+title: "Brand Mark"
+description: "Renders the Framerock three-frame architectural brand mark."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/brand-mark.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders the Foglamp brand glyph.
+import { story } from '../../../src/stories/widgets/brand-mark.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="icon-brand-mark" provenanceLabel="1:1 Copied" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/marketing/brand-mark.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Prop | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `BrandMark` | `className` | `string \| undefined` | Adds a class to the rendered root element. |
+| `BrandMark` | `className?` | `string` | CSS class applied to the Framerock three-frame architectural SVG mark. |
+
+## Usage
+
+```tsx
+import { BrandMark } from "@tailrocks/framerock/icons/brand-mark";
+
+export function BrandMarkExample() {
+  return <BrandMark className="size-12" />;
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/brand-mark.story.tsx`](../../../src/stories/widgets/brand-mark.story.tsx). The authoritative registry item ID is `icon-brand-mark` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/icons/brand-mark`
+- **Registry item**: `icon-brand-mark` ([payload JSON](/r/icon-brand-mark.json))
+- **Story source**: `apps/docs/src/stories/widgets/brand-mark.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/icon-brand-mark.json
+```

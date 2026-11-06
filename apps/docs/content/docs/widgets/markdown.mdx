@@ -1,33 +1,45 @@
 ---
-title: Markdown
-description: Renders prose inside the payload inspector.
+title: "Markdown"
+description: "Renders prose inside the payload inspector."
 ---
 
-
-
-
-import { story } from "../../../src/stories/widgets/markdown.story";
-
-import { StoryProvenance } from '../../../src/components/provenance';
-
-Renders prose inside the payload inspector.
+import { story } from '../../../src/stories/widgets/markdown.story';
 
 <story.WithControl />
 
-<StoryProvenance registryItem="widget-markdown" provenanceLabel="Modified (Import/Prop Decoupled)" sourceUrl="https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/components/app/markdown.tsx" repositoryUrl="https://github.com/foglamp-labs/foglamp" foglampWebsite="https://foglamp.dev" creatorWebsite="https://gustavofior.com" />
-
 ## Public API
 
-The table lists public exports used by this story. Prop names and TypeScript types come from the design-system source.
-
-| Export | Prop | Type | Meaning |
+| Export | Module | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `Prose` | `children` | `string` | Content rendered inside the component. |
+| `markdownComponents` | `@tailrocks/framerock/widgets/markdown` | `Record<string, ComponentType>` | Streamdown component overrides routing relative links through `FramerockLink` and styling chat-native tables, images, and rules. |
+| `Prose` | `@tailrocks/framerock/widgets/payload-view` | `({ children }: { children: string }) => JSX.Element` | Renders a Markdown string using `Streamdown` and `markdownComponents`. |
+
+## Usage
+
+```tsx
+import { Prose } from "@tailrocks/framerock/widgets/payload-view";
+
+export function MarkdownExample({
+  markdown = '### Model response\n\nThe **customer needs help** rotating an API key.\n\n- Confirm workspace access\n- Revoke the old key',
+}: {
+  markdown?: string;
+} = {}) {
+  return (
+    <div className="max-w-lg">
+      <Prose>
+        {markdown}
+      </Prose>
+    </div>
+  );
+}
+```
 
 ## Source and registry
 
-The interactive example comes from [`src/stories/widgets/markdown.story.tsx`](../../../src/stories/widgets/markdown.story.tsx). The authoritative registry item ID is `widget-markdown` in [`public/r/story-items.json`](../../../public/r/story-items.json). This page does not claim that the package is published to npm.
+- **Package import**: `@tailrocks/framerock/widgets/payload-view`
+- **Registry item**: `widget-markdown` ([payload JSON](/r/widget-markdown.json))
+- **Story source**: `apps/docs/src/stories/widgets/markdown.story.tsx`
 
-## Attribution
-
-Original design by [Gustavo Fior (@gustavo-fior)](https://github.com/gustavo-fior) ([gustavofior.com](https://gustavofior.com), [@heyimgustavo](https://x.com/heyimgustavo)), co-founder [Abdul Haidar](https://www.linkedin.com/in/abdulhdr/), and [Foglamp Labs](https://foglamp.dev). Source project: [foglamp-labs/foglamp](https://github.com/foglamp-labs/foglamp), licensed under Apache-2.0.
+```bash
+npx shadcn@latest add http://localhost:3000/r/widget-markdown.json
+```

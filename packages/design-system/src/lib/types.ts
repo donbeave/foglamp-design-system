@@ -7,9 +7,10 @@
  * @provenance modified
  * @upstream-repo https://github.com/foglamp-labs/foglamp
  * @upstream-commit 7d7e6609108019a74902858d4b07c24825c6318b
- * @upstream-path apps/web/src/lib/trace-timeline.ts
- * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/lib/trace-timeline.ts
- * @secondary-upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/api/src/services/traces.ts
+ * @upstream-path packages/api/src/services/traces.ts
+ * @upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/api/src/services/traces.ts
+ * @secondary-upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/apps/web/src/lib/trace-timeline.ts
+ * @secondary-upstream-url https://github.com/foglamp-labs/foglamp/blob/7d7e6609108019a74902858d4b07c24825c6318b/packages/sdk/src/types.ts
  * @modifications Decoupled module imports and/or router/data bindings for standalone Framerock package & registry distribution; 1:1 visual design and behavior preserved.
  *
  * Apache-2.0 Section 4(b) Notice: This file was modified by Tailrocks from the

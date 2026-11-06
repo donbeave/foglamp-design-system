@@ -18,17 +18,14 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/apps/web/src/components/app/sunset-card.tsx; derived here under Apache-2.0.
- */
 import { IconSunsetFilled } from "@tabler/icons-react";
 
 // Shutdown notice for the hosted deployment only. Self-hosts point
 // NEXT_PUBLIC_SERVER_URL elsewhere and never see it.
-const HOSTED_SERVER_URL = "https://api.foglamp.dev";
+const HOSTED_SERVER_URL = "https://cloud.framerock.dev";
 const SHUTDOWN_DATE = "October 18, 2026";
 
-type SunsetCardProps = { serverUrl?: string | null };
+export type SunsetCardProps = { serverUrl?: string | null };
 
 function getRuntimeServerUrl(): string | undefined {
   const process: unknown = Reflect.get(globalThis, "process");
@@ -53,12 +50,12 @@ export function SunsetCard({ serverUrl }: SunsetCardProps) {
     <div className="mb-1 flex flex-col gap-1.5 rounded-3xl squircle:rounded-[40px] corner-squircle border border-amber-500/10 bg-amber-500/10 p-3 px-3.5 text-xs text-amber-700 dark:text-amber-400">
       <div className="flex items-center gap-1.5">
         <IconSunsetFilled className="size-3" />
-        <span className="font-medium text-[13px]">Foglamp is sunsetting</span>
+        <span className="font-medium text-[13px]">Legacy cloud instance is sunsetting</span>
       </div>
       <p>
         The hosted service stops on {SHUTDOWN_DATE} and all data will be
         deleted. Want an export?{" "}
-        <a href="mailto:gustavo@foglamp.dev" className="underline">
+        <a href="mailto:support@tailrocks.com" className="underline">
           Email us
         </a>
         .

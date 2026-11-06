@@ -38,7 +38,6 @@
     "./blocks/scan": "./src/blocks/scan/index.ts",
     "./blocks/scan/index": "./src/blocks/scan/index.ts",
     "./blocks/scan/scan-prompt": "./src/blocks/scan/scan-prompt.ts",
-    "./blocks/scan/verify-source": "./src/blocks/scan/verify-source.ts",
     "./blocks/scan/*": "./src/blocks/scan/*.tsx",
     "./blocks/auth": "./src/blocks/auth/index.ts",
     "./blocks/auth/index": "./src/blocks/auth/index.ts",
@@ -107,9 +106,7 @@
     "input-otp": "1.4.2",
     "motion": "12.40.0",
     "next-themes": "0.4.6",
-    "react": "19.2.5",
     "react-day-picker": "9.14.0",
-    "react-dom": "19.2.5",
     "react-resizable-panels": "4.10.0",
     "recharts": "3.8.1",
     "shadcn": "4.12.0",
@@ -124,6 +121,10 @@
     "vaul": "1.1.2",
     "zod": "4.3.6",
     "type-fest": "4.41.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/bun": "1.3.13",
@@ -155,6 +156,10 @@
   },
   "files": [
     "src",
+    "!src/**/*.test.ts",
+    "!src/**/*.test.tsx",
+    "!src/blocks/scan/verify-source.ts",
+    "!src/blocks/scan/tsconfig.json",
     "LICENSE",
     "NOTICE",
     "THIRD-PARTY-NOTICES.md"

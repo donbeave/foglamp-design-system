@@ -111,7 +111,7 @@ export function AskFoggy({ onAsk }: AskFoggyProps) {
 				onSubmit={(event) => void submit(event)}
 			>
 				<label htmlFor="ask-foggy" className="sr-only">
-					Ask Foggy a question about Foglamp
+					Ask Foggy a question about Framerock
 				</label>
 				<input
 					id="ask-foggy"

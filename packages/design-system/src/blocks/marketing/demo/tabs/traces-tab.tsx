@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/tabs/traces-tab.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { Button } from "@tailrocks/framerock/ui/button";
 import {
 	DropdownMenu,

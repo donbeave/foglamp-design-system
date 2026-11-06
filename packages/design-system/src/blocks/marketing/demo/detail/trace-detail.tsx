@@ -18,13 +18,6 @@
 
 "use client";
 
-/**
- * Original design and implementation by Gustavo Fior (@gustavo-fior),
- * co-founder Abdul Haidar, and Foglamp Labs. Extracted AS-IS from
- * foglamp-labs/foglamp: apps/web/src/components/marketing/demo/detail/trace-detail.tsx.
- * Licensed under Apache-2.0.
- */
-
 import { Button } from "@tailrocks/framerock/ui/button";
 import {
 	Card,
@@ -52,8 +45,9 @@ import { useState } from "react";
 import { AgentIcon } from "@tailrocks/framerock/widgets/leaf/agent-icon";
 import { CopyButton } from "@tailrocks/framerock/widgets/leaf/copy-button";
 import { CustomerAvatar } from "@tailrocks/framerock/widgets/leaf/customer-avatar";
+import { SpanTypeBadge, SpanTypeChip } from "@tailrocks/framerock/widgets/leaf/span-type";
 import { ScrollFade } from "@tailrocks/framerock/widgets/page-parts";
-import { TraceTimeline } from "@tailrocks/framerock/widgets/trace-timeline";
+import { TraceTimeline, WHOLE_TRACE_ID } from "@tailrocks/framerock/widgets/trace-timeline";
 import { ModelLogo, formatModelName } from "@tailrocks/framerock/icons/model-logo";
 import {
 	formatCost,
@@ -236,6 +230,33 @@ const TIME_PARTS: StripSegment[] = [
 	{ label: "Idle", value: 300, swatch: "bg-muted-foreground/15" },
 ];
 
+const SPAN_IO: Record<string, { input: string; output: string }> = {
+	s0: {
+		input: 'Hey, my order #48213 still says "processing" after 5 days. Can you check what\'s going on?',
+		output: "Order #48213 cleared address verification this morning and is packed to ship today with expected delivery Tuesday.",
+	},
+	s1: {
+		input: 'Classify support request: "Hey, my order #48213 still says processing after 5 days."',
+		output: '{"category":"shipping","orderId":"48213","urgency":"normal"}',
+	},
+	s2: {
+		input: '{"orderId":"48213"}',
+		output: '{"orderId":"48213","status":"packed","flag":"address_verified","eta":"Tuesday"}',
+	},
+	s3: {
+		input: '{"query":"shipping processing delay address verification policy"}',
+		output: '{"matches":3,"topArticle":"shipping-verification-holds"}',
+	},
+	s4: {
+		input: '{"query":"address verification hold","candidates":3}',
+		output: '{"selected":"shipping-verification-holds","score":0.96}',
+	},
+	s5: {
+		input: '{"orderId":"48213","status":"packed","policy":"shipping-verification-holds"}',
+		output: "Order #48213 cleared address verification this morning and ships today, arriving Tuesday.",
+	},
+};
+
 export function TraceDetail({ traceId }: { traceId: string }) {
 	const { closeDetail, openDetail } = useDemo();
 	const [selected, setSelected] = useState<string | null>(null);
@@ -247,6 +268,14 @@ export function TraceDetail({ traceId }: { traceId: string }) {
 	const promptVersion = promptVersionOf(row.agentName, row.traceId);
 	const systemPrompt = systemPromptOf(row.agentName, row.traceId);
 	const models = [...new Set([row.model, "gemini-3.5-flash"])];
+	const navOrder = [WHOLE_TRACE_ID, ...TRACE_SPANS.map((s) => s.spanId)];
+	const activeId = selected ?? WHOLE_TRACE_ID;
+	const activeIndex = Math.max(0, navOrder.indexOf(activeId));
+	const selectedSpan =
+		selected && selected !== WHOLE_TRACE_ID
+			? (TRACE_SPANS.find((s) => s.spanId === selected) ?? null)
+			: null;
+	const selectedIo = selectedSpan ? SPAN_IO[selectedSpan.spanId] : null;
 
 	return (
 		<>
@@ -319,12 +348,32 @@ export function TraceDetail({ traceId }: { traceId: string }) {
 					<Card className="max-h-[calc(100svh-14rem)] gap-0 py-0">
 						<CardHeader className="flex shrink-0 items-center gap-2 p-5 px-5 pb-1">
 							<CardTitle className="flex min-w-0 flex-1 items-center gap-2">
-								<span className="flex size-4.5 shrink-0 items-center shadow-[inset_0_0_0_1px_rgba(100,116,139,0.14),0_2px_6px_-2px_rgba(100,116,139,0.25)] dark:shadow-(--custom-shadow) justify-center rounded-md corner-squircle bg-primary/15 text-primary">
-									<IconAffiliate className="size-3" />
-								</span>
-								<span className="truncate">Whole trace</span>
+								{selectedSpan ? (
+									<>
+										<SpanTypeChip type={selectedSpan.spanType} />
+										<span className="truncate">{selectedSpan.name}</span>
+									</>
+								) : (
+									<>
+										<span className="flex size-4.5 shrink-0 items-center shadow-[inset_0_0_0_1px_rgba(100,116,139,0.14),0_2px_6px_-2px_rgba(100,116,139,0.25)] dark:shadow-(--custom-shadow) justify-center rounded-md corner-squircle bg-primary/15 text-primary">
+											<IconAffiliate className="size-3" />
+										</span>
+										<span className="truncate">Whole trace</span>
+									</>
+								)}
 							</CardTitle>
 							<div className="flex shrink-0 items-center gap-1">
+								{selectedSpan && (
+									<Button
+										type="button"
+										size="xs"
+										variant="ghost"
+										onClick={() => setSelected(WHOLE_TRACE_ID)}
+										className="text-muted-foreground/60 hover:text-foreground"
+									>
+										Whole trace
+									</Button>
+								)}
 								<Button
 									type="button"
 									size="xs"
@@ -338,7 +387,11 @@ export function TraceDetail({ traceId }: { traceId: string }) {
 									size="icon-xs"
 									variant="ghost"
 									className="text-muted-foreground/60 hover:text-foreground"
-									disabled
+									disabled={activeIndex <= 0}
+									onClick={() => {
+										const prev = navOrder[activeIndex - 1];
+										if (prev) setSelected(prev);
+									}}
 									aria-label="Previous span"
 								>
 									<IconChevronUp className="size-4 text-current" />
@@ -348,13 +401,18 @@ export function TraceDetail({ traceId }: { traceId: string }) {
 									size="icon-xs"
 									variant="ghost"
 									className="text-muted-foreground/60 hover:text-foreground"
+									disabled={activeIndex >= navOrder.length - 1}
+									onClick={() => {
+										const next = navOrder[activeIndex + 1];
+										if (next) setSelected(next);
+									}}
 									aria-label="Next span"
 								>
 									<IconChevronDown className="size-4 text-current" />
 								</Button>
 								<CopyButton
-									value={row.traceId}
-									title="Copy trace summary as JSON"
+									value={selectedSpan ? selectedSpan.spanId : row.traceId}
+									title={selectedSpan ? "Copy span ID" : "Copy trace summary as JSON"}
 								/>
 							</div>
 						</CardHeader>
@@ -363,6 +421,87 @@ export function TraceDetail({ traceId }: { traceId: string }) {
 								containerClassName="flex min-h-0 flex-1 flex-col"
 								className="flex min-h-0 flex-1 flex-col gap-4 py-5"
 							>
+								{selectedSpan ? (
+									<>
+										<div className="grid grid-cols-2 gap-4 border-b border-border/40 pb-5 px-5">
+											<Field
+												label="Started"
+												value={formatDateTime(selectedSpan.startTime)}
+											/>
+											<Field
+												label="Type"
+												value={<SpanTypeBadge type={selectedSpan.spanType} />}
+											/>
+											{selectedSpan.modelId && (
+												<Field
+													label="Model"
+													value={
+														<span className="flex min-w-0 items-center gap-1.5">
+															<ModelLogo
+																provider={selectedSpan.provider}
+																modelId={selectedSpan.modelId}
+																className="size-3 shrink-0"
+															/>
+															<span className="truncate" title={selectedSpan.modelId}>
+																{formatModelName(selectedSpan.modelId)}
+															</span>
+														</span>
+													}
+												/>
+											)}
+											<Field
+												label="Duration"
+												value={formatSpanDuration(selectedSpan.durationMs)}
+											/>
+											{selectedSpan.ttftMs != null && (
+												<Field
+													label="TTFT"
+													value={formatSpanDuration(selectedSpan.ttftMs)}
+												/>
+											)}
+											{selectedSpan.totalCost != null && (
+												<Field
+													label="Cost"
+													value={formatCost(selectedSpan.totalCost)}
+												/>
+											)}
+											{selectedSpan.totalTokens > 0 && (
+												<Field
+													label="Tokens"
+													className="-mx-5 col-span-2 border-t border-border/40 px-5 pt-4"
+													value={
+														<span className="flex flex-col gap-2">
+															{formatTokens(selectedSpan.totalTokens)}
+															<TokenSplitBar
+																input={Math.max(0, selectedSpan.totalTokens - selectedSpan.outputTokens)}
+																cached={0}
+																reasoning={0}
+																output={selectedSpan.outputTokens}
+															/>
+														</span>
+													}
+												/>
+											)}
+										</div>
+										{selectedIo && (
+											<>
+												<div className="flex flex-col gap-3 border-b border-border/40 px-5 py-5">
+													<span className="text-xs text-muted-foreground">Input</span>
+													<p className="font-mono text-xs text-pretty break-words">
+														{selectedIo.input}
+													</p>
+												</div>
+												<div className="flex flex-col gap-3 px-5 pt-5">
+													<span className="text-xs text-muted-foreground">Output</span>
+													<p className="font-mono text-xs text-pretty break-words">
+														{selectedIo.output}
+													</p>
+												</div>
+											</>
+										)}
+									</>
+								) : (
+									<>
 								<div className="grid grid-cols-2 gap-4 border-b border-border/40 pb-5 px-5">
 									<Field
 										label="Started"
@@ -539,6 +678,8 @@ export function TraceDetail({ traceId }: { traceId: string }) {
 										),
 									)}
 								</div>
+									</>
+								)}
 							</ScrollFade>
 						</CardContent>
 					</Card>

@@ -159,7 +159,7 @@ const BADGE_VARIANTS = [
 
 const BADGE_SIZES = ["md", "lg"] as const;
 
-function useThemeHotkey() {
+export function useThemeHotkey() {
 	const { resolvedTheme, setTheme } = useTheme();
 
 	useEffect(() => {

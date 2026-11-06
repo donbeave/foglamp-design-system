@@ -11,7 +11,9 @@
  * Foglamp Labs (https://foglamp.dev). Not an upstream Foglamp source file.
  */
 
-declare module '*.module.css' {
+/// <reference path="../../lib/react-shim.d.ts" />
+
+declare module "*.module.css" {
   const classes: Readonly<Record<string, string>>;
   export default classes;
 }

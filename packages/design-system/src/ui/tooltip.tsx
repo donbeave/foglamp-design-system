@@ -18,11 +18,6 @@
 
 "use client";
 
-/**
- * Original design by Gustavo Fior (@gustavo-fior) and Foglamp Labs,
- * co-founded by Abdul Haidar. Extracted AS-IS from foglamp-labs/foglamp.
- */
-
 import { Tooltip as TooltipPrimitive } from "@base-ui/react/tooltip";
 
 import { cn } from "../lib/utils";

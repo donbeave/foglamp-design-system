@@ -18,9 +18,6 @@
 
 "use client";
 
-/* Original design and implementation by Gustavo Fior (@gustavo-fior), with co-founder Abdul Haidar at Foglamp Labs.
- * Extracted from .reference/foglamp/apps/web/src/components/app/stat.tsx; derived here under Apache-2.0.
- */
 import { cn } from "../../lib/utils";
 
 /** A two-line label/value stat, used in agent and workflow card grids.

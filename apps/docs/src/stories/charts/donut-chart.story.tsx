@@ -20,5 +20,6 @@ function DonutStory({ showLegend, isLoading }: DonutStoryProps) {
 export const story = defineStory({
 	id: 'charts/donut-chart', Component: DonutStory, displayName: 'Evil Donut Chart',
 	registryItem: 'chart-evilcharts-charts-donut-chart',
+	frame: { width: 960, height: 440 },
 	args: { initial: { showLegend: true, isLoading: false } },
 });

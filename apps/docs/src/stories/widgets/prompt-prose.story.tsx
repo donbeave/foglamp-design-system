@@ -31,8 +31,13 @@ const slots = {
   })),
 };
 
-function PromptProsePreview({ loading = false }: { loading?: boolean }) {
-  return <div className="w-full max-w-lg rounded-xl border bg-card p-4"><PromptProseView template={template} slots={slots} loading={loading} /></div>;
+function PromptProsePreview({ loading = false, label = 'Customer support prompt' }: { loading?: boolean; label?: string }) {
+  return (
+    <div className="w-full max-w-lg rounded-xl border bg-card p-4">
+      {label ? <div className="mb-3 border-b border-border/60 pb-2 text-xs font-medium text-muted-foreground">{label}</div> : null}
+      <PromptProseView template={template} slots={slots} loading={loading} />
+    </div>
+  );
 }
 
 export const story = defineStory({
@@ -40,8 +45,9 @@ export const story = defineStory({
   displayName: 'PromptProse',
   registryItem: 'widget-prompt-prose',
   Component: PromptProsePreview,
+  frame: { height: 420 },
   args: [
-    { variant: 'Rendered slots with run examples', initial: { loading: false } },
-    { variant: 'Loading slot examples', initial: { loading: true } },
+    { variant: 'Rendered slots with run examples', initial: { loading: false, label: 'Customer support prompt' } },
+    { variant: 'Loading slot examples', initial: { loading: true, label: 'Customer support prompt' } },
   ],
 });
